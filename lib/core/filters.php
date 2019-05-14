@@ -95,8 +95,9 @@ function custom_password_form() {
 add_filter( 'intermediate_image_sizes_advanced', 'remove_default_image_sizes', 10, 1 );
 function remove_default_image_sizes( $sizes ) {
 
+	// 'thumbnail', 'medium', 'medium_large', 'large'
 	// Sizes to remove
-	// $needles = array( 'thumbnail', 'medium', 'medium_large', 'large' );
+	$needles = array();
 
 	/**
 	 * Loop trough the sizes and remove 
