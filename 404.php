@@ -5,16 +5,11 @@
  * Description:			
  */
 
-$title 		= get_option( 'theme-404-title' );
-$content 	= get_option( 'theme-404-content' );
-
 get_header();
 ?>
 
 <main id="main" role="main">
-	<?php if ( have_posts() ) { while ( have_posts() ) { the_post(); ?>
-
-	<?php } } ?>
+	<?php get_template_part( './inc/content/content', '404' ); ?>
 </main>
 
 <?php
