@@ -16,12 +16,12 @@
             };
             if (!cssPropertyValueSupported('position', 'sticky')) {
                 var stickyScript = document.createElement('script');
-                stickyScript.src = '<?php echo get_template_directory_uri() . "/js/polyfills/sticky.polyfill.min.js"; ?>';
+                stickyScript.src = '<?php echo get_template_directory_uri() . "/assets/polyfills/sticky.polyfill.min.js"; ?>';
                 document.body.appendChild(stickyScript);
             }
             if (!cssPropertyValueSupported('object-fit', 'cover')) {
                 var objectFitScript = document.createElement('script');
-                objectFitScript.src = '<?php echo get_template_directory_uri() . "/js/polyfills/object-fit.polyfill.min.js"; ?>';
+                objectFitScript.src = '<?php echo get_template_directory_uri() . "/assets/polyfills/object-fit.polyfill.min.js"; ?>';
                 objectFitScript.async = false;
                 objectFitScript.addEventListener('load', function() {
                     var objectFitInlineScript = document.createElement('script');
@@ -33,27 +33,27 @@
             }
             if (!('Promise' in window)) {
                 var promiseScript = document.createElement('script');
-                promiseScript.src = '<?php echo get_template_directory_uri() . "/js/polyfills/promise.polyfill.min.js"; ?>';
+                promiseScript.src = '<?php echo get_template_directory_uri() . "/assets/polyfills/promise.polyfill.min.js"; ?>';
                 document.body.appendChild(promiseScript);
             }
             if (!('fetch' in window)) {
                 var fetchScript = document.createElement('script');
-                fetchScript.src = '<?php echo get_template_directory_uri() . "/js/polyfills/fetch.polyfill.min.js"; ?>';
+                fetchScript.src = '<?php echo get_template_directory_uri() . "/assets/polyfills/fetch.polyfill.min.js"; ?>';
                 document.body.appendChild(fetchScript);
             }
             if (!('IntersectionObserver' in window)) {
                 var intersectionScript = document.createElement('script');
-                intersectionScript.src = '<?php echo get_template_directory_uri() . "/js/polyfills/intersectionobserver.polyfill.min.js"; ?>';
+                intersectionScript.src = '<?php echo get_template_directory_uri() . "/assets/polyfills/intersectionobserver.polyfill.min.js"; ?>';
                 document.body.appendChild(intersectionScript);
             }
             if (!('DOMParser' in window)) {
                 var domParserScript = document.createElement('script');
-                domParserScript.src = '<?php echo get_template_directory_uri() . "/js/polyfills/domparser.polyfill.min.js"; ?>';
+                domParserScript.src = '<?php echo get_template_directory_uri() . "/assets/polyfills/domparser.polyfill.min.js"; ?>';
                 document.body.appendChild(domParserScript);
             }
             if (!('scroll' in window) || !('scrollBy' in window) || !('scrollTo' in window)) {
                 var smoothScrollScript = document.createElement('script');
-                smoothScrollScript.src = '<?php echo get_template_directory_uri() . "/js/polyfills/smoothscroll.polyfill.min.js"; ?>';
+                smoothScrollScript.src = '<?php echo get_template_directory_uri() . "/assets/polyfills/smoothscroll.polyfill.min.js"; ?>';
                 document.body.appendChild(smoothScrollScript);
             }
         }());
