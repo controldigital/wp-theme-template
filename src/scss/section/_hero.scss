@@ -1,0 +1,24 @@
+.hero {
+	display: grid;
+	grid-template-columns: 1fr minmax(0, 73.125rem) 1fr;
+	grid-template-rows: 1fr;
+	position: relative;
+	width: 100%;
+
+	&.hero--default {
+		height: 31.25rem;
+	}
+
+	.hero__thumbnail {
+		grid-area: 1 / 1 / 2 / 4;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+	}
+
+	.hero__container {
+		grid-area: 1 / 2 / 2 / 3;
+		padding: 0 1rem;
+	}
+
+}
