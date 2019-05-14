@@ -14,7 +14,7 @@
  */
 define( 'THEME_NAME', 'THEMENAME' );
 define( 'THEME_VERSION', 1.0 );
-define( 'THEME_DEV_MODE', true );
+define( 'THEME_TEXT_DOMAIN', 'text_domain' );
 
 /**
  * All the files and definitions should be placed
@@ -40,7 +40,9 @@ $templates = array(
 	'lib/theme/customizer.php',			// Customizer modifications
 	'lib/theme/enqueue.php',			// Enqueue CSS and JS
 	'lib/theme/admin.php',				// Custom admin settings
-	'lib/theme/head.php',				// wp_head meta tags
+	'lib/theme/head.php',				// wp_head functions
+	'lib/theme/body.php',				// wp_body_open functions
+	'lib/theme/footer.php',				// wp_footer functions
 	'lib/theme/rest.php',				// Rest API configuration
 	'lib/theme/sidebars.php',			// Sidebars registration
 	'lib/theme/widgets.php',			// Widget registration
