@@ -71,10 +71,10 @@ class Button_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname' 					=> 'button-widget',
-			'description' 					=> __( 'Button with customizable title and type', 'text_domain' ),
+			'description' 					=> __( 'Button with customizable title and type', THEME_TEXT_DOMAIN ),
 			'customize_selective_refresh' 	=> true,
 		);
-		parent::__construct( 'button_widget', __( 'Button', 'text_domain' ), $widget_ops );
+		parent::__construct( 'button_widget', __( 'Button', THEME_TEXT_DOMAIN ), $widget_ops );
 	}
 
 	/**
@@ -164,10 +164,10 @@ class Social_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname' 					=> 'social-widget',
-			'description' 					=> __( 'Social media buttons widget', 'text_domain' ),
+			'description' 					=> __( 'Social media buttons widget', THEME_TEXT_DOMAIN ),
 			'customize_selective_refresh' 	=> true,
 		);
-		parent::__construct( 'social_widget', __( 'Social', 'text_domain' ), $widget_ops );
+		parent::__construct( 'social_widget', __( 'Social', THEME_TEXT_DOMAIN ), $widget_ops );
 	}
 
 	/**
@@ -312,10 +312,10 @@ class Highlight_Post_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname' 					=> 'highlight-post-widget',
-			'description' 					=> __( 'Pick a highlighted post', 'text_domain' ),
+			'description' 					=> __( 'Pick a highlighted post', THEME_TEXT_DOMAIN ),
 			'customize_selective_refresh' 	=> true,
 		);
-		parent::__construct( 'highlight_post_widget', __( 'Highlight Post', 'text_domain' ), $widget_ops );
+		parent::__construct( 'highlight_post_widget', __( 'Highlight Post', THEME_TEXT_DOMAIN ), $widget_ops );
 	}
 	
 	/**

@@ -21,8 +21,8 @@ function theme_sidebars() {
 	// $args = array(
 	// 	'id'            => '',
 	// 	'class'         => '',
-	// 	'name'          => __( '', 'text_domain' ),
-	// 	'description'   => __( '', 'text_domain' ),
+	// 	'name'          => __( '', THEME_TEXT_DOMAIN ),
+	// 	'description'   => __( '', THEME_TEXT_DOMAIN ),
 	// 	'before_title'  => '',
 	// 	'after_title'   => '',
 	// 	'before_widget' => '<div id="%1$s>',

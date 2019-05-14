@@ -18,7 +18,7 @@
 add_action( 'after_setup_theme', 'theme_menus' );
 function theme_menus() {
 
-	// register_nav_menu( '', __( '', 'text_domain' ) );
+	// register_nav_menu( '', __( '', THEME_TEXT_DOMAIN ) );
 
 }
 

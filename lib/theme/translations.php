@@ -15,5 +15,5 @@
  */
 add_action( 'after_setup_theme', 'theme_translations_setup', 10 );
 function theme_translations_setup() {
-    load_theme_textdomain( 'control', get_template_directory() . '/languages' );
+    load_theme_textdomain( THEME_TEXT_DOMAIN, get_template_directory() . '/languages' );
 }
