@@ -9,9 +9,14 @@
 
 /* Sections */
 @import "section/global";
+@import "section/forms";
 @import "section/header";
-@import "section/content";
+@import "section/main";
+@import "section/hero";
 @import "section/footer";
+
+/* Plugins */
+// @import "plugins/gforms";
 
 /* Modules */
 @import "modules/example";
