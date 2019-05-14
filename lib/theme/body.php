@@ -35,8 +35,8 @@ function body_open_theme_templates() {
     // Splash screen
     get_template_part( './inc/loader/splash' );
 
-    // Default navigation
-    get_template_part( './inc/navigation/navigation', 'default' );
+    // Default header
+    get_template_part( './inc/header/header', 'default' );
 
     // Default hero
     get_template_part( './inc/hero/hero', 'default' );
