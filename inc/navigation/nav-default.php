@@ -7,7 +7,7 @@
 
 // Create arguments for navigation
 $nav_menu_args = array(
-    'theme_location'        => 'main-menu',
+    'theme_location'        => 'menu-main',
     'container'             => 'nav',
     'container_class'       => 'nav nav--default',
     'menu_class'            => 'menu menu--default',
