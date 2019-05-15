@@ -16,19 +16,19 @@
             </a>
         </div>
 
-        <div id="header-nav" class="header__nav js-header-nav" aria-labelledby="menu-toggle">
+        <div class="header__nav" id="header-nav" aria-labelledby="menu-toggle">
             <?php get_template_part( './inc/navigation/nav', 'default' ); ?>
             <?php get_sidebar( 'nav' ); ?>
         </div>
 
         <div class="header__mobile">
 			<button id="menu-toggle" 
-				class="menu-toggle js-toggle-menu" 
+				class="toggle js-toggle-menu" 
 				aria-haspopup="true" 
 				aria-controls="header-nav"
 				aria-expanded="false"
 				title="<?php _e( 'Toggle menu', THEME_TEXT_DOMAIN ); ?>">
-				<div class="menu-toggle__inner">
+				<div class="toggle__inner">
 					<span></span>
 					<span></span>
 					<span></span>
