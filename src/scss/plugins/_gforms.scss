@@ -1,97 +1,97 @@
 .gform_wrapper {
 
-	.gform_heading {
+}
+
+.gform_heading {
+
+}
+
+.gform_body {
+
+}
+
+.gform_footer {
+	
+}
+
+.gform_button {
+
+}
+
+.gform_fields {
+
+}
+
+.gfield {
+
+	&_error {
 
 	}
 
-	.gform_body {
+	&_html {
 
 	}
 
-	.gform_footer {
+}
 
-		.gform_button {
+.gfield_label {
 
-		}
-		
+	/** Custom gform focus class */
+	&--focus {
+
 	}
 
-	.gform_fields {
+}
 
-		.gfield {
+.gfield_description {
 
-			&.gfield_error {
+}
 
-			}
+.ginput_container {
 
-			&.gfield_html {
+	input {
 
-			}
+	}
 
-			.gfield_label {
+	textarea {
 
-				/** Custom gform focus class */
-				&.gfield_label--focus {
+	}
 
-				}
+}
 
-			}
+.gform_fileupload_multifile {
 
-			.gfield_description {
+	.gform_drop_area {
 
-			}
+	}
 
-			.ginput_container {
+}
 
-				input {
+.gfield_checkbox,
+.gfield_radio {
 
-				}
+	> li {
 
-				textarea {
-
-				}
-
-				.gform_fileupload_multifile {
-
-					.gform_drop_area {
-
-					}
-
-				}
-
-				.gfield_checkbox,
-				.gfield_radio {
-
-					> li {
-
-						label {
-
-						}
-
-						input {
-							
-						}
-
-					}
-
-				}
-
-			}
+		label {
 
 		}
 
-	}
-
-	.validation_error {
-
-	}
-
-	.validation_message {
+		input {
+			
+		}
 
 	}
 
-	.gform_hidden {
-		display: none;
-	}
+}
 
+.validation_error {
+
+}
+
+.validation_message {
+
+}
+
+.gform_hidden {
+	display: none;
 }
