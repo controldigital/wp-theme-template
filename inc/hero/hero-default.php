@@ -14,7 +14,9 @@
 	<?php } ?>
 	
 	<div class="hero__container">
-		<h1><?php the_title(); ?></h1>
+		<div class="hero__content">
+			<h1><?php the_title(); ?></h1>
+		</div>
 	</div>
 	
 </header>
