@@ -1,0 +1,74 @@
+$header-height: 4.25rem;
+
+.header {
+    display: block;
+    position: relative;
+    transition: background-color $transition-duration $transition-easing, color $transition-duration $transition-easing;
+
+    &--default {
+        width: 100%;
+        height: auto;
+        background-color: none;
+    }
+
+    &--sticky {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    &--scrolling {
+        background-color: #ffffff;
+    }
+
+    &__container {
+        display: grid;
+        grid-template-rows: $header-height calc(100vh - $header-height);
+        grid-template-columns: 1fr auto;
+        grid-template-areas: 
+            "logo mobile" 
+            "nav nav";
+
+        @include breakpoint(768) {
+            grid-template-rows: $header-height;
+            grid-template-columns: auto 1fr;
+            grid-template-areas:
+                "logo nav";
+        }
+    }
+
+    &__logo {
+        grid-area: logo;
+    }
+
+    &__nav {
+        grid-area: nav;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity $transition-duration $transition-easing, visibility $transition-duration $transition-easing;
+
+        @include breakpoint(768) {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &__mobile {
+        grid-area: mobile;
+
+        @include breakpoint(768) {
+            display: none;
+        }
+
+    }
+
+}
+
+.is-menu-open {
+
+    .header__nav {
+        opacity: 1;
+        visibility: visible;
+    }
+
+}
