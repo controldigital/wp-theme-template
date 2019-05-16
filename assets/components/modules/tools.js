@@ -40,7 +40,7 @@
  * @param   {String} cls CSS class to find the element with
  * @returns {HTMLElement}
  */	
-const getParent = (start, cls) => {
+export const getParent = (start, cls) => {
     let el = start;
     while (el && !el.classList.contains(cls)) {
         el = el.parentElement;
@@ -60,7 +60,7 @@ const getParent = (start, cls) => {
  * @param   {HTMLElement} start  Element to start from
  * @returns {Array} Array of found siblings
  */
-const getSiblings = (start) => {
+export const getSiblings = (start) => {
     let children = start.parentElement.children;
     return Array.prototype.filter.call(children, (sib) => {
         return sib !== start;
@@ -79,7 +79,7 @@ const getSiblings = (start) => {
  * @param   {String} cls CSS class to find the element with
  * @returns {HTMLElement}
  */	
-const getNextSiblingWithClass = (start, cls) => {
+export const getNextSiblingWithClass = (start, cls) => {
     let el = start;
     while (el && !el.classList.contains(cls)) {
         el = el.nextElementSibling;
@@ -99,7 +99,7 @@ const getNextSiblingWithClass = (start, cls) => {
  * @param   {String} cls CSS class to find the element with
  * @returns {HTMLElement}
  */	
-const getPrevSiblingWithClass = (start, cls) => {
+export const getPrevSiblingWithClass = (start, cls) => {
     let el = start;
     while (el && !el.classList.contains(cls)) {
         el = el.previousElementSibling;
@@ -122,7 +122,7 @@ const getPrevSiblingWithClass = (start, cls) => {
  * @param   {HTMLElement} element HTMLElement to remove children of
  * @returns {HTMLElement} Returns the element with children removed
  */
-const removeChildren = (element) => {
+export const removeChildren = (element) => {
     while (element && element.firstElementChild) {
         element.removeChild(element.firstElementChild);
     }
@@ -142,7 +142,7 @@ const removeChildren = (element) => {
  * @param   {String} [mimeType='application/xml'] MimeType to convert the string to
  * @returns {(XMLDocument|HTMLDocument|SVGDocument)}
  */
-const parseString = (data, mimeType = 'application/xml') => {
+export const parseString = (data, mimeType = 'application/xml') => {
 	if (data && 'string' === typeof data) {
     	if ('DOMParser' in window) {
 			let parser = new DOMParser();
@@ -164,7 +164,7 @@ const parseString = (data, mimeType = 'application/xml') => {
  * @param 	{String} data - String to convert to workable HTML
  * @returns {HTMLElement}
  */
-const stringToHTML = (data) => {
+export const stringToHTML = (data) => {
 	if (data && 'string' === typeof data) {
 		let container = document.createElement('div');
 		container.innerHTML = data;
@@ -188,7 +188,7 @@ const stringToHTML = (data) => {
  * @param   {Number} wait Time to wait before firing
  * @param   {Boolean} immediate Fire immediately or not
  */
-const debounce = (func, wait, immediate) => {
+export const debounce = (func, wait, immediate) => {
 	let timeout;
 	return function() {
         let context = this;
@@ -216,7 +216,7 @@ const debounce = (func, wait, immediate) => {
  * @param   {Number} max Max value
  * @returns {Number} Random number
  */
-const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 /**
  * stringCommaToPoint
@@ -226,7 +226,7 @@ const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) +
  * @param   {String} str String with comma's.
  * @returns {String} Modified string with points instead of comma's.
  */
-const stringCommaToPoint = (str) => str.replace(/,/g, '.');
+export const stringCommaToPoint = (str) => str.replace(/,/g, '.');
 
 /**
  * stringPointToComma
@@ -236,7 +236,7 @@ const stringCommaToPoint = (str) => str.replace(/,/g, '.');
  * @param   {String} str String with points.
  * @returns {String} Modified string with comma's instead of points.
  */
-const stringPointToComma = (str) => str.replace(/./g, ',');
+export const stringPointToComma = (str) => str.replace(/./g, ',');
 
 /**
  * cssPropertyValueSupported
@@ -250,7 +250,7 @@ const stringPointToComma = (str) => str.replace(/./g, ',');
  * @param	{String} value Value of property to check
  * @returns	{Boolean}
  */
-const cssPropertyValueSupported = (prop, value) => {
+export const cssPropertyValueSupported = (prop, value) => {
     let d = document.createElement('div');
     d.style[prop] = value;
     return d.style[prop] === value;
@@ -266,36 +266,138 @@ const cssPropertyValueSupported = (prop, value) => {
  * @param   {String} [query=a[rel="external"]]
  * @returns	{NodeList}
  */
-const linkTargetsBlank = (query = 'a[rel="external"]') => {
+export const linkTargetsBlank = (query = 'a[rel="external"]') => {
     let links = document.querySelectorAll(query);
     links.forEach(link => link.setAttribute('target', '_blank'));
     return links;
 };
 
 /**
- * lazyLoadImages
+ * This function accepts multiple types of a
+ * selector argument to get the element from
+ * the DOM or insert the element to use them.
+ * The found element is then returned.
  * 
- * Loops over the images and loads
- * the image in JS and adds it to the
- * DOM when the image has fully loaded.
- * Returns all of the selected images.
- * 
- * @function
- * @since   1.0
- * @param   {HTMLCollection} [images=document.images]
- * @returns {HTMLCollection} 
+ * @function	getElement
+ * @param		{(String|HTMLElement|Element)} selector String or the element itself.
+ * @returns 	{(HTMLElement|Null)} Returns the element is found or null if not.
  */
-const lazyLoadImages = (images = document.images) => {
-    return [...images].forEach((image) => {
-        if (image.hasAttribute('data-src')) {
-            let src = image.getAttribute('data-src');
-            let img = new Image();
-            let imgLoaded = () => {
-                image.src = src;
-                image.removeAttribute('data-src');
-            };
-            img.addEventListener('load', imgLoaded, {once: true});
-            img.src = src;
-        }
-    });
-};
+export const getElement = (selector) => {
+	if (typeof selector === 'undefined') {
+		return null;
+	}
+	if (typeof selector === 'string') {
+		return document.querySelector(selector);
+	} else if (
+		typeof selector === 'object' && (
+		selector instanceof HTMLElement || 
+		selector.nodeType === 1)
+	) {
+		return selector;
+	}
+}
+
+/**
+ * This function accepts multiple types of a
+ * selector argument to get the elements from
+ * the DOM or insert the elements to use them.
+ * It returns the found elements in an Array.
+ * 
+ * @function	getElements
+ * @param		{(String|HTMLCollection|NodeList|Array)} selector String or iterable object/array with the elements.
+ * @returns		{(HTMLElement[]|[])} Returns an array with either the found elements or a null object.
+ */
+export const getElements = (selector) => {
+	if (typeof selector === 'undefined') {
+		return [];
+	} 
+	if (typeof selector === 'string') {
+		return [...document.querySelectorAll(selector)];
+	} else if (
+		typeof selector === 'object' && (
+		selector instanceof HTMLCollection || 
+		selector instanceof NodeList || 
+		selector instanceof Array)
+	) {
+		return [...selector];
+	}
+}
+
+/**
+ * Checks if a feature is supported
+ * and returns a boolean.
+ * 
+ * @function	hasFeatures
+ * @param 		{String[]} feature Feature to check.
+ * @returns		{Boolean}
+ */
+export const hasFeatures = (...features) => 
+	features.every((feature) => {
+		if (feature === undefined || typeof feature !== 'string') 
+			return false;
+		if (feature === 'Promise') {
+			return (typeof Promise === 'undefined' || Promise.toString().indexOf('[native code]') === -1);
+		} else if (feature === 'IntersectionObserver') {
+			return ('IntersectionObserver' in window);
+		} else if (feature === 'MutationObserver') {
+			return ('MutationObserver' in window);
+		} else if (feature === 'CustomEvent') {
+			return ('CustomEvent' in window);
+		} else if (feature === 'pushState') {
+			return ('pushState' in history);
+		} else if (feature === 'passive') {
+			let supportsPassive = false;
+			try {
+				let opts = Object.defineProperty({}, 'passive', {
+					get: function() {
+						supportsPassive = true;
+					}
+				});
+				window.addEventListener('testPassive', null, opts);
+				window.removeEventListener('testPassive', null, opts);
+			} catch (e) {}
+			return supportsPassive;
+		} else if (feature === 'scrollBehavior' || feature === 'behavior: smooth') {
+			return 'scrollBehavior' in document.documentElement.style;
+		} else {
+			return false;
+		}
+	});
+
+/**
+ * Lazy load an image by adding a src attribute 
+ * with the value from the data-src attribute.
+ * 
+ * @function	lazyLoadImage
+ * @param 		{HTMLImageElement} image The image that has to be loaded.
+ * @returns		{HTMLImageElement} The loaded image.
+ */
+export const lazyLoadImage = (image) => {
+    if (image.hasAttribute('data-src')) {
+        const protoImg = new Image();
+        const src = image.getAttribute('data-src');
+        const onLoad = () => {
+            image.src = src;
+            image.classList.remove('is--loading');
+            image.classList.add('has--loaded');
+            image.removeAttribute('data-srcset');
+            image.removeAttribute('data-src');
+        };
+        image.classList.add('is--loading');
+        protoImg.addEventListener('load', onLoad, {once: true});
+		protoImg.src = src;
+		return image;
+    }
+}
+
+/**
+ * Lazy load images that contain a data-src attribute
+ * and shows them when they have loaded.
+ * 
+ * @function	lazyLoadImages
+ * @uses		lazyLoadImage
+ * @param 		{HTMLImageElement[]} images List of images to load.
+ * @returns		{HTMLImageElement[]}
+ */
+export const lazyLoadImages = (images = document.images) => 
+	[...images].map((image) => lazyLoadImage(image));
