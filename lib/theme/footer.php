@@ -17,6 +17,8 @@
  */
 add_action( 'wp_footer', 'footer_cookie_notice', 10, 0 );
 function footer_cookie_notice() {
+
+    // Cookie notice template
     get_template_part( './inc/cookies/cookies', 'notice' );
 }
 
@@ -33,5 +35,8 @@ add_action( 'wp_footer', 'footer_theme_templates', 11, 0 );
 function footer_theme_templates() {
     
     // JS polyfill scanner
-	get_template_part( './inc/footer/footer', 'polyfill' );
+    get_template_part( './inc/footer/footer', 'polyfill' );
+    
+    // Default footer template
+    get_template_part( './inc/footer/footer', 'default' );
 }
