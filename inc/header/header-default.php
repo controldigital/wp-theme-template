@@ -7,7 +7,7 @@
 
 ?>
 
-<header class="header header--default">
+<header class="header header--default" role="banner">
     <div class="header__container">
 
         <div class="header__logo">
