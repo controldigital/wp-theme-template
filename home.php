@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-<main id="main" role="main">
+<main id="main" class="js-ajax-container" role="main">
 	
 	<?php get_template_part( './inc/content/content', 'default' ); ?>
 	
