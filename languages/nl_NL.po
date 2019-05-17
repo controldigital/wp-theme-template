@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-05-17 17:27+0200\n"
-"PO-Revision-Date: 2019-05-17 17:29+0200\n"
+"POT-Creation-Date: 2019-05-17 17:52+0200\n"
+"PO-Revision-Date: 2019-05-17 17:52+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -14,6 +14,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e;_x\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: inc/content/content-search.php:27
+msgid "No results have been found."
+msgstr "Er zijn geen resultaten gevonden."
 
 #: inc/cookies/cookies-notice.php:64
 msgid "Accept"
