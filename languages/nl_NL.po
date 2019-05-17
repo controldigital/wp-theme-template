@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-05-14 13:59+0200\n"
-"PO-Revision-Date: 2019-05-14 14:09+0200\n"
+"POT-Creation-Date: 2019-05-17 17:27+0200\n"
+"PO-Revision-Date: 2019-05-17 17:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -34,6 +34,30 @@ msgstr "Cookie intrekken"
 #: inc/header/header-default.php:30
 msgid "Toggle menu"
 msgstr "Open of sluit menu"
+
+#: inc/modal/modal-default.php:11
+msgid "Modal"
+msgstr "Modal"
+
+#: inc/modal/modal-default.php:16 inc/modal/modal-search.php:16
+msgid "Close modal"
+msgstr "Sluit modal"
+
+#: inc/modal/modal-default.php:16 inc/modal/modal-search.php:16
+msgid "Close"
+msgstr "Sluiten"
+
+#: inc/modal/modal-search.php:11
+msgid "Search modal"
+msgstr "Zoek modal"
+
+#: inc/modal/modal-search.php:20
+msgid "Search"
+msgstr "Zoeken"
+
+#: inc/modal/modal-search.php:21
+msgid "Submit"
+msgstr "Verzenden"
 
 #: lib/core/cookie.php:183
 msgid "Cookies"
@@ -85,7 +109,7 @@ msgstr "Titel"
 
 #: lib/core/cookie.php:272
 msgid "The title of the cookie message."
-msgstr "De titel van het cookiebericht"
+msgstr "De titel van het cookiebericht."
 
 #: lib/core/cookie.php:285
 msgid "Body"
@@ -149,7 +173,7 @@ msgstr "Weigerknop"
 
 #: lib/core/cookie.php:351
 msgid "Label of the refuse button."
-msgstr "Label van de weigerknop"
+msgstr "Label van de weigerknop."
 
 #: lib/core/cookie.php:363
 msgid "Privacy policy active?"
@@ -197,7 +221,7 @@ msgstr "Intrekkenknop"
 
 #: lib/core/cookie.php:433
 msgid "Label of the revoke button."
-msgstr "Label van de intrekkenknop"
+msgstr "Label van de intrekkenknop."
 
 #: lib/core/cookie.php:446
 msgid "Head scripts"
@@ -209,7 +233,7 @@ msgid ""
 "accepted"
 msgstr ""
 "Plaats scripts die in de <head> tag geplaatst moeten worden wanneer de "
-"cookie geaccepteerd is."
+"cookie geaccepteerd is"
 
 #: lib/core/cookie.php:460
 msgid "Body scripts"
@@ -221,19 +245,19 @@ msgid ""
 "cookie is accepted"
 msgstr ""
 "Plaats scripts die in het begin van de <body> tag geplaatst moeten worden "
-"wanneer de cookie geaccepteerd is."
+"wanneer de cookie geaccepteerd is"
 
 #: lib/core/filters.php:75
 msgid ""
 "The content has been secured with a password. Fill in the password below to "
 "view the content:"
 msgstr ""
-"De inhoud is beveiligd met een wachtwoord. Vul het wachtwoord bened in om "
-"de content te bekijken:"
+"De inhoud is beveiligd met een wachtwoord. Vul het wachtwoord bened in om de "
+"content te bekijken:"
 
 #: lib/core/filters.php:76
 msgid "Password:"
-msgstr "Wachtwoord"
+msgstr "Wachtwoord:"
 
 #: lib/core/helpers.php:368
 msgid "Page"
