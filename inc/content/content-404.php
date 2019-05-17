@@ -9,4 +9,6 @@ $title 		= get_option( 'theme-404-title' );
 $content 	= get_option( 'theme-404-content' );
 ?>
 
-<?php echo $content; ?>
+<div class="content js-ajax-post">
+	<?php echo $content; ?>
+</div>
