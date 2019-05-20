@@ -5,7 +5,7 @@
  * @file script.js
  * @version 1.0
  * @license
- * Copyright (c) 2018 Control.
+ * Copyright (c) 2019 Control.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,13 +26,12 @@
  * SOFTWARE.
  */
 
-import {hello} from "./modules/test";
-
-hello();
+import { hello } from "./modules/test";
 
 (function () {
 	'use strict';
 
+	hello();
 	// Place your code here and paste functions from other files if needed.
 
 }());
