@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-05-17 17:52+0200\n"
-"PO-Revision-Date: 2019-05-17 17:52+0200\n"
+"POT-Creation-Date: 2019-05-20 14:33+0200\n"
+"PO-Revision-Date: 2019-05-20 14:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -53,7 +53,7 @@ msgstr "Sluiten"
 
 #: inc/modal/modal-search.php:11
 msgid "Search modal"
-msgstr "Zoek modal"
+msgstr "Zoekmodal"
 
 #: inc/modal/modal-search.php:20
 msgid "Search"
@@ -113,7 +113,7 @@ msgstr "Titel"
 
 #: lib/core/cookie.php:272
 msgid "The title of the cookie message."
-msgstr "De titel van het cookiebericht."
+msgstr "De titel van het cookiebericht"
 
 #: lib/core/cookie.php:285
 msgid "Body"
@@ -177,7 +177,7 @@ msgstr "Weigerknop"
 
 #: lib/core/cookie.php:351
 msgid "Label of the refuse button."
-msgstr "Label van de weigerknop."
+msgstr "Label van de weigerknop"
 
 #: lib/core/cookie.php:363
 msgid "Privacy policy active?"
@@ -225,7 +225,7 @@ msgstr "Intrekkenknop"
 
 #: lib/core/cookie.php:433
 msgid "Label of the revoke button."
-msgstr "Label van de intrekkenknop."
+msgstr "Label van de intrekkenknop"
 
 #: lib/core/cookie.php:446
 msgid "Head scripts"
@@ -237,7 +237,7 @@ msgid ""
 "accepted"
 msgstr ""
 "Plaats scripts die in de <head> tag geplaatst moeten worden wanneer de "
-"cookie geaccepteerd is"
+"cookie geaccepteerd is."
 
 #: lib/core/cookie.php:460
 msgid "Body scripts"
@@ -249,7 +249,7 @@ msgid ""
 "cookie is accepted"
 msgstr ""
 "Plaats scripts die in het begin van de <body> tag geplaatst moeten worden "
-"wanneer de cookie geaccepteerd is"
+"wanneer de cookie geaccepteerd is."
 
 #: lib/core/filters.php:75
 msgid ""
@@ -261,7 +261,7 @@ msgstr ""
 
 #: lib/core/filters.php:76
 msgid "Password:"
-msgstr "Wachtwoord:"
+msgstr "Wachtwoord"
 
 #: lib/core/helpers.php:368
 msgid "Page"
@@ -314,6 +314,38 @@ msgstr "Navigatie-sidebar"
 #: lib/theme/sidebars.php:25
 msgid "Widget area after the main navigation"
 msgstr "Widget gebied achter het hoofdmenu"
+
+#: lib/theme/sidebars.php:36
+msgid "First footer column"
+msgstr "Eerste footer kolom"
+
+#: lib/theme/sidebars.php:37
+msgid "First column in the footer at the end of the page."
+msgstr "Eerste kolom in de footer aan het eind van de pagina."
+
+#: lib/theme/sidebars.php:48
+msgid "Second footer column"
+msgstr "Tweede footer kolom"
+
+#: lib/theme/sidebars.php:49
+msgid "Second column in the footer at the end of the page."
+msgstr "Tweede kolom in de footer aan het eind van de pagina."
+
+#: lib/theme/sidebars.php:60
+msgid "Third footer column"
+msgstr "Derde footer kolom"
+
+#: lib/theme/sidebars.php:61
+msgid "Third column in the footer at the end of the page."
+msgstr "Derde kolom in de footer aan het eind van de pagina."
+
+#: lib/theme/sidebars.php:72
+msgid "Fourth footer column"
+msgstr "Vierde footer kolom"
+
+#: lib/theme/sidebars.php:73
+msgid "Fourth column in the footer at the end of the page."
+msgstr "Vierde kolom in de footer aan het eind van de pagina."
 
 #: lib/theme/widgets.php:74
 msgid "Button with customizable title and type"
