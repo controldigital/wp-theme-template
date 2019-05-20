@@ -53,6 +53,7 @@ function get_posts_ajax() {
 	$query_order_by			= isset( $_GET[ 'orderby' ] ) ? $_GET[ 'order_by' ] : 'menu_order';
 	$query_p				= isset( $_GET[ 'p' ] ) ? $_GET[ 'p' ] : '';
 	$query_s				= isset( $_GET[ 's' ] ) ? $_GET[ 's' ] : '';
+	$query_tag				= isset( $_GET[ 'tag' ] ) ? str_replace( ' ', ',', $_GET[ 'tag' ] ) : '';
 	$query_post__in			= isset( $_GET[ 'post__in'] ) ? explode( ',', $_GET[ 'post__in' ] ) : array();
 	$query_post__not_in		= isset( $_GET[ 'post__not_in' ] ) ? explode( ',', $_GET[ 'post__not-in' ] ) : array();
 	$query_meta_key			= isset( $_GET[ 'meta_key' ] ) ? $_GET[ 'meta_key' ] : '';
@@ -68,6 +69,7 @@ function get_posts_ajax() {
 		'orderby'			=> $query_order_by,
 		'p'					=> $query_p,
 		's'					=> $query_s,
+		'tag'				=> $query_tag,
 		'post__in'			=> $query_post__in,
 		'post__not_in'		=> $query_post__not_in,
 		'meta_key'			=> $query_meta_key,
@@ -86,6 +88,7 @@ function get_posts_ajax() {
 		'orderby',
 		'p',
 		's',
+		'tag',
 		'post__in',
 		'post__not_in',
 		'meta_key',
