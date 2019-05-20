@@ -294,6 +294,8 @@ export const getElement = (selector) => {
 		selector.nodeType === 1)
 	) {
 		return selector;
+	} else {
+		return null;
 	}
 }
 
@@ -320,6 +322,8 @@ export const getElements = (selector) => {
 		selector instanceof Array)
 	) {
 		return [...selector];
+	} else {
+		return [];
 	}
 }
 
