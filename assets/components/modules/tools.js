@@ -341,15 +341,19 @@ export const hasFeatures = (...features) =>
 			return false;
 		if (feature === 'Promise') {
 			return (typeof Promise === 'undefined' || Promise.toString().indexOf('[native code]') === -1);
-		} else if (feature === 'IntersectionObserver') {
+		} else if (feature === 'Intersection Observer' || feature === 'IntersectionObserver') {
 			return ('IntersectionObserver' in window);
-		} else if (feature === 'MutationObserver') {
+		} else if (feature === 'Mutation Observer' || feature === 'MutationObserver') {
 			return ('MutationObserver' in window);
-		} else if (feature === 'CustomEvent') {
+		} else if (feature === 'Custom Event' || feature === 'CustomEvent') {
 			return ('CustomEvent' in window);
-		} else if (feature === 'pushState') {
+		} else if (feature === 'Push State' || feature === 'pushState') {
 			return ('pushState' in history);
-		} else if (feature === 'passive') {
+		} else if (feature === 'Service Worker' || feature === 'serviceworker') {
+			return ('serviceWorker' in navigator);
+		} else if (feature === 'Web Audio API' || feature === 'AudioContext') {
+			return ('AudioContext' in window || 'webkitAudioContext' in window);
+		} else if (feature === 'Passive Events' || feature === 'passive') {
 			let supportsPassive = false;
 			try {
 				let opts = Object.defineProperty({}, 'passive', {
@@ -361,7 +365,7 @@ export const hasFeatures = (...features) =>
 				window.removeEventListener('testPassive', null, opts);
 			} catch (e) {}
 			return supportsPassive;
-		} else if (feature === 'scrollBehavior' || feature === 'behavior: smooth') {
+		} else if (feature === 'Scroll Behavior' || feature === 'scrollBehavior' || feature === 'behavior: smooth') {
 			return 'scrollBehavior' in document.documentElement.style;
 		} else {
 			return false;
