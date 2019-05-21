@@ -40,6 +40,16 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 			'default'			=> 'wp-cookie-consent'
 		)
 	);
+
+	// Cookie thumbnail setting
+	$wp_customize->add_setting(
+		'cookie_thumbnail',
+		array(
+			'transport'			=> 'refresh',
+			'capability'		=> 'edit_theme_options',
+			'type'				=> 'theme_mod',
+		)
+	);
 	
 	// Cookie title setting
 	$wp_customize->add_setting(
@@ -260,6 +270,19 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 			'settings'   		=> 'cookie_name',
 			'type'				=> 'text',
 	        'priority'   		=> 20
+		)
+	) );
+
+	// Cookie thumbnail image input control
+	$wp_customize->add_control( new WP_Customize_Image_Control(
+		$wp_customize,
+		'cookie_thumbnail',
+		array(
+			'label'				=> __( 'Thumbnail', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'The thumbnail image of the cookie message.', THEME_TEXT_DOMAIN ),
+			'section'			=> 'cookie_general_section',
+			'settings'			=> 'cookie_thumbnail',
+			'priority'			=> 25
 		)
 	) );
 	

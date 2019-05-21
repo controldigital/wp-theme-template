@@ -15,6 +15,7 @@ $cookie_active 			    = get_theme_mod( 'cookie_active' );
 $cookie_name                = get_theme_mod( 'cookie_name' );
 
 // Title and body content
+$cookie_thumbnail           = get_theme_mod( 'cookie_thumbnail' );
 $cookie_title				= get_theme_mod( 'cookie_title' );
 $cookie_body				= get_theme_mod( 'cookie_body' );
 $cookie_accept_label		= get_theme_mod( 'cookie_accept_label' );
@@ -40,7 +41,11 @@ if ( $cookie_active ) {
         <!-- Cookie -->
         <div id="cookie" class="hidden" role="dialog" aria-hidden="true" aria-label="cookieconsent">
             <div class="cookie__wrapper">
-            
+
+                <?php if ( $cookie_thumbnail ) { ?>
+                    <img class="cookie__thumbnail" src="<?php echo $cookie_thumbnail; ?>" alt="<?php _e( 'Cookie thumbnail', THEME_TEXT_DOMAIN ); ?>"/>
+                <?php } ?>
+
                 <form id="cookie-form" class="cookie__container" method="POST" action="<?php echo admin_url( 'admin-post.php' ); ?>">
                     <input type="hidden" name="action" value="set_cookie">
                     <input type="hidden" name="cookie_name" value="<?php echo $cookie_name; ?>">
