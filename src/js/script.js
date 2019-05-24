@@ -26,6 +26,7 @@
  * SOFTWARE.
  */
 
+import '@babel/polyfill';
 import { hello } from "./modules/test";
 
 (function () {
