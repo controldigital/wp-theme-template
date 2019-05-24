@@ -127,15 +127,15 @@ export class FormValues {
 					if (el.type === 'select-one' || el.type === 'select-mulitple') {
 						[...el.selectedOptions].forEach((option) => {
 							if (option.value !== '') {
-								this.add([el.name, option.value]);
+								this.add(el.name, option.value);
 							}
 						});
 					} else if (el.type === 'checkbox' || el.type === 'radio') {
 						if (el.checked === true && el.value !== '')
-							this.add([el.name, el.value]);
+							this.add(el.name, el.value);
 					} else if (el.type !== 'fieldset') {
 						if (el.value !== '')
-							this.add([el.name, el.value]);
+							this.add(el.name, el.value);
 					}
 				}
 			});
