@@ -45,8 +45,9 @@ function get_posts_ajax() {
 	header( 'Content-Type: text/html' );
 
 	// Get the variables from the GET Request
-	$query_post_type		= isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'post' ); 			// Change post for default post type
-	$query_posts_per_page	= isset( $_GET[ 'posts_per_page' ] ) ? $_GET[ 'posts_per_page' ] : -1;         						// Change -1 to desired amount of posts
+	$query_post_type		= isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'post' );
+	$query_post_status		= isset( $_GET[ 'post_status' ] ) ? explode( ',', $_GET[ 'post_status' ] ) : array( 'publish' );	
+	$query_posts_per_page	= isset( $_GET[ 'posts_per_page' ] ) ? $_GET[ 'posts_per_page' ] : -1;
 	$query_paged			= isset( $_GET[ 'paged' ] ) ? $_GET[ 'paged' ] : 1;
 	$query_offset			= isset( $_GET[ 'offset' ] ) ? $_GET[ 'offset' ] : '';
 	$query_order 			= isset( $_GET[ 'order' ] ) ? $_GET[ 'order' ] : 'DESC';
@@ -63,6 +64,7 @@ function get_posts_ajax() {
 	// Set arguments for query
 	$args = array(
 		'post_type'			=> $query_post_type,
+		'post_status'		=> $query_post_status,
 		'posts_per_page'	=> $query_posts_per_page,
 		'paged'				=> $query_paged,
 		'offset'			=> $query_offset,
@@ -85,6 +87,7 @@ function get_posts_ajax() {
 		'action',
 		'post_type',
 		'posts_per_page',
+		'post_status',
 		'paged',
 		'offset',
 		'order',
