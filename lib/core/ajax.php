@@ -45,21 +45,21 @@ function get_posts_ajax() {
 	header( 'Content-Type: text/html' );
 
 	// Get the variables from the GET Request
-	$query_post_type		= isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'post' );
-	$query_post_status		= isset( $_GET[ 'post_status' ] ) ? explode( ',', $_GET[ 'post_status' ] ) : array( 'publish' );	
-	$query_posts_per_page	= isset( $_GET[ 'posts_per_page' ] ) ? $_GET[ 'posts_per_page' ] : -1;
-	$query_paged			= isset( $_GET[ 'paged' ] ) ? $_GET[ 'paged' ] : 1;
-	$query_offset			= isset( $_GET[ 'offset' ] ) ? $_GET[ 'offset' ] : '';
-	$query_order 			= isset( $_GET[ 'order' ] ) ? $_GET[ 'order' ] : 'DESC';
-	$query_orderby			= isset( $_GET[ 'orderby' ] ) ? $_GET[ 'orderby' ] : 'date';
-	$query_p				= isset( $_GET[ 'p' ] ) ? $_GET[ 'p' ] : '';
-	$query_s				= isset( $_GET[ 's' ] ) ? $_GET[ 's' ] : '';
-	$query_cat				= isset( $_GET[ 'cat' ] ) ? $_GET[ 'cat' ] : '';
-	$query_tag				= isset( $_GET[ 'tag' ] ) ? str_replace( ' ', ',', $_GET[ 'tag' ] ) : '';
-	$query_post__in			= isset( $_GET[ 'post__in'] ) ? explode( ',', $_GET[ 'post__in' ] ) : array();
-	$query_post__not_in		= isset( $_GET[ 'post__not_in' ] ) ? explode( ',', $_GET[ 'post__not-in' ] ) : array();
-	$query_meta_key			= isset( $_GET[ 'meta_key' ] ) ? $_GET[ 'meta_key' ] : '';
-	$query_meta_value		= isset( $_GET[ 'meta_value' ] ) ? $_GET[ 'meta_value' ] : '';
+	$query_post_type		= isset( $_REQUEST[ 'post_type' ] ) ? explode( ',', $_REQUEST[ 'post_type' ] ) : array( 'post' );
+	$query_post_status		= isset( $_REQUEST[ 'post_status' ] ) ? explode( ',', $_REQUEST[ 'post_status' ] ) : array( 'publish' );	
+	$query_posts_per_page	= isset( $_REQUEST[ 'posts_per_page' ] ) ? $_REQUEST[ 'posts_per_page' ] : -1;
+	$query_paged			= isset( $_REQUEST[ 'paged' ] ) ? $_REQUEST[ 'paged' ] : 1;
+	$query_offset			= isset( $_REQUEST[ 'offset' ] ) ? $_REQUEST[ 'offset' ] : '';
+	$query_order 			= isset( $_REQUEST[ 'order' ] ) ? $_REQUEST[ 'order' ] : 'DESC';
+	$query_orderby			= isset( $_REQUEST[ 'orderby' ] ) ? $_REQUEST[ 'orderby' ] : 'date';
+	$query_p				= isset( $_REQUEST[ 'p' ] ) ? $_REQUEST[ 'p' ] : '';
+	$query_s				= isset( $_REQUEST[ 's' ] ) ? $_REQUEST[ 's' ] : '';
+	$query_cat				= isset( $_REQUEST[ 'cat' ] ) ? $_REQUEST[ 'cat' ] : '';
+	$query_tag				= isset( $_REQUEST[ 'tag' ] ) ? str_replace( ' ', ',', $_REQUEST[ 'tag' ] ) : '';
+	$query_post__in			= isset( $_REQUEST[ 'post__in'] ) ? explode( ',', $_REQUEST[ 'post__in' ] ) : array();
+	$query_post__not_in		= isset( $_REQUEST[ 'post__not_in' ] ) ? explode( ',', $_REQUEST[ 'post__not-in' ] ) : array();
+	$query_meta_key			= isset( $_REQUEST[ 'meta_key' ] ) ? $_REQUEST[ 'meta_key' ] : '';
+	$query_meta_value		= isset( $_REQUEST[ 'meta_value' ] ) ? $_REQUEST[ 'meta_value' ] : '';
 
 	// Set arguments for query
 	$args = array(
@@ -110,8 +110,8 @@ function get_posts_ajax() {
 	// Loop over remaining query items and pass them as taxonomy filters
 	// Or when the keys are not in the taxonomies and also not in the ignores
 	// add them to the meta_query array.
-	if ( ! empty( $_GET ) ) {
-		foreach( $_GET as $item => $value ) {
+	if ( ! empty( $_REQUEST ) ) {
+		foreach( $_REQUEST as $item => $value ) {
 			$value_array = explode( ',', $value ); // Turn the string from "value,value" to array( "value", "value" )
 			if ( in_array( $item, $taxonomies ) ) {
 				$args[ 'tax_query' ][] = array(
