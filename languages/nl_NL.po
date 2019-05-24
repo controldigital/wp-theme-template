@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-05-21 12:16+0200\n"
-"PO-Revision-Date: 2019-05-21 12:17+0200\n"
+"POT-Creation-Date: 2019-05-24 14:49+0200\n"
+"PO-Revision-Date: 2019-05-24 14:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -43,6 +43,10 @@ msgstr "Cookie intrekken"
 msgid "Toggle menu"
 msgstr "Open of sluit menu"
 
+#: inc/messages/message-no-posts-found.php:11
+msgid "No posts have been found."
+msgstr "Er zijn geen posts gevonden."
+
 #: inc/modal/modal-default.php:11
 msgid "Modal"
 msgstr "Modal"
@@ -66,6 +70,10 @@ msgstr "Zoeken"
 #: inc/modal/modal-search.php:21
 msgid "Submit"
 msgstr "Verzenden"
+
+#: inc/posts/post-query.php:57
+msgid "Load more"
+msgstr "Laad meer"
 
 #: lib/core/cookie.php:193
 msgid "Cookies"
@@ -125,7 +133,7 @@ msgstr "Titel"
 
 #: lib/core/cookie.php:295
 msgid "The title of the cookie message."
-msgstr "De titel van het cookiebericht"
+msgstr "De titel van het cookiebericht."
 
 #: lib/core/cookie.php:308
 msgid "Body"
@@ -189,7 +197,7 @@ msgstr "Weigerknop"
 
 #: lib/core/cookie.php:374
 msgid "Label of the refuse button."
-msgstr "Label van de weigerknop"
+msgstr "Label van de weigerknop."
 
 #: lib/core/cookie.php:386
 msgid "Privacy policy active?"
@@ -237,7 +245,7 @@ msgstr "Intrekkenknop"
 
 #: lib/core/cookie.php:456
 msgid "Label of the revoke button."
-msgstr "Label van de intrekkenknop"
+msgstr "Label van de intrekkenknop."
 
 #: lib/core/cookie.php:469
 msgid "Head scripts"
@@ -246,7 +254,7 @@ msgstr "Head scripts"
 #: lib/core/cookie.php:470
 msgid ""
 "Place scripts that have to be appended to the head when the cookie is "
-"accepted"
+"accepted."
 msgstr ""
 "Plaats scripts die in de <head> tag geplaatst moeten worden wanneer de "
 "cookie geaccepteerd is."
@@ -258,7 +266,7 @@ msgstr "Body scripts"
 #: lib/core/cookie.php:484
 msgid ""
 "Place scripts that have to be appended to the start of the body when the "
-"cookie is accepted"
+"cookie is accepted."
 msgstr ""
 "Plaats scripts die in het begin van de <body> tag geplaatst moeten worden "
 "wanneer de cookie geaccepteerd is."
@@ -273,7 +281,7 @@ msgstr ""
 
 #: lib/core/filters.php:76
 msgid "Password:"
-msgstr "Wachtwoord"
+msgstr "Wachtwoord:"
 
 #: lib/core/helpers.php:368
 msgid "Page"
