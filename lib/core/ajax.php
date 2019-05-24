@@ -126,7 +126,7 @@ function get_posts_ajax() {
 			$post_type = get_post_type();
 
 			// get_template_part( '' );
-		}
+		} wp_reset_postdata();
 	}
 
 	// End connection
