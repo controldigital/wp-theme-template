@@ -467,7 +467,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		'cookie_code_head',
 		array(
 			'label'      		=> __( 'Head scripts', THEME_TEXT_DOMAIN ),
-			'description'		=> __( 'Place scripts that have to be appended to the head when the cookie is accepted', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Place scripts that have to be appended to the head when the cookie is accepted.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_scripts_section',
 			'settings'   		=> 'cookie_code_head',
 			'type'				=> 'textarea',
@@ -481,7 +481,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		'cookie_code_body',
 		array(
 			'label'      		=> __( 'Body scripts', THEME_TEXT_DOMAIN ),
-			'description'		=> __( 'Place scripts that have to be appended to the start of the body when the cookie is accepted', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Place scripts that have to be appended to the start of the body when the cookie is accepted.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_scripts_section',
 			'settings'   		=> 'cookie_code_body',
 			'type'				=> 'textarea',
