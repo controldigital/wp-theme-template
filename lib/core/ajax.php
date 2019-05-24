@@ -128,17 +128,26 @@ function get_posts_ajax() {
 		}
 	}
 
-	// Create a new query
+	// Create a new query.
 	$query = new WP_Query( $args );
 
-	// Loop over the query
+	// Loop over the query.
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$post_type = get_post_type();
 
-			// get_template_part( '' );
+			// Assign a template to load.
+			if ( $post_type === 'post' ) {
+				get_template_part( './inc/posts/post', 'card' );
+			}
+
 		} wp_reset_postdata();
+	} else {
+
+		// Display error message when no posts are found.
+		get_template_part( './inc/messages/message', 'no-posts-found' );
+
 	}
 
 	// End connection
