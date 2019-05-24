@@ -32,7 +32,10 @@ $query = new WP_Query( $args );
 if ( $query->have_posts() ) { ?>
 
     <?php
-    // This form sends all the query data to the get_posts_ajax function that is located in the ajax.php file. ?>
+    /**
+     * This form sends all the query data to the get_posts_ajax function that is 
+     * located in the ajax.php file.
+     */ ?>
     <form class="js-post-query" method="GET" action="<?php echo home_url( $wp->request ); ?>">
         <input type="hidden" name="action" value="get_posts_ajax">
         <input type="hidden" name="post_type" value="<?php echo $post_type; ?>">
@@ -42,17 +45,22 @@ if ( $query->have_posts() ) { ?>
         <input type="hidden" name="order" value="<?php echo $order; ?>">
         <input type="hidden" name="orderby" value="<?php echo $orderby; ?>">
         <input type="hidden" name="max_pages" value="<?php echo $query->max_num_pages; ?>">
-        <?php while ( $query->have_posts() ) { $query->the_post(); ?>
+        <div class="js-post-query-container" aria-live="polite">
+            <?php while ( $query->have_posts() ) { $query->the_post(); ?>
 
-            <?php 
-            // Get the template to show te post with.
-            // Modify this to your own liking.
-            get_template_part( './inc/posts/post', 'card' ); ?>
+                <?php 
+                /**
+                 * Get the template to show te post with.
+                 * Modify this to your own liking.
+                 */
+                get_template_part( './inc/posts/post', 'card' ); ?>
 
-        <?php } wp_reset_postdata(); ?>
-
+            <?php } wp_reset_postdata(); ?>
+        </div>
         <?php
-        // Check if there is more than 1 page, and if so show the load more button.
+        /**
+         * Check if there is more than 1 page, and if so show the load more button.
+         */
         if ( $query->max_num_pages > $paged ) { ?>
 			<button type="submit" name="submit"><?php _e( 'Load more', THEME_TEXT_DOMAIN ); ?></button>
 		<?php } ?>
