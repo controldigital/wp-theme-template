@@ -45,12 +45,12 @@ function get_posts_ajax() {
 	header( 'Content-Type: text/html' );
 
 	// Get the variables from the GET Request
-	$query_post_type		= isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'POST_TYPE' ); 		// Change POST_TYPE for default post type
+	$query_post_type		= isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'post' ); 			// Change post for default post type
 	$query_posts_per_page	= isset( $_GET[ 'posts_per_page' ] ) ? $_GET[ 'posts_per_page' ] : -1;         						// Change -1 to desired amount of posts
 	$query_paged			= isset( $_GET[ 'paged' ] ) ? $_GET[ 'paged' ] : 1;
-	$query_offset			= isset( $_GET[ 'offset' ] ) ? $_GET[ 'offset' ] : 0;
-	$query_order 			= isset( $_GET[ 'order' ] ) ? $_GET[ 'order' ] : 'ASC';
-	$query_order_by			= isset( $_GET[ 'orderby' ] ) ? $_GET[ 'order_by' ] : 'menu_order';
+	$query_offset			= isset( $_GET[ 'offset' ] ) ? $_GET[ 'offset' ] : '';
+	$query_order 			= isset( $_GET[ 'order' ] ) ? $_GET[ 'order' ] : 'DESC';
+	$query_orderby			= isset( $_GET[ 'orderby' ] ) ? $_GET[ 'orderby' ] : 'date';
 	$query_p				= isset( $_GET[ 'p' ] ) ? $_GET[ 'p' ] : '';
 	$query_s				= isset( $_GET[ 's' ] ) ? $_GET[ 's' ] : '';
 	$query_cat				= isset( $_GET[ 'cat' ] ) ? $_GET[ 'cat' ] : '';
@@ -67,7 +67,7 @@ function get_posts_ajax() {
 		'paged'				=> $query_paged,
 		'offset'			=> $query_offset,
 		'order'				=> $query_order,
-		'orderby'			=> $query_order_by,
+		'orderby'			=> $query_orderby,
 		'p'					=> $query_p,
 		's'					=> $query_s,
 		'cat'				=> $query_cat,
@@ -76,7 +76,8 @@ function get_posts_ajax() {
 		'post__not_in'		=> $query_post__not_in,
 		'meta_key'			=> $query_meta_key,
 		'meta_value'		=> $query_meta_value,
-		'tax_query'			=> array()
+		'tax_query'			=> array(),
+		'meta_query'		=> array()
 	);
 
 	// Fields to ignore for taxonomies
@@ -104,14 +105,22 @@ function get_posts_ajax() {
 	$taxonomies = get_taxonomies();
 
 	// Loop over remaining query items and pass them as taxonomy filters
+	// Or when the keys are not in the taxonomies and also not in the ignores
+	// add them to the meta_query array.
 	if ( ! empty( $_GET ) ) {
 		foreach( $_GET as $item => $value ) {
+			$value_array = explode( ',', $value ); // Turn the string from "value,value" to array( "value", "value" )
 			if ( in_array( $item, $taxonomies ) ) {
 				$args[ 'tax_query' ][] = array(
 					'taxonomy'			=> $item,
 					'field'				=> 'slug',
-					'terms'				=> explode( ',', $value ) // Turn the string from "value,value" to array( "value", "value" )
+					'terms'				=> $value_array
 				);		
+			} else if ( ! in_array( $item, $excludes ) ) {
+				$args[ 'meta_query' ][] = array(
+					'key'				=> $item,
+					'value'				=> $value_array
+				);
 			}
 		}
 	}
