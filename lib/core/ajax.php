@@ -53,6 +53,7 @@ function get_posts_ajax() {
 	$query_order_by			= isset( $_GET[ 'orderby' ] ) ? $_GET[ 'order_by' ] : 'menu_order';
 	$query_p				= isset( $_GET[ 'p' ] ) ? $_GET[ 'p' ] : '';
 	$query_s				= isset( $_GET[ 's' ] ) ? $_GET[ 's' ] : '';
+	$query_cat				= isset( $_GET[ 'cat' ] ) ? $_GET[ 'cat' ] : '';
 	$query_tag				= isset( $_GET[ 'tag' ] ) ? str_replace( ' ', ',', $_GET[ 'tag' ] ) : '';
 	$query_post__in			= isset( $_GET[ 'post__in'] ) ? explode( ',', $_GET[ 'post__in' ] ) : array();
 	$query_post__not_in		= isset( $_GET[ 'post__not_in' ] ) ? explode( ',', $_GET[ 'post__not-in' ] ) : array();
@@ -69,6 +70,7 @@ function get_posts_ajax() {
 		'orderby'			=> $query_order_by,
 		'p'					=> $query_p,
 		's'					=> $query_s,
+		'cat'				=> $query_cat,
 		'tag'				=> $query_tag,
 		'post__in'			=> $query_post__in,
 		'post__not_in'		=> $query_post__not_in,
@@ -88,6 +90,7 @@ function get_posts_ajax() {
 		'orderby',
 		'p',
 		's',
+		'cat',
 		'tag',
 		'post__in',
 		'post__not_in',
@@ -97,14 +100,17 @@ function get_posts_ajax() {
 		'_wp_referrer'
 	);
 
+	// Get all registered taxonomies
+	$taxonomies = get_taxonomies();
+
 	// Loop over remaining query items and pass them as taxonomy filters
 	if ( ! empty( $_GET ) ) {
 		foreach( $_GET as $item => $value ) {
-			if ( ! in_array( $value, $excludes ) ) {
+			if ( in_array( $item, $taxonomies ) ) {
 				$args[ 'tax_query' ][] = array(
 					'taxonomy'			=> $item,
 					'field'				=> 'slug',
-					'terms'				=> $value
+					'terms'				=> explode( ',', $value ) // Turn the string from "value,value" to array( "value", "value" )
 				);		
 			}
 		}
