@@ -17,7 +17,7 @@
  */
 add_action( 'admin_enqueue_scripts', 'admin_style' );
 function admin_style() {
-	wp_enqueue_style( 'admin_style', get_template_directory_uri() . '/assets/css/admin.css' );
+	wp_enqueue_style( 'admin_style', get_template_directory_uri() . '/assets/admin/css/admin.css' );
 }
 
 /**
