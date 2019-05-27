@@ -59,6 +59,11 @@ self.addEventListener('fetch', event => {
 	const url = new URL(request.url);
 	const { pathname, origin } = url;
 
+	// Don't do anything on the wp-admin or preview page.
+	if (request.url.match(/wp-admin/) || request.url.match(/preview=true/)) {
+		return;
+	}
+
 	// Look for file types.
 	const regex = /\.(?:jpg|mp3|mp4)$/i;
 
