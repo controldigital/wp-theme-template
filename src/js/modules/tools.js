@@ -64,6 +64,21 @@ export const stringCommaToPoint = (str) => str.replace(/,/g, '.');
 export const stringPointToComma = (str) => str.replace(/./g, ',');
 
 /**
+ * Checks if a number is between
+ * a from and to numbers. Returns
+ * a true or false value.
+ * 
+ * @function	isIndexBetween
+ * @param 		{Number} index Number to compare.
+ * @param 		{Number} from More than and equal number.
+ * @param 		{Number} to Less than number.
+ * @returns		{Boolean}
+ */
+export const isIndexBetween = (index, from, to) => {
+	return from <= index && index < to;
+}
+
+/**
  * @typedef		isTouchDevice
  * @type		{Boolean}
  * @since		1.0
