@@ -2,13 +2,24 @@
  * @module	./components/define
  */
 
+import { PostsQuery } from './form/PostsQuery';
+
 /**
  * A list with names and constructors for custom elements.
  * 
  * @typedef		customElementsList
- * @type		{Map<String, HTMLElement>}
+ * @type		{Object[]}
  */
-const customElementsList = new Map();
+const customElementsList = [];
+
+// Add posts-query element
+customElementsList.push({
+	name: 'posts-query',
+	constructor: PostsQuery,
+	options: {
+		extends: 'form'
+	}
+});
 
 /**
  * Defines the custom elements.
@@ -18,7 +29,9 @@ const customElementsList = new Map();
  * @returns		{customElementsList}
  */
 const defineCustomElements = (elements) => 	
-	elements.forEach((constructor, name) => customElements.define(name, constructor));
+	elements.forEach(({ name, constructor, options }) => {
+		customElements.define(name, constructor, options !== undefined ? options : {});
+	});
 
 /**
  * Checks if all elements have been registered
