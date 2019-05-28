@@ -94,6 +94,13 @@
 			flex-direction: column;
 		}
 
+		.prev,
+		.next {
+			display: flex;
+			align-items: stretch;
+			z-index: 2;
+		}
+
 		.prev {
 			grid-area: prev;
 		}
@@ -104,6 +111,7 @@
 
 		.controls {
 			grid-area: controls;
+			z-index: 1;
 		}
 
 		::slotted(control-slide) {
