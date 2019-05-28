@@ -2,14 +2,21 @@
  * @module		./components/slider/Slider
  */
 
-import { isNumberBetween } from '../../modules/tools';
+import { 
+	isIndexBetween,
+	hasFeatures,
+	isTouchDevice,
+	createDirections
+} from '../../modules/tools';
 import HTMLSlidesCollection from './Collection';
+
+
 
 /**
  * HTMLSliderElement
  * @class
  */
-export class HTMLSliderElement extends HTMLElement {
+export default class HTMLSliderElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
@@ -20,7 +27,7 @@ export class HTMLSliderElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['amount', 'axis', 'delay', 'speed', 'loop', 'hover', 'moving'];
+		return ['moving', 'index'];
 	}
 
 	/**
@@ -44,9 +51,6 @@ export class HTMLSliderElement extends HTMLElement {
 		// Append the template to the shadowDOM.
 		shadow.appendChild(template.content.cloneNode(true));
 
-		// Setup starting index.
-		this.activeSlideIndex = 0;
-
 	}
 
 	/**
@@ -54,7 +58,7 @@ export class HTMLSliderElement extends HTMLElement {
 	 * @property
 	 */
 	get amount() {
-		return this.getAttribute('amount');
+		return parseInt(this.getAttribute('amount'));
 	}
 
 	set amount(value) {
@@ -84,7 +88,7 @@ export class HTMLSliderElement extends HTMLElement {
 	 * @property
 	 */
 	get delay() {
-		return this.getAttribute('delay');
+		return parseInt(this.getAttribute('delay'));
 	}
 
 	set delay(value) {
@@ -98,7 +102,7 @@ export class HTMLSliderElement extends HTMLElement {
 	 * @property
 	 */
 	get speed() {
-		return this.getAttribute('speed');
+		return parseInt(this.getAttribute('speed'));
 	}
 
 	set speed(value) {
@@ -140,29 +144,55 @@ export class HTMLSliderElement extends HTMLElement {
 	}
 
 	/**
-     * Returns and sets the active slide element.
-	 * Moves the slider to slide when a new index value is set.
-     * 
-     * @property
-     */
-    get activeSlide() {
-        return this.slides[this.activeSlideIndex];
-    }
+	 * Gets and sets the index attribute.
+	 * @property
+	 */
+	get index() {
+		return parseInt(this.getAttribute('index'));
+	}
 
-    set activeSlide(index) {
+	set index(value) {
+		if (value !== Number.isNaN(value)) {
+			if (isIndexBetween(value, 0, this.slides.length - this.amount + 1)) {
+				this.setAttribute('index', value);
+			} else {
+				this.slideToIndex(this.index);
+			}
+		} 
+	}
 
-		// If the index is a good index.
-        if (isIndexBetween(index, 0, this.slides.length)) {
-			this.activeSlideIndex = index;
+	/**
+	 * Gets and sets the moving attribute.
+	 * @property
+	 */
+	get moving() {
+		return this.getAttribute('moving');
+	}
+
+	set moving(value) {
+		if (value === true) {
+			this.setAttribute('moving', '');
+		} else {
+			this.removeAttribute('moving');
 		}
+	}
 
-		// Set the right active slide.
-		this.slides.setInactiveAll();
-		this.slides.setActive(this.activeSlideIndex);
+	/**
+	 * Gets and sets the layout attribute.
+	 * @property
+	 */
+	get layout() {
+		return this.getAttribute('layout');
+	}
 
-		// Now slide to it.
-		this.slideToIndex(this.activeSlideIndex);
-
+	set layout(value) {
+		if ('string' === typeof value) {
+			if (value === 'boxed' || value === 'full') {
+				this.setAttribute('layout', value);
+			}
+		} else {
+			this.removeAttribute('layout');
+		}
 	}
 
 	/**
@@ -175,8 +205,18 @@ export class HTMLSliderElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
-		if (attrName === 'moving') {
-			if (newValue === '') {
+		if (attrName === 'amount' || attrName === 'index') {
+			if (newValue !== null && this.slides) {
+				this.slides.setInactiveAll();
+				let value = parseInt(this.index);
+				let length = value + this.amount;
+				for (let i = value; i < length; i ++) {
+					this.slides.setActive(i);
+				}
+				this.slideToIndex(this.index);
+			}
+		} else if  (attrName === 'moving') {
+			if (newValue !== null) {
 				const transition = `transform ${this.speed}ms ease-in-out`;
 				this.rails.style.webkitTransition = transition;
 				this.rails.style.transition = transition;
@@ -196,9 +236,7 @@ export class HTMLSliderElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
-		/**
-		 * Touchstates
-		 */
+		// Touchstates.
 		const touch = {
 			start: null,
 			move: null,
@@ -207,13 +245,54 @@ export class HTMLSliderElement extends HTMLElement {
 			threshold: 4
 		};
 
-		// Get the rails.
-		this.rails = this.shadowRoot.querySelector('.rails');
-		
-		// Create new slides collection
-		this.slides = new HTMLSlidesCollection(...this.children);
+		// Setup the slides when they are defined.
+		customElements.whenDefined('control-slide').then(() => {
 
-		this.ontouchstart = (event) => {
+			// Get the rails.
+			this.rails = this.shadowRoot.querySelector('.rails');
+			
+			// Create new slides collection.
+			this.slides = new HTMLSlidesCollection(...this.children);
+
+			// Set tabindex.
+			this.slides.forEach((slide, i) => slide.setAttribute('tabindex', i));
+
+			// Setup starting index.
+			if (Number.isNaN(this.index)) {
+				this.index = 0;
+			}
+
+		});
+
+		// Set timeout.
+		this.timeout = null
+
+		/**
+		 * Returns the offset position of the rails.
+		 * 
+		 * @function  	getRailsOffset
+		 * @returns		{Object} Height and width times the index.
+		 */
+		const getRailsOffset = () => {
+			return {
+				x: (this.rails.offsetWidth / this.amount) * this.index,
+				y: (this.rails.offsetHeight / this.amount) * this.index
+			};
+		};
+
+		/**
+		 * @typedef		directionsObject
+		 * @type 		{Object} obj
+		 * @param		{string} horizontal  
+		 * @param		{string} vertical
+		 */
+
+		/**
+		 * @function	onTouchStart
+		 * @param		{Event} event
+		 * @returns		{void}
+		 */
+		const onTouchStart = (event) => {
 			const { screenX, screenY } = event.changedTouches[0];
 			touch.start = { 
 				x: screenX,
@@ -224,35 +303,104 @@ export class HTMLSliderElement extends HTMLElement {
 			touch.distance = null;
 		};
 
-		this.ontouchmove = (event) => {
+		/**
+		 * @function	onTouchMove
+		 * @param		{Event} event
+		 * @returns		{void}
+		 */
+		const onTouchMove = (event) => {
+			if (this.moving === '') {
+				return false;
+			}
 			const { screenX, screenY } = event.changedTouches[0];
 			touch.move = { 
 				x: screenX, 
 				y: screenY
 			};
-			touch.distance = { 
-				x: touch.start.x - touch.move.x, 
-				y: touch.start.y - touch.move.y 
-			};
+			touch.distance = createDirections(
+				touch.start.x - touch.move.x,
+				touch.start.y - touch.move.y
+			);
+			const offset = getRailsOffset();
+			const distance = createDirections(
+				offset.x + touch.distance.horizontal, 
+				offset.y + touch.distance.vertical,
+				Math.round
+			);
+			this.moveTo(`${-distance[this.axis]}px`);
 		};
 
-		this.ontouchend = (event) => {
-			if (touch.distance !== null) { 
-
+		/**
+		 * @function 	onTouchEnd
+		 * @param		{Event} event
+		 * @returns		{void}
+		 */
+		const onTouchEnd = (event) => {
+			if (touch.distance === null || this.moving === '') { 
+				return false;
+			}
+			const { screenX, screenY } = event.changedTouches[0];
+			const absTouchDistances = createDirections(
+				touch.distance.horizontal, 
+				touch.distance.vertical, 
+				Math.abs
+			);
+			touch.end = {
+				x: screenX,
+				y: screenY
+			};
+			if (absTouchDistances[this.axis] >= touch.threshold) {
+				if (touch.distance[this.axis] < 0) {
+					this.prevSlide(); // Prev
+				} else {
+					this.nextSlide(); // Next
+				} 
+			} else {
+				this.slideToIndex(this.index);
 			}
 		};
 
-		this.onwheel = (event) => {
+		/**
+		 * @function	onWheel
+		 * @param 		{Event} event 
+		 * @returns		{void}
+		 */
+		const onWheel = (event) => {
 
 		};
 
-		this.onmouseenter = (event) => {
+		/**
+         * @function	onMouseEnter
+         * @param		{Event} event
+         * @returns		{void}
+         */
+		const onMouseEnter = (event) => {
 			this.hover = true;
 		};
 
-		this.onmouseleave = (event) => {
+		/**
+         * @function	onMouseLeave
+         * @param		{Event} event
+         * @returns		{void}
+         */
+		const onMouseLeave = (event) => {
 			this.hover = false;
 		};
+
+		// If there is passive events support.
+		const features = hasFeatures('Passive Events');
+
+		// Touch event listeners.
+		if (isTouchDevice) {
+			this.addEventListener('touchstart', onTouchStart, features ? {passive: true} : false);
+			this.addEventListener('touchmove', onTouchMove, features ? {passive: true} : false);
+			this.addEventListener('touchend', onTouchEnd, features ? {passive: true} : false);
+		}
+
+		// Add other event listeners.
+		this.addEventListener('wheel', onWheel, features ? {passive: true} : false);
+		this.addEventListener('mouseenter', onMouseEnter);
+		this.addEventListener('mouseleave', onMouseLeave);
 
 	}
 
@@ -264,13 +412,7 @@ export class HTMLSliderElement extends HTMLElement {
 	 */
 	disconnectedCallback() {
 
-		// Disable all events.
-		this.ontouchstart = null;
-		this.ontouchmove = null;
-		this.ontouchend = null;
-		this.onwheel= null;
-		this.onmouseenter = null;
-		this.onmouseleave = null;
+		//TODO: Disable all events.
 
 	}
 
@@ -308,26 +450,26 @@ export class HTMLSliderElement extends HTMLElement {
 		}
 	}
 
-    /**
-     * Makes the slider continue 
-     * to the next slide.
+   /**
+     * Makes the slider continue to the next slide.
+	 * Shorthand for changing the index directly.
      * 
      * @method  nextSlide
      * @returns	{this} The SliderElement instance.
      */
     nextSlide() {
-        this.activeSlide = this.activeSlideIndex + 1;
+        this.index += 1;
     }
 
     /**
-     * Makes the slider go to 
-     * the previous slide.
+     * Makes the slider go to the previous slide.
+	 * Shorthand for changing the index directly.
      * 
      * @method  prevSlide
      * @returns	{this} The SliderElement instance.
      */
     prevSlide() {
-        this.activeSlide = this.activeSlideIndex - 1;
+        this.index -= 1;
 	}
 
 	/**
@@ -367,9 +509,11 @@ export class HTMLSliderElement extends HTMLElement {
 	 * @returns	{this}
 	 */
 	moveToIndex(index) {
-		if (isIndexBetween(index, 0, this.slides.length)) {
-
+		if (isNumberBetween(index, 0, this.slides.length)) {
+			const position = `-${(100 / this.amount) * this.index}%`;
+			this.moveTo(position);
 		}
+		return this;
 	}
 
 	/**
@@ -378,15 +522,19 @@ export class HTMLSliderElement extends HTMLElement {
 	 * 
 	 * @method	slideTo
 	 * @uses	moveTo
-	 * @param	{string} position Position of rails in px.
-	 * @returns	{this} The SliderElement instance.
+	 * @param	{string} position Position of rails in a string.
+	 * @returns	{Promise<this>} The SliderElement instance on resolve.
 	 */
 	slideTo(position) {
-		this.moving = true;
-		this.moveTo(position);
-		setTimeout(() => {
-			this.moving = false;
-		}, this.duration);
+		return new Promise(resolve => {
+			this.moving = true;
+			this.moveTo(position);
+			clearTimeout(this.timeout);
+			this.timeout = setTimeout(() => {
+				this.moving = false;
+				resolve(this);
+			}, this.speed);
+		});
 	}
 
 	/**
@@ -395,17 +543,19 @@ export class HTMLSliderElement extends HTMLElement {
 	 * 
 	 * @method	slideToIndex
 	 * @uses	slideTo
-	 * @param 	{number} index Index of slide.
-	 * @returns	{this} The SliderElement instance.
+	 * @param 	{number} index Index of the slide.
+	 * @returns	{Promise<this>} The SliderElement instance on resolve.
 	 */
 	slideToIndex(index) {
-		if (isIndexBetween(index, 0, this.slides.length)) {
+		return new Promise(resolve => {
 			this.moving = true;
 			this.moveToIndex(index);
-			setTimeout(() => {
+			clearTimeout(this.timeout);
+			this.timeout = setTimeout(() => {
 				this.moving = false;
-			}, this.duration);
-		}
+				resolve(this);
+			}, this.speed);
+		});
 	}
 
 }
