@@ -2,7 +2,9 @@
  * @module	./components/define
  */
 
-import { PostsQuery } from './form/PostsQuery';
+import HTMLSliderElement from './slider/Slider';
+import HTMLSlideElement from './slider/Slide';
+import HTMLCardElement from './card/Card';
 
 /**
  * A list with names and constructors for custom elements.
@@ -12,13 +14,22 @@ import { PostsQuery } from './form/PostsQuery';
  */
 const customElementsList = [];
 
-// Add posts-query element
+// Add control-slider element.
 customElementsList.push({
-	name: 'posts-query',
-	constructor: PostsQuery,
-	options: {
-		extends: 'form'
-	}
+	name: 'control-slider',
+	constructor: HTMLSliderElement,
+});
+
+// Add control-slide element.
+customElementsList.push({
+	name: 'control-slide',
+	constructor: HTMLSlideElement,
+});
+
+// Add control-card element.
+customElementsList.push({
+	name: 'control-card',
+	constructor: HTMLCardElement
 });
 
 /**
