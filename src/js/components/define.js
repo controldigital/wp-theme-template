@@ -52,7 +52,7 @@ const defineCustomElements = (elements) =>
  * @param 		{customElementsList} elements 
  * @returns		{Promise<void[]>}
  */
-const whenAllCustomElementsDefined = async (elements) => {
+const whenAllCustomElementsDefined = (elements) => {
 	const promises = elements.map(({ name }) => 
 		customElements.whenDefined(name));
 	return Promise.all(promises);
