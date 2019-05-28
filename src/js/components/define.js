@@ -53,12 +53,8 @@ const defineCustomElements = (elements) =>
  * @returns		{Promise<void[]>}
  */
 const whenAllCustomElementsDefined = async (elements) => {
-	const keys = elements.keys();
-	const promises = [];
-	for (let key of keys) {
-		let promise = customElements.whenDefined(key);
-		promises.push(promise);
-	}
+	const promises = elements.map(({ name }) => 
+		customElements.whenDefined(name));
 	return Promise.all(promises);
 };
 
