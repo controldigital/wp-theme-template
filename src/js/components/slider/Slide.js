@@ -8,7 +8,7 @@
  * @class
  * @extends	HTMLElement
  */
-export class HTMLSlideElement extends HTMLElement {
+export default class HTMLSlideElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
