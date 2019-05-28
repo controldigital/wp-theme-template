@@ -84,6 +84,7 @@
 			align-items: stretch;
 			flex-wrap: nowrap;
 			height: 100%;
+			will-change: transform;
 		}
 
 		:host([axis="horizontal"]) .rails {
