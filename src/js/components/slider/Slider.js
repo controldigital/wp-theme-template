@@ -252,7 +252,8 @@ export default class HTMLSliderElement extends HTMLElement {
 			this.rails = this.shadowRoot.querySelector('.rails');
 			
 			// Create new slides collection.
-			this.slides = new HTMLSlidesCollection(...this.children);
+			const slideChildren = [...this.children].filter((child) => child.tagName === 'CONTROL-SLIDE');
+			this.slides = new HTMLSlidesCollection(...slideChildren);
 
 			// Set tabindex.
 			this.slides.forEach((slide, i) => slide.setAttribute('tabindex', i));
@@ -360,13 +361,52 @@ export default class HTMLSliderElement extends HTMLElement {
 			}
 		};
 
+		// Wheel event threshold.
+		const wheelThreshold = 50;
+
 		/**
 		 * @function	onWheel
 		 * @param 		{Event} event 
 		 * @returns		{void}
 		 */
 		const onWheel = (event) => {
+			const { deltaY } = event;
+			const absoluteDelta = Math.abs(deltaY);
+			if (this.moving === null && absoluteDelta >= wheelThreshold) {
+				if (deltaY < 0) {
+					this.prevSlide();
+				} else if (deltaY > 0) {
+					this.nextSlide();
+				}
+			}
+		};
 
+		/**
+		 * @function	onKeyDown
+		 * @param 		{Event} event 
+		 * @returns		{void}
+		 */
+		const onKeyDown = (event) => {
+			const { keyCode } = event;
+			if (this.axis === 'horizontal') {
+				switch(keyCode) {
+					case 37: // Arrow left
+						this.prevSlide();
+						break;
+					case 39: // Arrow right
+						this.nextSlide();
+						break;
+				}
+			} else if (this.axis === 'vertical') {
+				switch(keyCode) {
+					case 38: // Arrow up
+						this.prevSlide();
+						break;
+					case 40: // Arrow down
+						this.nextSlide();
+						break;
+				}
+			}
 		};
 
 		/**
@@ -399,6 +439,7 @@ export default class HTMLSliderElement extends HTMLElement {
 
 		// Add other event listeners.
 		this.addEventListener('wheel', onWheel, features ? {passive: true} : false);
+		this.addEventListener('keydown', onKeyDown);
 		this.addEventListener('mouseenter', onMouseEnter);
 		this.addEventListener('mouseleave', onMouseLeave);
 
