@@ -13,10 +13,9 @@
 export default function HTMLSlidesCollection(...slides) {
 
 	// Add the slides to the instance.
-	// First filter the ones that arent proper HTMLSlideElement instances.
-	slides
-		.filter(slide => slide instanceof HTMLSlideElement)
-		.forEach((slide, index) => this[index] = slide);
+	// First filter the ones that arent proper HTMLElement instances.
+	const filtered = slides.filter(slide => slide instanceof HTMLElement);
+	const attached = filtered.map((slide, index) => this[index.toString()] = slide);
 
 	// Define read only property length.
 	Object.defineProperty(this, 'length', {
