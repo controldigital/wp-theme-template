@@ -7,7 +7,7 @@
  * Card
  * @class
  */
-export class Card extends HTMLElement {
+export default class HTMLCardElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
