@@ -265,6 +265,10 @@ export default class HTMLSliderElement extends HTMLElement {
 
 		});
 
+		// Get the buttons.
+		const buttons = this.querySelectorAll('button');
+		this.buttons = [...buttons];
+
 		// Set timeout.
 		this.timeout = null
 
@@ -427,6 +431,24 @@ export default class HTMLSliderElement extends HTMLElement {
 			this.hover = false;
 		};
 
+		/**
+		 * @function	onButtonClick
+		 * @param		{Event} event
+		 * @returns		{void}
+		 */
+		const onButtonClick = (event) => {
+			const { target } = event;
+			const { slot } = target;
+			if (slot) {
+				if (slot === 'prev') {
+					this.prevSlide();
+				} else if (slot === 'next') {
+					this.nextSlide();
+				}
+				event.preventDefault();
+			}
+		};
+
 		// If there is passive events support.
 		const features = hasFeatures('Passive Events');
 
@@ -442,6 +464,9 @@ export default class HTMLSliderElement extends HTMLElement {
 		this.addEventListener('keydown', onKeyDown);
 		this.addEventListener('mouseenter', onMouseEnter);
 		this.addEventListener('mouseleave', onMouseLeave);
+
+		// Add button event listeners.
+		this.buttons.map(button => button.addEventListener('click', onButtonClick));
 
 	}
 
