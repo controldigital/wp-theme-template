@@ -5,6 +5,10 @@
 import HTMLSliderElement from './slider/Slider';
 import HTMLSlideElement from './slider/Slide';
 import HTMLCardElement from './card/Card';
+import HTMLTabsElement from './tabs/Tabs';
+import HTMLTabElement from './tabs/Tab';
+import HTMLPanelElement from './tabs/Panel';
+import HTMLModalElement from './modal/Modal';
 
 /**
  * A list with names and constructors for custom elements.
@@ -14,22 +18,46 @@ import HTMLCardElement from './card/Card';
  */
 const customElementsList = [];
 
-// Add control-slider element.
+// Add ctrl-slider element.
 customElementsList.push({
-	name: 'control-slider',
+	name: 'ctrl-slider',
 	constructor: HTMLSliderElement,
 });
 
-// Add control-slide element.
+// Add ctrl-slide element.
 customElementsList.push({
-	name: 'control-slide',
+	name: 'ctrl-slide',
 	constructor: HTMLSlideElement,
 });
 
-// Add control-card element.
+// Add ctrl-card element.
 customElementsList.push({
-	name: 'control-card',
+	name: 'ctrl-card',
 	constructor: HTMLCardElement
+});
+
+// Add ctrl-tabs element.
+customElementsList.push({
+	name: 'ctrl-tabs',
+	constructor: HTMLTabsElement
+});
+
+// Add ctrl-tab element.
+customElementsList.push({
+	name: 'ctrl-tab',
+	constructor: HTMLTabElement
+});
+
+// Add ctrl-panel element.
+customElementsList.push({
+	name: 'ctrl-panel',
+	constructor: HTMLPanelElement
+});
+
+// Add ctrl-modal element.
+customElements.push({
+	name: 'HTMLModalElement',
+	constructor: HTMLModalElement
 });
 
 /**
