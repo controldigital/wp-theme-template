@@ -20,7 +20,9 @@
 		}
 
 		:host {
+			all: initial;
 			display: block;
+			contain: content;
 			position: relative;
 			font-size: 100%;
 			height: 100%;
@@ -45,7 +47,7 @@
 		
 	</style>
 
-	<article class="wrapper">
+	<article class="wrapper" role="group" aria-roledescription="slide">
 		
 		<div class="thumbnail">
 			<slot name="thumbnail"></slot>

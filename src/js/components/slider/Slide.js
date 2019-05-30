@@ -3,6 +3,9 @@
  */
 
 
+// ID of HTML template for Shadow DOM.
+const templateId = 'template-slide';
+
 /**
  * Slider
  * @class
@@ -32,10 +35,10 @@ export default class HTMLSlideElement extends HTMLElement {
 		const shadow = this.attachShadow({mode: 'open'});
 		
 		// Create a template, add the styles and children.
-		const template = document.getElementById('template-slide');
+		const template = document.getElementById(templateId);
 		if (!template) {
 			throw new Error(`
-				The template with the id "template-card" has not been found.
+				The template with the id \"${templateId}\" has not been found.
 				Please append it to the body of the DOM.
 			`);
 		}

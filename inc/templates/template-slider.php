@@ -20,7 +20,9 @@
 		}
 
 		:host {
+			all: initial;
 			display: block;
+			contain: content;
 			position: relative;
 			font-size: 100%;
 		}
@@ -209,11 +211,11 @@
 
 	<div class="container">
 
-		<div class="wrapper">
-			<div class="rails">
+		<section class="wrapper" role="region" aria-roledescription="carousel">
+			<div class="rails" 	aria-live="polite">
 				<slot name="slide"></slot>
 			</div>
-		</div>
+		</section>
 
 		<div class="prev">
 			<slot name="prev"></slot>
