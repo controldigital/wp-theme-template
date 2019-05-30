@@ -10,6 +10,8 @@ import HTMLTabElement from './tabs/Tab.js';
 import HTMLPanelElement from './tabs/Panel.js';
 import HTMLModalElement from './modal/Modal.js';
 import HTMLLazyElement from './lazy/Lazy.js';
+import HTMLCookieElement from './cookie/Cookie.js';
+import HTMLLikeElement from './like/Like.js';
 
 /**
  * A list with names and constructors for custom elements.
@@ -65,6 +67,18 @@ customElements.push({
 customElements.push({
 	name: 'ctrl-lazy',
 	construct: HTMLLazyElement
+});
+
+// Add ctrl-cookie element.
+customElements.push({
+	name: 'ctrl-cookie',
+	construct: HTMLCookieElement
+});
+
+// Add ctrl-like element.
+customElements.push({
+	name: 'ctrl-like',
+	construct: HTMLLikeElement
 });
 
 /**
