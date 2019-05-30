@@ -20,17 +20,21 @@
 		}
 
         :host {
-            display: block;
+            all: initial;
+			display: block;
+			contain: content;
             width: 100%;
             height: 100%;
         }
 
         .container {
             display: flex;
-            flex-flow: column-wrap;
+            flex-flow: column nowrap;
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        .thumbnail {
+        .header {
             flex: 0 1 auto;
         }
 
