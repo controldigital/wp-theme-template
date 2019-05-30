@@ -11,6 +11,9 @@ global $wp;
 // Cookie active?
 $cookie_active 			    = get_theme_mod( 'cookie_active' );
 
+// Exit if the cookie is not active.
+if ( ! $cookie_active ) return;
+
 // Name of cookie variable
 $cookie_name                = get_theme_mod( 'cookie_name' );
 
@@ -34,9 +37,31 @@ $cookie_revoke_active       = get_theme_mod( 'cookie_revoke_active' );
 $cookie_revoke_label        = get_theme_mod( 'cookie_revoke_label' );
 
 // Output cookie banner if cookie is set to active
-if ( $cookie_active ) {
-    if ( ! isset( $_COOKIE[ $cookie_name ] ) ) {
-?>
+if ( ! isset( $_COOKIE[ $cookie_name ] ) ) { ?>
+
+    <ctrl-cookie>
+        <?php if ( $cookie_thumbnail ) { ?><img slot="thumbnail" src="<?php echo $cookie_thumbnail; ?>" alt="<?php _e( 'Cookie thumbnail', THEME_TEXT_DOMAIN ); ?>"/><?php } ?>
+        <?php if ( $cookie_title ) { ?><h4 slot="title"><?php echo $cookie_title; ?></h4><?php } ?>
+        <?php if ( $cookie_body ) { ?><p slot="content"><?php echo $cookie_body; ?></p><?php } ?>
+        <button slot="accept" type="submit" name="accept" class="accept"><?php echo $cookie_accept_label ? $cookie_accept_label : __( 'Accept', THEME_TEXT_DOMAIN ); ?></button>
+        <?php if ( $cookie_refuse_active ) { ?><button slot="reject" type="submit" name="reject" class="reject"><?php echo $cookie_refuse_label ? $cookie_refuse_label : __( 'Reject', THEME_TEXT_DOMAIN ); ?></button><?php } ?>
+        <?php if ( $cookie_read_more_active ) { ?><a slot="read-more" href="<?php $cookie_read_more_page ? esc_url( get_the_permalink( $cookie_read_more_page ) ) : '#'; ?>" class="read-more" target="_self"><?php echo $cookie_read_more_label ? $cookie_read_more_label : __( 'Cookie policy', THEME_TEXT_DOMAIN ); ?></a><<?php } ?>
+    </ctrl-cookie>
+
+<?php } else { ?>
+
+    <?php if ( $cookie_revoke_active ) { ?>
+        <ctrl-revoke></ctrl-revoke>
+    <?php } ?>
+
+<?php } ?>
+
+
+
+
+<?php 
+// Old code.
+if ( ! isset( $_COOKIE[ $cookie_name ] ) ) { ?>
 
         <!-- Cookie -->
         <div id="cookie" class="hidden" role="dialog" aria-hidden="true" aria-label="cookieconsent">
@@ -83,9 +108,7 @@ if ( $cookie_active ) {
             </div>
         </div>
 
-<?php 
-    } else { 
-?>
+<?php } else { ?>
 
         <?php if ( $cookie_revoke_active ) { ?>
             <!-- Revoke cookie -->
@@ -100,7 +123,4 @@ if ( $cookie_active ) {
             </div>
         <?php } ?>
 
-<?php
-    }
-}
-?>
+<?php } ?>
