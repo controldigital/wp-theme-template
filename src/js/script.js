@@ -27,12 +27,20 @@
  */
 
 import '@babel/polyfill';
-import { hello } from "./modules/test";
+import { hello } from './modules/test.js';
+import {
+	customElementsList,
+	defineCustomElements
+} from './components/define.js';
 
-(function () {
+(async function () {
 	'use strict';
 
 	hello();
 	// Place your code here and paste functions from other files if needed.
+
+	// Uncomment this section to register all the Custom HTMLElements.
+	// await defineCustomElements(customElementsList);
+	// console.log('Custom elements have been defined');
 
 }());
