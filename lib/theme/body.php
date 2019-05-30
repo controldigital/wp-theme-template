@@ -27,6 +27,11 @@ function body_web_components() {
     // Slide
     get_template_part( './inc/templates/template', 'slide' );
 
+    // Tabs
+    get_template_part( './inc/templates/template', 'tabs' );
+
+    // Modal
+    get_template_part( './inc/templates/template', 'modal' );
 }
 
 
