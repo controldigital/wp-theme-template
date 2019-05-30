@@ -2,13 +2,14 @@
  * @module	./components/define
  */
 
-import HTMLSliderElement from './slider/Slider';
-import HTMLSlideElement from './slider/Slide';
-import HTMLCardElement from './card/Card';
-import HTMLTabsElement from './tabs/Tabs';
-import HTMLTabElement from './tabs/Tab';
-import HTMLPanelElement from './tabs/Panel';
-import HTMLModalElement from './modal/Modal';
+import HTMLSliderElement from './slider/Slider.js';
+import HTMLSlideElement from './slider/Slide.js';
+import HTMLCardElement from './card/Card.js';
+import HTMLTabsElement from './tabs/Tabs.js';
+import HTMLTabElement from './tabs/Tab.js';
+import HTMLPanelElement from './tabs/Panel.js';
+import HTMLModalElement from './modal/Modal.js';
+import HTMLLazyElement from './lazy/Lazy.js';
 
 /**
  * A list with names and constructors for custom elements.
@@ -58,6 +59,12 @@ customElementsList.push({
 customElements.push({
 	name: 'HTMLModalElement',
 	construct: HTMLModalElement
+});
+
+// Add ctrl-lazy element.
+customElements.push({
+	name: 'ctrl-lazy',
+	construct: HTMLLazyElement
 });
 
 /**
