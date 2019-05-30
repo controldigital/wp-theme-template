@@ -71,13 +71,14 @@ customElements.push({
  * Defines the custom elements.
  * 
  * @function	defineCustomElements
- * @param 		{customElementsList} elements
- * @returns		{customElementsList}
+ * @param 		{customElementsList} elements The element object names and constructor classes.
+ * @returns		{Promise<void[]>} A Promise that resolves when all the customElements have been defined.
  */
 const defineCustomElements = (elements) => 	
-	elements.forEach(({ name, construct, options }) => {
+	Promise.all(elements.map(({ name, construct, options }) => {
 		customElements.define(name, construct, options !== undefined ? options : {});
-	});
+		return customElements.whenDefined(name);
+	}));
 
 /**
  * Checks if all elements have been registered
