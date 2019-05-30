@@ -21,43 +21,43 @@ const customElementsList = [];
 // Add ctrl-slider element.
 customElementsList.push({
 	name: 'ctrl-slider',
-	constructor: HTMLSliderElement,
+	construct: HTMLSliderElement,
 });
 
 // Add ctrl-slide element.
 customElementsList.push({
 	name: 'ctrl-slide',
-	constructor: HTMLSlideElement,
+	construct: HTMLSlideElement,
 });
 
 // Add ctrl-card element.
 customElementsList.push({
 	name: 'ctrl-card',
-	constructor: HTMLCardElement
+	construct: HTMLCardElement
 });
 
 // Add ctrl-tabs element.
 customElementsList.push({
 	name: 'ctrl-tabs',
-	constructor: HTMLTabsElement
+	construct: HTMLTabsElement
 });
 
 // Add ctrl-tab element.
 customElementsList.push({
 	name: 'ctrl-tab',
-	constructor: HTMLTabElement
+	construct: HTMLTabElement
 });
 
 // Add ctrl-panel element.
 customElementsList.push({
 	name: 'ctrl-panel',
-	constructor: HTMLPanelElement
+	construct: HTMLPanelElement
 });
 
 // Add ctrl-modal element.
 customElements.push({
 	name: 'HTMLModalElement',
-	constructor: HTMLModalElement
+	construct: HTMLModalElement
 });
 
 /**
@@ -68,8 +68,8 @@ customElements.push({
  * @returns		{customElementsList}
  */
 const defineCustomElements = (elements) => 	
-	elements.forEach(({ name, constructor, options }) => {
-		customElements.define(name, constructor, options !== undefined ? options : {});
+	elements.forEach(({ name, construct, options }) => {
+		customElements.define(name, construct, options !== undefined ? options : {});
 	});
 
 /**
