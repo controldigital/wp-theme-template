@@ -52,10 +52,10 @@ export default class HTMLModalElement extends HTMLElement {
 		// Append the template to the shadowDOM.
 		shadow.appendChild(template.content.cloneNode(true));
 
-		// Set the default role attribute to tabpanel.
+		// Set the default role attribute, tab-index and  to modal.
 		this.setAttribute('role', 'dialog');
-		this.setAttribute('tabIndex', '-1');
-		this.setAttribute('aria-modal', false);
+		this.setAttribute('aria-modal', true);
+		this.tabIndex = '-1';
 
 		// Get the last focussed element.
 		this.focussedBeforeOpenElement = document.activeElement;
@@ -162,6 +162,16 @@ export default class HTMLModalElement extends HTMLElement {
 	 */
 	adoptedCallback() {
 
+	}
+
+	/**
+	 * Removes this element from the DOM.
+	 * 
+	 * @method	destroy
+	 * @returns	{void}
+	 */
+	destroy() {
+		this.parentElement.removeChild(this);
 	}
 
 }
