@@ -44,7 +44,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['moving', 'index'];
+		return ['amount', 'index', 'moving'];
 	}
 
 	/**
@@ -129,36 +129,6 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	/**
-	 * Gets and sets the speed attribute.
-	 * @property
-	 */
-	get speed() {
-		return parseInt(this.getAttribute('speed'));
-	}
-
-	set speed(value) {
-		if (value !== Number.isNaN(value)) {
-			this.setAttribute('amount', value);
-		} 
-	}
-
-	/**
-	 * Gets and sets the loop attribute.
-	 * @property
-	 */
-	get loop() {
-		return this.getAttribute('loop');
-	}
-
-	set loop(value) {
-		if (value === true) {
-			this.setAttribute('loop', '');
-		} else {
-			this.removeAttribute('loop');
-		}
-	}
-
-	/**
 	 * Gets and sets the hover attribute.
 	 * @property
 	 */
@@ -193,6 +163,40 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets and sets the layout attribute.
+	 * @property
+	 */
+	get layout() {
+		return this.getAttribute('layout');
+	}
+
+	set layout(value) {
+		if ('string' === typeof value) {
+			if (value === 'boxed' || value === 'full') {
+				this.setAttribute('layout', value);
+			}
+		} else {
+			this.removeAttribute('layout');
+		}
+	}
+
+	/**
+	 * Gets and sets the loop attribute.
+	 * @property
+	 */
+	get loop() {
+		return this.getAttribute('loop');
+	}
+
+	set loop(value) {
+		if (value === true) {
+			this.setAttribute('loop', '');
+		} else {
+			this.removeAttribute('loop');
+		}
+	}
+
+	/**
 	 * Gets and sets the moving attribute.
 	 * @property
 	 */
@@ -209,21 +213,17 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	/**
-	 * Gets and sets the layout attribute.
+	 * Gets and sets the speed attribute.
 	 * @property
 	 */
-	get layout() {
-		return this.getAttribute('layout');
+	get speed() {
+		return parseInt(this.getAttribute('speed'));
 	}
 
-	set layout(value) {
-		if ('string' === typeof value) {
-			if (value === 'boxed' || value === 'full') {
-				this.setAttribute('layout', value);
-			}
-		} else {
-			this.removeAttribute('layout');
-		}
+	set speed(value) {
+		if (value !== Number.isNaN(value)) {
+			this.setAttribute('amount', value);
+		} 
 	}
 
 	/**
@@ -279,6 +279,16 @@ export default class HTMLSliderElement extends HTMLElement {
 				y: (this.rails.offsetHeight / this.amount) * this.index
 			};
 		};
+
+		// Set default axis.
+		if (this.axis === null) {
+			this.axis = 'horizontal';
+		}
+
+		// Set default speed.
+		if (Number.isNaN(this.speed)) {
+			this.speed = 350;
+		}
 
 		// Get the buttons.
 		const buttons = this.querySelectorAll('button');
