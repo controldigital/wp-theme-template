@@ -184,9 +184,14 @@ export const onSlotChange = function onSlotChange(event) {
 	// Set tabindex
 	this.slides.forEach((slide, i) => slide.setAttribute('tabindex', i));
 
-	// Setup starting index.
+	// Set starting index.
 	if (Number.isNaN(this.index)) {
 		this.index = 0;
+	}
+
+	// Set default amount.
+	if (Number.isNaN(this.amount)) {
+		this.amount = 1;
 	}
 
 };
