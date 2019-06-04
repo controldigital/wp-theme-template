@@ -5,7 +5,7 @@
 /**
  * @class
  * @description
- * This class has static methods to
+ * An intrisic object class with static methods to
  * interface with the cookie of the document.
  */
 export default class Cookie {
@@ -40,12 +40,12 @@ export default class Cookie {
      * @method  	set
      * @param 		{String} name Name of cookie
      * @param 		{String} value Value of cookie
-     * @param 		{Number} expire When cookie expires in days
-     * @param 		{String} path Path to store cookie
+     * @param 		{Number} [expire] When cookie expires in days
+     * @param 		{String} [path] Path to store cookie
      * @param   	{String} [domain] The domain to store the cookie
      * @returns 	{String} Returns the cookie string
      */
-    static set(name, value, expire, path = '/', domain = location.hostname.replace(/^www\./i, "")) {
+    static set(name, value, expire = 365, path = '/', domain = location.hostname.replace(/^www\./i, "")) {
         const date = new Date();
         date.setTime(date.getTime() + (expire * 24 * 3600 * 1000));
         const expires = date.toUTCString();
