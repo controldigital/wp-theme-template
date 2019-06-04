@@ -2,7 +2,6 @@
  * @module		./components/slider/Slider
  */
 
-import HTMLSlidesCollection from './Collection';
 import {
 	onTouchStart,
 	onTouchMove,
@@ -17,7 +16,6 @@ import {
 	isIndexBetween,
 	hasFeatures,
 	isTouchDevice,
-	createDirections
 } from '../../modules/tools';
 
 
