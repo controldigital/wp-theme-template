@@ -2,6 +2,8 @@
  * @module		./components/slider/events
  */
 
+import HTMLSlidesCollection from './Collection';
+import { createDirections } from './directions.js';
 
 /**
  * @typedef		directionsObject
