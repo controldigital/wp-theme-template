@@ -202,6 +202,10 @@ export const hasFeatures = (...features) =>
 			return ('serviceWorker' in navigator);
 		} else if (feature === 'Web Audio API' || feature === 'AudioContext') {
 			return ('AudioContext' in window || 'webkitAudioContext' in window);
+		} else if (feature === 'Local Storage' || feature === 'localStorage') {
+			return ('localStorage' in window);
+		} else if (feature === 'Session Storage' || feature === 'sessionStorage') {
+			return ('sessionStorage' in window);
 		} else if (feature === 'Passive Events' || feature === 'passive') {
 			let supportsPassive = false;
 			try {
