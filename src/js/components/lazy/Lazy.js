@@ -7,6 +7,8 @@ import {
 	intersectionOptions,
 	onIntersect
 } from './intersection.js';
+import { createOptions } from './options.js';
+
 
 /**
  * Lazy
@@ -24,7 +26,7 @@ export default class HTMLLazyElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return [];
+		return ['root', 'root-margin', 'threshold'];
 	}
 
 	/**
@@ -33,8 +35,52 @@ export default class HTMLLazyElement extends HTMLElement {
 	constructor() {
 		super();
 
-		// Create a new IntersectionObserver instance.
-		this.observer = new IntersectionObserver(onIntersect, intersectionOptions);
+	}
+
+	/**
+	 * Gets and sets the root attribute.
+	 * @property
+	 */
+	get root() {
+		return this.getAttribute('root');
+	}
+
+	set root(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('root', value);
+		} 
+	}
+
+	/**
+	 * Gets and sets the root-margin attribute.
+	 * @property
+	 */
+	get rootMargin() {
+		return this.getAttribute('root-margin');
+	}
+
+	set rootMargin(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('root-margin', value);
+		} 
+	}
+
+	/**
+	 * Gets and sets the threshold attribute.
+	 * @property
+	 */
+	get threshold() {
+		const attr = this.getAttribute('threshold');
+		if (attr === null) {
+			return attr;
+		}
+		return attr.split(',').map(item => parseInt(item));
+	}
+
+	set threshold(value) {
+		if (value instanceof Array) {
+			this.setAttribute('threshold', value.join(','));
+		}
 	}
 
 	/**
@@ -47,6 +93,14 @@ export default class HTMLLazyElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
+		// Rewrite and create 
+		if (attrName === 'root' || attrName === 'root-margin' || attrName === 'threshold' ) {
+
+			this.createObserver();
+			this.observeImages();
+				
+		}
+
 	}
 
 	/**
@@ -57,13 +111,8 @@ export default class HTMLLazyElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
-		// Get all the images.
-		const images = [...this.querySelectorAll('img')];
-
-		// Observe only images with a data-src attribute.
-		images.filter(imageIsLazyLoadable).forEach((image) => {
-			this.observer.observe(image);
-		});
+		this.createObserver();
+		this.observeImages();
 
 	}
 
@@ -84,6 +133,45 @@ export default class HTMLLazyElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	adoptedCallback() {
+
+	}
+
+	/**
+	 * Creates options form the attributes and default options
+	 * and creates a new instance of an IntersectionObserver.
+	 * 
+	 * @method	createObserver
+	 * @returns	{void}
+	 */
+	createObserver() {
+
+		// Check for options.
+		const options = createOptions.call(this);
+
+		// Overwrite the intersection options.
+		Object.assign(intersectionOptions, options);
+
+		// Create a new IntersectionObserver instance.
+		this.observer = new IntersectionObserver(onIntersect, intersectionOptions);
+
+	}
+
+	/**
+	 * Queries all the <img> tags within the <ctrl-lazy> element
+	 * and adds them to the IntersectionObserver.
+	 * 
+	 * @method	observeImages
+	 * @returns	{void}
+	 */
+	observeImages() {
+
+		// Get all the images.
+		const images = [...this.querySelectorAll('img')];
+
+		// Observe only images with a data-src attribute.
+		images.filter(imageIsLazyLoadable).forEach((image) => {
+			this.observer.observe(image);
+		});
 
 	}
 
