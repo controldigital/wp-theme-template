@@ -12,6 +12,7 @@ import HTMLModalElement from './modal/Modal.js';
 import HTMLLazyElement from './lazy/Lazy.js';
 import HTMLCookieElement from './cookie/Cookie.js';
 import HTMLLikeElement from './like/Like.js';
+import HTMLAjaxElement from './ajax/Ajax.js';
 
 /**
  * A list with names and constructors for custom elements.
@@ -59,7 +60,7 @@ customElementsList.push({
 
 // Add ctrl-modal element.
 customElements.push({
-	name: 'HTMLModalElement',
+	name: 'ctrl-modal',
 	construct: HTMLModalElement
 });
 
@@ -79,6 +80,11 @@ customElements.push({
 customElements.push({
 	name: 'ctrl-like',
 	construct: HTMLLikeElement
+});
+
+customElements.push({
+	name: 'ctrl-ajax',
+	construct: HTMLAjaxElement
 });
 
 /**
