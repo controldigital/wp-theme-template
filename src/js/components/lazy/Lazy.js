@@ -11,7 +11,10 @@ import { createOptions } from './options.js';
 
 
 /**
- * Lazy
+ * Element that lazy loads all the images that exist within itself.
+ * Checks if the images have a data-src attribute and load it when
+ * the element comes within the margin of the root element (See IntersectionObserver).
+ * 
  * @class
  * @extends	HTMLElement
  */
@@ -34,6 +37,10 @@ export default class HTMLLazyElement extends HTMLElement {
 	 */
 	constructor() {
 		super();
+
+		// Bind the instance to the intersection function.
+		this.onIntersect = onIntersect.bind(this);
+		
 	}
 
 	/**
@@ -151,7 +158,7 @@ export default class HTMLLazyElement extends HTMLElement {
 		Object.assign(intersectionOptions, options);
 
 		// Create a new IntersectionObserver instance.
-		this.observer = new IntersectionObserver(onIntersect, intersectionOptions);
+		this.observer = new IntersectionObserver(this.onIntersect, intersectionOptions);
 
 	}
 
@@ -168,9 +175,7 @@ export default class HTMLLazyElement extends HTMLElement {
 		const images = [...this.querySelectorAll('img')];
 
 		// Observe only images with a data-src attribute.
-		images.filter(imageIsLazyLoadable).forEach((image) => {
-			this.observer.observe(image);
-		});
+		images.filter(imageIsLazyLoadable).forEach((image) => this.observer.observe(image));
 
 	}
 
