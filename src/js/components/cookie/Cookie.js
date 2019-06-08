@@ -2,6 +2,7 @@
  * @module		./components/cookie/Cookie
  */
 
+import { attachShadowToElement } from '../shadow.js';
 import { onSubmit } from './events.js';
 
 // ID of HTML template for Shadow DOM.
@@ -32,20 +33,8 @@ export default class HTMLCookieElement extends HTMLElement {
 	constructor() {
 		super();
 
-		// Create a new shadowDOM layer.
-		const shadow = this.attachShadow({mode: 'open'});
-		
-		// Create a template, add the styles and children.
-		const template = document.getElementById(templateId);
-		if (!template) {
-			throw new Error(`
-				The template with the id \"${templateId}\" has not been found.
-				Please append it to the body of the DOM.
-			`);
-		}
-
-		// Append the template to the shadowDOM.
-		shadow.appendChild(template.content.cloneNode(true));
+		// Create the Shadow DOM.
+		attachShadowToElement.call(this, templateId);
 
 		// Set the default role attribute, tab-index and  to modal.
 		this.setAttribute('role', 'dialog');
@@ -130,7 +119,9 @@ export default class HTMLCookieElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	destroy() {
+		
 		this.parentElement.removeChild(this);
+		
 	}
 
 }

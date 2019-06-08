@@ -2,6 +2,7 @@
  * @module		./components/slider/Slider
  */
 
+import { attachShadowToElement } from '../shadow.js';
 import {
 	onTouchStart,
 	onTouchMove,
@@ -10,13 +11,14 @@ import {
 	onKeyDown,
 	onMouseEnter,
 	onMouseEnter,
-	onButtonClick
-} from './events';
+	onButtonClick,
+	onSlotChange
+} from './events.js';
 import { 
 	isIndexBetween,
 	hasFeatures,
 	isTouchDevice,
-} from '../../modules/tools';
+} from '../../modules/tools.js';
 
 
 
@@ -51,26 +53,11 @@ export default class HTMLSliderElement extends HTMLElement {
 	constructor() {
 		super();
 
-		// Create a new shadowDOM layer.
-		const shadow = this.attachShadow({mode: 'open'});
-		
-		// Create a template, add the styles and children.
-		const template = document.getElementById(templateId);
-		if (!template) {
-			throw new Error(`
-				The template with the id \"${templateId}\" has not been found.
-				Please append it to the body of the DOM.
-			`);
-		}
-
-		// Append the template to the shadowDOM.
-		shadow.appendChild(template.content.cloneNode(true));
-
-		// Get the slide slot and listen for the onSlotChange event.
-		const slide = shadow.querySelector('slot[name=slide]');
-		slide.addEventListener('slotchange', onSlotChange.bind(this));
+		// Create the Shadow DOM.
+		const shadow = attachShadowToElement.call(this, templateId);
 
 		// Set the event handlers.
+		this.onSlotChange = onSlotChange.bind(this);
 		this.onTouchStart = onTouchStart.bind(this);
 		this.onTouchMove = onTouchMove.bind(this);
 		this.onTouchEnd = onTouchEnd.bind(this);
@@ -79,6 +66,10 @@ export default class HTMLSliderElement extends HTMLElement {
 		this.onMouseEnter = onMouseEnter.bind(this);
 		this.onMouseLeave = onMouseLeave.bind(this);
 		this.onButtonClick = onButtonClick.bind(this);
+
+		// Get the slide slot and listen for the onSlotChange event.
+		const slide = shadow.querySelector('slot[name=slide]');
+		slide.addEventListener('slotchange', this.onSlotChange);
 
 	}
 
@@ -245,13 +236,17 @@ export default class HTMLSliderElement extends HTMLElement {
 				this.slideToIndex(this.index);
 			}
 		} else if (attrName === 'moving') {
+			const moveStartEvent = new Event('movestart');
+			const moveEndEvent = new Event('moveend');
 			if (newValue !== null) {
 				const transition = `transform ${this.speed}ms ease-in-out`;
 				this.rails.style.webkitTransition = transition;
 				this.rails.style.transition = transition;
+				this.dispatchEvent(moveStartEvent);
 			} else {
 				this.rails.style.webkitTransition = '';
 				this.rails.style.transition = '';
+				this.dispatchEvent(moveEndEvent);
 			}
 		}
 

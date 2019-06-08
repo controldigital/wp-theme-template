@@ -1,18 +1,22 @@
 /**
- * @module		./components/slider/Slide
+ * @module		./components/tooltip/Tooltip
  */
 
 import { attachShadowToElement } from '../shadow.js';
 
-// ID of HTML template for Shadow DOM.
-const templateId = 'template-slide';
+const templateId = 'template-message';
+
+// The accepted values of the attributes.
+const acceptedTypes = ['warning', 'info', 'error'];
+const acceptedPositions = ['top', 'right', 'bottom', 'left'];
 
 /**
- * Slider
+ * Element to display a message with different styles.
+ * 
  * @class
  * @extends	HTMLElement
  */
-export default class HTMLSlideElement extends HTMLElement {
+export default class HTMLMessageElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
@@ -23,7 +27,7 @@ export default class HTMLSlideElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['active', 'focus'];
+		return ['position', 'type'];
 	}
 
 	/**
@@ -32,40 +36,37 @@ export default class HTMLSlideElement extends HTMLElement {
 	constructor() {
 		super();
 
-		// Create the Shadow DOM.
+		// Create a new shadow.
 		attachShadowToElement.call(this, templateId);
+
 	}
 
 	/**
-	 * Gets and sets the active attribute.
+	 * Gets and sets the position attribute.
 	 * @property
 	 */
-	get active() {
-		return this.getAttribute('active');
+	get position() {
+		return this.getAttribute('position');
 	}
 
-	set active(value) {
-		if (value === true) {
-			this.setAttribute('active', '');
-		} else {
-			this.removeAttribute('active');
-		}
+	set position(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('position', value);
+		} 
 	}
 
 	/**
-	 * Gets and sets the focus attribute.
+	 * Gets and sets the type attribute.
 	 * @property
 	 */
-	get focus() {
-		return this.getAttribute('focus');
+	get type() {
+		return this.getAttribute('type');
 	}
 
-	set focus(value) {
-		if (value === true) {
-			this.setAttribute('focus', '');
-		} else {
-			this.removeAttribute('focus');
-		}
+	set type(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('type', value);
+		} 
 	}
 
 	/**
@@ -77,20 +78,6 @@ export default class HTMLSlideElement extends HTMLElement {
 	 * @param 	{*} newValue New value of attribute.
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
-
-		// Change the aria attribute
-		if (attrName === 'active') {
-			let detail;
-			if (newValue === '') {
-				detail = { detail: false };
-				this.setAttribute('aria-hidden', false);
-			} else {
-				detail = { detail: true };
-				this.setAttribute('aria-hidden', true);
-			}
-			const activeChangeEvent = new CustomEvent('activechange', detail);
-			this.dispatchEvent(activeChangeEvent);
-		}
 
 	}
 

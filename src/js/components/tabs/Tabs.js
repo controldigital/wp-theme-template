@@ -2,6 +2,7 @@
  * @module		./components/tabs/Tabs
  */
 
+import { attachShadowToElement } from '../shadow.js';
 import {
 	onClick,
 	onKeyDown,
@@ -36,20 +37,8 @@ export default class HTMLTabsElement extends HTMLElement {
 	constructor() {
 		super();
 
-		// Create a new shadowDOM layer.
-		const shadow = this.attachShadow({mode: 'open'});
-		
-		// Create a template, add the styles and children.
-		const template = document.getElementById(templateId);
-		if (!template) {
-			throw new Error(`
-				The template with the id \"${templateId}\" has not been found.
-				Please append it to the body of the DOM.
-			`);
-		}
-
-		// Append the template to the shadowDOM.
-		shadow.appendChild(template.content.cloneNode(true));
+		// Create the Shadow DOM.
+		attachShadowToElement.call(this, templateId);
 
 		// Bind the event handlers.
 		this.onClick = onClick.bind(this);

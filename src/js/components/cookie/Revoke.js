@@ -1,18 +1,19 @@
 /**
- * @module		./components/slider/Slide
+ * @module		./components/cookie/Cookie
  */
 
 import { attachShadowToElement } from '../shadow.js';
+import { onSubmit } from './events.js';
 
 // ID of HTML template for Shadow DOM.
-const templateId = 'template-slide';
+const templateId = 'template-revoke';
 
 /**
- * Slider
+ * Cookie
  * @class
  * @extends	HTMLElement
  */
-export default class HTMLSlideElement extends HTMLElement {
+export default class HTMLCookieElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
@@ -23,7 +24,7 @@ export default class HTMLSlideElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['active', 'focus'];
+		return ['name'];
 	}
 
 	/**
@@ -34,38 +35,33 @@ export default class HTMLSlideElement extends HTMLElement {
 
 		// Create the Shadow DOM.
 		attachShadowToElement.call(this, templateId);
+
+		// Set the default role attribute, tab-index and  to modal.
+		this.setAttribute('role', 'dialog');
+		this.setAttribute('aria-modal', true);
+		this.setAttribute('aria-label', 'cookie revoke');
+		this.tabIndex = '-1';
+
+		// Bind the events.
+		this.onSubmit = onSubmit.bind(this);
+
+		// The cookie form.
+		this.form = this.querySelector('form');
+
 	}
 
 	/**
-	 * Gets and sets the active attribute.
+	 * Gets and sets the name attribute.
 	 * @property
 	 */
-	get active() {
-		return this.getAttribute('active');
+	get name() {
+		return this.getAttribute('name');
 	}
 
-	set active(value) {
-		if (value === true) {
-			this.setAttribute('active', '');
-		} else {
-			this.removeAttribute('active');
-		}
-	}
-
-	/**
-	 * Gets and sets the focus attribute.
-	 * @property
-	 */
-	get focus() {
-		return this.getAttribute('focus');
-	}
-
-	set focus(value) {
-		if (value === true) {
-			this.setAttribute('focus', '');
-		} else {
-			this.removeAttribute('focus');
-		}
+	set name(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('name', value);
+		} 
 	}
 
 	/**
@@ -78,20 +74,6 @@ export default class HTMLSlideElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
-		// Change the aria attribute
-		if (attrName === 'active') {
-			let detail;
-			if (newValue === '') {
-				detail = { detail: false };
-				this.setAttribute('aria-hidden', false);
-			} else {
-				detail = { detail: true };
-				this.setAttribute('aria-hidden', true);
-			}
-			const activeChangeEvent = new CustomEvent('activechange', detail);
-			this.dispatchEvent(activeChangeEvent);
-		}
-
 	}
 
 	/**
@@ -101,6 +83,9 @@ export default class HTMLSlideElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	connectedCallback() {
+
+		// Listen to the events.
+		this.form.addEventListener('submit', this.onSubmit);
 
 	}
 
@@ -112,6 +97,9 @@ export default class HTMLSlideElement extends HTMLElement {
 	 */
 	disconnectedCallback() {
 
+		// Remove the event listeners.
+		this.form.removeEventListener('submit', this.onSubmit);
+
 	}
 
 	/**
@@ -122,6 +110,18 @@ export default class HTMLSlideElement extends HTMLElement {
 	 */
 	adoptedCallback() {
 
+	}
+
+	/**
+	 * Removes this element from the DOM.
+	 * 
+	 * @method	destroy
+	 * @returns	{void}
+	 */
+	destroy() {
+		
+		this.parentElement.removeChild(this);
+		
 	}
 
 }
