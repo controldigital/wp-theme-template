@@ -21,7 +21,7 @@ export const intersectionOptions = {
  * @param 		{IntersectionObserverEntry[]} entries 
  * @returns		{void}
  */
-export const onIntersect = (entries, observer) => {
+export const onIntersect = function(entries, observer) {
 	entries.forEach((entry) => {
 		const { target, isIntersecting, intersectionRatio } = entry;
 		if (isIntersecting || intersectionRatio > 0) {
