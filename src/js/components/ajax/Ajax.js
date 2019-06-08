@@ -78,12 +78,16 @@ export default class HTMLAjaxElement extends HTMLElement {
 		if (attrName === 'url') {
 			if (newValue !== null) {
 
-				// Dispatch fetch start event.
-				const fetchStartEvent = new Event('fetchstart');
-				this.dispatchEvent(fetchStartEvent);
-
 				// Create a new url.
 				const url = new URL(newValue);
+
+				// Dispatch fetch start event.
+				const fetchStartEvent = new CustomEvent('fetchstart', {
+					detail: {
+						url: url
+					}
+				});
+				this.dispatchEvent(fetchStartEvent);
 
 				// Set fetching attribute.
 				this.fetching = true;
@@ -94,8 +98,11 @@ export default class HTMLAjaxElement extends HTMLElement {
 				// Check the response, dispatch done event and replace the innerHTML.
 				if (response.ok && response.status === 200) {
 					const textResponse = await response.text();
-					const detail = { detail: textResponse }
-					const fetchDoneEvent = new CustomEvent('fetchdone', detail);
+					const fetchDoneEvent = new CustomEvent('fetchdone', { 
+						detail: {
+							response: textResponse
+						}
+					});
 					this.dispatchEvent(fetchDoneEvent);
 					this.innerHTML = textResponse;
 				}
