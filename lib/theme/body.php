@@ -18,20 +18,13 @@
 add_action( 'wp_body_open', 'body_web_components' );
 function body_web_components() {
 
-    // Card
-    get_template_part( './inc/templates/template', 'card' );
+    $template = './inc/templates/template';
+    $template_names = array( 'card', 'slider', 'slide', 'tabs', 'modal', 'message', 'like' );
 
-    // Slider
-    get_template_part( './inc/templates/template', 'slider' );
+    foreach ( $template_names as $name ) {
+        get_template_part( $template, $name );
+    }
 
-    // Slide
-    get_template_part( './inc/templates/template', 'slide' );
-
-    // Tabs
-    get_template_part( './inc/templates/template', 'tabs' );
-
-    // Modal
-    get_template_part( './inc/templates/template', 'modal' );
 }
 
 
