@@ -42,6 +42,10 @@
             flex: 1 1 100%;
         }
 
+        .footer {
+            flex: 0 1 auto;
+        }
+
     </style>
 
     <article class="container">
@@ -56,6 +60,10 @@
         <div class="body">
             <slot name="body"></slot>
         </div>
+
+        <footer class="footer">
+            <slot name="footer"></slot>
+        </footer>
 
     </article>
 
