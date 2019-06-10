@@ -93,7 +93,7 @@ const wheelThreshold = 50;
  * @param 		{Event} event 
  * @returns		{void}
  */
-export const onWheel = function onWheel() {
+export const onWheel = function onWheel({ deltaY }) {
 	const { deltaY } = event;
 	const absoluteDelta = Math.abs(deltaY);
 	if (this.moving === null && absoluteDelta >= wheelThreshold) {
@@ -110,8 +110,7 @@ export const onWheel = function onWheel() {
  * @param 		{Event} event 
  * @returns		{void}
  */
-export const onKeyDown = function onKeyDown(event) {
-	const { keyCode } = event;
+export const onKeyDown = function onKeyDown({ keyCode }) {
 	if (this.axis === 'horizontal') {
 		switch(keyCode) {
 			case 37: // Arrow left

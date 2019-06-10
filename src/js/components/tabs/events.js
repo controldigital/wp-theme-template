@@ -8,8 +8,7 @@
  * @param 		{Event} event 
  * @returns		{void}
  */
-export const onClick = function onClick(event) {
-	const { target } = event;
+export const onClick = function onClick({ target }) {
 	const tab = target.closest('ctrl-tab');
 	if (tab) {
 		const tabs = this.tabs;
@@ -25,8 +24,7 @@ export const onClick = function onClick(event) {
  * @param 		{Event} event 
  * @returns		{void}
  */
-export const onKeyDown = function onKeyDown(event) {
-	const { keyCode } = event;
+export const onKeyDown = function onKeyDown({ keyCode }) {
 	switch(keyCode) {
 		case 37: // Arrow left
 		case 38: // Arrow up

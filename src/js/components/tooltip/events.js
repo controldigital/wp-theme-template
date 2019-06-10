@@ -31,8 +31,8 @@ export const onSlotChange = function onSlotChange() {
  * @param 		{Event} event
  * @returns		{void} 
  */
-export const onMouseEnter = function onMouseEnter(event) {
-	const { target } = event;
+export const onMouseEnter = function onMouseEnter({ target }) {
+	
 };
 
 /**
@@ -42,6 +42,6 @@ export const onMouseEnter = function onMouseEnter(event) {
  * @param 		{Event} event
  * @returns		{void} 
  */
-export const onMouseLeave = function onMouseLeave(event) {
-	const { target } = event;
+export const onMouseLeave = function onMouseLeave({ target }) {
+	
 };
