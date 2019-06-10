@@ -12,7 +12,7 @@ import HTMLModalElement from './modal/Modal.js';
 import HTMLLazyElement from './lazy/Lazy.js';
 import HTMLCookieElement from './cookie/Cookie.js';
 import HTMLLikeElement from './like/Like.js';
-import HTMLAjaxElement from './ajax/Ajax.js';
+import HTMLViewElement from './view/View.js';
 import HTMLMessageElement from './message/Message.js';
 import HTMLTooltipElement from './tooltip/Tooltip.js';
 
@@ -84,10 +84,10 @@ customElements.push({
 	construct: HTMLLikeElement
 });
 
-// Add ctrl-ajax element.
+// Add ctrl-view element.
 customElements.push({
-	name: 'ctrl-ajax',
-	construct: HTMLAjaxElement
+	name: 'ctrl-view',
+	construct: HTMLViewElement
 });
 
 // Add ctrl-message element.

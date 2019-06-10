@@ -11,7 +11,7 @@
  * @class
  * @extends	HTMLElement
  */
-export default class HTMLAjaxElement extends HTMLElement {
+export default class HTMLViewElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
