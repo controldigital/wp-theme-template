@@ -21,11 +21,11 @@ export const onClick = function onClick(event) {
  * @param 		{Event} event 
  * @returns		{void}
  */
-export const onKeyDown = function onKeyDown(event) {
-	const { keyCode } = event;
+export const onKeyDown = function onKeyDown({ keyCode }) {
 	switch(keyCode) {
 		case 27: // Escape
 			this.open = false;
+			break;
 	}
 };
 
