@@ -18,7 +18,7 @@ const templateId = 'template-tooltip';
  * @class
  * @extends	HTMLElement
  */
-export default class HTMLToolTipElement extends HTMLElement {
+export default class HTMLTooltipElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
