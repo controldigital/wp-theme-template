@@ -2,10 +2,20 @@
  * @module		./components/like/Like
  */
 
-import Cookie from '../../modules/Cookie.js';
+import { attachShadowToElement } from '../shadow.js';
+import { onChange } from './events.js';
+import {
+	createStorage,
+	addIdToStorage,
+	removeIdFromStorage,
+	checkStorageForId
+} from './storage.js';
 
 // ID of HTML template for Shadow DOM.
-// const templateId = 'template-like';
+const templateId = 'template-like';
+
+// The accepted values of  the type attribute.
+const acceptedTypes = ['thumb', 'heart', 'star'];
 
 /**
  * Like
@@ -23,7 +33,7 @@ export default class HTMLLikeElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['type', 'clicked'];
+		return ['type', 'clicked', 'value'];
 	}
 
 	/**
@@ -32,20 +42,11 @@ export default class HTMLLikeElement extends HTMLElement {
 	constructor() {
 		super();
 
-		// Create a new shadowDOM layer.
-		const shadow = this.attachShadow({mode: 'open'});
-		
-		// Create a template, add the styles and children.
-		const template = document.getElementById(templateId);
-		if (!template) {
-			throw new Error(`
-				The template with the id \"${templateId}\" has not been found.
-				Please append it to the body of the DOM.
-			`);
-		}
+		// Create the Shadow DOM.
+		attachShadowToElement.call(this, templateId);
 
-		// Append the template to the shadowDOM.
-		shadow.appendChild(template.content.cloneNode(true));
+		// Bind the event listener.
+		this.onChange = onChange.bind(this);
 		
 	}
 
@@ -59,9 +60,21 @@ export default class HTMLLikeElement extends HTMLElement {
 
 	set type(value) {
 		if ('string' === typeof value) {
-			if (value === 'heart' || value === 'like' || value === 'favorite') {
-				this.setAttribute('type', value);
-			}
+			this.setAttribute('type', value);
+		} 
+	}
+
+	/**
+	 * Gets and sets the value attribute.
+	 * @property
+	 */
+	get value() {
+		return this.getAttribute('value');
+	}
+
+	set value(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('value', value);
 		} 
 	}
 
@@ -69,13 +82,13 @@ export default class HTMLLikeElement extends HTMLElement {
 	 * Gets and sets the name attribute.
 	 * @property
 	 */
-	get cookieName() {
-		return this.getAttribute('cookie-name');
+	get storageName() {
+		return this.getAttribute('storage-name');
 	}
 
-	set cookieName(value) {
+	set storageName(value) {
 		if ('string' === typeof value) {
-			this.setAttribute('cookie-name', value);
+			this.setAttribute('storage-name', value);
 		} 
 	}
 
@@ -96,6 +109,22 @@ export default class HTMLLikeElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets and sets the useLocalStorage attribute.
+	 * @property
+	 */
+	get useLocalStorage() {
+		return this.getAttribute('use-local-storage');
+	}
+
+	set useLocalStorage(value) {
+		if (value === true) {
+			this.setAttribute('use-local-storage', '');
+		} else {
+			this.removeAttribute('use-local-storage');
+		}
+	}
+
+	/**
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
@@ -107,7 +136,19 @@ export default class HTMLLikeElement extends HTMLElement {
 
 		if (attrName === 'clicked') {
 			if (newValue !== null) {
-				
+				addIdToStorage(this.storage, this.storageName, this.id);
+			} else {
+				removeIdFromStorage(this.storage, this.storageName, this.id);
+			}
+		} 
+
+		else if (attrName === 'type') {
+			if (newValue !== null) {
+
+				if (acceptedTypes.some(type => type === newValue)) {
+
+				}
+
 			}
 		}
 
@@ -121,16 +162,28 @@ export default class HTMLLikeElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
-		const name = this.cookieName;
-		const cookie = Cookie.get(name);
+		const form = this.querySelector('form');
+		form.addEventListener('change', this.onChange);
 
-		if (cookie) {
-			const values = JSON.parse(cookie);
-			if (values.indexOf(this.id) > -1) {
-				this.clicked = true;
-			}
-		} else {
-			Cookie.set(name, JSON.stringify([]), 365, '/');
+		// Set default type.
+		if (this.type === null) {
+			this.type = 'like';
+		}
+
+		// Create the proper storage methods.
+		this.storage = this.useLocalStorage !== null ? 
+			createStorage('local') : 
+			createStorage('cookie');
+
+		// Check if the id is in the storage.
+		const storageContainsId = checkStorageForId(this.storage, this.storageName, this.id);
+		if (storageContainsId) {
+			this.clicked = true;
+		}
+
+		if (this.clicked === true) {
+			const checkbox = this.querySelector('input');
+			checkbox.checked = true;
 		}
 
 	}
