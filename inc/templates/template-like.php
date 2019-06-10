@@ -11,9 +11,31 @@ global $wp;
 
 <template id="template-like">
 
+	<style>
+
+		*, 
+		*::before, 
+		*::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		:host {
+			all: initial;
+			display: block;
+			contain: content;
+		}
+
+		input {
+			display: none;
+		}
+
+	</style>
+
 	<form class="form" method="GET" action="<?php echo home_url( $wp->request ); ?>">
-		<input id="like-<?php the_id(); ?>" type="checkbox" name="liked" value="<?php the_id(); ?>">
-		<label for="like-<?php the_id(); ?>" class="like">
+		<label class="like">
+			<input type="checkbox" name="liked" value="">
 			<span class="icon"></span>
 		</label>
 	</form>
