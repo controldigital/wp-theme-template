@@ -98,7 +98,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	set axis(value) {
 		if ('string' === typeof value) {
 			if (value === 'horizontal' || value === 'vertical') {
-				this.setAttribute('active', value);
+				this.setAttribute('axis', value);
 			}
 		} 
 	}
