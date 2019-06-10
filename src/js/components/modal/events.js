@@ -36,7 +36,7 @@ export const onKeyDown = function onKeyDown({ keyCode }) {
  */
 export const onLabelSlotChange = function onLabelSlotChange() {
 	const label = this.querySelector('[slot=label]');
-	if (label.id) {
+	if (label.id !== '') {
 		this.setAttribute('aria-labelledby', label.id);
 	}
 };
@@ -48,7 +48,7 @@ export const onLabelSlotChange = function onLabelSlotChange() {
  */
 export const onDescriptionSlotChange = function onDescriptionSlotChange() {
 	const description = this.querySelector('[slot=description]');
-	if (description.id) {
+	if (description.id !== '') {
 		this.setAttribute('aria-describedby', description.id);
 	}
 };
