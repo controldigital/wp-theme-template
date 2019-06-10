@@ -2,6 +2,7 @@
  * @module		./components/ajax/Ajax
  */
 
+import { fetchUrlAndReplaceInnerHTML } from './fetch.js';
 
 /**
  * Element that fetches and inserts variable content based
@@ -78,37 +79,8 @@ export default class HTMLViewElement extends HTMLElement {
 		if (attrName === 'url') {
 			if (newValue !== null) {
 
-				// Create a new url.
-				const url = new URL(newValue);
-
-				// Dispatch fetch start event.
-				const fetchStartEvent = new CustomEvent('fetchstart', {
-					detail: {
-						url: url
-					}
-				});
-				this.dispatchEvent(fetchStartEvent);
-
-				// Set fetching attribute.
-				this.fetching = true;
-
-				// Fetch the url.
-				const response = await fetch(url);
-
-				// Check the response, dispatch done event and replace the innerHTML.
-				if (response.ok && response.status === 200) {
-					const textResponse = await response.text();
-					const fetchDoneEvent = new CustomEvent('fetchdone', { 
-						detail: {
-							response: textResponse
-						}
-					});
-					this.dispatchEvent(fetchDoneEvent);
-					this.innerHTML = textResponse;
-				}
-
-				// Remove fetching attribute
-				this.fetching = false;
+				// Fetch url and replace the innerHTML.
+				await fetchUrlAndReplaceInnerHTML.call(this, newValue);
 				
 			}
 		}
