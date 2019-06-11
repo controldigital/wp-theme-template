@@ -94,7 +94,6 @@ const wheelThreshold = 50;
  * @returns		{void}
  */
 export const onWheel = function onWheel({ deltaY }) {
-	const { deltaY } = event;
 	const absoluteDelta = Math.abs(deltaY);
 	if (this.moving === null && absoluteDelta >= wheelThreshold) {
 		if (deltaY < 0) {
