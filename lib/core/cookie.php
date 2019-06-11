@@ -40,6 +40,16 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 			'default'			=> 'wp-cookie-consent'
 		)
 	);
+
+	// Cookie thumbnail setting
+	$wp_customize->add_setting(
+		'cookie_thumbnail',
+		array(
+			'transport'			=> 'refresh',
+			'capability'		=> 'edit_theme_options',
+			'type'				=> 'theme_mod',
+		)
+	);
 	
 	// Cookie title setting
 	$wp_customize->add_setting(
@@ -180,8 +190,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 			'priority'       => 10,
 			'capability'     => 'edit_theme_options',
 			'theme_supports' => '',
-			'title'          => __( 'Cookies', 'text_domain' ),
-			'description'    => __( 'Cookie Settings', 'text_domain' ),
+			'title'          => __( 'Cookies', THEME_TEXT_DOMAIN ),
+			'description'    => __( 'Cookie Settings', THEME_TEXT_DOMAIN ),
 		)
 	);
 
@@ -189,7 +199,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 	$wp_customize->add_section(
 		'cookie_general_section',
 		array(
-			'title'				=> __( 'General', 'text_domain' ),
+			'title'				=> __( 'General', THEME_TEXT_DOMAIN ),
 			'priority'			=> 10,
 			'panel'				=> 'cookie_panel'
 		)
@@ -199,7 +209,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 	$wp_customize->add_section(
 		'cookie_refuse_section',
 		array(
-			'title'				=> __( 'Refuse', 'text_domain' ),
+			'title'				=> __( 'Refuse', THEME_TEXT_DOMAIN ),
 			'priority'			=> 20,
 			'panel'				=> 'cookie_panel'
 		)
@@ -209,7 +219,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 	$wp_customize->add_section(
 		'cookie_privacy_section',
 		array(
-			'title'				=> __( 'Privacy policy', 'text_domain' ),
+			'title'				=> __( 'Privacy policy', THEME_TEXT_DOMAIN ),
 			'priority'			=> 30,
 			'panel'				=> 'cookie_panel'
 		)
@@ -219,7 +229,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 	$wp_customize->add_section(
 		'cookie_revoke_section',
 		array(
-			'title'				=> __( 'Revoke', 'text_domain' ),
+			'title'				=> __( 'Revoke', THEME_TEXT_DOMAIN ),
 			'priority'			=> 40,
 			'panel'				=> 'cookie_panel'
 		)
@@ -229,7 +239,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 	$wp_customize->add_section(
 		'cookie_scripts_section',
 		array(
-			'title'				=> __( 'Scripts', 'text_domain' ),
+			'title'				=> __( 'Scripts', THEME_TEXT_DOMAIN ),
 			'priority'			=> 50,
 			'panel'				=> 'cookie_panel'
 		)
@@ -240,8 +250,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_active',
 		array(
-			'label'      		=> __( 'Cookie active?', 'text_domain' ),
-			'description'		=> __( 'Set the state of the cookie.', 'text_domain' ),
+			'label'      		=> __( 'Cookie active?', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Set the state of the cookie.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_general_section',
 			'settings'   		=> 'cookie_active',
 			'type'				=> 'checkbox',
@@ -254,12 +264,25 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_name',
 		array(
-			'label'      		=> __( 'Name', 'text_domain' ),
-			'description'		=> __( 'The name of the cookie that will be stored in the browser. Only needs to be changed in case of a conflicting cookie name.', 'text_domain' ),
+			'label'      		=> __( 'Name', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'The name of the cookie that will be stored in the browser. Only needs to be changed in case of a conflicting cookie name.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_general_section',
 			'settings'   		=> 'cookie_name',
 			'type'				=> 'text',
 	        'priority'   		=> 20
+		)
+	) );
+
+	// Cookie thumbnail image input control
+	$wp_customize->add_control( new WP_Customize_Image_Control(
+		$wp_customize,
+		'cookie_thumbnail',
+		array(
+			'label'				=> __( 'Thumbnail', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'The thumbnail image of the cookie message.', THEME_TEXT_DOMAIN ),
+			'section'			=> 'cookie_general_section',
+			'settings'			=> 'cookie_thumbnail',
+			'priority'			=> 25
 		)
 	) );
 	
@@ -268,8 +291,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_title',
 		array(
-			'label'      		=> __( 'Title', 'text_domain' ),
-			'description'		=> __( 'The title of the cookie message.', 'text_domain' ),
+			'label'      		=> __( 'Title', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'The title of the cookie message.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_general_section',
 			'settings'   		=> 'cookie_title',
 			'type'				=> 'text',
@@ -282,8 +305,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_body',
 		array(
-			'label'      		=> __( 'Body', 'text_domain' ),
-			'description'		=> __( 'The main content of the cookie message.', 'text_domain' ),
+			'label'      		=> __( 'Body', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'The main content of the cookie message.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_general_section',
 			'settings'   		=> 'cookie_body',
 			'type'				=> 'textarea',
@@ -296,18 +319,18 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_expiration_date',
 		array(
-			'label'      		=> __( 'Expiration period', 'text_domain' ),
-			'description'		=> __( 'The amount of time that the cookie will be stored', 'text_domain' ),
+			'label'      		=> __( 'Expiration period', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'The amount of time that the cookie will be stored', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_general_section',
 			'settings'   		=> 'cookie_expiration_date',
 			'type'				=> 'select',
 			'choices'			=> array(
-				1					=> __( '1 day', 'text_domain' ),
-				7					=> __( '1 week', 'text_domain' ),
-				30					=> __( '1 month', 'text_domain' ),
-				91					=> __( '3 months', 'text_domain' ),
-				182					=> __( '6 months', 'text_domain' ),
-				365					=> __( '1 year', 'text_domain' ),
+				1					=> __( '1 day', THEME_TEXT_DOMAIN ),
+				7					=> __( '1 week', THEME_TEXT_DOMAIN ),
+				30					=> __( '1 month', THEME_TEXT_DOMAIN ),
+				91					=> __( '3 months', THEME_TEXT_DOMAIN ),
+				182					=> __( '6 months', THEME_TEXT_DOMAIN ),
+				365					=> __( '1 year', THEME_TEXT_DOMAIN ),
 
 			),
 	        'priority'   		=> 50
@@ -319,8 +342,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_accept_label',
 		array(
-			'label'      		=> __( 'Accept button', 'text_domain' ),
-			'description'		=> __( 'Label of the accept button.', 'text_domain' ),
+			'label'      		=> __( 'Accept button', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Label of the accept button.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_general_section',
 			'settings'   		=> 'cookie_accept_label',
 			'type'				=> 'text',
@@ -333,8 +356,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_refuse_active',
 		array(
-			'label'      		=> __( 'Refuse active?', 'text_domain' ),
-			'description'		=> __( 'Set the state of the refuse button.', 'text_domain' ),
+			'label'      		=> __( 'Refuse active?', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Set the state of the refuse button.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_refuse_section',
 			'settings'   		=> 'cookie_refuse_active',
 			'type'				=> 'checkbox',
@@ -347,8 +370,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_refuse_label',
 		array(
-			'label'      		=> __( 'Refuse button', 'text_domain' ),
-			'description'		=> __( 'Label of the refuse button.', 'text_domain' ),
+			'label'      		=> __( 'Refuse button', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Label of the refuse button.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_refuse_section',
 			'settings'   		=> 'cookie_refuse_label',
 			'type'				=> 'text',
@@ -360,8 +383,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_read_more_active',
 		array(
-			'label'      		=> __( 'Privacy policy active?', 'text_domain' ),
-			'description'		=> __( 'Set the state of the privacy policy button.', 'text_domain' ),
+			'label'      		=> __( 'Privacy policy active?', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Set the state of the privacy policy button.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_privacy_section',
 			'settings'   		=> 'cookie_read_more_active',
 			'type'				=> 'checkbox',
@@ -374,8 +397,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_read_more_label',
 		array(
-			'label'      		=> __( 'Privacy policy button', 'text_domain' ),
-			'description'		=> __( 'Label of the privacy policy button.', 'text_domain' ),
+			'label'      		=> __( 'Privacy policy button', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Label of the privacy policy button.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_privacy_section',
 			'settings'   		=> 'cookie_read_more_label',
 			'type'				=> 'text',
@@ -387,7 +410,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 	// Create a new array with a default option
 	$read_more_pages = get_pages();
 	$read_more_choices = array(
-		'0'			=> __( '-Select-', 'text_domain' )
+		'0'			=> __( '-Select-', THEME_TEXT_DOMAIN )
 	);
 
 	// Add all the pages with their ID's and titles to the array
@@ -400,8 +423,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_read_more_page',
 		array(
-			'label'      		=> __( 'Privacy policy page', 'text_domain' ),
-			'description'		=> __( 'Selecteer the page of the privacy policy.', 'text_domain' ),
+			'label'      		=> __( 'Privacy policy page', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Selecteer the page of the privacy policy.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_privacy_section',
 			'settings'   		=> 'cookie_read_more_page',
 			'type'				=> 'select',
@@ -415,8 +438,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_revoke_active',
 		array(
-			'label'      		=> __( 'Revoke active?', 'text_domain' ),
-			'description'		=> __( 'Set the state of the ability to change the cookie settings after accepting or refusing the cookies.', 'text_domain' ),
+			'label'      		=> __( 'Revoke active?', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Set the state of the ability to change the cookie settings after accepting or refusing the cookies.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_revoke_section',
 			'settings'   		=> 'cookie_revoke_active',
 			'type'				=> 'checkbox',
@@ -429,8 +452,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_revoke_label',
 		array(
-			'label'      		=> __( 'Revoke button', 'text_domain' ),
-			'description'		=> __( 'Label of the revoke button.', 'text_domain' ),
+			'label'      		=> __( 'Revoke button', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Label of the revoke button.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_revoke_section',
 			'settings'   		=> 'cookie_revoke_label',
 			'type'				=> 'text',
@@ -443,8 +466,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_code_head',
 		array(
-			'label'      		=> __( 'Head scripts', 'text_domain' ),
-			'description'		=> __( 'Place scripts that have to be appended to the head when the cookie is accepted', 'text_domain' ),
+			'label'      		=> __( 'Head scripts', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Place scripts that have to be appended to the head when the cookie is accepted.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_scripts_section',
 			'settings'   		=> 'cookie_code_head',
 			'type'				=> 'textarea',
@@ -457,8 +480,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_code_body',
 		array(
-			'label'      		=> __( 'Body scripts', 'text_domain' ),
-			'description'		=> __( 'Place scripts that have to be appended to the start of the body when the cookie is accepted', 'text_domain' ),
+			'label'      		=> __( 'Body scripts', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Place scripts that have to be appended to the start of the body when the cookie is accepted.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_scripts_section',
 			'settings'   		=> 'cookie_code_body',
 			'type'				=> 'textarea',

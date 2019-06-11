@@ -7,8 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "gulp"
+    "gulpwatch": "gulp watch",
+    "gulpstyles": "gulp styles",
+    "gulpscripts": "gulp scripts --mode development"
   },
   "repository": {
     "type": "git",
@@ -28,15 +29,22 @@
   },
   "homepage": "https://github.com/controldigital/wp-theme-template#readme",
   "devDependencies": {
-    "autoprefixer": "^9.1.5",
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.6.1",
-    "cssnano": "^4.1.4",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/plugin-transform-regenerator": "^7.4.4",
+    "babel-loader": "^8.0.4",
     "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.1",
-    "gulp-babel-minify": "^0.4.3",
+    "gulp-autoprefixer": "^6.1.0",
     "gulp-penthouse": "^0.2.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-real-favicon": "^0.3.0"
+    "gulp-real-favicon": "^0.3.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-watch": "^5.0.0",
+    "node-sass": "^4.12.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4"
   }
 }

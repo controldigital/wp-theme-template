@@ -8,13 +8,11 @@
 get_header();
 ?>
 
-<?php if ( have_posts() ) { while ( have_posts() ) { the_post(); ?>
-
-
-<?php } } else { ?>
-
-
-<?php } ?>
+<main id="main" class="js-ajax-container" role="main">
+	
+	<?php get_template_part( './inc/content/content', 'search' ); ?>
+	
+</main>
 
 <?php
 get_footer();

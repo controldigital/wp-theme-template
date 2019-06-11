@@ -40,7 +40,7 @@ WordPress consists mostly of templates. Most of these templates are defaults tha
 - front-page.php: The homepage template for a page
 
 ### Partials
--	header.php: Template that contains the beginning of the HTML document such as `<head>` and meta tags
+- header.php: Template that contains the beginning of the HTML document such as `<head>` and meta tags
 - footer.php: Template which contains the ending of the HTML document. Scripts can be loaded in here
 - sidebar.php: Optional sidebar template for displaying a sidebar on the page
 - comments.php: Optional custom comments template

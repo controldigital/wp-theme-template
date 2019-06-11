@@ -72,11 +72,11 @@ function custom_password_form() {
     $label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
     $o = 
     	'<form class="search" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">
-			<p>' . __( 'The content has been secured with a password. Fill in the password below to view the content:', 'control' ) . '</p>
-			<label for="' . $label . '">' . __( 'Password:', 'control' ) . ' </label>
+			<p>' . __( 'The content has been secured with a password. Fill in the password below to view the content:', THEME_TEXT_DOMAIN ) . '</p>
+			<label for="' . $label . '">' . __( 'Password:', THEME_TEXT_DOMAIN ) . ' </label>
 			<div class="search__fields">
 				<input name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" />
-				<input type="submit" name="Submit" value="' . esc_attr__( 'Send', 'control' ) . '" />
+				<input type="submit" name="Submit" value="' . esc_attr__( 'Send', THEME_TEXT_DOMAIN ) . '" />
 			</div>
 		</form>';
     return $o;
@@ -95,8 +95,9 @@ function custom_password_form() {
 add_filter( 'intermediate_image_sizes_advanced', 'remove_default_image_sizes', 10, 1 );
 function remove_default_image_sizes( $sizes ) {
 
+	// 'thumbnail', 'medium', 'medium_large', 'large'
 	// Sizes to remove
-	// $needles = array( 'thumbnail', 'medium', 'medium_large', 'large' );
+	$needles = array();
 
 	/**
 	 * Loop trough the sizes and remove 

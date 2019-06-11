@@ -1,0 +1,39 @@
+$hero-height: 31.25rem;
+
+.hero {
+	display: grid;
+	grid-template-columns: 1fr minmax(min-content, $container-width) 1fr;
+	grid-template-rows: 1fr;
+	position: relative;
+	width: 100%;
+
+	&--default {
+		height: $hero-height;
+
+		@include breakpoint(768) {
+			$hero-height: 25rem;
+		}
+	}
+
+	&__thumbnail {
+		grid-area: 1 / 1 / 2 / 4;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-color: #f0f0f0;
+	}
+
+	&__container {
+		grid-area: 1 / 2 / 2 / 3;
+		display: grid;
+		grid-template-rows: 1fr;
+		grid-template-columns: 1fr;
+		align-items: center;
+		padding: 0 1rem;
+	}
+
+	&__content {
+		
+	}
+
+}

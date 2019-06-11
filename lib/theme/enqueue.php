@@ -72,10 +72,10 @@ function custom_script_attributes( $tag, $handle, $src ) {
 add_action( 'wp_enqueue_scripts', 'theme_styles' );
 function theme_styles() {
 
-	// wp_register_style( 'flexgrid', get_template_directory_uri() . '/css/flexgrid/flexgrid.min.css', false, false, 'all' );
+	// wp_register_style( 'flexgrid', get_template_directory_uri() . 'assets/components/css/flexgrid/flexgrid.min.css', false, false, 'all' );
 	// wp_enqueue_style( 'flexgrid' );
 
-	// wp_register_style( 'animate', get_template_directory_uri() . '/css/animate/animate.css', false, false, 'all' );
+	// wp_register_style( 'animate', get_template_directory_uri() . 'assets/components/css/animate/animate.css', false, false, 'all' );
 	// wp_enqueue_style( 'animate' );
 
 	/**
@@ -111,8 +111,7 @@ function theme_styles() {
 	 * 
 	 * Main stylesheet of this theme
 	 */
-	$style_path = THEME_DEV_MODE ? '/' : '/dist/css/';
-	wp_register_style( 'style', get_template_directory_uri() . $style_path . 'style.css', false, false, 'all' );
+	wp_register_style( 'style', get_template_directory_uri() . '/dist/style.css', false, false, 'all' );
 	wp_enqueue_style( 'style' );
 
 }
@@ -240,7 +239,7 @@ function theme_scripts() {
 	 */
 	$cookie_active = get_theme_mod( 'cookie_active' );
 	if ( $cookie_active ) {
-		wp_register_script( 'cookie', get_template_directory_uri() . '/js/cookies/cookies.js', false, false, true );
+		wp_register_script( 'cookie', get_template_directory_uri() . '/assets/cookies/cookies.js', false, false, true );
 		wp_localize_script( 'cookie', 'cookieArgs', array(
 			'name'				=> get_theme_mod( 'cookie_name' ),
 			'expire'			=> get_theme_mod( 'cookie_expiration_date' ),
@@ -256,8 +255,7 @@ function theme_scripts() {
 	 * This file includes the general script of handling
 	 * interactions and DOM modifications
 	 */
-	$script_path = THEME_DEV_MODE ? '/js/' : '/dist/js/';
-	wp_register_script( 'script', get_template_directory_uri() . $script_path . 'script.js', false, false, true );
+	wp_register_script( 'script', get_template_directory_uri() . '/dist/script.js', false, false, true );
 	wp_localize_script( 'script', 'wp', array( 
 		'ajax' 			=> admin_url( 'admin-ajax.php' ), 
 		'theme' 		=> get_template_directory_uri(),

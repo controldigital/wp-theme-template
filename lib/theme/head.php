@@ -63,7 +63,7 @@ function head_pwa_meta() {
         <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
         <meta name="mobile-web-app-capable" content="yes"/>
         <meta name="theme-color" content="#ffffff"/>
-        <link rel="manifest" href="<?php echo get_template_directory_uri() . '/media/favicons/manifest.json'; ?>">
+        <link rel="manifest" href="<?php echo get_template_directory_uri() . '/manifest.json'; ?>">
     <?php
 }
 
@@ -147,4 +147,19 @@ function head_favicon_links() {
 	    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri() . '/media/favicons/favicon-16x16.png'; ?>">
 	    <link rel="mask-icon" href="<?php echo get_template_directory_uri() . '/media/favicons/safari-pinned-tab.svg'; ?>" color="#333333">
     <?php
+}
+
+/**
+ * head_cookie_scripts
+ * 
+ * Cookie scripts for in the head tag.
+ * Can be used for scripts like Google Analytics, etc.
+ * 
+ * @since   1.0
+ * @link    https://codex.wordpress.org/Function_Reference/wp_head
+ * @link    https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head
+ */
+add_action( 'wp_head', 'head_cookie_scripts', 10 );
+function head_cookie_scripts() { 
+    get_template_part( './inc/cookies/cookies', 'head' );
 }

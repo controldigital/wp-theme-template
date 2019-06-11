@@ -1,0 +1,392 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2019-05-24 14:49+0200\n"
+"PO-Revision-Date: 2019-05-24 14:49+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: inc/content/content-search.php:27
+msgid "No results have been found."
+msgstr "Er zijn geen resultaten gevonden."
+
+#: inc/cookies/cookies-notice.php:46
+msgid "Cookie thumbnail"
+msgstr "Cookie afbeelding"
+
+#: inc/cookies/cookies-notice.php:69
+msgid "Accept"
+msgstr "Accepteer"
+
+#: inc/cookies/cookies-notice.php:72 lib/core/cookie.php:212
+msgid "Refuse"
+msgstr "Weigeren"
+
+#: inc/cookies/cookies-notice.php:76
+msgid "Cookie policy"
+msgstr "Cookie beleid"
+
+#: inc/cookies/cookies-notice.php:98
+msgid "Revoke cookie"
+msgstr "Cookie intrekken"
+
+#: inc/header/header-default.php:30
+msgid "Toggle menu"
+msgstr "Open of sluit menu"
+
+#: inc/messages/message-no-posts-found.php:11
+msgid "No posts have been found."
+msgstr "Er zijn geen posts gevonden."
+
+#: inc/modal/modal-default.php:11
+msgid "Modal"
+msgstr "Modal"
+
+#: inc/modal/modal-default.php:16 inc/modal/modal-search.php:16
+msgid "Close modal"
+msgstr "Sluit modal"
+
+#: inc/modal/modal-default.php:16 inc/modal/modal-search.php:16
+msgid "Close"
+msgstr "Sluiten"
+
+#: inc/modal/modal-search.php:11
+msgid "Search modal"
+msgstr "Zoekmodal"
+
+#: inc/modal/modal-search.php:20
+msgid "Search"
+msgstr "Zoeken"
+
+#: inc/modal/modal-search.php:21
+msgid "Submit"
+msgstr "Verzenden"
+
+#: inc/posts/post-query.php:57
+msgid "Load more"
+msgstr "Laad meer"
+
+#: lib/core/cookie.php:193
+msgid "Cookies"
+msgstr "Cookies"
+
+#: lib/core/cookie.php:194
+msgid "Cookie Settings"
+msgstr "Cookie instellingen"
+
+#: lib/core/cookie.php:202
+msgid "General"
+msgstr "Algemeen"
+
+#: lib/core/cookie.php:222
+msgid "Privacy policy"
+msgstr "Privacy beleid"
+
+#: lib/core/cookie.php:232
+msgid "Revoke"
+msgstr "Intrekken"
+
+#: lib/core/cookie.php:242
+msgid "Scripts"
+msgstr "Scripts"
+
+#: lib/core/cookie.php:253
+msgid "Cookie active?"
+msgstr "Cookie actief?"
+
+#: lib/core/cookie.php:254
+msgid "Set the state of the cookie."
+msgstr "Stel de staat van de cookie in."
+
+#: lib/core/cookie.php:267
+msgid "Name"
+msgstr "Naam"
+
+#: lib/core/cookie.php:268
+msgid ""
+"The name of the cookie that will be stored in the browser. Only needs to be "
+"changed in case of a conflicting cookie name."
+msgstr ""
+"De naam van de cookie die opgeslagen wordt in de browser. Hoeft alleen "
+"gewijzigd worden wanneer er een conflicterende naam is."
+
+#: lib/core/cookie.php:281
+msgid "Thumbnail"
+msgstr "Afbeelding"
+
+#: lib/core/cookie.php:282
+msgid "The thumbnail image of the cookie message."
+msgstr "De afbeelding van het cookie bericht."
+
+#: lib/core/cookie.php:294
+msgid "Title"
+msgstr "Titel"
+
+#: lib/core/cookie.php:295
+msgid "The title of the cookie message."
+msgstr "De titel van het cookiebericht."
+
+#: lib/core/cookie.php:308
+msgid "Body"
+msgstr "Inhoud"
+
+#: lib/core/cookie.php:309
+msgid "The main content of the cookie message."
+msgstr "De hoofdinhoud van het cookiebericht."
+
+#: lib/core/cookie.php:322
+msgid "Expiration period"
+msgstr "Houdbaarheids periode"
+
+#: lib/core/cookie.php:323
+msgid "The amount of time that the cookie will be stored"
+msgstr "De tijd dat de cookie opgeslagen zal zijn"
+
+#: lib/core/cookie.php:328
+msgid "1 day"
+msgstr "1 dag"
+
+#: lib/core/cookie.php:329
+msgid "1 week"
+msgstr "1 week"
+
+#: lib/core/cookie.php:330
+msgid "1 month"
+msgstr "1 maand"
+
+#: lib/core/cookie.php:331
+msgid "3 months"
+msgstr "3 maanden"
+
+#: lib/core/cookie.php:332
+msgid "6 months"
+msgstr "6 maanden"
+
+#: lib/core/cookie.php:333
+msgid "1 year"
+msgstr "1 jaar"
+
+#: lib/core/cookie.php:345
+msgid "Accept button"
+msgstr "Accepteerknop"
+
+#: lib/core/cookie.php:346
+msgid "Label of the accept button."
+msgstr "Label van de accepteerknop."
+
+#: lib/core/cookie.php:359
+msgid "Refuse active?"
+msgstr "Weigeren actief?"
+
+#: lib/core/cookie.php:360
+msgid "Set the state of the refuse button."
+msgstr "Stel de staat van de weigerknop in."
+
+#: lib/core/cookie.php:373
+msgid "Refuse button"
+msgstr "Weigerknop"
+
+#: lib/core/cookie.php:374
+msgid "Label of the refuse button."
+msgstr "Label van de weigerknop."
+
+#: lib/core/cookie.php:386
+msgid "Privacy policy active?"
+msgstr "Privacy beleid actief?"
+
+#: lib/core/cookie.php:387
+msgid "Set the state of the privacy policy button."
+msgstr "Stel de staat van de privacy beleid knop in."
+
+#: lib/core/cookie.php:400
+msgid "Privacy policy button"
+msgstr "Privacy beleid knop"
+
+#: lib/core/cookie.php:401
+msgid "Label of the privacy policy button."
+msgstr "Label van de privacy beleid knop."
+
+#: lib/core/cookie.php:413
+msgid "-Select-"
+msgstr "-Selecteer-"
+
+#: lib/core/cookie.php:426
+msgid "Privacy policy page"
+msgstr "Privacy beleid pagina"
+
+#: lib/core/cookie.php:427
+msgid "Selecteer the page of the privacy policy."
+msgstr "Selecteer de pagina met uw privacy beleid."
+
+#: lib/core/cookie.php:441
+msgid "Revoke active?"
+msgstr "Intekken actief?"
+
+#: lib/core/cookie.php:442
+msgid ""
+"Set the state of the ability to change the cookie settings after accepting "
+"or refusing the cookies."
+msgstr ""
+"Stel de staat in voor de mogelijkheid om de cookie te wijzigen na het "
+"accepteren of wijgeren van de cookie."
+
+#: lib/core/cookie.php:455
+msgid "Revoke button"
+msgstr "Intrekkenknop"
+
+#: lib/core/cookie.php:456
+msgid "Label of the revoke button."
+msgstr "Label van de intrekkenknop."
+
+#: lib/core/cookie.php:469
+msgid "Head scripts"
+msgstr "Head scripts"
+
+#: lib/core/cookie.php:470
+msgid ""
+"Place scripts that have to be appended to the head when the cookie is "
+"accepted."
+msgstr ""
+"Plaats scripts die in de <head> tag geplaatst moeten worden wanneer de "
+"cookie geaccepteerd is."
+
+#: lib/core/cookie.php:483
+msgid "Body scripts"
+msgstr "Body scripts"
+
+#: lib/core/cookie.php:484
+msgid ""
+"Place scripts that have to be appended to the start of the body when the "
+"cookie is accepted."
+msgstr ""
+"Plaats scripts die in het begin van de <body> tag geplaatst moeten worden "
+"wanneer de cookie geaccepteerd is."
+
+#: lib/core/filters.php:75
+msgid ""
+"The content has been secured with a password. Fill in the password below to "
+"view the content:"
+msgstr ""
+"De inhoud is beveiligd met een wachtwoord. Vul het wachtwoord bened in om de "
+"content te bekijken:"
+
+#: lib/core/filters.php:76
+msgid "Password:"
+msgstr "Wachtwoord:"
+
+#: lib/core/helpers.php:368
+msgid "Page"
+msgstr "Pagina"
+
+#: lib/theme/admin.php:64
+msgid "Edit 404 page"
+msgstr "Bewerk 404 pagina"
+
+#: lib/theme/admin.php:65
+msgid "404"
+msgstr "404"
+
+#: lib/theme/admin.php:107
+msgid "Page has been succesfully saved"
+msgstr "Pagina is met succes opgeslagen"
+
+#: lib/theme/admin.php:113
+msgid "Something went wrong"
+msgstr "Er ging iets mis"
+
+#: lib/theme/admin.php:158
+msgid "Fill in the title"
+msgstr "Vul de titel in"
+
+#: lib/theme/admin.php:165
+msgid "Save"
+msgstr "Opslaan"
+
+#: lib/theme/gutenberg.php:30
+msgid "Control Blue"
+msgstr "Control Blauw"
+
+#: lib/theme/gutenberg.php:41
+msgid "small"
+msgstr "klein"
+
+#: lib/theme/gutenberg.php:42
+msgid "S"
+msgstr "S"
+
+#: lib/theme/navigation.php:22
+msgid "Main Menu"
+msgstr "Hoofdmenu"
+
+#: lib/theme/sidebars.php:24
+msgid "Navigation Sidebar"
+msgstr "Navigatie-sidebar"
+
+#: lib/theme/sidebars.php:25
+msgid "Widget area after the main navigation"
+msgstr "Widget gebied achter het hoofdmenu"
+
+#: lib/theme/sidebars.php:36
+msgid "First footer column"
+msgstr "Eerste footer kolom"
+
+#: lib/theme/sidebars.php:37
+msgid "First column in the footer at the end of the page."
+msgstr "Eerste kolom in de footer aan het eind van de pagina."
+
+#: lib/theme/sidebars.php:48
+msgid "Second footer column"
+msgstr "Tweede footer kolom"
+
+#: lib/theme/sidebars.php:49
+msgid "Second column in the footer at the end of the page."
+msgstr "Tweede kolom in de footer aan het eind van de pagina."
+
+#: lib/theme/sidebars.php:60
+msgid "Third footer column"
+msgstr "Derde footer kolom"
+
+#: lib/theme/sidebars.php:61
+msgid "Third column in the footer at the end of the page."
+msgstr "Derde kolom in de footer aan het eind van de pagina."
+
+#: lib/theme/sidebars.php:72
+msgid "Fourth footer column"
+msgstr "Vierde footer kolom"
+
+#: lib/theme/sidebars.php:73
+msgid "Fourth column in the footer at the end of the page."
+msgstr "Vierde kolom in de footer aan het eind van de pagina."
+
+#: lib/theme/widgets.php:74
+msgid "Button with customizable title and type"
+msgstr "Knop met aanpasbare titel en type"
+
+#: lib/theme/widgets.php:77
+msgid "Button"
+msgstr "Knop"
+
+#: lib/theme/widgets.php:167
+msgid "Social media buttons widget"
+msgstr "Social media knoppen widget"
+
+#: lib/theme/widgets.php:170
+msgid "Social"
+msgstr "Sociaal"
+
+#: lib/theme/widgets.php:315
+msgid "Pick a highlighted post"
+msgstr "Kies een uitgelichte post"
+
+#: lib/theme/widgets.php:318
+msgid "Highlight Post"
+msgstr "Uitgelichte post"

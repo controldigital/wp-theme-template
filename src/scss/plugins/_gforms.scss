@@ -1,0 +1,97 @@
+.gform_wrapper {
+
+}
+
+.gform_heading {
+
+}
+
+.gform_body {
+
+}
+
+.gform_footer {
+	
+}
+
+.gform_button {
+
+}
+
+.gform_fields {
+
+}
+
+.gfield {
+
+	&_error {
+
+	}
+
+	&_html {
+
+	}
+
+}
+
+.gfield_label {
+
+	/** Custom gform focus class */
+	&--focus {
+
+	}
+
+}
+
+.gfield_description {
+
+}
+
+.ginput_container {
+
+	input {
+
+	}
+
+	textarea {
+
+	}
+
+}
+
+.gform_fileupload_multifile {
+
+	.gform_drop_area {
+
+	}
+
+}
+
+.gfield_checkbox,
+.gfield_radio {
+
+	> li {
+
+		label {
+
+		}
+
+		input {
+			
+		}
+
+	}
+
+}
+
+.validation_error {
+
+}
+
+.validation_message {
+
+}
+
+.gform_hidden {
+	display: none;
+}

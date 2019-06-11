@@ -27,7 +27,7 @@ function add_gutenberg_features() {
 	add_theme_support( 'editor-color-palette', array(
 
 		array(
-			'name'      => __( 'Control Blue', 'control' ),
+			'name'      => __( 'Control Blue', THEME_TEXT_DOMAIN ),
 			'slug'      => 'control-blue',
 			'color'     => '#384752',
         ),
@@ -38,8 +38,8 @@ function add_gutenberg_features() {
 	add_theme_support( 'editor-font-sizes', array(
         
 		array(
-			'name' 			=> __( 'small', 'control' ),
-			'shortName' 	=> __( 'S', 'control' ),
+			'name' 			=> __( 'small', THEME_TEXT_DOMAIN ),
+			'shortName' 	=> __( 'S', THEME_TEXT_DOMAIN ),
 			'size' 			=> 12,
 			'slug' 			=> 'small'
         ),

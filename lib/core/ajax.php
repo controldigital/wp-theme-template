@@ -45,34 +45,41 @@ function get_posts_ajax() {
 	header( 'Content-Type: text/html' );
 
 	// Get the variables from the GET Request
-	$query_post_type		= isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'POST_TYPE' ); 		// Change POST_TYPE for default post type
-	$query_posts_per_page	= isset( $_GET[ 'posts_per_page' ] ) ? $_GET[ 'posts_per_page' ] : -1;         						// Change -1 to desired amount of posts
-	$query_paged			= isset( $_GET[ 'paged' ] ) ? $_GET[ 'paged' ] : 1;
-	$query_offset			= isset( $_GET[ 'offset' ] ) ? $_GET[ 'offset' ] : 0;
-	$query_order 			= isset( $_GET[ 'order' ] ) ? $_GET[ 'order' ] : 'ASC';
-	$query_order_by			= isset( $_GET[ 'orderby' ] ) ? $_GET[ 'order_by' ] : 'menu_order';
-	$query_p				= isset( $_GET[ 'p' ] ) ? $_GET[ 'p' ] : '';
-	$query_s				= isset( $_GET[ 's' ] ) ? $_GET[ 's' ] : '';
-	$query_post__in			= isset( $_GET[ 'post__in'] ) ? explode( ',', $_GET[ 'post__in' ] ) : array();
-	$query_post__not_in		= isset( $_GET[ 'post__not_in' ] ) ? explode( ',', $_GET[ 'post__not-in' ] ) : array();
-	$query_meta_key			= isset( $_GET[ 'meta_key' ] ) ? $_GET[ 'meta_key' ] : '';
-	$query_meta_value		= isset( $_GET[ 'meta_value' ] ) ? $_GET[ 'meta_value' ] : '';
+	$query_post_type		= isset( $_REQUEST[ 'post_type' ] ) ? explode( ',', $_REQUEST[ 'post_type' ] ) : array( 'post' );
+	$query_post_status		= isset( $_REQUEST[ 'post_status' ] ) ? explode( ',', $_REQUEST[ 'post_status' ] ) : array( 'publish' );	
+	$query_posts_per_page	= isset( $_REQUEST[ 'posts_per_page' ] ) ? $_REQUEST[ 'posts_per_page' ] : -1;
+	$query_paged			= isset( $_REQUEST[ 'paged' ] ) ? $_REQUEST[ 'paged' ] : 1;
+	$query_offset			= isset( $_REQUEST[ 'offset' ] ) ? $_REQUEST[ 'offset' ] : '';
+	$query_order 			= isset( $_REQUEST[ 'order' ] ) ? $_REQUEST[ 'order' ] : 'DESC';
+	$query_orderby			= isset( $_REQUEST[ 'orderby' ] ) ? $_REQUEST[ 'orderby' ] : 'date';
+	$query_p				= isset( $_REQUEST[ 'p' ] ) ? $_REQUEST[ 'p' ] : '';
+	$query_s				= isset( $_REQUEST[ 's' ] ) ? $_REQUEST[ 's' ] : '';
+	$query_cat				= isset( $_REQUEST[ 'cat' ] ) ? $_REQUEST[ 'cat' ] : '';
+	$query_tag				= isset( $_REQUEST[ 'tag' ] ) ? str_replace( ' ', ',', $_REQUEST[ 'tag' ] ) : '';
+	$query_post__in			= isset( $_REQUEST[ 'post__in'] ) ? explode( ',', $_REQUEST[ 'post__in' ] ) : array();
+	$query_post__not_in		= isset( $_REQUEST[ 'post__not_in' ] ) ? explode( ',', $_REQUEST[ 'post__not-in' ] ) : array();
+	$query_meta_key			= isset( $_REQUEST[ 'meta_key' ] ) ? $_REQUEST[ 'meta_key' ] : '';
+	$query_meta_value		= isset( $_REQUEST[ 'meta_value' ] ) ? $_REQUEST[ 'meta_value' ] : '';
 
 	// Set arguments for query
 	$args = array(
 		'post_type'			=> $query_post_type,
+		'post_status'		=> $query_post_status,
 		'posts_per_page'	=> $query_posts_per_page,
 		'paged'				=> $query_paged,
 		'offset'			=> $query_offset,
 		'order'				=> $query_order,
-		'orderby'			=> $query_order_by,
+		'orderby'			=> $query_orderby,
 		'p'					=> $query_p,
 		's'					=> $query_s,
+		'cat'				=> $query_cat,
+		'tag'				=> $query_tag,
 		'post__in'			=> $query_post__in,
 		'post__not_in'		=> $query_post__not_in,
 		'meta_key'			=> $query_meta_key,
 		'meta_value'		=> $query_meta_value,
-		'tax_query'			=> array()
+		'tax_query'			=> array(),
+		'meta_query'		=> array()
 	);
 
 	// Fields to ignore for taxonomies
@@ -80,12 +87,15 @@ function get_posts_ajax() {
 		'action',
 		'post_type',
 		'posts_per_page',
+		'post_status',
 		'paged',
 		'offset',
 		'order',
 		'orderby',
 		'p',
 		's',
+		'cat',
+		'tag',
 		'post__in',
 		'post__not_in',
 		'meta_key',
@@ -94,30 +104,50 @@ function get_posts_ajax() {
 		'_wp_referrer'
 	);
 
+	// Get all registered taxonomies
+	$taxonomies = get_taxonomies();
+
 	// Loop over remaining query items and pass them as taxonomy filters
-	if ( ! empty( $_GET ) ) {
-		foreach( $_GET as $item => $value ) {
-			if ( ! in_array( $value, $excludes ) ) {
+	// Or when the keys are not in the taxonomies and also not in the ignores
+	// add them to the meta_query array.
+	if ( ! empty( $_REQUEST ) ) {
+		foreach( $_REQUEST as $item => $value ) {
+			$value_array = explode( ',', $value ); // Turn the string from "value,value" to array( "value", "value" )
+			if ( in_array( $item, $taxonomies ) ) {
 				$args[ 'tax_query' ][] = array(
 					'taxonomy'			=> $item,
 					'field'				=> 'slug',
-					'terms'				=> $value
+					'terms'				=> $value_array
 				);		
+			} else if ( ! in_array( $item, $excludes ) ) {
+				$args[ 'meta_query' ][] = array(
+					'key'				=> $item,
+					'value'				=> $value_array
+				);
 			}
 		}
 	}
 
-	// Create a new query
+	// Create a new query.
 	$query = new WP_Query( $args );
 
-	// Loop over the query
+	// Loop over the query.
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$post_type = get_post_type();
 
-			// get_template_part( '' );
-		}
+			// Assign a template to load.
+			if ( $post_type === 'post' ) {
+				get_template_part( './inc/posts/post', 'card' );
+			}
+
+		} wp_reset_postdata();
+	} else {
+
+		// Display error message when no posts are found.
+		get_template_part( './inc/messages/message', 'no-posts-found' );
+
 	}
 
 	// End connection

@@ -15,6 +15,7 @@ $cookie_active 			    = get_theme_mod( 'cookie_active' );
 $cookie_name                = get_theme_mod( 'cookie_name' );
 
 // Title and body content
+$cookie_thumbnail           = get_theme_mod( 'cookie_thumbnail' );
 $cookie_title				= get_theme_mod( 'cookie_title' );
 $cookie_body				= get_theme_mod( 'cookie_body' );
 $cookie_accept_label		= get_theme_mod( 'cookie_accept_label' );
@@ -40,7 +41,11 @@ if ( $cookie_active ) {
         <!-- Cookie -->
         <div id="cookie" class="hidden" role="dialog" aria-hidden="true" aria-label="cookieconsent">
             <div class="cookie__wrapper">
-            
+
+                <?php if ( $cookie_thumbnail ) { ?>
+                    <img class="cookie__thumbnail" src="<?php echo $cookie_thumbnail; ?>" alt="<?php _e( 'Cookie thumbnail', THEME_TEXT_DOMAIN ); ?>"/>
+                <?php } ?>
+
                 <form id="cookie-form" class="cookie__container" method="POST" action="<?php echo admin_url( 'admin-post.php' ); ?>">
                     <input type="hidden" name="action" value="set_cookie">
                     <input type="hidden" name="cookie_name" value="<?php echo $cookie_name; ?>">
@@ -61,14 +66,14 @@ if ( $cookie_active ) {
 
                     <div class="cookie__buttons">
 
-                        <button type="submit" name="accept" class="button cookie__button cookie__button--accept js-cookie-accept"><?php if ( $cookie_accept_label ) { echo $cookie_accept_label; } else { _e( 'Accepteer', 'text_domain' ); } ?></button>
+                        <button type="submit" name="accept" class="button cookie__button cookie__button--accept js-cookie-accept"><?php if ( $cookie_accept_label ) { echo $cookie_accept_label; } else { _e( 'Accept', THEME_TEXT_DOMAIN ); } ?></button>
                         
                         <?php if ( $cookie_refuse_active ) { ?>
-                            <button type="submit" name="refuse" class="button cookie__button cookie__button--refuse js-cookie-refuse"><?php if ( $cookie_refuse_label ) { echo $cookie_refuse_label; } else { _e( 'Weiger', 'text_domain' ); } ?></button>
+                            <button type="submit" name="refuse" class="button cookie__button cookie__button--refuse js-cookie-refuse"><?php if ( $cookie_refuse_label ) { echo $cookie_refuse_label; } else { _e( 'Refuse', THEME_TEXT_DOMAIN ); } ?></button>
                         <?php } ?>
 
                         <?php if ( $cookie_read_more_active ) { ?>
-                            <a href="<?php if ( $cookie_read_more_page ) { the_permalink( $cookie_read_more_page ); } else { echo '#'; } ?>" class="button cookie__button cookie__button--read-more js-cookie-read-more" target="_self"><?php if ( $cookie_read_more_label ) { echo $cookie_read_more_label; } else { _e( 'Cookie beleid', 'text_domain' ); } ?></a>
+                            <a href="<?php if ( $cookie_read_more_page ) { the_permalink( $cookie_read_more_page ); } else { echo '#'; } ?>" class="button cookie__button cookie__button--read-more js-cookie-read-more" target="_self"><?php if ( $cookie_read_more_label ) { echo $cookie_read_more_label; } else { _e( 'Cookie policy', THEME_TEXT_DOMAIN ); } ?></a>
                         <?php } ?>
 
                     </div>
@@ -90,7 +95,7 @@ if ( $cookie_active ) {
                     <input type="hidden" name="cookie_name" value="<?php echo $cookie_name; ?>">
                     <input type="hidden" name="_wp_nonce" value="<?php echo wp_create_nonce( 'revoke' ); ?>">
                     <input type="hidden" name="_wp_referrer" value="<?php echo home_url( $wp->request ); ?>">
-                    <button type="submit" name="revoke" class="button cookie__button cokie__button--revoke js-cookie-revoke"><?php if ( $cookie_revoke_label ) { echo $cookie_revoke_label; } else { _e( 'Cookie intrekken', 'text_domain' ); } ?></button>
+                    <button type="submit" name="revoke" class="button cookie__button cokie__button--revoke js-cookie-revoke"><?php if ( $cookie_revoke_label ) { echo $cookie_revoke_label; } else { _e( 'Revoke cookie', THEME_TEXT_DOMAIN ); } ?></button>
                 </form>
             </div>
         <?php } ?>

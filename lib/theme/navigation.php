@@ -18,7 +18,8 @@
 add_action( 'after_setup_theme', 'theme_menus' );
 function theme_menus() {
 
-	// register_nav_menu( '', __( '', 'text_domain' ) );
+    // Create default menu
+	register_nav_menu( 'menu-main', __( 'Main Menu', THEME_TEXT_DOMAIN ) );
 
 }
 
@@ -26,7 +27,7 @@ function theme_menus() {
  * add_current_nav_class
  * 
  * Make parent menu item from post type
- * active on single page
+ * active on single page.
  * 
  * @since	1.0   
  */
