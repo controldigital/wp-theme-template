@@ -10,6 +10,7 @@ import {
 	onWheel,
 	onKeyDown,
 	onMouseEnter,
+	onMouseLeave,
 	onButtonClick,
 	onSlotChange
 } from './events.js';
