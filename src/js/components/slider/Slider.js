@@ -211,7 +211,7 @@ export default class HTMLSliderElement extends HTMLElement {
 
 	set speed(value) {
 		if (value !== Number.isNaN(value)) {
-			this.setAttribute('amount', value);
+			this.setAttribute('speed', value);
 		} 
 	}
 
