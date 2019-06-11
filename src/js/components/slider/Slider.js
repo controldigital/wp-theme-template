@@ -430,7 +430,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	 * @returns	{this}
 	 */
 	moveToIndex(index) {
-		if (isNumberBetween(index, 0, this.slides.length)) {
+		if (isIndexBetween(index, 0, this.slides.length)) {
 			const position = `-${(100 / this.amount) * this.index}%`;
 			this.moveTo(position);
 		}
