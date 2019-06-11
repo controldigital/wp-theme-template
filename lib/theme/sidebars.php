@@ -25,7 +25,7 @@ function theme_sidebars() {
 		'description'   => __( 'Widget area after the main navigation', THEME_TEXT_DOMAIN ),
 		'before_title'  => '',
 		'after_title'   => '',
-		'before_widget' => '<li id="%1$s>',
+		'before_widget' => '<li id="%1$s">',
 		'after_widget'  => '</li>',
 	);
 	register_sidebar( $args );
