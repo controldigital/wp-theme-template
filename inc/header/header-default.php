@@ -10,11 +10,13 @@
 <header class="header header--default" role="banner">
     <div class="header__container">
 
-        <div class="header__logo">
-            <a class="logo logo--site" href="<?php echo home_url(); ?>" rel="home" itemprop="url">
-                <?php the_logo(); ?>
-            </a>
-        </div>
+        <?php if ( get_the_logo() ) { ?>
+            <div class="header__logo">
+                <a class="logo logo--site" href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home" itemprop="url">
+                    <img src="<?php the_logo(); ?>" alt="<?php bloginfo( 'name' ); ?>">
+                </a>
+            </div>
+        <?php } ?>
 
         <div class="header__nav" id="header-nav" aria-labelledby="menu-toggle">
             <?php get_template_part( './inc/navigation/nav', 'default' ); ?>
