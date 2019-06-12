@@ -4,6 +4,7 @@
 
 import HTMLSlidesCollection from './Collection';
 import { createDirections } from './directions.js';
+import { getRailsOffset } from './offset.js';
 
 /**
  * @typedef		directionsObject
@@ -46,7 +47,7 @@ export const onTouchMove = function onTouchMove(event) {
 		this.touch.start.x - this.touch.move.x,
 		this.touch.start.y - this.touch.move.y
 	);
-	const offset = getRailsOffset();
+	const offset = getRailsOffset.call(this);
 	const distance = createDirections(
 		offset.x + touch.distance.horizontal, 
 		offset.y + touch.distance.vertical,
