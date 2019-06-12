@@ -260,19 +260,6 @@ export default class HTMLSliderElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
-		/**
-		 * Returns the offset position of the rails.
-		 * 
-		 * @function  	getRailsOffset
-		 * @returns		{Object} Height and width times the index.
-		 */
-		const getRailsOffset = () => {
-			return {
-				x: (this.rails.offsetWidth / this.amount) * this.index,
-				y: (this.rails.offsetHeight / this.amount) * this.index
-			};
-		};
-
 		// Set default axis.
 		if (this.axis === null) {
 			this.axis = 'horizontal';
