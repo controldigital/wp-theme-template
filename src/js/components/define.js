@@ -15,6 +15,7 @@ import HTMLLikeElement from './like/Like.js';
 import HTMLViewElement from './view/View.js';
 import HTMLMessageElement from './message/Message.js';
 import HTMLTooltipElement from './tooltip/Tooltip.js';
+import HTMLMenuElement from './menu/Menu.js';
 
 /**
  * A list with names and constructors for custom elements.
@@ -100,6 +101,12 @@ customElements.push({
 customElements.push({
 	name: 'ctrl-tooltip',
 	construct: HTMLTooltipElement
+});
+
+// Add ctrl-menu element.
+customElements.push({
+	name: 'ctrl-menu',
+	construct: HTMLMenuElement
 });
 
 /**
