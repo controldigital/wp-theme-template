@@ -57,13 +57,25 @@ export default class HTMLMenuElement extends HTMLElement {
 
         if (attrName === 'open') {
             if (newValue !== null) {
-                const event = new Event('open');
+
+                const event = new CustomEvent('statechange', {
+                    detail: {
+                        open: true
+                    }
+                });
                 this.dispatchEvent(event);
                 this.setAttribute('aria-expanded', true);
+
             } else {
-                const event = new Event('close');
+
+                const event = new CustomEvent('statechange', {
+                    detail: {
+                        open: false
+                    }
+                });
                 this.dispatchEvent(event);
                 this.setAttribute('aria-expanded', false);
+
             }
         }
 
