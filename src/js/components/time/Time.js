@@ -4,9 +4,16 @@
 
 import * as moment from 'moment';
 import { attachShadowToElement } from 'Components/shadow.js';
+import {
+	createCountdown,
+	createClock
+} from './create.js';
 
 // ID of HTML template for Shadow DOM.
-const templateId = 'template-card';
+const templateId = 'template-time';
+
+// Accepted types
+const acceptedTypes = ['clock', 'countdown'];
 
 /**
  * Element that displays a timer that counts up or down.
@@ -25,7 +32,7 @@ export default class HTMLTimeElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['seconds', 'minutes', 'hours', 'days', 'weeks', 'months'];
+		return ['type', 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'from', 'to'];
 	}
 
 	/**
@@ -40,6 +47,48 @@ export default class HTMLTimeElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets and sets the from attribute.
+	 * @property
+	 */
+	get from() {
+		return this.getAttribute('from');
+	}
+
+	set from(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('from', value);
+		} 
+	}
+
+	/**
+	 * Gets and sets the to attribute.
+	 * @property
+	 */
+	get to() {
+		return this.getAttribute('to');
+	}
+
+	set to(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('to', value);
+		} 
+	}
+
+	/**
+	 * Gets and sets the type attribute.
+	 * @property
+	 */
+	get type() {
+		return this.getAttribute('type');
+	}
+
+	set type(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('type', value);
+		} 
+	}
+
+	/**
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
@@ -48,6 +97,22 @@ export default class HTMLTimeElement extends HTMLElement {
 	 * @param 	{*} newValue New value of attribute.
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
+
+		if (attrName === 'type') {
+			if (newValue !== null && acceptedTypes.some(type => type === newValue)) {
+				if (newValue === 'clock') {
+
+				} else if (newValue === 'countdown') {
+
+				}
+			}
+		} else if (attrName === 'from' || attrName === 'to') {
+			if (newValue !== null && this.type === 'countdown') {
+
+				createCountdown.call(this, this.to);
+
+			}
+		}
 
 	}
 
