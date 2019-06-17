@@ -59,3 +59,46 @@ export const getElements = (selector) => {
 	}
 };
 
+/**
+ * Function to create a new HTMLElement with options to add
+ * to the newly created element. Returns the element if it 
+ * succesful or null when tagName is not set.
+ * 
+ * @function    createElement
+ * @param       {String} tagName The type of element to create.
+ * @param       {Object} options The options object.
+ * @param       {Object} options.attributes Object of attributes to add.
+ * @param       {HTMLElement[]} options.children List of children to append.
+ * @param       {String[]} options.classes List of classes to add.
+ * @param       {String} options.id Id of the element.
+ * @param       {String} options.html The innerHTML value.
+ * @param       {String} options.text The innerText node value.
+ * @returns     {(HTMLElement|null)}
+ */
+export const createElement = (tagName, { attributes, children, classes, id, html, text }) => {
+    if (typeof tagName === 'undefined') {
+        return null;
+    }
+    const element = document.createElement(tagName);
+    if (typeof attributes === 'object') {
+        for (let key in attributes) {
+            element.setAttribute(key, attributes[key]);
+        }
+    }
+    if (Array.isArray(children)) {
+        children.forEach(el => element.appendChild(el));
+    }
+    if (Array.isArray(classes)) {
+        classes.forEach(cls => element.classList.add(cls));
+    }
+    if (typeof id === 'string') {
+        element.id = id;
+    }
+    if (typeof html === 'string') {
+        element.innerHTML = html;
+    }
+    if (typeof text  === 'string') {
+        element.innerText = text;
+    }
+    return element;
+};
