@@ -13,10 +13,10 @@
  * 
  * @param   	{Function} func Function to execute
  * @param   	{Number} wait Time to wait before firing
- * @param   	{Boolean} immediate Fire immediately or not
+ * @param   	{Boolean} [immediate=false] Fire immediately or not
  * @returns		{Function} Closure function.
  */
-export const debounce = (func, wait, immediate) => {
+export const debounce = (func, wait, immediate = false) => {
 	let timeout;
 	return function() {
         const context = this;
