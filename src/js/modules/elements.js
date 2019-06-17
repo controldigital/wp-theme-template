@@ -86,10 +86,18 @@ export const createElement = (tagName, { attributes, children, classes, id, html
         }
     }
     if (Array.isArray(children)) {
-        children.forEach(el => element.appendChild(el));
+        children.forEach(el => {
+            if (el instanceof HTMLElement) {
+                element.appendChild(el);
+            }
+        });
     }
     if (Array.isArray(classes)) {
-        classes.forEach(cls => element.classList.add(cls));
+        classes.forEach(cls => {
+            if (typeof cls === 'string') {
+                element.classList.add(cls)
+            }
+        });
     }
     if (typeof id === 'string') {
         element.id = id;
