@@ -106,7 +106,8 @@ export const createElement = (tagName, { attributes, children, classes, id, html
         element.innerHTML = html;
     }
     if (typeof text  === 'string') {
-        element.innerText = text;
+        const content = document.createTextNode(text);
+        element.appendChild(content);
     }
     return element;
 };
