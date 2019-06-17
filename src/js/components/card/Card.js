@@ -2,7 +2,7 @@
  * @module		./components/card/Card
  */
 
-import { attachShadowToElement } from '../shadow.js';
+import { attachShadowToElement } from 'Components/shadow.js';
 
 // ID of HTML template for Shadow DOM.
 const templateId = 'template-card';

@@ -2,7 +2,7 @@
  * @module		./components/tabs/Tabs
  */
 
-import { attachShadowToElement } from '../shadow.js';
+import { attachShadowToElement } from 'Components/shadow.js';
 import {
 	onClick,
 	onKeyDown,

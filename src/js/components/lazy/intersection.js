@@ -2,7 +2,7 @@
  * @module		./components/lazy/intersection
  */
 
-import { lazyLoadImage } from '../../modules/tools.js';
+import { lazyLoadImage } from 'Modules/tools.js';
 
 /**
  * @typedef		intersectionOptions

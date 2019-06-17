@@ -2,7 +2,7 @@
  * @module		./components/like/Like
  */
 
-import { attachShadowToElement } from '../shadow.js';
+import { attachShadowToElement } from 'Components/shadow.js';
 import { onChange } from './events.js';
 import {
 	createStorage,

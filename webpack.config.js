@@ -22,6 +22,12 @@ module.exports = {
       },
     ]
   },
+  resolve: {
+    alias: {
+      Components: path.resolve(__dirname, 'src/js/components'),
+      Modules: path.resolve(__dirname, 'src/js/modules')
+    }
+  },
   optimization: {
     minimizer: [
       new UglifyJSPlugin({

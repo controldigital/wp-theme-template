@@ -2,7 +2,7 @@
  * @module		./components/fab/Fab
  */
 
-import { attachShadowToElement } from '../shadow.js';
+import { attachShadowToElement } from 'Components/shadow.js';
 import {
 	onMouseEnter,
 	onMouseLeave,
@@ -126,13 +126,17 @@ export default class HTMLFabElement extends HTMLElement {
 
 		if (attrName === 'disable-hover') {
 			if (newValue !== null) {
+
 				this.removeEventListener('mouseenter', this.onMouseEnter);
 				this.removeEventListener('mouseleave', this.onMouseLeave);
 				this.addEventListener('click', this.onClick);
+
 			} else {
+
 				this.addEventListener('mouseenter', this.onMouseEnter);
 				this.addEventListener('mouseleave', this.onMouseLeave);
 				this.removeEventListener('click', this.onClick);
+
 			}
 		}
 
@@ -146,6 +150,7 @@ export default class HTMLFabElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
+		// Set default hover state.
 		if (this.disableHover !== null) {
 			this.addEventListener('click', this.onClick);
 		} else {

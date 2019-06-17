@@ -2,7 +2,7 @@
  * @module		./components/slider/Slider
  */
 
-import { attachShadowToElement } from '../shadow.js';
+import { attachShadowToElement } from 'Components/shadow.js';
 import {
 	onTouchStart,
 	onTouchMove,
@@ -18,7 +18,7 @@ import {
 	isIndexBetween,
 	hasFeatures,
 	isTouchDevice,
-} from '../../modules/tools.js';
+} from 'Modules/tools.js';
 
 
 

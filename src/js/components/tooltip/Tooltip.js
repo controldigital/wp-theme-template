@@ -2,7 +2,7 @@
  * @module		./components/tooltip/Tooltip
  */
 
-import { attachShadowToElement } from '../shadow.js';
+import { attachShadowToElement } from 'Components/shadow.js';
 import { 
 	onSlotChange,
 	onMouseEnter,

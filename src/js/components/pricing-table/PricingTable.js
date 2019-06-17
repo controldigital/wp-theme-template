@@ -2,7 +2,7 @@
  * @module		./components/service/Service
  */
 
-import { attachShadowToElement } from '../shadow.js';
+import { attachShadowToElement } from 'Components/shadow.js';
 
 // ID of HTML template for Shadow DOM.
 const templateId = 'template-pricing-table';

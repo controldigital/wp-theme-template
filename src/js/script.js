@@ -31,7 +31,7 @@ import { hello } from './modules/test.js';
 import {
 	customElementsList,
 	defineCustomElements
-} from './components/define.js';
+} from 'Components/define.js';
 
 (async function () {
 	'use strict';

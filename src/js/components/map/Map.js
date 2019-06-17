@@ -4,7 +4,7 @@
 
 import mapboxgl from 'mapbox-gl';
 import { accessToken } from './token.js';
-import { attachShadowToElement } from '../shadow.js';
+import { attachShadowToElement } from 'Components/shadow.js';
 
 // ID of HTML template for Shadow DOM.
 const templateId = 'template-map';
