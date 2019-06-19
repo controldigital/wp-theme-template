@@ -2,7 +2,12 @@
  * @module		./components/ajax/Ajax
  */
 
-import { fetchUrlAndReplaceInnerHTML } from './fetch.js';
+import { fetchURL } from './fetch.js';
+import {
+	onFetchStart,
+	onFetchDone,
+	onPopState
+} from './events.js';
 
 /**
  * Element that fetches and inserts variable content based
@@ -33,7 +38,10 @@ export default class HTMLViewElement extends HTMLElement {
 		super();
 
 		// Bind the event listeners.
+		this.onFetchStart = onFetchStart.bind(this);
+		this.onFetchDone = onFetchDone.bind(this);
 		this.onPopState = onPopState.bind(this);
+
 	}
 
 	/**
@@ -50,6 +58,20 @@ export default class HTMLViewElement extends HTMLElement {
 		} else {
 			this.removeAttribute('fetching');
 		}
+	}
+
+	/**
+	 * Gets and sets the transition attribute.
+	 * @property
+	 */
+	get transition() {
+		return parseInt(this.getAttribute('transition'));
+	}
+
+	set transition(value) {
+		if ('number' === typeof value) {
+			this.setAttribute('transition', value);
+		} 
 	}
 
 	/**
@@ -76,13 +98,12 @@ export default class HTMLViewElement extends HTMLElement {
 	 */
 	async attributeChangedCallback(attrName, oldValue, newValue) {
 
-		if (attrName === 'url') {
-			if (newValue !== null) {
-
-				// Fetch url and replace the innerHTML.
-				await fetchUrlAndReplaceInnerHTML.call(this, newValue);
-				
-			}
+		switch(attrName) {
+			case 'url':
+				if (!!newValue) {
+					await this.load(newValue);
+				}
+				break;				
 		}
 
 	}
@@ -95,6 +116,16 @@ export default class HTMLViewElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
+		// Set transition if it isn't set yet.
+		if (!!this.transition) {
+			this.transition = 0;
+		}
+
+		// Add event listeners.
+		this.addEventListener('fetchstart', this.onFetchStart);
+		this.addEventListener('fetchdone', this.onFetchDone);
+		this.addEventListener('popstate', this.onPopState);
+
 	}
 
 	/**
@@ -105,6 +136,11 @@ export default class HTMLViewElement extends HTMLElement {
 	 */
 	disconnectedCallback() {
 
+		// Remove event listeners.
+		this.removeEventListener('fetchstart', this.onFetchStart);
+		this.removeEventListener('fetchdone', this.onFetchDone);
+		this.removeEventListener('popstate', this.onPopState);
+
 	}
 
 	/**
@@ -114,6 +150,32 @@ export default class HTMLViewElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	adoptedCallback() {
+
+	}
+
+	async load(resource) {
+
+		// Dispatch fetch start event.
+		const fetchStartInit = {
+			detail: {
+				resource
+			}
+		};
+		const fetchStartEvent = new CustomEvent('fetchstart', fetchStartInit);
+		this.dispatchEvent(fetchStartEvent);
+
+		// Get the response.
+		const response = await fetchURL.call(this, resource);
+
+		// Dispatch fetchdone event with the url and the response.
+		const fetchDoneInit = { 
+			detail: {
+				url,
+				response
+			}
+		};
+		const fetchDoneEvent = new CustomEvent('fetchdone', fetchDoneInit);
+		this.dispatchEvent(fetchDoneEvent);
 
 	}
 
