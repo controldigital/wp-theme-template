@@ -2,7 +2,6 @@
  * @module		./components/time/Time
  */
 
-import * as moment from 'moment';
 import { attachShadowToElement } from 'Components/shadow.js';
 import {
 	createCountdown,
@@ -32,7 +31,7 @@ export default class HTMLTimeElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['type', 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'from', 'to'];
+		return ['type', 'end'];
 	}
 
 	/**
@@ -43,35 +42,10 @@ export default class HTMLTimeElement extends HTMLElement {
 
 		// Create the Shadow DOM.
 		attachShadowToElement.call(this, templateId);
+
+		// Create interval property
+		this.interval = null;
 		
-	}
-
-	/**
-	 * Gets and sets the from attribute.
-	 * @property
-	 */
-	get from() {
-		return this.getAttribute('from');
-	}
-
-	set from(value) {
-		if ('string' === typeof value) {
-			this.setAttribute('from', value);
-		} 
-	}
-
-	/**
-	 * Gets and sets the to attribute.
-	 * @property
-	 */
-	get to() {
-		return this.getAttribute('to');
-	}
-
-	set to(value) {
-		if ('string' === typeof value) {
-			this.setAttribute('to', value);
-		} 
 	}
 
 	/**
@@ -89,6 +63,116 @@ export default class HTMLTimeElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets and sets the end attribute.
+	 * @property
+	 */
+	get end() {
+		return this.getAttribute('end');
+	}
+
+	set end(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('end', value);
+		} 
+	}
+
+	/**
+	 * Gets and sets the years attribute.
+	 * @property
+	 */
+	get years() {
+		return this.getAttribute('years');
+	}
+
+	set years(value) {
+		if (value === true) {
+			this.setAttribute('years', '');
+		} else {
+			this.removeAttribute('years');
+		}
+	}
+
+	/**
+	 * Gets and sets the months attribute.
+	 * @property
+	 */
+	get months() {
+		return this.getAttribute('months');
+	}
+
+	set months(value) {
+		if (value === true) {
+			this.setAttribute('months', '');
+		} else {
+			this.removeAttribute('months');
+		}
+	}
+
+	/**
+	 * Gets and sets the days attribute.
+	 * @property
+	 */
+	get days() {
+		return this.getAttribute('days');
+	}
+
+	set days(value) {
+		if (value === true) {
+			this.setAttribute('days', '');
+		} else {
+			this.removeAttribute('days');
+		}
+	}
+
+	/**
+	 * Gets and sets the hours attribute.
+	 * @property
+	 */
+	get hours() {
+		return this.getAttribute('hours');
+	}
+
+	set hours(value) {
+		if (value === true) {
+			this.setAttribute('hours', '');
+		} else {
+			this.removeAttribute('hours');
+		}
+	}
+
+	/**
+	 * Gets and sets the minutes attribute.
+	 * @property
+	 */
+	get minutes() {
+		return this.getAttribute('minutes');
+	}
+
+	set minutes(value) {
+		if (value === true) {
+			this.setAttribute('minutes', '');
+		} else {
+			this.removeAttribute('minutes');
+		}
+	}
+
+	/**
+	 * Gets and sets the seconds attribute.
+	 * @property
+	 */
+	get seconds() {
+		return this.getAttribute('seconds');
+	}
+
+	set seconds(value) {
+		if (value === true) {
+			this.setAttribute('seconds', '');
+		} else {
+			this.removeAttribute('seconds');
+		}
+	}
+
+	/**
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
@@ -98,20 +182,21 @@ export default class HTMLTimeElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
-		if (attrName === 'type') {
-			if (newValue !== null && acceptedTypes.some(type => type === newValue)) {
-				if (newValue === 'clock') {
-
-				} else if (newValue === 'countdown') {
-
+		switch(attrName) {
+			case 'type':
+				if (!!newValue && acceptedTypes.some(type => type === newValue)) {
+					if (newValue === 'clock') {
+						createClock.call(this);
+					} else if (newValue === 'countdown') {
+						createCountdown.call(this, this.to);
+					}
 				}
-			}
-		} else if (attrName === 'from' || attrName === 'to') {
-			if (newValue !== null && this.type === 'countdown') {
-
-				createCountdown.call(this, this.to);
-
-			}
+				break;
+			case 'end':
+				if (!!newValue && this.type === 'countdown') {
+					createCountdown.call(this, this.end);
+				}
+				break;
 		}
 
 	}
