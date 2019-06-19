@@ -2,30 +2,28 @@
  * @module		./components/view/fetch
  */
 
-/**
- * Get the data from the URL and replace it
- * in the element.
- * 
- * @async
- * @function	fetchUrlAndReplaceInnerHTML
- * @param 		{string} url
- * @returns		{string} The string that replaced the innerHTML.
- */
-export const fetchUrlAndReplaceInnerHTML = async function fetchUrlAndReplaceInnerHTML(url) {
+import Cache from 'Modules/Cache.js';
 
+// Create a new cache instance.
+const cache = new Cache();
+
+/**
+ * Fetches the URL and fires a fetchstart and fetchdone
+ * event when starting and completing the fetch request.
+ * 
+ * @function	fetchURL
+ * @param 		{String} resource URL to fetch.
+ * @returns		{String} Response in a string.
+ */
+export const fetchURL = async function fetchURL(resource) {
+
+	// Check if the resource has already been fetched before.
+	if (cache.has(resource)) {
+		return cache.get(resource);
+	}
+	
 	// Create a new url.
 	const url = new URL(newValue);
-
-	// Dispatch fetch start event.
-	const fetchStartEvent = new CustomEvent('fetchstart', {
-		detail: {
-			url: url
-		}
-	});
-	this.dispatchEvent(fetchStartEvent);
-
-	// Set fetching attribute.
-	this.fetching = true;
 
 	// Fetch the url.
 	const response = await fetch(url);
@@ -35,20 +33,10 @@ export const fetchUrlAndReplaceInnerHTML = async function fetchUrlAndReplaceInne
 		throw new Error(`Fetch request has failed: ${response.status}`);
 	}
 
-	// Get the text response and 
+	// Get the text response.
 	const textResponse = await response.text();
-	const fetchDoneEvent = new CustomEvent('fetchdone', { 
-		detail: {
-			response: textResponse
-		}
-	});
-	this.dispatchEvent(fetchDoneEvent);
-	this.innerHTML = textResponse;
 
-	// Remove fetching attribute
-	this.fetching = false;
-
-	// Return the text response.
+	// Return the response.
 	return textResponse;
 
 };
