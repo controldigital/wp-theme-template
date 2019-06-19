@@ -31,12 +31,26 @@
             align-items: stretch;
         }
 
+        span {
+            display: none;
+        }
+
+        :host([year]) #year,
+        :host([month]) #month,
+        :host([week]) #week,
+        :host([days]) #days,
+        :host([hours]) #hours,
+        :host([minutes]) #minutes,
+        :host([seconds]) #seconds {
+            display: block;
+        }
+
     </style>
 
     <div>
-        <span id="year"></span>
-        <span id="month"></span>
-        <span id="week"></span>
+        <span id="years"></span>
+        <span id="months"></span>
+        <span id="weeks"></span>
         <span id="days"></span>
         <span id="hours"></span>
         <span id="minutes"></span>
