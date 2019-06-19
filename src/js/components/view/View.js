@@ -2,12 +2,16 @@
  * @module		./components/ajax/Ajax
  */
 
+import { attachShadowToElement } from 'Components/shadow.js';
 import { fetchURL } from './fetch.js';
 import {
 	onFetchStart,
 	onFetchDone,
 	onPopState
 } from './events.js';
+
+// ID of HTML template for Shadow DOM.
+const templateId = 'template-view';
 
 /**
  * Element that fetches and inserts variable content based
@@ -36,6 +40,9 @@ export default class HTMLViewElement extends HTMLElement {
 	 */
 	constructor() {
 		super();
+
+		// Create the Shadow DOM.
+		attachShadowToElement.call(this, templateId);
 
 		// Bind the event listeners.
 		this.onFetchStart = onFetchStart.bind(this);
@@ -100,10 +107,10 @@ export default class HTMLViewElement extends HTMLElement {
 
 		switch(attrName) {
 			case 'url':
-				if (!!newValue) {
+				if (!!newValue === false) {
 					await this.load(newValue);
 				}
-				break;				
+				break;
 		}
 
 	}
@@ -117,7 +124,7 @@ export default class HTMLViewElement extends HTMLElement {
 	connectedCallback() {
 
 		// Set transition if it isn't set yet.
-		if (!!this.transition) {
+		if (!!this.transition === false) {
 			this.transition = 0;
 		}
 
