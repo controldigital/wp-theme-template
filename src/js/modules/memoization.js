@@ -17,7 +17,7 @@ import Cache from 'Modules/Cache.js';
  * 
  * In this example we create a function called add with the memo function.
  * Now every time we call add, it will remember what numbers are used for a & b.
- * When the same arguments are used a second this, the result will not have to
+ * When the same numbers are used a second time, the result will not have to
  * be calculated, but can be retrieved from memory. Which is much faster.
  * 
  * @example		const add = memo((a, b) => a + b);
