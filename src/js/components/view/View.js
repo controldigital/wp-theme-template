@@ -5,8 +5,13 @@
 import { attachShadowToElement } from 'Components/shadow.js';
 import { fetchURL } from './fetch.js';
 import {
+	createCustomEvent,
 	onFetchStart,
 	onFetchDone,
+	onContentEnterStart,
+	onContentEnterEnd,
+	onContentLeaveStart,
+	onContentLeaveEnd,
 	onPopState
 } from './events.js';
 
@@ -42,11 +47,18 @@ export default class HTMLViewElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, templateId);
+		const shadow = attachShadowToElement.call(this, templateId);
+
+		// Get the container element.
+		this.container = shadow.querySelector('.container');
 
 		// Bind the event listeners.
 		this.onFetchStart = onFetchStart.bind(this);
 		this.onFetchDone = onFetchDone.bind(this);
+		this.onContentEnterStart = onContentEnterStart.bind(this);
+		this.onContentEnterEnd = onContentEnterEnd.bind(this);
+		this.onContentLeaveStart = onContentLeaveStart.bind(this);
+		this.onContentLeaveEnd = onContentLeaveEnd.bind(this);
 		this.onPopState = onPopState.bind(this);
 
 	}
@@ -68,16 +80,30 @@ export default class HTMLViewElement extends HTMLElement {
 	}
 
 	/**
-	 * Gets and sets the transition attribute.
+	 * Gets and sets the transition-in attribute.
 	 * @property
 	 */
-	get transition() {
-		return parseInt(this.getAttribute('transition'));
+	get transitionIn() {
+		return parseInt(this.getAttribute('transition-in'));
 	}
 
-	set transition(value) {
+	set transitionIn(value) {
 		if ('number' === typeof value) {
-			this.setAttribute('transition', value);
+			this.setAttribute('transition-in', value);
+		} 
+	}
+
+	/**
+	 * Gets and sets the transition-out attribute.
+	 * @property
+	 */
+	get transitionOut() {
+		return parseInt(this.getAttribute('transition-out'));
+	}
+
+	set transitionOut(value) {
+		if ('number' === typeof value) {
+			this.setAttribute('transition-out', value);
 		} 
 	}
 
@@ -96,6 +122,38 @@ export default class HTMLViewElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets and sets the enter attribute.
+	 * @property
+	 */
+	get enter() {
+		return parseInt(this.getAttribute('enter'));
+	}
+
+	set enter(value) {
+		if (value === true) {
+			this.setAttribute('enter', '');
+		} else {
+			this.removeAttribute('enter');
+		}
+	}
+
+	/**
+	 * Gets and sets the leave attribute.
+	 * @property
+	 */
+	get leave() {
+		return parseInt(this.getAttribute('leave'));
+	}
+
+	set leave(value) {
+		if (value === true) {
+			this.setAttribute('leave', '');
+		} else {
+			this.removeAttribute('leave');
+		}
+	}
+
+	/**
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
@@ -108,7 +166,8 @@ export default class HTMLViewElement extends HTMLElement {
 		switch(attrName) {
 			case 'url':
 				if (!!newValue === false) {
-					await this.load(newValue);
+					const content = await this.load(newValue);
+					replaceContent(content);
 				}
 				break;
 		}
@@ -129,8 +188,13 @@ export default class HTMLViewElement extends HTMLElement {
 		}
 
 		// Add event listeners.
+		// TODO: This can be a lot cleaner.
 		this.addEventListener('fetchstart', this.onFetchStart);
 		this.addEventListener('fetchdone', this.onFetchDone);
+		this.addEventListener('contententerstart', this.onContentEnterStart);
+		this.addEventListener('contententerend', this.onContentEnterEnd);
+		this.addEventListener('contentleaverstart', this.onContentLeaveStart);
+		this.addEventListener('contentleaveend', this.onContentLeaveEnd);
 		this.addEventListener('popstate', this.onPopState);
 
 	}
@@ -144,8 +208,13 @@ export default class HTMLViewElement extends HTMLElement {
 	disconnectedCallback() {
 
 		// Remove event listeners.
+		// TODO: This as well.
 		this.removeEventListener('fetchstart', this.onFetchStart);
 		this.removeEventListener('fetchdone', this.onFetchDone);
+		this.removeEventListener('contententerstart', this.onContentEnterStart);
+		this.removeEventListener('contententerend', this.onContentEnterEnd);
+		this.removeEventListener('contentleaverstart', this.onContentLeaveStart);
+		this.removeEventListener('contentleaveend', this.onContentLeaveEnd);
 		this.removeEventListener('popstate', this.onPopState);
 
 	}
@@ -160,29 +229,67 @@ export default class HTMLViewElement extends HTMLElement {
 
 	}
 
+	/**
+	 * Load the resource.
+	 * 
+	 * @async
+	 * @method	load
+	 * @param 	{String} resource The URL we want to get.
+	 * @returns	{Promise<string>} The response in a string.
+	 */
 	async load(resource) {
 
 		// Dispatch fetch start event.
-		const fetchStartInit = {
-			detail: {
-				resource
-			}
-		};
-		const fetchStartEvent = new CustomEvent('fetchstart', fetchStartInit);
+		const fetchStartEvent = createCustomEvent('fetchstart', {
+			resource
+		});
 		this.dispatchEvent(fetchStartEvent);
 
 		// Get the response.
 		const response = await fetchURL.call(this, resource);
 
 		// Dispatch fetchdone event with the url and the response.
-		const fetchDoneInit = { 
-			detail: {
-				url,
-				response
-			}
-		};
-		const fetchDoneEvent = new CustomEvent('fetchdone', fetchDoneInit);
+		const fetchDoneEvent = createCustomEvent('fetchdone', {
+			resource,
+			response
+		});
 		this.dispatchEvent(fetchDoneEvent);
+
+		// Return the response.
+		return response;
+
+	}
+
+	/**
+	 * 
+	 * @method	replaceContent
+	 * @param 	{String} content
+	 * @returns	{Array} 
+	 */
+	replaceContent(content) {
+
+		// Get the current content.
+		const currentContent = this.innerHTML;
+		
+		// Create the events.
+		const contentLeaveStartEvent = createCustomEvent('contentleavestart', {content: currentContent});
+		const contentLeaveEndEvent = createCustomEvent('contententerleave', {content: currentContent});
+		const contentEnterStartEvent = createCustomEvent('contententerstart', {content: content});
+		const contentEnterEndEvent = createCustomEvent('contententerend', {content: content});
+
+		// Start dispatching.
+		this.dispatchEvent(contentLeaveStartEvent);
+
+		// After the transition out time, fire the next salvo.
+		setTimeout(() => {
+			this.dispatchEvent(contentLeaveEndEvent);
+			this.dispatchEvent(contentEnterStartEvent);
+		}, this.transitionOut);
+
+		// After both transition out and in times combined, fire the last.
+		setTimeout(() => {
+			this.dispatchEvent(contentEnterEndEvent);
+		}, this.transitionOut + this.transitionIn);
 
 	}
 
