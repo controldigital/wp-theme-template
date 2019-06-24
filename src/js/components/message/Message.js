@@ -3,8 +3,11 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createTemplate } from './template.js';
+import { removeElement } from 'Modules/elements.js';
 
-const templateId = 'template-message';
+// Create a template.
+const template = createTemplate();
 
 // The accepted values of the attributes.
 const acceptedTypes = ['warning', 'info', 'error'];
@@ -37,7 +40,7 @@ export default class HTMLMessageElement extends HTMLElement {
 		super();
 
 		// Create a new shadow.
-		attachShadowToElement.call(this, templateId);
+		attachShadowToElement.call(this, template);
 
 	}
 
@@ -109,6 +112,16 @@ export default class HTMLMessageElement extends HTMLElement {
 	 */
 	adoptedCallback() {
 
+	}
+
+	/**
+	 * Close the message element.
+	 * 
+	 * @method	close
+	 * @returns	{void}
+	 */
+	close() {
+		removeElement(this);
 	}
 
 }
