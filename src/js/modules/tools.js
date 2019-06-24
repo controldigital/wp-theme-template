@@ -37,8 +37,6 @@ export const debounce = (func, wait, immediate = false) => {
  * min and a max value.
  * 
  * @function	getRandomInt
- * @since   	1.0
- * 
  * @param   	{Number} min Min value
  * @param   	{Number} max Max value
  * @returns 	{Number} Random number
@@ -46,22 +44,140 @@ export const debounce = (func, wait, immediate = false) => {
 export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 /**
- * @function	stringCommaToPoint
- * @since   	1.0
+ * Converts the comma's in a string to dots.
  * 
+ * @function	stringCommaToDot
  * @param   	{String} str String with comma's.
- * @returns 	{String} Modified string with points instead of comma's.
+ * @returns 	{String} Modified string with dots instead of comma's.
  */
-export const stringCommaToPoint = (str) => str.replace(/,/g, '.');
+export const stringCommaToDot = (str) => str.replace(/,/g, '.');
 
 /**
- * @function	stringPointToComma
- * @since   	1.0
+ * Converts the comma's in a string to dots.
  * 
- * @param   	{String} str String with points.
- * @returns 	{String} Modified string with comma's instead of points.
+ * @function	stringDotToComma
+ * @param   	{String} str String with dots.
+ * @returns 	{String} Modified string with comma's instead of dots.
  */
-export const stringPointToComma = (str) => str.replace(/./g, ',');
+export const stringDotToComma = (str) => str.replace(/./g, ',');
+
+/**
+ * Converts a camel-cased string to a snake-cased string and returns it.
+ * 
+ * @function	stringCamelToSnake
+ * @param 		{String} string 
+ * @returns		{String}
+ */
+export const stringCamelToSnake = string => string.replace(/[A-Z\s]+/g, match => `_${match.toLowerCase()}`);
+
+/**
+ * Converts a snake-cased string to a camel-cased string and returns it.
+ * 
+ * @function	stringSnakeToCamel
+ * @param 		{String} string 
+ * @returns		{String}
+ */
+export const stringSnakeToCamel = string => string.replace(/_\w/g, match => match[1].toUpperCase());
+
+/**
+ * Converts an array into a comma seperated value (CSV) string.
+ * 
+ * @function	arrayToCSV
+ * @param		{Array} data Array to convert to CSV string.
+ * @returns		{(String|Array)} Original data or CSV string.
+ */
+export const arrayToCSV = (data = []) => {
+	if (!Array.isArray(data)) return data;
+	const csvString = data.join(',');
+	return csvString;
+};
+
+/**
+ * Converts an object into a comma seperated value (CSV) string.
+ * 
+ * @function	objectToCSV
+ * @param 		{Object} data Object to convert to CSV string.
+ * @returns		{(String|Object)}	Original data or CSV string.
+ */
+export const objectToCSV = (data = {}) => {
+	if ('object' !== typeof data) return data;
+	const keys = Object.keys(data);
+	const csvString = keys.map(key => `${key}=${data[key]}`).join(',');
+	return csvString;
+};
+
+/**
+ * Converts the keys of an object to snake-cased format.
+ * This is useful to create PHP friendly keys to use in a queriable string format.
+ * 
+ * @function	keysOfObjectToSnakeCase
+ * @uses		stringCamelToSnake()
+ * @param 		{Object} object
+ * @returns		{Object}
+ */
+export const keysOfObjectToSnakeCase = (object) => {
+	const keys = Object.keys(object);
+	keys.forEach((key) => {
+		const snakeKey = stringCamelToSnake(key);
+		if (snakeKey !== key) {
+			Object.defineProperty(
+				object, 
+				snakeKey, 
+				Object.getOwnPropertyDescriptor(object, key)
+			);
+			delete object[key];
+		}
+	});
+	return object;
+};
+
+/**
+ * Converts an array with strings into a string that can be used in a query.
+ * 
+ * @function	serializeArray
+ * @uses		arrayToCSV()
+ * @param   	{String} key The name of the values.
+ * @param		{String[]} data The values in a array format with strings.
+ * @param		{Boolean} question Append a questionmark before the string.
+ * @returns 	{String} Queryable string
+ * 
+ * @example
+ * const key = 'post_type';
+ * const data = ['post', 'page']
+ * 
+ * const query = serializeArray(key, data, question = false); // = "?post_type[]=post&post_type[]=page"
+ */
+export const serializeArray = (key, data = []) => {
+	if (!Array.isArray(data)) throw new Error('data argument is not given or type of array');
+	const query = data.map(value => `${key}[]=${value}`).join('&');
+	return question === true ? `?${query}` : query;
+};
+
+/**
+ * Converts an object with keys and values into a string that can 
+ * be used as a querieable string.
+ * 
+ * @function	serializeObject
+ * @uses		serializeArray()
+ * @param 		{Object} data Object to convert to string
+ * @param		{Boolean} question Append a questionmark before the string.
+ * @returns		{String} Queryable string
+ * 
+ * @example
+ * const data = {
+ *      action: 'get_posts',
+ *      post_type: ['post', 'page'],
+ * 		post_status: ['publish']
+ * };
+ * 
+ * const query = serializeObject(data); // = "?action=value&post_type[]=post&post_type[]=page&post_status[]=publish"
+ */
+export const serializeObject = (data = {}, question = false) => {
+	if (!data || 'object' !== typeof data) throw new Error('data argument is not given or type of object');
+	const keys = Object.keys(data);
+	const query = keys.map(key => Array.isArray(value) ? serializeArray(key, data[key]) : `${key}=${data[key]}`).join('&');
+	return question === true ? `?${query}` : query;
+};
 
 /**
  * Checks if a number is between
