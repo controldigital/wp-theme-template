@@ -13,31 +13,30 @@ export default class Cache {
 	/**
 	 * Creates a new instance of Cache.
 	 * @constructor
-	 * 
-	 * @param	{String} id
-	 * @param	{String} fragment
+	 * @param		{Number} limit Limit of the amount of entries.
 	 */
-	constructor(id, fragment) {
+	constructor(limit = -1) {
+		this.limit = limit;
 		this.entries = {};
-		if (id !== undefined && fragment !== undefined) {
-			this.set(id, fragment);
-		}
+		this.length = 0;
 	}
 
 	/**
-	 * Returns the fragment of the selected id.
+	 * Returns the value of the selected id.
 	 * 
 	 * @method	get
 	 * @param	{String} id
 	 * @returns	{*}
 	 */
 	get(id) {
-		if (this.has(id))
+		if (this.has(id)) {
 			return this.entries[id];
+		}
 	}
 
 	/**
-	 * Adds a new entry to the list.
+	 * Adds a new entry to the list when the limit is unlimited
+	 * or when there room left in the entries object.
 	 * 
 	 * @method	set
 	 * @param	{String} id
@@ -45,8 +44,11 @@ export default class Cache {
 	 * @returns	{*}
 	 */
 	set(id, fragment) {
-		this.entries[id] = fragment;
-		return fragment;
+		if (this.limit === -1 || this.length < this.limit ) {
+			this.entries[id] = fragment;
+			this.length++;
+			return fragment;
+		}
 	}
 
 	/**
@@ -70,6 +72,7 @@ export default class Cache {
 	 */
 	delete(id) {
 		delete this.entries[id];
+		this.length--;
 		return this;
 	}
 
@@ -83,6 +86,7 @@ export default class Cache {
 		for (let id in this.entries) {
 			delete this.entries[id];
 		}
+		this.length = 0;
 		return this;
 	}
 
