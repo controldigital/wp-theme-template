@@ -23,17 +23,17 @@ export const getRestData = async (args = {}, route = '/wp/v2/posts', rest = wp.r
 	// Check if args parameter is set and if it is an object.
 	if (!args || 'object' !== typeof args) throw new Error('Args not set or not an object');
 
-	// Create endpoint with arguments for request
+	// Create endpoint with arguments for request.
 	const snakeArgs = keysOfObjectToSnakeCase(args);
 	const query = serializeObject(snakeArgs);
-	const url = `${rest}${route}${query}`;
+	const url = new URL(`${rest}${route}${query}`);
 	
-	// Create new headers
+	// Create new headers and use the nonce for validation.
 	const headers = new Headers({
 		'X-WP-Nonce': wp.nonce
 	});
 
-	// Set options of request object
+	// Set options of request object.
 	const options = {
 		method: 'GET',
 		headers: headers,
@@ -41,19 +41,19 @@ export const getRestData = async (args = {}, route = '/wp/v2/posts', rest = wp.r
 		cache: 'default',
 	};
 
-	// Create a new request object
+	// Create a new request object.
 	const request = new Request(url, options);
 
-	// Fetch the request
+	// Fetch the request.
 	const response = await fetch(request);
 
-	// If response succeeds return the json
+	// If response succeeds return the json.
 	if (response.status === 200) {
 		const json = await response.json();
 		return json;
 	}
 
-	// Output error
+	// Output error.
 	throw new Error(response.status);
 
 };
