@@ -8,8 +8,9 @@ import {
 } from 'Modules/tools.js';
 
 /**
- * Fetches the posts of this WordPress site through the REST API. The function is an async
- * function which will return a Promise containing either an error or the posts in JSON format.
+ * Function to get data from the WordPress REST API. Takes a number of arguments to specify
+ * which data to get. The data is processed to a querieable snakecased string and sent to 
+ * the API. If the request is successful it returns a Promse in a JSON format.
  * 
  * @function    getRestData
  * @param	    {Object} args Arguments to limit results to the specificity of the query.
