@@ -2,7 +2,7 @@
  * @module	./modules/query
  */
 
-import { getElement } from './tools';
+import { getElement } from './elements.js';
 
 /**
  * FormQuery
