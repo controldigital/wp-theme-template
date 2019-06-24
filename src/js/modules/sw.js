@@ -57,13 +57,10 @@ const registrationError = (error) => {
  * @param	{String} options.scope A USVString representing a URL that defines a service worker's registration scope.
  * @returns	{void}
  */
-export const registerServiceWorker = async (scriptURL, options = {scope: '/wp-content/'}) => {
+export const registerServiceWorker = (scriptURL, options = {scope: '/wp-content/'}) => {
 	if (supportsServiceWorker) {
-		try {
-			const registered = await navigator.serviceWorker.register(scriptURL, options);
-			registrationSucces(registered);
-		} catch(error) {
-			registrationError(error);
-		}
+		navigator.serviceWorker.register(scriptURL, options)
+			.then(registrationSucces)
+			.catch(registrationError);
 	}
 };
