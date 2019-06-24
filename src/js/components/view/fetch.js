@@ -23,7 +23,7 @@ export const fetchURL = async function fetchURL(resource) {
 	}
 	
 	// Create a new url.
-	const url = new URL(newValue);
+	const url = new URL(resource);
 
 	// Fetch the url.
 	const response = await fetch(url);
