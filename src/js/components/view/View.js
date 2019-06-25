@@ -61,6 +61,17 @@ export default class HTMLViewElement extends HTMLElement {
 		this.onContentLeaveEnd = onContentLeaveEnd.bind(this);
 		this.onPopState = onPopState.bind(this);
 
+		// Create a list of all events and their listeners.
+		this.eventListeners = [
+			['fetchstart', this.onFetchStart],
+			['fetchdone', this.onFetchDone],
+			['contententerstart', this.onContentEnterStart],
+			['contententerend', this.onContentEnterEnd],
+			['contentleaverstart', this.onContentLeaveStart],
+			['contentleaveend', this.onContentLeaveEnd],
+			['popstate', this.onPopState]
+		];
+
 	}
 
 	/**
@@ -188,14 +199,9 @@ export default class HTMLViewElement extends HTMLElement {
 		}
 
 		// Add event listeners.
-		// TODO: This can be a lot cleaner.
-		this.addEventListener('fetchstart', this.onFetchStart);
-		this.addEventListener('fetchdone', this.onFetchDone);
-		this.addEventListener('contententerstart', this.onContentEnterStart);
-		this.addEventListener('contententerend', this.onContentEnterEnd);
-		this.addEventListener('contentleaverstart', this.onContentLeaveStart);
-		this.addEventListener('contentleaveend', this.onContentLeaveEnd);
-		this.addEventListener('popstate', this.onPopState);
+		this.eventListeners.forEach(([name, handler]) => {
+			this.addEventListener(name, handler);
+		});
 
 	}
 
@@ -208,14 +214,9 @@ export default class HTMLViewElement extends HTMLElement {
 	disconnectedCallback() {
 
 		// Remove event listeners.
-		// TODO: This as well.
-		this.removeEventListener('fetchstart', this.onFetchStart);
-		this.removeEventListener('fetchdone', this.onFetchDone);
-		this.removeEventListener('contententerstart', this.onContentEnterStart);
-		this.removeEventListener('contententerend', this.onContentEnterEnd);
-		this.removeEventListener('contentleaverstart', this.onContentLeaveStart);
-		this.removeEventListener('contentleaveend', this.onContentLeaveEnd);
-		this.removeEventListener('popstate', this.onPopState);
+		this.eventListeners.forEach(([name, handler]) => {
+			this.removeEventListener(name, handler);
+		});
 
 	}
 
