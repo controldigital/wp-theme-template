@@ -9,7 +9,6 @@
  * The found element is then returned.
  * 
  * @function	getElement
- * 
  * @param		{(String|HTMLElement|Element)} selector String or the element itself.
  * @returns 	{(HTMLElement|Null)} Returns the element is found or null if not.
  */
@@ -37,7 +36,6 @@ export const getElement = (selector) => {
  * It returns the found elements in an Array.
  * 
  * @function	getElements
- * 
  * @param		{(String|HTMLCollection|NodeList|Array)} selector String or iterable object/array with the elements.
  * @returns		{(HTMLElement[]|[])} Returns an array with either the found elements or an empty array.
  */
@@ -57,6 +55,22 @@ export const getElements = (selector) => {
 	} else {
 		return [];
 	}
+};
+
+/**
+ * Removes an element from the DOM.
+ * 
+ * @function    removeElement
+ * @param       {(String|HTMLElement|Element)} element String to select the element or the element itself.
+ * @returns     {Boolean} true on succes, false on failure.
+ */
+export const removeElement = (element) => {
+    const element = getElement(element);
+    if (element.parentElement) {
+        element.parentElement.removeChild(element);
+        return true;
+    }
+    return false;
 };
 
 /**
