@@ -120,6 +120,8 @@ export const onContentLeaveEnd = function onContentLeaveEnd(event) {
  * @param		{Event} event
  * @returns		{void}
  */
-export const onPopState = function onPopState(event) {
+export const onPopState = async function onPopState(event) {
 	const { state } = event;
+	const content = await this.load(state.url);
+	this.replaceContent(content);
 };
