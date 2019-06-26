@@ -15,9 +15,6 @@ import {
 	onPopState
 } from './events.js';
 
-// ID of HTML template for Shadow DOM.
-const templateId = 'template-view';
-
 /**
  * Element that fetches and inserts variable content based
  * on the given url in the attribute. Can be used to have
@@ -72,6 +69,23 @@ export default class HTMLViewElement extends HTMLElement {
 			['popstate', this.onPopState]
 		];
 
+		// Set default ARIA attributes
+		this.setAttribute('aria-live', 'polite');
+
+	}
+
+	/**
+	 * Gets and sets the url attribute.
+	 * @property
+	 */
+	get url() {
+		return this.getAttribute('url');
+	}
+
+	set url(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('url', value);
+		} 
 	}
 
 	/**
@@ -119,20 +133,6 @@ export default class HTMLViewElement extends HTMLElement {
 	}
 
 	/**
-	 * Gets and sets the url attribute.
-	 * @property
-	 */
-	get url() {
-		return this.getAttribute('url');
-	}
-
-	set url(value) {
-		if ('string' === typeof value) {
-			this.setAttribute('url', value);
-		} 
-	}
-
-	/**
 	 * Gets and sets the enter attribute.
 	 * @property
 	 */
@@ -165,6 +165,22 @@ export default class HTMLViewElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets and sets the use-history attribute.
+	 * @property
+	 */
+	get useHistory() {
+		return parseInt(this.getAttribute('use-history'));
+	}
+
+	set useHistory(value) {
+		if (value === true) {
+			this.setAttribute('use-history', '');
+		} else {
+			this.removeAttribute('use-history');
+		}
+	}
+
+	/**
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
@@ -177,8 +193,18 @@ export default class HTMLViewElement extends HTMLElement {
 		switch(attrName) {
 			case 'url':
 				if (!!newValue === false) {
+
+					// Set the history state.
+					if (this.useHistory) {
+						history.pushState({
+							url: newValue
+						}, '', newValue);
+					}
+
+					// Get the content and inject it.
 					const content = await this.load(newValue);
-					replaceContent(content);
+					this.replaceContent(content);
+					
 				}
 				break;
 		}
