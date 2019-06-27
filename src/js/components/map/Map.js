@@ -5,9 +5,10 @@
 import mapboxgl from 'mapbox-gl';
 import { accessToken } from './token.js';
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createTemplate } from './template.js';
 
-// ID of HTML template for Shadow DOM.
-const templateId = 'template-map';
+// Template for Shadow DOM.
+const template = createTemplate();
 
 /**
  * Card
@@ -35,7 +36,7 @@ export default class HTMLMapElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, templateId);
+		attachShadowToElement.call(this, template);
 		
 	}
 

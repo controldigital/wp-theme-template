@@ -3,6 +3,7 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createTemplate } from './template.js';
 import { onChange } from './events.js';
 import {
 	createStorage,
@@ -11,8 +12,8 @@ import {
 	checkStorageForId
 } from './storage.js';
 
-// ID of HTML template for Shadow DOM.
-const templateId = 'template-like';
+// Template for Shadow DOM.
+const template = createTemplate();
 
 // The accepted values of  the type attribute.
 const acceptedTypes = ['thumb', 'heart', 'star'];
@@ -43,7 +44,7 @@ export default class HTMLLikeElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, templateId);
+		attachShadowToElement.call(this, template);
 
 		// Bind the event listener.
 		this.onChange = onChange.bind(this);

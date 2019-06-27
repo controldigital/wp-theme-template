@@ -3,14 +3,15 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createTemplate } from './template.js';
 import {
 	onClick,
 	onKeyDown,
 	onSlotChange
 } from './events';
 
-// ID of HTML template for Shadow DOM.
-const templateId = 'template-tabs';
+// Template for Shadow DOM.
+const template = createTemplate();
 
 /**
  * Tabs
@@ -38,7 +39,7 @@ export default class HTMLTabsElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, templateId);
+		attachShadowToElement.call(this, template);
 
 		// Bind the event handlers.
 		this.onClick = onClick.bind(this);

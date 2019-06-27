@@ -3,6 +3,7 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createSliderTemplate } from './template.js';
 import {
 	onTouchStart,
 	onTouchMove,
@@ -20,10 +21,8 @@ import {
 	isTouchDevice,
 } from 'Modules/tools.js';
 
-
-
-// ID of HTML template for Shadow DOM.
-const templateId = 'template-slider';
+// Create template for Shadow DOM.
+const template = createSliderTemplate();
 
 // If there is passive events support.
 const features = hasFeatures('Passive Events');
@@ -54,7 +53,7 @@ export default class HTMLSliderElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		const shadow = attachShadowToElement.call(this, templateId);
+		const shadow = attachShadowToElement.call(this, template);
 
 		// Set the event handlers.
 		this.onSlotChange = onSlotChange.bind(this);

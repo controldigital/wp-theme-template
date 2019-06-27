@@ -3,14 +3,15 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createTemplate } from './template.js';
 import {
 	onMouseEnter,
 	onMouseLeave,
 	onClick
 } from './events.js';
 
-// ID of HTML template for Shadow DOM.
-const templateId = 'template-fab';
+// Template for Shadow DOM.
+const template = createTemplate();
 
 /**
  * Element that resembles a "floating action button". This element
@@ -41,7 +42,7 @@ export default class HTMLFabElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, templateId);
+		attachShadowToElement.call(this, template);
 
 		// Bind the events.
 		this.onMouseEnter = onMouseEnter.bind(this);

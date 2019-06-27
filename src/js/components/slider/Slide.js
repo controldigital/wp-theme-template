@@ -3,9 +3,10 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createSlideTemplate } from './template.js';
 
-// ID of HTML template for Shadow DOM.
-const templateId = 'template-slide';
+// Template for Shadow DOM.
+const template = createSlideTemplate();
 
 /**
  * Slider
@@ -23,7 +24,7 @@ export default class HTMLSlideElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['active', 'focus'];
+		return ['active'];
 	}
 
 	/**
@@ -33,7 +34,7 @@ export default class HTMLSlideElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, templateId);
+		attachShadowToElement.call(this, template);
 	}
 
 	/**

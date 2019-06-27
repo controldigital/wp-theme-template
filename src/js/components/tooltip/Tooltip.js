@@ -3,14 +3,15 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createTemplate } from './template.js';
 import { 
 	onSlotChange,
 	onMouseEnter,
 	onMouseLeave
 } from './events.js';
 
-// The id of the tooltip template.
-const templateId = 'template-tooltip';
+// Template for the tooltip element.
+const template = createTemplate();
 
 /**
  * Element to display a tooltip with a custom message.
@@ -39,7 +40,7 @@ export default class HTMLTooltipElement extends HTMLElement {
 		super();
 
 		// Create Shadow DOM
-		attachShadowToElement.call(this, templateId);
+		attachShadowToElement.call(this, template);
 
 		// Set the default attributes
 		this.setAttribute('role', 'tooltip');

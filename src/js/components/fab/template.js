@@ -10,45 +10,119 @@ import { createElement } from 'Modules/elements.js';
  * @function        createElement
  * @returns         {HTMLTemplateElement}
  */
-export const createTemplate = () => {
+export const createTemplate = createElement('template', {
+    html: /*template*/`
 
-    // Icon slot
-    const iconSlot = createElement('slot', {
-        attributes: {
-            name: 'icon'
-        }
-    });
+        <style>
 
-    // Icon with slot child.
-    const icon = createElement('div', { 
-        classes: ['icon'],
-        children: [iconSlot]
-    });
+            *, 
+            *::before, 
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
 
-    // Menu item slot
-    const menuItemSlot = createElement('slot', {
-        attributes: {
-            name: 'menu-item'
-        }
-    });
+            :host {
+                all: initial;
+                display: block;
+                contain: content;
+                position: fixed;
 
-    // Menu list with menu item slot child.
-    const menuList = createElement('div', {
-        classes: ['menu-list'],
-        children: [menuItemSlot]
-    });
+            }
 
-    // Nav element with menu list child.
-    const menu = createElement('nav', {
-        classes: ['menu'],
-        children: [menuList]
-    });
+            :host([position="top-left"]) {
+                top: 45px;
+                left: 24px;
+            }
 
-    // Template with icon and menu children.
-    const template = createElement('template', {
-        children: [icon, menu]
-    });
+            :host([position="top-right"]) {
+                top: 45px;
+                right: 24px;
+            }
 
-    return template;
+            :host([position="bottom-right"]) {
+                bottom: 45px;
+                right: 24px;
+            }
 
-};
+            :host([position="bottom-left"]) {
+                bottom: 45px;
+                left: 24px;
+            }
+
+            :host([axis="horizontal"]) {
+                
+            }
+
+            :host([axis="vertical"]) {
+
+            }
+
+            .menu {
+                position: absolute;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 150ms ease-in-out, visibility 150ms ease-in-out;
+            }
+
+            :host([position="top-left"][axis="horizontal"]) .menu,
+            :host([position="bottom-left"][axis="horizontal"]) .menu {
+                top: 0;
+                left: 64px;
+                height: 100%;
+            }
+
+            :host([position="top-right"][axis="horizontal"]) .menu,
+            :host([position="bottom-right"][axis="horizontal"]) .menu {
+                top: 0;
+                right: 64px;
+                height: 100%;
+            }
+
+            :host([position="top-left"][axis="vertical"]) .menu,
+            :host([position="top-right"][axis="vertical"]) .menu {
+                top: 64px;
+                left: 0px;
+                width: 100%;
+            }
+
+            :host([position="bottom-right"][axis="vertical"]) .menu,
+            :host([position="bottom-left"][axis="vertical"]) .menu {
+                bottom: 64px;
+                left: 0px;
+                width: 100%;
+            }
+            
+            :host([open]) .menu {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .menu-list {
+                display: flex;
+                align-items: stretch;
+                flex-wrap: nowrap;
+            }
+
+            :host([axis="horizontal"]) .menu-list {
+                flex-direction: row;
+            }
+
+            :host([axis="vertical"]) .menu-list {
+                flex-direction: column;
+            }
+
+        </style>
+
+        <div class="icon">
+            <slot name="icon"></slot>
+        </div>
+        <nav class="menu">
+            <div class="menu-list">
+                <slot name="menu-item"></slot>
+            </div>
+        </nav>
+
+    `
+});
