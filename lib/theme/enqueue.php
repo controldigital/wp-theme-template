@@ -41,14 +41,14 @@ function custom_script_attributes( $tag, $handle, $src ) {
 
 	// Script that load async
 	$async_attr = 'async';
-	$async_handles = array( 'script' );
+	$async_handles = array();
 	if ( in_array( $handle, $async_handles ) ) {
 		return '<script id="' . $handle . '-js" src="' . $src . '" type="text/javascript" ' . $async_attr . '></script>';
 	}
 
 	// Scripts that load defer
 	$defer_attr = 'defer';
-	$defer_handles = array( 'google-maps' );
+	$defer_handles = array( 'script' );
 	if ( in_array( $handle, $defer_handles ) ) {
 		return '<script id="' . $handle . '-js" src="' . $src . '" type="text/javascript" ' . $defer_attr . '></script>';
 	}
