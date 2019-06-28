@@ -35,7 +35,7 @@ export default class Config {
 	 */
 	get(key) {
 		const cookie = Cookie.get(this.name);
-		if (cookie === false) {
+		if (cookie !== false) {
 			const settings = JSON.parse(cookie);
 			if (settings.hasOwnProperty(key)) {
 				return settings[key];
