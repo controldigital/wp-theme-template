@@ -33,6 +33,30 @@ export const debounce = (func, wait, immediate = false) => {
 };
 
 /**
+ * Converts the keys of an object to a new format.
+ * 
+ * @function	convertKeysOfObject
+ * @param 		{Object} object
+ * @param		{Function} converterCallback
+ * @returns		{Object}
+ */
+export const convertKeysOfObject = (object, converterCallback) => {
+	const keys = Object.keys(object);
+	keys.forEach((key) => {
+		const snakeKey = converterCallback(key);
+		if (snakeKey !== key) {
+			Object.defineProperty(
+				object, 
+				snakeKey, 
+				Object.getOwnPropertyDescriptor(object, key)
+			);
+			delete object[key];
+		}
+	});
+	return object;
+};
+
+/**
  * Generates a random number between a
  * min and a max value.
  * 
@@ -115,21 +139,18 @@ export const objectToCSV = (data = {}) => {
  * @param 		{Object} object
  * @returns		{Object}
  */
-export const keysOfObjectToSnakeCase = (object) => {
-	const keys = Object.keys(object);
-	keys.forEach((key) => {
-		const snakeKey = stringCamelToSnake(key);
-		if (snakeKey !== key) {
-			Object.defineProperty(
-				object, 
-				snakeKey, 
-				Object.getOwnPropertyDescriptor(object, key)
-			);
-			delete object[key];
-		}
-	});
-	return object;
-};
+export const keysOfObjectToSnakeCase = (object) => convertKeysOfObject(object, stringCamelToSnake); 
+
+/**
+ * Converts the keys of an object to camel-cased format.
+ * This is useful for creating a JS friendly object coming from a PHP object or associative array.
+ * 
+ * @function	keysOfObjectToCamelCase
+ * @uses		stringSnakeToCamel()
+ * @param 		{Object} object
+ * @returns		{Object}
+ */
+export const keysOfObjectToCamelCase = (object) => convertKeysOfObject(object, stringSnakeToCamel); 
 
 /**
  * Converts an array with strings into a string that can be used in a query.
