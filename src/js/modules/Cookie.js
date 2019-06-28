@@ -49,7 +49,7 @@ export default class Cookie {
         const date = new Date();
         date.setTime(date.getTime() + (expire * 24 * 3600 * 1000));
         const expires = date.toUTCString();
-        document.cookie = name + '=' + value + '; expires=' + expires + '; path=' + path + '; domain=' + domain;
+        document.cookie = `${this.name}=${value}; expires=${expires}; path=${path}; domain=${domain}`;
         return document.cookie;
     }
 
