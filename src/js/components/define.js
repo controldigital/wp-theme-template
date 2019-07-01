@@ -2,112 +2,86 @@
  * @module	./components/define
  */
 
+// Import list.
+import CustomElementsList from './list.js';
+
+// Import custom elements.
+import HTMLCardElement from './card/Card.js';
+import HTMLFabElement from './fab/Fab.js';
+import HTMLLazyElement from './lazy/Lazy.js';
+import HTMLLikeElement from './like/Like.js';
+import HTMLMenuElement from './menu/Menu.js';
+import HTMLMessageElement from './message/Message.js';
+import HTMLModalElement from './modal/Modal.js';
+import HTMLPanelElement from './tabs/Panel.js';
+import HTMLScrollBarElement from './scrollbar/Scrollbar.js';
 import HTMLSliderElement from './slider/Slider.js';
 import HTMLSlideElement from './slider/Slide.js';
-import HTMLCardElement from './card/Card.js';
 import HTMLTabsElement from './tabs/Tabs.js';
 import HTMLTabElement from './tabs/Tab.js';
-import HTMLPanelElement from './tabs/Panel.js';
-import HTMLModalElement from './modal/Modal.js';
-import HTMLLazyElement from './lazy/Lazy.js';
-import HTMLCookieElement from './cookie/Cookie.js';
-import HTMLLikeElement from './like/Like.js';
-import HTMLViewElement from './view/View.js';
-import HTMLMessageElement from './message/Message.js';
+import HTMLTimeElement from './time/Time.js';
+import HTMLToggleElement from './toggle/Toggle.js';
 import HTMLTooltipElement from './tooltip/Tooltip.js';
-import HTMLMenuElement from './menu/Menu.js';
+import HTMLViewElement from './view/View.js';
 
 /**
  * A list with names and constructors for custom elements.
  * 
  * @typedef		customElementsList
- * @type		{Object[]}
+ * @type		{CustomElementsList<Array>}
  */
-const customElementsList = [];
-
-// Add ctrl-slider element.
-customElementsList.push({
-	name: 'ctrl-slider',
-	construct: HTMLSliderElement,
-});
-
-// Add ctrl-slide element.
-customElementsList.push({
-	name: 'ctrl-slide',
-	construct: HTMLSlideElement,
-});
+const customElementsList = new CustomElementsList();
 
 // Add ctrl-card element.
-customElementsList.push({
-	name: 'ctrl-card',
-	construct: HTMLCardElement
-});
+customElementsList.add('ctrl-card', HTMLCardElement);
 
-// Add ctrl-tabs element.
-customElementsList.push({
-	name: 'ctrl-tabs',
-	construct: HTMLTabsElement
-});
-
-// Add ctrl-tab element.
-customElementsList.push({
-	name: 'ctrl-tab',
-	construct: HTMLTabElement
-});
-
-// Add ctrl-panel element.
-customElementsList.push({
-	name: 'ctrl-panel',
-	construct: HTMLPanelElement
-});
-
-// Add ctrl-modal element.
-customElements.push({
-	name: 'ctrl-modal',
-	construct: HTMLModalElement
-});
+// Add ctrl-fab element.
+customElementsList.add('ctrl-fab', HTMLFabElement);
 
 // Add ctrl-lazy element.
-customElements.push({
-	name: 'ctrl-lazy',
-	construct: HTMLLazyElement
-});
-
-// Add ctrl-cookie element.
-customElements.push({
-	name: 'ctrl-cookie',
-	construct: HTMLCookieElement
-});
-
-// Add ctrl-like element.
-customElements.push({
-	name: 'ctrl-like',
-	construct: HTMLLikeElement
-});
-
-// Add ctrl-view element.
-customElements.push({
-	name: 'ctrl-view',
-	construct: HTMLViewElement
-});
-
-// Add ctrl-message element.
-customElements.push({
-	name: 'ctrl-message',
-	construct: HTMLMessageElement
-});
-
-// Add ctrl-tooltip element.
-customElements.push({
-	name: 'ctrl-tooltip',
-	construct: HTMLTooltipElement
-});
+customElementsList.add('ctrl-lazy', HTMLLazyElement);
 
 // Add ctrl-menu element.
-customElements.push({
-	name: 'ctrl-menu',
-	construct: HTMLMenuElement
-});
+customElementsList.add('ctrl-menu', HTMLMenuElement);
+
+// Add ctrl-like element.
+customElementsList.add('ctrl-like', HTMLLikeElement);
+
+// Add ctrl-message element.
+customElementsList.add('ctrl-message', HTMLMessageElement);
+
+// Add ctrl-modal element.
+customElementsList.add('ctrl-modal', HTMLModalElement);
+
+// Add ctrl-panel element.
+customElementsList.add('ctrl-panel', HTMLPanelElement);
+
+// Add ctrl-scrollbar element.
+customElementsList.add('ctrl-scrollbar', HTMLScrollBarElement);
+
+// Add ctrl-slider element.
+customElementsList.add('ctrl-slider', HTMLSliderElement,);
+
+// Add ctrl-slide element.
+customElementsList.add('ctrl-slide', HTMLSlideElement,);
+
+// Add ctrl-tabs element.
+customElementsList.add('ctrl-tabs', HTMLTabsElement);
+
+// Add ctrl-tab element.
+customElementsList.add('ctrl-tab', HTMLTabElement);
+
+// Add ctrl-time element.
+customElementsList.add('ctrl-time', HTMLTimeElement);
+
+// Add ctrl-toggle element.
+customElementsList.add('ctrl-toggle', HTMLToggleElement);
+
+// Add ctrl-tooltip element.
+customElementsList.add('ctrl-tooltip', HTMLTooltipElement);
+
+// Add ctrl-view element.
+customElementsList.add('ctrl-view', HTMLViewElement);
 
 /**
  * Defines the custom elements.
@@ -117,7 +91,7 @@ customElements.push({
  * @returns		{Promise<void[]>} A Promise that resolves when all the customElements have been defined.
  */
 const defineCustomElements = (elements) => 	
-	Promise.all(elements.map(({ name, construct, options }) => {
+	Promise.all(elements.list.map(({ name, construct, options }) => {
 		customElements.define(name, construct, options !== undefined ? options : {});
 		return customElements.whenDefined(name);
 	}));
