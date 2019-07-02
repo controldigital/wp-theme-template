@@ -8,8 +8,12 @@
 @import "base/mixins";
 
 /* Sections */
+@import "section/reset";
 @import "section/global";
+@import "section/wordpress";
+@import "section/text";
 @import "section/forms";
+@import "section/cookie";
 @import "section/header";
 @import "section/main";
 @import "section/hero";
