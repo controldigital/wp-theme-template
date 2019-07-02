@@ -1,0 +1,192 @@
+/**
+ * text.scss
+ */
+
+h1 {
+	
+}
+
+h2 {
+	
+}
+
+h3 {
+	
+}
+
+h4 {
+	
+}
+
+h5 {
+	
+}
+
+h6 {
+	
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 700;
+	font-style: normal;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+p {
+	font-size: 1em;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1.5;
+	margin: 1em 0;
+
+	a {
+		display: inline;
+	}
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+ul {
+	list-style: disc;
+	margin: 1em 0;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	li {
+		line-height: 1.5;
+
+		a {
+			display: inline;
+
+			&:hover {
+
+			}
+
+			&:focus {
+
+			}
+		}
+	}
+}
+
+ol {
+	list-style: decimal-leading-zero;
+	margin: 1em 0;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	li {
+		line-height: 1.5;
+
+		a {
+			display: inline;
+
+			&:hover {
+
+			}
+
+			&:focus {
+
+			}
+		}
+	}
+}
+
+q {
+	font-size: 1em;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1.5;
+	margin: 1rem 0;
+	quotes: "“" "”" "‘" "’";
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&::before {
+		content: open-quote;
+	}
+
+	&::after {
+		content: close-quote;
+	}
+}
+
+blockquote {
+	display: block;
+	quotes: "“" "”" "‘" "’";
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&::before {
+		content: open-quote;
+	}
+
+	&::after {
+		content: close-quote;
+	}
+}
+
+strong {
+	font-weight: 700;
+}
+
+em {
+	font-style: italic;
+}
+
+mark {
+	background: #000000;
+	color: #ffffff;
+}
+
+sup {
+	font-size: 50%;
+	vertical-align: top;
+}
+
+sub {
+	font-size: 50%;
+	vertical-align: bottom;
+}
