@@ -26,8 +26,6 @@
  * SOFTWARE.
  */
 
-import '@babel/polyfill';
-import { hello } from './modules/test.js';
 import {
 	customElementsList,
 	defineCustomElements
