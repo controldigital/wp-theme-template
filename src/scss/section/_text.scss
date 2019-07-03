@@ -2,28 +2,36 @@
  * text.scss
  */
 
+%text-styles {
+	font-size: var(--font-size-base);
+	font-weight: 400;
+	font-style: normal;
+	line-height: var(--text-line-height);
+	margin: var(--text-margin);
+}
+
 h1 {
-	
+	font-size: var(--font-size-h1);
 }
 
 h2 {
-	
+	font-size: var(--font-size-h2);
 }
 
 h3 {
-	
+	font-size: var(--font-size-h3);
 }
 
 h4 {
-	
+	font-size: var(--font-size-h4);
 }
 
 h5 {
-	
+	font-size: var(--font-size-h5);
 }
 
 h6 {
-	
+	font-size: var(--font-size-h6);
 }
 
 h1,
@@ -45,11 +53,7 @@ h6 {
 }
 
 p {
-	font-size: 1em;
-	font-weight: 400;
-	font-style: normal;
-	line-height: 1.5;
-	margin: 1em 0;
+	@extend %text-styles;
 
 	a {
 		display: inline;
@@ -66,7 +70,7 @@ p {
 
 ul {
 	list-style: disc;
-	margin: 1em 0;
+	margin: var(--text-margin);
 
 	&:first-child {
 		margin-top: 0;
@@ -77,7 +81,8 @@ ul {
 	}
 
 	li {
-		line-height: 1.5;
+		font-size: var(--font-size-base);
+		line-height: var(--text-line-height);
 
 		a {
 			display: inline;
@@ -95,7 +100,7 @@ ul {
 
 ol {
 	list-style: decimal-leading-zero;
-	margin: 1em 0;
+	margin: var(--text-margin);
 
 	&:first-child {
 		margin-top: 0;
@@ -106,7 +111,8 @@ ol {
 	}
 
 	li {
-		line-height: 1.5;
+		font-size: var(--font-size-base);
+		line-height: var(--text-line-height);
 
 		a {
 			display: inline;
@@ -123,11 +129,7 @@ ol {
 }
 
 q {
-	font-size: 1em;
-	font-weight: 400;
-	font-style: normal;
-	line-height: 1.5;
-	margin: 1rem 0;
+	@extend %text-styles;
 	quotes: "“" "”" "‘" "’";
 
 	&:first-child {
