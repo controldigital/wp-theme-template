@@ -1,4 +1,14 @@
 # Browsers that we support 
  
+# Default config
 last 2 version
 > 1%
+
+# Modern config
+# last 1 chrome version
+# last 1 firefox version
+# last 1 safari version
+
+# IE Focussed
+# > 1%
+# ie 10
