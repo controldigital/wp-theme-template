@@ -37,7 +37,7 @@ function theme_sidebars() {
 		'description'   => __( 'First column in the footer at the end of the page.', THEME_TEXT_DOMAIN ),
 		'before_title'  => '<h4>',
 		'after_title'   => '</h4>',
-		'before_widget' => '<div class="footer__column footer__column--1" id="%1$s>',
+		'before_widget' => '<div class="widget" id="%1$s>',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
@@ -49,7 +49,7 @@ function theme_sidebars() {
 		'description'   => __( 'Second column in the footer at the end of the page.', THEME_TEXT_DOMAIN ),
 		'before_title'  => '<h4>',
 		'after_title'   => '</h4>',
-		'before_widget' => '<div class="footer__column footer__column--2" id="%1$s>',
+		'before_widget' => '<div class="widget" id="%1$s>',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
@@ -61,7 +61,7 @@ function theme_sidebars() {
 		'description'   => __( 'Third column in the footer at the end of the page.', THEME_TEXT_DOMAIN ),
 		'before_title'  => '<h4>',
 		'after_title'   => '</h4>',
-		'before_widget' => '<div class="footer__column footer__column--3" id="%1$s>',
+		'before_widget' => '<div class="widget" id="%1$s>',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
@@ -73,7 +73,7 @@ function theme_sidebars() {
 		'description'   => __( 'Fourth column in the footer at the end of the page.', THEME_TEXT_DOMAIN ),
 		'before_title'  => '<h4>',
 		'after_title'   => '</h4>',
-		'before_widget' => '<div class="footer__column footer__column--4" id="%1$s>',
+		'before_widget' => '<div class="widget" id="%1$s>',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
