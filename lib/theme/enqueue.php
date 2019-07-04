@@ -72,6 +72,12 @@ function custom_script_attributes( $tag, $handle, $src ) {
 add_action( 'wp_enqueue_scripts', 'theme_styles' );
 function theme_styles() {
 
+	/**
+	 * Unregister gutenberg blocks
+	 */
+	wp_deregister_style( 'wp-block-library-css' );
+	wp_deregister_style( 'wp-block-library-theme-css' );
+
 	// wp_register_style( 'flexgrid', get_template_directory_uri() . 'assets/components/css/flexgrid/flexgrid.min.css', false, false, 'all' );
 	// wp_enqueue_style( 'flexgrid' );
 
