@@ -177,9 +177,9 @@ export const keysOfObjectToCamelCase = (object) => convertKeysOfObject(object, s
  * const key = 'post_type';
  * const data = ['post', 'page']
  * 
- * const query = serializeArray(key, data, question = false); // = "?post_type[]=post&post_type[]=page"
+ * const query = serializeArray(key, data, true); // = "?post_type[]=post&post_type[]=page"
  */
-export const serializeArray = (key, data = []) => {
+export const serializeArray = (key, data = [], question = false) => {
 	if (!Array.isArray(data)) throw new Error('data argument is not given or type of array');
 	const query = data.map(value => `${key}[]=${value}`).join('&');
 	return question === true ? `?${query}` : query;
