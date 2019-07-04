@@ -26,19 +26,21 @@
  * SOFTWARE.
  */
 
-import {
-	customElementsList,
-	defineCustomElements
-} from 'Components/define.js';
+// Import regeneratorRuntime to convert async to generator functions.
+import regeneratorRuntime from 'regenerator-runtime';
+
+// Import Web Component definer
+import definer from 'Components/define.js';
 
 (async function () {
 	'use strict';
 
-	hello();
-	// Place your code here and paste functions from other files if needed.
+	/**
+	 * Place your code here and paste functions from other files if needed.
+	 * Uncomment this section to register all the Custom HTMLElements.
+	 */
 
-	// Uncomment this section to register all the Custom HTMLElements.
-	// await defineCustomElements(customElementsList);
+	// await definer.define();
 	// console.log('Custom elements have been defined');
 
 }());
