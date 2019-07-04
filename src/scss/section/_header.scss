@@ -2,12 +2,12 @@
  * header.scss
  */
 
-$header-height: 4.25rem;
-
 .header {
+    --header-height: 4.25em;
+
     display: block;
     position: relative;
-    transition: background-color $transition-duration $transition-easing, color $transition-duration $transition-easing;
+    transition: background-color var(--transition-duration) var(--transition-easing), color var(--transition-duration) var(--transition-easing);
 
     &--default {
         width: 100%;
@@ -26,18 +26,9 @@ $header-height: 4.25rem;
     }
 
     &__container {
-        display: grid;
-        grid-template-rows: $header-height calc(100vh - $header-height);
-        grid-template-columns: 1fr auto;
-        grid-template-areas: 
-            "logo mobile" 
-            "nav nav";
-
+        @include grid(var(--header-height) calc(100vh - var(--header-height)), 1fr auto, "logo mobile" "nav nav");
         @include breakpoint(768) {
-            grid-template-rows: $header-height;
-            grid-template-columns: auto 1fr;
-            grid-template-areas:
-                "logo nav";
+            @include grid(var(--header-height), auto 1fr, "logo nav");
         }
     }
 
@@ -47,19 +38,15 @@ $header-height: 4.25rem;
 
     &__nav {
         grid-area: nav;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity $transition-duration $transition-easing, visibility $transition-duration $transition-easing;
-
+        @include hidden;
+        transition: opacity var(--transition-duration) var(--transition-easing), visibility var(--transition-duration) var(--transition-easing);
         @include breakpoint(768) {
-            opacity: 1;
-            visibility: visible;
+            @include visible;
         }
     }
 
     &__mobile {
         grid-area: mobile;
-
         @include breakpoint(768) {
             display: none;
         }
@@ -71,8 +58,7 @@ $header-height: 4.25rem;
 .is-menu-open {
 
     .header__nav {
-        opacity: 1;
-        visibility: visible;
+        @include visible;
     }
 
 }

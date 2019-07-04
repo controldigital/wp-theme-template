@@ -2,14 +2,6 @@
  * text.scss
  */
 
-%text-styles {
-	font-size: var(--font-size-base);
-	font-weight: 400;
-	font-style: normal;
-	line-height: var(--text-line-height);
-	margin: var(--text-margin);
-}
-
 h1 {
 	font-size: var(--font-size-h1);
 }
@@ -53,7 +45,7 @@ h6 {
 }
 
 p {
-	@extend %text-styles;
+	@include text-styles;
 
 	a {
 		display: inline;
@@ -129,7 +121,7 @@ ol {
 }
 
 q {
-	@extend %text-styles;
+	@include text-styles;
 	quotes: "“" "”" "‘" "’";
 
 	&:first-child {
@@ -179,8 +171,8 @@ em {
 }
 
 mark {
-	background: #000000;
-	color: #ffffff;
+	background: var(--color-dark);
+	color: var(--color-light);
 }
 
 sup {

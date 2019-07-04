@@ -2,13 +2,6 @@
  * forms.scss
  */
 
-%form-styles-reset {
-	appearance: none;
-	font-family: inherit;
-	background: none;
-	border: 0;
-}
-
 form {
 
 }
@@ -36,7 +29,7 @@ input {
 	&[type="date"],
 	&[type="datetime"],
 	&[type="datetime-local"] {
-		@extend %form-styles-reset;
+		@include form-styles-reset;
 
 		&:focus {
 
@@ -94,7 +87,7 @@ input {
 	}
 
 	&[type="checkbox"] {
-		@extend %form-styles-reset;
+		@include form-styles-reset;
 		&:checked {
 
 			&::before {
@@ -106,7 +99,7 @@ input {
 	}
 
 	&[type="radio"] {
-		@extend %form-styles-reset;
+		@include form-styles-reset;
 		&:checked {
 
 			&::before {
@@ -223,7 +216,7 @@ textarea {
 }
 
 select {
-	@extend %form-styles-reset;
+	@include form-styles-reset;
 
 	:-moz-focusring {
 
