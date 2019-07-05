@@ -10,7 +10,7 @@ import { createElement } from 'Modules/elements.js';
  * @function        createElement
  * @returns         {HTMLTemplateElement}
  */
-export const createTemplate = createElement('template', {
+export const createTemplate = () => createElement('template', {
     html: /*template*/`
 
         <style>
