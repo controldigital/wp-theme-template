@@ -83,13 +83,19 @@ export default class HTMLtoggleElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
+		// Get the input element
+		const input = this.querySelector('input[type="checkbox"]');
+		if (!input) {
+			return;
+		}
+
 		switch(attrName) {
 			case 'state':
 				if (isAcceptedState(newValue)) {
 					if (newValue === 'on') {
-						
+						input.checked = true;
 					} else {
-
+						input.checked = false;
 					}
 				}
 		}
