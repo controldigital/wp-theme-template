@@ -12,7 +12,8 @@ export const onSlotChange = function onSlotChange() {
 
 	// Get the slotted input element and the label.
 	const slot = this.shadowRoot.querySelector('slot[name="input"]');
-	const input = slot.assignedElements();
+	const elements = slot.assignedElements();
+	const input = elements[0];
 	const label = this.shadowRoot.querySelector('label');
 
 	// The input element needs an id.
