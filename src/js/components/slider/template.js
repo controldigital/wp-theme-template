@@ -2,7 +2,7 @@
  * @module      ./component/slider/template
  */
 
-import { createElement } from 'Modules/elements.js';
+import { createElement } from 'Utilities/elements.js';
 
 /**
  * Creates a template specific for the slider element.

@@ -1,5 +1,5 @@
 /**
- * @module	./modules/query
+ * @module	./utilities/query
  */
 
 import { getElement } from './elements.js';

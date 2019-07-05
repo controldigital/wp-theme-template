@@ -1,5 +1,5 @@
 /**
- * @module      ./modules/elements
+ * @module      ./utilities/elements
  */
 
 /**

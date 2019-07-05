@@ -1,11 +1,11 @@
 /**
- * @module      ./modules/rest
+ * @module      ./utilities/rest
  */
 
 import { 
 	keysOfObjectToSnakeCase,
 	serializeObject
-} from 'Modules/tools.js';
+} from 'Utilities/tools.js';
 
 /**
  * Function to get data from the WordPress REST API. Takes a number of arguments to specify

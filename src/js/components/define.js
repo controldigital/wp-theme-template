@@ -3,7 +3,7 @@
  */
 
 // Import list.
-import CustomElementsDefiner from 'Modules/list.js';
+import CustomElementsDefiner from 'Utilities/list.js';
 
 // Import custom elements.
 import HTMLCardElement from './card/Card.js';

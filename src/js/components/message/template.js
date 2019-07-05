@@ -2,7 +2,7 @@
  * @module		./components/message/template
  */
 
-import { createElement } from 'Modules/element.js';
+import { createElement } from 'Utilities/element.js';
 
 /**
  * Function that creates a template with contents for 

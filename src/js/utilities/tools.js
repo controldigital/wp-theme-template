@@ -1,5 +1,5 @@
 /**
- * @module		./modules/tools
+ * @module		./utilities/tools
  */
 
 /**

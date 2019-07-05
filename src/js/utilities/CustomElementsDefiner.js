@@ -1,5 +1,5 @@
 /**
- * @module      ./modules/CustomElementsDefiner
+ * @module      ./utilities/CustomElementsDefiner
  */
 
 /**
