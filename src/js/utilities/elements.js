@@ -3,6 +3,15 @@
  */
 
 /**
+ * @typedef	{Object} CustomElementInit
+ * @param	{String} name Name of the custom element.
+ * @param	{HTMLElement} object HTMLElement class.
+ * @param	{Object} options Options for customElements.define()
+ */
+
+import { replaceLastStringOccerence } from './tools.js';
+
+/**
  * This function accepts multiple types of a
  * selector argument to get the element from
  * the DOM or insert the element to use them.
@@ -125,3 +134,16 @@ export const createElement = (tagName, { attributes, children, classes, id, html
     }
     return element;
 };
+
+/**
+ * Defines the elements in a list of CustomElementInit objects.
+ * 
+ * @param 	{CustomElementInit[]} elements 
+ * @returns	{Promise<String>}
+ */
+export const defineElements = (elements) => Promise.all(elements.map(({ name, object, options }) => {
+	customElements.define(name, object, options !== undefined ? options : {});
+	return customElements.whenDefined(name).then(() => 
+		`${replaceLastStringOccerence(elements.map((element) => element.name).join(', '), ' & ')} have been defined`
+	);
+}));
