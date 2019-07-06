@@ -2,6 +2,8 @@
  * @module      ./utilities/CustomElementsDefiner
  */
 
+import { defineElements } from './custom-elements.js';
+
 /**
  * Class to create a list. This list will hold all the custom elements
  * that have to be defined using the customElements.define() method.
@@ -86,16 +88,21 @@ export default class CustomElementsDefiner {
 	}
 
 	/**
+	 * Define a single item in the list
+	 */
+	define(...names) {
+		const items = this.items.filter(({ name }) => names.findIndex(name) > -1);
+		return defineElements(items);
+	}
+
+	/**
 	 * Defines all the items in the list.
 	 * 
 	 * @method	define
-	 * @returns	{Promise} A promise with an array of resolved values.
+	 * @returns	{Promise<String>} A promise with an message string.
 	 */
-	define() {
-		return Promise.all(this.items.map(({ name, object, options }) => {
-			customElements.define(name, object, options !== undefined ? options : {});
-			return customElements.whenDefined(name);
-		}));
+	defineAll() {
+		return defineElements(this.items);
 	}
 
 }
