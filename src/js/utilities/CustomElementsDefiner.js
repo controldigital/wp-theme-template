@@ -2,7 +2,7 @@
  * @module      ./utilities/CustomElementsDefiner
  */
 
-import { defineElements } from './custom-elements.js';
+import { defineElements } from './elements.js';
 
 /**
  * Class to create a list. This list will hold all the custom elements
