@@ -10,7 +10,7 @@ import { createElement } from 'Utilities/elements.js';
  * @function        createSliderTemplate
  * @returns         {HTMLTemplateElement}
  */
-export const createSliderTemplate = createElement('template', {
+export const createSliderTemplate = () => createElement('template', {
     html: /*template*/`
 
         <style>
@@ -243,7 +243,7 @@ export const createSliderTemplate = createElement('template', {
  * @function        createSlideTemplate
  * @returns         {HTMLTemplateElement}
  */
-export const createSlideTemplate = createElement('template', {
+export const createSlideTemplate = () => createElement('template', {
     html: /*template*/`
         <style>
 
