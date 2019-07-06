@@ -3,6 +3,7 @@
  */
 
 // Import Web Component definer
+import { registerServiceWorker } from 'Utilities/sw.js';
 import definer from 'Components/define.js';
 import { 
 	getElement,
