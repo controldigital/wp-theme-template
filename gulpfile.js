@@ -1,8 +1,11 @@
 const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
 const webpack = require('webpack');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const criticalCSS = require('gulp-penthouse');
+const cleanCSS = require('gulp-clean-css');
+const concat = require('gulp-concat-util');
 
 /**
  * Styles gulp task
@@ -14,15 +17,19 @@ const criticalCSS = require('gulp-penthouse');
  * {@link https://github.com/postcss/autoprefixer#options}
  * 
  */
-gulp.task('styles', () => {
-    return gulp.src('./src/scss/style.scss')
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(autoprefixer({
-        cascade: false,
-        grid: true
-    }))
-    .pipe(gulp.dest('./dist/'));
-});
+gulp.task('styles', () => 
+	 gulp.src('./src/scss/style.scss')
+		.pipe(sourcemaps.init())
+		.pipe(sass({
+			outputStyle: 'compressed'
+		}).on('error', sass.logError))
+		.pipe(sourcemaps.write())
+		.pipe(autoprefixer({
+			cascade: false,
+			grid: true
+		}))
+		.pipe(gulp.dest('./dist/css/'))
+);
 
 /**
  * Scripts gulp task
@@ -91,7 +98,9 @@ gulp.task('critical', () => {
 				height: 900,
 				userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' // pretend to be googlebot when grabbing critical page styles.
 			}))
-			.pipe(cleanCSS({compatibility: '*'}))
+			.pipe(cleanCSS({compatibility: 'ie10+'}))
+			.pipe(concat.header('<style>'))
+			.pipe(concat.footer('</style>'))
 			.pipe(gulp.dest('./dist/critical/'));
 	});
 });
