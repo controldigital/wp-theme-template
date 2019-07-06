@@ -91,7 +91,7 @@ export default class CustomElementsDefiner {
 	 * Define a single item in the list
 	 */
 	define(...names) {
-		const items = this.items.filter(({ name }) => names.findIndex(name) > -1);
+		const items = this.items.filter(({ name }) => names.indexOf(name) > -1);
 		return defineElements(items);
 	}
 
