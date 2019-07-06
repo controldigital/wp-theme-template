@@ -212,6 +212,21 @@ export const serializeObject = (data = {}, question = false) => {
 };
 
 /**
+ * Replaces only the last occurance of a string in a given string.
+ * 
+ * @function	replaceLastStringOccurence
+ * @param 		{String} source String to modify.
+ * @param 		{String} target Character to replacement.
+ * @param 		{String} replacement Replacement string.
+ * @returns		{String} Modified string.
+ */
+export const replaceLastStringOccurence = (source = '', target = '', replacement = '') => {
+	const array = source.split('');
+	array[source.lastIndexOf(target)] = replacement;
+	return array.join("");
+};
+
+/**
  * @typedef		isTouchDevice
  * @type		{Boolean}
  * @since		1.0

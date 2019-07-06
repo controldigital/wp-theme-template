@@ -9,7 +9,7 @@
  * @param	{Object} options Options for customElements.define()
  */
 
-import { replaceLastStringOccerence } from './tools.js';
+import { replaceLastStringOccurence } from './tools.js';
 
 /**
  * This function accepts multiple types of a
@@ -144,6 +144,6 @@ export const createElement = (tagName, { attributes, children, classes, id, html
 export const defineElements = (elements) => Promise.all(elements.map(({ name, object, options }) => {
 	customElements.define(name, object, options !== undefined ? options : {});
 	return customElements.whenDefined(name).then(() => 
-		`${replaceLastStringOccerence(elements.map((element) => element.name).join(', '), ' & ')} have been defined`
+		`${replaceLastStringOccurence(elements.map((element) => element.name).join(', '), ' & ')} have been defined`
 	);
 }));
