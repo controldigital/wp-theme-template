@@ -1,21 +1,28 @@
 /**
- * @module      ./components/list
+ * @module      ./utilities/CustomElementsDefiner
  */
 
+import { defineElements } from './elements.js';
+
 /**
- * Class to create a list 
+ * Class to create a list. This list will hold all the custom elements
+ * that have to be defined using the customElements.define() method.
  * 
  * @class
  */
-export default class CustomElementsList {
+export default class CustomElementsDefiner {
 
 	/**
-	 * Creates a new list.
+	 * Creates a new list and makes the instance of
+	 * the class immutable.
      * 
      * @constructor
 	 */
 	constructor() {
 		this.items = [];
+		if (new.target === CustomElementsDefiner) {
+			Object.freeze(this);
+		}
 	}
 
 	/**
@@ -67,6 +74,35 @@ export default class CustomElementsList {
 		if (index > -1) {
 			return this.items.splice(index, 1);
 		}
+	}
+
+	/**
+	 * Clears out the list property.
+	 * 
+	 * @method	clear
+	 * @returns	{this} The instance.
+	 */
+	clear() {
+		this.items.length = 0;
+		return this;
+	}
+
+	/**
+	 * Define a single item in the list
+	 */
+	define(...names) {
+		const items = this.items.filter(({ name }) => names.indexOf(name) > -1);
+		return defineElements(items);
+	}
+
+	/**
+	 * Defines all the items in the list.
+	 * 
+	 * @method	define
+	 * @returns	{Promise<String>} A promise with an message string.
+	 */
+	defineAll() {
+		return defineElements(this.items);
 	}
 
 }

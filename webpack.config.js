@@ -32,7 +32,8 @@ module.exports = {
   resolve: {
     alias: {
       Components: path.resolve(__dirname, 'src/js/components'),
-      Modules: path.resolve(__dirname, 'src/js/modules')
+      Modules: path.resolve(__dirname, 'src/js/modules'),
+      Utilities: path.resolve(__dirname, 'src/js/utilities');
     }
   },
   optimization: {

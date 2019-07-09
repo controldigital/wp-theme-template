@@ -65,7 +65,7 @@ self.addEventListener('fetch', event => {
 	}
 
 	// Look for file types.
-	const regex = /\.(?:jpg|mp3|mp4)$/i;
+	const regex = /\.(?:jpg|png|mp3|mp4|html)$/i;
 
 	// If the origin of the file is the same as the site.
 	if (origin === location.origin) {
@@ -102,7 +102,9 @@ self.addEventListener('fetch', event => {
 				}
 
 				// Return the error.
-				throw new Error(response.status);
+				const error = new Error(response.status);
+				error.response = response;
+				throw error;
 
 			}());
 
@@ -117,7 +119,7 @@ self.addEventListener('fetch', event => {
  * 
  * @listens activate
  */
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', event => {
 	const cacheWhiteList = [ cacheName ];
 	event.waitUntil(
 		caches.keys().then((cacheNames) => {

@@ -3,7 +3,6 @@
  */
 
 import mapboxgl from 'mapbox-gl';
-import { accessToken } from './token.js';
 import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 

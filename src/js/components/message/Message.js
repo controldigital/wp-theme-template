@@ -4,7 +4,7 @@
 
 import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
-import { removeElement } from 'Modules/elements.js';
+import { removeElement } from 'Utilities/elements.js';
 
 // Create a template.
 const template = createTemplate();

@@ -19,7 +19,7 @@ import {
 	isIndexBetween,
 	hasFeatures,
 	isTouchDevice,
-} from 'Modules/tools.js';
+} from 'Utilities/tools.js';
 
 // Create template for Shadow DOM.
 const template = createSliderTemplate();

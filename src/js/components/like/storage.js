@@ -2,8 +2,8 @@
  * @module		./components/like/cookie
  */
 
-import Cookie from 'Modules/Cookie.js';
-import { hasFeatures } from 'Modules/tools.js';
+import Cookie from 'Utilities/Cookie.js';
+import { hasFeatures } from 'Utilities/tools.js';
 
 // Support constant.
 export const hasLocalStorageSupport = hasFeatures('Local Storage');

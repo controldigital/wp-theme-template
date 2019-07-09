@@ -1,5 +1,5 @@
 /**
- * @module	./modules/query
+ * @module	./utilities/query
  */
 
 import { getElement } from './elements.js';
@@ -36,7 +36,7 @@ export default class FormQuery {
 		const onSubmit = async (event) => {
 			const { target } = event;
 			const formData = new FormData(target);
-			const response = await this.fetch(formData);
+			const response = await FormQuery.fetch(formData);
 			if (response) {
 				const appended = await this.appendResponse(response);
 				if (appended === true) {

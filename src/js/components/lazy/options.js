@@ -2,7 +2,7 @@
  * @module		./components/lazy/options
  */
 
-import { getElement } from 'Modules/tools.js';
+import { getElement } from 'Utilities/tools.js';
 
 /**
  * Creates an object with the attributes

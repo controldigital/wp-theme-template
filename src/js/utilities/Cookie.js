@@ -1,5 +1,5 @@
 /**
- * @module		./modules/Cookie
+ * @module		./utilities/Cookie
  */
 
 /**

@@ -2,7 +2,7 @@
  * @module		./components/view/fetch
  */
 
-import Cache from 'Modules/Cache.js';
+import Cache from 'Utilities/Cache.js';
 
 // Create a new cache instance.
 const cache = new Cache();

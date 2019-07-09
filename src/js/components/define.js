@@ -3,7 +3,7 @@
  */
 
 // Import list.
-import CustomElementsList from './list.js';
+import CustomElementsDefiner from 'Utilities/list.js';
 
 // Import custom elements.
 import HTMLCardElement from './card/Card.js';
@@ -27,91 +27,60 @@ import HTMLViewElement from './view/View.js';
 /**
  * A list with names and constructors for custom elements.
  * 
- * @typedef		customElementsList
- * @type		{CustomElementsList<Array>}
+ * @type {CustomElementsDefiner}
  */
-const customElementsList = new CustomElementsList();
+const definer = new CustomElementsDefiner();
 
 // Add ctrl-card element.
-customElementsList.add('ctrl-card', HTMLCardElement);
+definer.add('ctrl-card', HTMLCardElement);
 
 // Add ctrl-fab element.
-customElementsList.add('ctrl-fab', HTMLFabElement);
+definer.add('ctrl-fab', HTMLFabElement);
 
 // Add ctrl-lazy element.
-customElementsList.add('ctrl-lazy', HTMLLazyElement);
+definer.add('ctrl-lazy', HTMLLazyElement);
 
 // Add ctrl-menu element.
-customElementsList.add('ctrl-menu', HTMLMenuElement);
+definer.add('ctrl-menu', HTMLMenuElement);
 
 // Add ctrl-like element.
-customElementsList.add('ctrl-like', HTMLLikeElement);
+definer.add('ctrl-like', HTMLLikeElement);
 
 // Add ctrl-message element.
-customElementsList.add('ctrl-message', HTMLMessageElement);
+definer.add('ctrl-message', HTMLMessageElement);
 
 // Add ctrl-modal element.
-customElementsList.add('ctrl-modal', HTMLModalElement);
+definer.add('ctrl-modal', HTMLModalElement);
 
 // Add ctrl-panel element.
-customElementsList.add('ctrl-panel', HTMLPanelElement);
+definer.add('ctrl-panel', HTMLPanelElement);
 
 // Add ctrl-scrollbar element.
-customElementsList.add('ctrl-scrollbar', HTMLScrollBarElement);
+definer.add('ctrl-scrollbar', HTMLScrollBarElement);
 
 // Add ctrl-slider element.
-customElementsList.add('ctrl-slider', HTMLSliderElement,);
+definer.add('ctrl-slider', HTMLSliderElement,);
 
 // Add ctrl-slide element.
-customElementsList.add('ctrl-slide', HTMLSlideElement,);
+definer.add('ctrl-slide', HTMLSlideElement,);
 
 // Add ctrl-tabs element.
-customElementsList.add('ctrl-tabs', HTMLTabsElement);
+definer.add('ctrl-tabs', HTMLTabsElement);
 
 // Add ctrl-tab element.
-customElementsList.add('ctrl-tab', HTMLTabElement);
+definer.add('ctrl-tab', HTMLTabElement);
 
 // Add ctrl-time element.
-customElementsList.add('ctrl-time', HTMLTimeElement);
+definer.add('ctrl-time', HTMLTimeElement);
 
 // Add ctrl-toggle element.
-customElementsList.add('ctrl-toggle', HTMLToggleElement);
+definer.add('ctrl-toggle', HTMLToggleElement);
 
 // Add ctrl-tooltip element.
-customElementsList.add('ctrl-tooltip', HTMLTooltipElement);
+definer.add('ctrl-tooltip', HTMLTooltipElement);
 
 // Add ctrl-view element.
-customElementsList.add('ctrl-view', HTMLViewElement);
+definer.add('ctrl-view', HTMLViewElement);
 
-/**
- * Defines the custom elements.
- * 
- * @function	defineCustomElements
- * @param 		{customElementsList} elements The element object names and constructor classes.
- * @returns		{Promise<void[]>} A Promise that resolves when all the customElements have been defined.
- */
-const defineCustomElements = (elements) => 	
-	Promise.all(elements.list.map(({ name, construct, options }) => {
-		customElements.define(name, construct, options !== undefined ? options : {});
-		return customElements.whenDefined(name);
-	}));
-
-/**
- * Checks if all elements have been registered
- * and returns a Promise when they do.
- * 
- * @function	whenAllCustomElementsDefined
- * @param 		{customElementsList} elements 
- * @returns		{Promise<void[]>}
- */
-const whenAllCustomElementsDefined = (elements) => {
-	const promises = elements.map(({ name }) => 
-		customElements.whenDefined(name));
-	return Promise.all(promises);
-};
-
-export { 
-	customElementsList, 
-	defineCustomElements, 
-	whenAllCustomElementsDefined
-};
+// Export the definer as default.
+export default definer;

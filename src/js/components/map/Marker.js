@@ -1,14 +1,14 @@
 /**
- * @module		./components/map/Map
+ * @module		./components/map/Marker
  */
 
-
 /**
- * Card
+ * Marker element for using in a HTMLMapElement element.
+ * 
  * @class
  * @extends	HTMLElement
  */
-export default class HTMLMapElement extends HTMLElement {
+export default class HTMLMarkerElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
@@ -27,7 +27,6 @@ export default class HTMLMapElement extends HTMLElement {
 	 */
 	constructor() {
 		super();
-		
 	}
 
 	/**

@@ -1,6 +1,6 @@
 /**
  * easings.js
- * @module		./modules/easing
+ * @module		./utilities/easing
  */
 
 

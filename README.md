@@ -45,7 +45,7 @@ All the SCSS files come together in the `style.scss` file in the `src/scss` fold
 ### Service Worker
 A Service Worker file is ready to use in this theme. The file already has some prewritten default behaviours. Like checking the browsers cache if a file that is being fetched has already been fetched before and can therefor be retrieved from the cache. Import and use the following module to register the serviceworker.
 ```javascript
-import { registerServiceWorker } from 'Modules/sw.js';
+import { registerServiceWorker } from 'Utilities/sw.js';
 
 registerServiceWorker('path/of/serviceworker.js');
 ```

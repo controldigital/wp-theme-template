@@ -2,7 +2,7 @@
  * @module		./components/lazy/Lazy
  */
 
-import { imageIsLazyLoadable } from 'Modules/tools.js';
+import { imageIsLazyLoadable } from 'Utilities/tools.js';
 import {
 	intersectionOptions,
 	onIntersect

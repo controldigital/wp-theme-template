@@ -1,5 +1,5 @@
 /**
- * @module		./modules/tools
+ * @module		./utilities/tools
  */
 
 /**
@@ -11,24 +11,22 @@
  * @function	debounce
  * @since   	1.0
  * 
- * @param   	{Function} func Function to execute
- * @param   	{Number} wait Time to wait before firing
- * @param   	{Boolean} [immediate=false] Fire immediately or not
+ * @param   	{Function} callback Function to execute.
+ * @param   	{Number} wait Time to wait before firing in milliseconds.
+ * @param   	{Boolean} [immediate=false] Fire immediately or not.
  * @returns		{Function} Closure function.
  */
-export const debounce = (func, wait, immediate = false) => {
+export const debounce = (callback, wait, immediate = false) => {
 	let timeout;
-	return function() {
-        const context = this;
-        const args = arguments;
+	return (...args) => {
 		const later = () => {
 			timeout = null;
-			if (!immediate) func.apply(context, args);
+			if (!immediate) callback(...args);
 		};
 		const callNow = immediate && !timeout;
 		clearTimeout(timeout);
 		timeout = setTimeout(later, wait);
-		if (callNow) func.apply(context, args);
+		if (callNow) callback(...args);
 	};
 };
 
@@ -36,18 +34,18 @@ export const debounce = (func, wait, immediate = false) => {
  * Converts the keys of an object to a new format.
  * 
  * @function	convertKeysOfObject
- * @param 		{Object} object
- * @param		{Function} converterCallback
+ * @param 		{Object} object Object to convert.
+ * @param		{Function} converterCallback The converter function that converts each key.
  * @returns		{Object}
  */
 export const convertKeysOfObject = (object, converterCallback) => {
 	const keys = Object.keys(object);
 	keys.forEach((key) => {
-		const snakeKey = converterCallback(key);
-		if (snakeKey !== key) {
+		const convertedKey = converterCallback(key);
+		if (convertedKey !== key) {
 			Object.defineProperty(
 				object, 
-				snakeKey, 
+				convertedKey,
 				Object.getOwnPropertyDescriptor(object, key)
 			);
 			delete object[key];
@@ -57,15 +55,28 @@ export const convertKeysOfObject = (object, converterCallback) => {
 };
 
 /**
- * Generates a random number between a
- * min and a max value.
+ * Generates a random number between a min and a max value.
  * 
  * @function	getRandomInt
- * @param   	{Number} min Min value
- * @param   	{Number} max Max value
- * @returns 	{Number} Random number
+ * @param   	{Number} min Min value.
+ * @param   	{Number} max Max value.
+ * @returns 	{Number} Random number.
  */
 export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+/**
+ * Checks if a number is between two numbers. 
+ * Returns a true or false value.
+ * 
+ * @function	isIndexBetween
+ * @param 		{Number} index Number to compare.
+ * @param 		{Number} from More than and equal number.
+ * @param 		{Number} to Less than number.
+ * @returns		{Boolean}
+ */
+export const isIndexBetween = (index, from, to) => {
+	return from <= index && index < to;
+}
 
 /**
  * Converts the comma's in a string to dots.
@@ -160,15 +171,15 @@ export const keysOfObjectToCamelCase = (object) => convertKeysOfObject(object, s
  * @param   	{String} key The name of the values.
  * @param		{String[]} data The values in a array format with strings.
  * @param		{Boolean} question Append a questionmark before the string.
- * @returns 	{String} Queryable string
+ * @returns 	{String} Queryable string.
  * 
  * @example
  * const key = 'post_type';
  * const data = ['post', 'page']
  * 
- * const query = serializeArray(key, data, question = false); // = "?post_type[]=post&post_type[]=page"
+ * const query = serializeArray(key, data, true); // = "?post_type[]=post&post_type[]=page"
  */
-export const serializeArray = (key, data = []) => {
+export const serializeArray = (key, data = [], question = false) => {
 	if (!Array.isArray(data)) throw new Error('data argument is not given or type of array');
 	const query = data.map(value => `${key}[]=${value}`).join('&');
 	return question === true ? `?${query}` : query;
@@ -180,9 +191,9 @@ export const serializeArray = (key, data = []) => {
  * 
  * @function	serializeObject
  * @uses		serializeArray()
- * @param 		{Object} data Object to convert to string
+ * @param 		{Object} data Object to convert to string.
  * @param		{Boolean} question Append a questionmark before the string.
- * @returns		{String} Queryable string
+ * @returns		{String} Queryable string.
  * 
  * @example
  * const data = {
@@ -191,29 +202,29 @@ export const serializeArray = (key, data = []) => {
  * 		post_status: ['publish']
  * };
  * 
- * const query = serializeObject(data); // = "?action=value&post_type[]=post&post_type[]=page&post_status[]=publish"
+ * const query = serializeObject(data, true); // = "?action=value&post_type[]=post&post_type[]=page&post_status[]=publish"
  */
 export const serializeObject = (data = {}, question = false) => {
 	if (!data || 'object' !== typeof data) throw new Error('data argument is not given or type of object');
 	const keys = Object.keys(data);
-	const query = keys.map(key => Array.isArray(value) ? serializeArray(key, data[key]) : `${key}=${data[key]}`).join('&');
+	const query = keys.map(key => Array.isArray(data[key]) ? serializeArray(key, data[key]) : `${key}=${data[key]}`).join('&');
 	return question === true ? `?${query}` : query;
 };
 
 /**
- * Checks if a number is between
- * a from and to numbers. Returns
- * a true or false value.
+ * Replaces only the last occurance of a string in a given string.
  * 
- * @function	isIndexBetween
- * @param 		{Number} index Number to compare.
- * @param 		{Number} from More than and equal number.
- * @param 		{Number} to Less than number.
- * @returns		{Boolean}
+ * @function	replaceLastStringOccurence
+ * @param 		{String} source String to modify.
+ * @param 		{String} target Character to replacement.
+ * @param 		{String} replacement Replacement string.
+ * @returns		{String} Modified string.
  */
-export const isIndexBetween = (index, from, to) => {
-	return from <= index && index < to;
-}
+export const replaceLastStringOccurence = (source = '', target = '', replacement = '') => {
+	const array = source.split('');
+	array[source.lastIndexOf(target)] = replacement;
+	return array.join("");
+};
 
 /**
  * @typedef		isTouchDevice
@@ -223,34 +234,34 @@ export const isIndexBetween = (index, from, to) => {
 export const isTouchDevice = 'ontouchstart' in document.documentElement;
 
 /**
- * Checks if the browser supports a property
+ * Checks if the browser supports a property.
  * Returns a boolean
  *
  * @function	cssPropertyValueSupported
  * @since		1.0
  * 
- * @param		{String} prop Property to evaluate
- * @param		{String} value Value of property to check
+ * @param		{String} property Property to evaluate.
+ * @param		{String} value Value of property to check.
  * @returns		{Boolean}
  */
-export const cssPropertyValueSupported = (prop, value) => {
-    const d = document.createElement('div');
-    d.style[prop] = value;
-    return d.style[prop] === value;
+export const cssPropertyValueSupported = (property, value) => {
+    const div = document.createElement('div');
+    div.style[property] = value;
+    return div.style[property] === value;
 };
 
 /**
- * Select all the a tags with an 
- * rel="external" attribute and set 
- * the target attribute to '_blank'
+ * Select all the a tags with an rel="external" attribute and set 
+ * the target attribute to '_blank'. This makes sure that all
+ * theses links will open in a new tab.
  *
- * @function	linkTargetsBlank
+ * @function	externalLinksTargetBlank
  * @since		1.0
  * 
- * @param   	{String} [query=a[rel="external"]]
+ * @param   	{String} [query=a[rel="external"]] Query to get the external links.
  * @returns		{Array}
  */
-export const linkTargetsBlank = (query = 'a[rel="external"]') => {
+export const externalLinksTargetBlank = (query = 'a[rel="external"]') => {
     let links = document.querySelectorAll(query);
     return [...links].map(link => link.setAttribute('target', '_blank'));
 };
@@ -270,35 +281,35 @@ export const hasFeatures = (...features) =>
 			return false;
 		if (feature === 'Promise') {
 			return (typeof Promise === 'undefined' || Promise.toString().indexOf('[native code]') === -1);
-		} else if (feature === 'Intersection Observer' || feature === 'IntersectionObserver') {
+		} else if (feature === 'Intersection Observer' || feature.toLowerCase() === 'intersectionobserver') {
 			return ('IntersectionObserver' in window);
-		} else if (feature === 'Mutation Observer' || feature === 'MutationObserver') {
+		} else if (feature === 'Mutation Observer' || feature.toLowerCase() === 'mutationobserver') {
 			return ('MutationObserver' in window);
-		} else if (feature === 'Custom Event' || feature === 'CustomEvent') {
+		} else if (feature === 'Custom Event' || feature.toLowerCase() === 'customevent') {
 			return ('CustomEvent' in window);
-		} else if (feature === 'Push State' || feature === 'pushState') {
+		} else if (feature === 'Push State' || feature.toLowerCase() === 'pushstate') {
 			return ('pushState' in history);
-		} else if (feature === 'Service Worker' || feature === 'serviceworker') {
+		} else if (feature === 'Service Worker' || feature.toLowerCase() === 'serviceworker') {
 			return ('serviceWorker' in navigator);
-		} else if (feature === 'Web Audio API' || feature === 'AudioContext') {
+		} else if (feature === 'Web Audio API' || feature.toLowerCase() === 'audiocontext') {
 			return ('AudioContext' in window || 'webkitAudioContext' in window);
-		} else if (feature === 'Local Storage' || feature === 'localStorage') {
+		} else if (feature === 'Local Storage' || feature.toLowerCase() === 'localstorage') {
 			return ('localStorage' in window);
-		} else if (feature === 'Session Storage' || feature === 'sessionStorage') {
+		} else if (feature === 'Session Storage' || feature.toLowerCase() === 'sessionstorage') {
 			return ('sessionStorage' in window);
-		} else if (feature === 'Passive Events' || feature === 'passive') {
+		} else if (feature === 'Passive Events' || feature.toLowerCase() === 'passive') {
 			let supportsPassive = false;
 			try {
-				let opts = Object.defineProperty({}, 'passive', {
+				let options = Object.defineProperty({}, 'passive', {
 					get: function() {
 						supportsPassive = true;
 					}
 				});
-				window.addEventListener('testPassive', null, opts);
-				window.removeEventListener('testPassive', null, opts);
+				window.addEventListener('testPassive', null, options);
+				window.removeEventListener('testPassive', null, options);
 			} catch (e) {}
 			return supportsPassive;
-		} else if (feature === 'Scroll Behavior' || feature === 'scrollBehavior' || feature === 'behavior: smooth') {
+		} else if (feature === 'Scroll Behavior' || feature.toLowerCase() === 'scrollbehavior' || feature === 'behavior: smooth') {
 			return 'scrollBehavior' in document.documentElement.style;
 		} else {
 			return false;

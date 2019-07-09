@@ -26,19 +26,23 @@
  * SOFTWARE.
  */
 
-import {
-	customElementsList,
-	defineCustomElements
-} from 'Components/define.js';
+// Import regeneratorRuntime to convert async to generator functions.
+import regeneratorRuntime from 'regenerator-runtime';
 
-(async function () {
+// Import modules.
+import {
+	serviceWorker,
+	customElements,
+	menu
+} from 'Modules/core.js';
+
+// Main thread
+(function () {
 	'use strict';
 
-	hello();
-	// Place your code here and paste functions from other files if needed.
-
-	// Uncomment this section to register all the Custom HTMLElements.
-	// await defineCustomElements(customElementsList);
-	// console.log('Custom elements have been defined');
+	// Use modules
+	serviceWorker(`${wp.theme}/serviceworker.js`);
+	customElements();
+	menu();
 
 }());

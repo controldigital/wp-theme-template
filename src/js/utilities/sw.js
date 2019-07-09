@@ -1,5 +1,5 @@
 /**
- * @module		./modules/sw
+ * @module		./utilities/sw
  * 
  * When an error occures saying that the scope of the 
  * service worker could not be set because of missing headers,
