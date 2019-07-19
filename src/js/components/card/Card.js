@@ -3,9 +3,10 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createTemplate } from './template.js';
 
 // ID of HTML template for Shadow DOM.
-const templateId = 'template-card';
+const template = createTemplate();
 
 /**
  * Card
@@ -33,7 +34,7 @@ export default class HTMLCardElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, templateId);
+		attachShadowToElement.call(this, template);
 		
 	}
 
