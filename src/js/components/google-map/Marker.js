@@ -19,7 +19,7 @@ export default class HTMLGoogleMarkerElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['longitude', 'latitude'];
+		return ['clickable', 'cursor', 'draggable', 'opacity', 'longitude', 'latitude', 'visible', 'z-index'];
 	}
 
 	/**
@@ -27,6 +27,66 @@ export default class HTMLGoogleMarkerElement extends HTMLElement {
 	 */
 	constructor() {
 		super();
+	}
+
+	/**
+	 * Gets and sets the clickable attribute.
+	 * @property
+	 */
+	get clickable() {
+		return this.getAttribute('clickable');
+	}
+
+	set clickable(value) {
+		if (value === true) {
+			this.setAttribute('clickable', '');
+		} else {
+			this.removeAttribute('clickable');
+		}
+	}
+
+	/**
+	 * Gets and sets the cursor attribute.
+	 * @property
+	 */
+	get cursor() {
+		return this.getAttribute('cursor');
+	}
+
+	set cursor(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('cursor', value);
+		}
+	}
+
+	/**
+	 * Gets and sets the draggable attribute.
+	 * @property
+	 */
+	get draggable() {
+		return this.getAttribute('draggable');
+	}
+
+	set draggable(value) {
+		if (value === true) {
+			this.setAttribute('draggable', '');
+		} else {
+			this.removeAttribute('draggable');
+		}
+	}
+
+	/**
+	 * Gets and sets the opacity attribute.
+	 * @property
+	 */
+	get opacity() {
+		return this.getAttribute('opacity');
+	}
+
+	set opacity(value) {
+		if ('number' === typeof value) {
+			this.setAttribute('opacity', value);
+		}
 	}
 
 	/**
@@ -40,8 +100,6 @@ export default class HTMLGoogleMarkerElement extends HTMLElement {
 	set latitude(value) {
 		if ('number' === typeof value) {
 			this.setAttribute('latitude', value);
-		} else {
-			this.removeAttribute('latitude');
 		}
 	}
 
@@ -56,8 +114,36 @@ export default class HTMLGoogleMarkerElement extends HTMLElement {
 	set longitude(value) {
 		if ('number' === typeof value) {
 			this.setAttribute('longitude', value);
+		}
+	}
+
+	/**
+	 * Gets and sets the visible attribute.
+	 * @property
+	 */
+	get visible() {
+		return this.getAttribute('visible');
+	}
+
+	set visible(value) {
+		if (value === true) {
+			this.setAttribute('visible', '');
 		} else {
-			this.removeAttribute('longitude');
+			this.removeAttribute('visible');
+		}
+	}
+
+	/**
+	 * Gets and sets the z-index attribute.
+	 * @property
+	 */
+	get zIndex() {
+		return parseInt(this.getAttribute('z-index'));
+	}
+
+	set zIndex(value) {
+		if ('number' === typeof value) {
+			this.setAttribute('z-index', value);
 		}
 	}
 
@@ -71,6 +157,10 @@ export default class HTMLGoogleMarkerElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
+		switch(attrName) {
+			
+		}
+
 	}
 
 	/**
@@ -80,6 +170,17 @@ export default class HTMLGoogleMarkerElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	connectedCallback() {
+
+		// Create a latLng object.
+		const latLng = new google.maps.latLng(
+			this.latitude,
+			this.longitude
+		);
+
+		// Create the marker of this element.
+		this.marker = new google.maps.Marker({
+			position: latLng
+		});
 
 	}
 
@@ -101,6 +202,114 @@ export default class HTMLGoogleMarkerElement extends HTMLElement {
 	 */
 	adoptedCallback() {
 
+	}
+
+	/**
+	 * @method	getAnimation
+	 * @returns	{Animation}
+	 */
+	getAnimation() {
+		return this.marker.getAnimation();
+	}
+
+	/**
+	 * @method	setAnimation
+	 * @param 	{Animation} animation 
+	 * @returns	{void}
+	 */
+	setAnimation(animation) {
+		this.marker.setAnimation(animation);
+	}
+
+	/**
+	 * @method	getIcon
+	 * @returns	{(string|Icon|Symbol)}
+	 */
+	getIcon() {
+		return this.marker.getIcon();
+	}
+
+	/**
+	 * @method	setIcon
+	 * @param	{(string|Icon|Symbol)} icon
+	 * @returns	{void}
+	 */
+	setIcon(icon) {
+		this.marker.setIcon(icon);
+	}
+
+	/**
+	 * @method	getLabel
+	 * @returns	{MarkerLabel}
+	 */
+	getLabel() {
+		return this.marker.getLabel();
+	}
+
+	/**
+	 * 
+	 * @method	setLabel
+	 * @param 	{(string|MarkerLabel)} label 
+	 * @returns	{void}
+	 */
+	setLabel(label) {
+		this.marker.setLabel(label);
+	}
+
+	/**
+	 * Returns the map specified to the marker.
+	 * 
+	 * @method	getMap
+	 * @returns	{(Map|StreetViewPanorama)}
+	 */
+	getMap() {
+		return this.marker.getMap();
+	}
+
+	/**
+	 * Renders the marker on the specified map or panorama. 
+	 * If map is set to null, the marker will be removed.
+	 * 
+	 * @method	setMap
+	 * @param 	{(Map|StreetViewPanorama|null)} map The Map or Streeview instance to add a map. Null to remove it from a map.
+	 * @returns	{void}
+	 */
+	setMap(map) {
+		this.marker.setMap(map);
+	}
+
+	/**
+	 * @method	getPosition
+	 * @returns	{(LatLng|LatLngLiteral)}
+	 */
+	getPosition() {
+		return this.marker.getPosition();
+	}
+
+	/**
+	 * @method	setPosition
+	 * @param	{(LatLng|LatLngLiteral)} position
+	 * @returns	{void}
+	 */
+	setPosition(position) {
+		this.marker.setPosition(position);
+	}
+
+	/**
+	 * @method	getShape
+	 * @returns	{MarkerShape}
+	 */
+	getShape() {
+		return this.marker.getShape();
+	}
+
+	/**
+	 * @method	setShape
+	 * @param 	{MarkerShape} shape 
+	 * @returns	{void}
+	 */
+	setShape(shape) {
+		this.marker.setShape(shape);
 	}
 
 }
