@@ -1,19 +1,14 @@
 /**
- * @module		./components/card/Card
+ * @module		./components/google-map/Marker
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
-import { createTemplate } from './template.js';
-
-// ID of HTML template for Shadow DOM.
-const template = createTemplate();
-
 /**
- * Card
+ * Marker element for using in a HTMLGoogleMapElement element.
+ * 
  * @class
  * @extends	HTMLElement
  */
-export default class HTMLCardElement extends HTMLElement {
+export default class HTMLGoogleMarkerElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
@@ -24,7 +19,7 @@ export default class HTMLCardElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return [];
+		return ['longitude', 'latitude'];
 	}
 
 	/**
@@ -32,10 +27,38 @@ export default class HTMLCardElement extends HTMLElement {
 	 */
 	constructor() {
 		super();
+	}
 
-		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
-		
+	/**
+	 * Gets and sets the latitude attribute.
+	 * @property
+	 */
+	get latitude() {
+		return parseFloat(this.getAttribute('latitude'));
+	}
+
+	set latitude(value) {
+		if ('number' === typeof value) {
+			this.setAttribute('latitude', value);
+		} else {
+			this.removeAttribute('latitude');
+		}
+	}
+
+	/**
+	 * Gets and sets the longitude attribute.
+	 * @property
+	 */
+	get longitude() {
+		return parseFloat(this.getAttribute('longitude'));
+	}
+
+	set longitude(value) {
+		if ('number' === typeof value) {
+			this.setAttribute('longitude', value);
+		} else {
+			this.removeAttribute('longitude');
+		}
 	}
 
 	/**

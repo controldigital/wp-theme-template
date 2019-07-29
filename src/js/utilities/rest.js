@@ -25,7 +25,7 @@ export const getRestData = async (args = {}, route = '/wp/v2/posts', rest = wp.r
 
 	// Create endpoint with arguments for request.
 	const snakeArgs = keysOfObjectToSnakeCase(args);
-	const query = serializeObject(snakeArgs);
+	const query = serializeObject(snakeArgs, true);
 	const url = new URL(`${rest}${route}${query}`);
 	
 	// Create new headers and use the nonce for validation.

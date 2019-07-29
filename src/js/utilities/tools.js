@@ -82,19 +82,19 @@ export const isIndexBetween = (index, from, to) => {
  * Converts the comma's in a string to dots.
  * 
  * @function	stringCommaToDot
- * @param   	{String} str String with comma's.
+ * @param   	{String} string String with comma's.
  * @returns 	{String} Modified string with dots instead of comma's.
  */
-export const stringCommaToDot = (str) => str.replace(/,/g, '.');
+export const stringCommaToDot = string => string.replace(/,/g, '.');
 
 /**
  * Converts the comma's in a string to dots.
  * 
  * @function	stringDotToComma
- * @param   	{String} str String with dots.
+ * @param   	{String} string String with dots.
  * @returns 	{String} Modified string with comma's instead of dots.
  */
-export const stringDotToComma = (str) => str.replace(/./g, ',');
+export const stringDotToComma = string => string.replace(/./g, ',');
 
 /**
  * Converts a camel-cased string to a snake-cased string and returns it.
@@ -150,7 +150,7 @@ export const objectToCSV = (data = {}) => {
  * @param 		{Object} object
  * @returns		{Object}
  */
-export const keysOfObjectToSnakeCase = (object) => convertKeysOfObject(object, stringCamelToSnake); 
+export const keysOfObjectToSnakeCase = object => convertKeysOfObject(object, stringCamelToSnake); 
 
 /**
  * Converts the keys of an object to camel-cased format.
@@ -161,7 +161,7 @@ export const keysOfObjectToSnakeCase = (object) => convertKeysOfObject(object, s
  * @param 		{Object} object
  * @returns		{Object}
  */
-export const keysOfObjectToCamelCase = (object) => convertKeysOfObject(object, stringSnakeToCamel); 
+export const keysOfObjectToCamelCase = object => convertKeysOfObject(object, stringSnakeToCamel); 
 
 /**
  * Converts an array with strings into a string that can be used in a query.
@@ -229,7 +229,6 @@ export const replaceLastStringOccurence = (source = '', target = '', replacement
 /**
  * @typedef		isTouchDevice
  * @type		{Boolean}
- * @since		1.0
  */
 export const isTouchDevice = 'ontouchstart' in document.documentElement;
 
@@ -238,8 +237,6 @@ export const isTouchDevice = 'ontouchstart' in document.documentElement;
  * Returns a boolean
  *
  * @function	cssPropertyValueSupported
- * @since		1.0
- * 
  * @param		{String} property Property to evaluate.
  * @param		{String} value Value of property to check.
  * @returns		{Boolean}
@@ -256,8 +253,6 @@ export const cssPropertyValueSupported = (property, value) => {
  * theses links will open in a new tab.
  *
  * @function	externalLinksTargetBlank
- * @since		1.0
- * 
  * @param   	{String} [query=a[rel="external"]] Query to get the external links.
  * @returns		{Array}
  */
@@ -271,7 +266,6 @@ export const externalLinksTargetBlank = (query = 'a[rel="external"]') => {
  * and returns a boolean.
  * 
  * @function	hasFeatures
- * 
  * @param 		{String[]} feature Feature to check.
  * @returns		{Boolean}
  */
@@ -320,33 +314,28 @@ export const hasFeatures = (...features) =>
  * Checks if an image has a data-src attribute and returns
  * a boolean based on that fact.
  * 
- * @function	imageIsLazyLoadable
- * 
+ * @function	isImageLazyLoadable
  * @param 		{HTMLImageElement} image The image to check
  * @returns		{Boolean}
  */
-export const imageIsLazyLoadable = (image) => image.hasAttribute('data-src');
+export const isImageLazyLoadable = image => image.hasAttribute('data-src');
 
 /**
  * Lazy load an image by adding a src attribute 
  * with the value from the data-src attribute.
  * 
  * @function	lazyLoadImage
- * 
  * @param 		{HTMLImageElement} image The image that has to be loaded.
  * @returns		{HTMLImageElement} The loaded image.
  */
-export const lazyLoadImage = (image) => {
+export const lazyLoadImage = image => {
 	const protoImg = new Image();
 	const src = image.getAttribute('data-src');
-	const onLoad = () => {
+	const imageOnLoad = () => {
 		image.src = src;
-		image.classList.remove('is--loading');
-		image.classList.add('has--loaded');
 		image.removeAttribute('data-src');
 	};
-	image.classList.add('is--loading');
-	protoImg.addEventListener('load', onLoad, {once: true});
+	protoImg.addEventListener('load', imageOnLoad, {once: true});
 	protoImg.src = src;
 	return image;
 }
@@ -356,13 +345,10 @@ export const lazyLoadImage = (image) => {
  * and shows them when they have loaded.
  * 
  * @function	lazyLoadImages
- * @uses		imageIsLazyLoadable
+ * @uses		isImageLazyLoadable
  * @uses		lazyLoadImage
- * 
- * @param 		{HTMLImageElement[]} images List of images to load.
+ * @param 		{HTMLImageElement[]} [images=document.images] Array of images to load.
  * @returns		{HTMLImageElement[]}
  */
 export const lazyLoadImages = (images = document.images) => 
-	[...images]
-		.filter(imageIsLazyLoadable)
-		.map((image) => lazyLoadImage(image));
+	[...images].filter(isImageLazyLoadable).map(lazyLoadImage);
