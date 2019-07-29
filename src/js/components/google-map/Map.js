@@ -219,7 +219,8 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 
 				// Reset the markers and add the remaining ones to the map.
 				if (mutation.removedNodes.length) {
-					removeMarkers(this.children);
+					let allMarkers = [...mutation.removedNodes, ...this.children];
+					removeMarkers(allMarkers);
 					addMarkers(this.children);
 				}
 
