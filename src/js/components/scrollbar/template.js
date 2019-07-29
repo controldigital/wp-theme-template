@@ -29,6 +29,21 @@ export const createTemplate = () => createElement('template', {
 				contain: content;
 			}
 
+			:host(axis="horizontal") .bar {
+				transform: translate3d(-100%, 0, 0);
+			}
+
+			:host(axis="vertical") .bar {
+				transform: translate3d(0, -100%, 0);
+			}
+
+			.bar {
+				display: block;
+				height: 100%;
+				width: 100%;
+				will-change: transform;
+			}
+
         </style>
 
         <div class="bar"></div>
