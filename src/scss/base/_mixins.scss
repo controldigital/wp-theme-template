@@ -23,6 +23,27 @@
 	object-fit: cover;
 }
 
+/* Media container */
+@mixin media-container {
+	position: relative;
+	height: auto;
+	width: 100%;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+/* Media container 16:9 */
+@mixin media-16-9 {
+	@include media-container;
+	padding-top: 56.25%;
+}
+
+/* Media container 4:3 */
+@mixin media-4-3 {
+	@include media-container;
+	padding-top: 75%;
+}
+
 /* Grid */
 @mixin grid($rows-value: false, $columns-value: false, $areas-value: false) {
 	display: grid;

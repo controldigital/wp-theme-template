@@ -57,7 +57,18 @@ function custom_contact_methods( $contactmethods ) {
 	// $contactmethods['facebook'] = 'Facebook';
 	return $contactmethods;
 }
-	
+
+/**
+ * Add a container around the iframe embed to make the iframe responsive.
+ * 
+ * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/embed_oembed_html/
+ * @return	string
+ */
+add_filter( 'embed_oembed_html', 'container_embed_html', 10, 1 );
+function container_embed_html( $html ) {
+    return '<div class="embed-container">' . $html . '</div>';
+}
 
 /**
  * Password protected form
