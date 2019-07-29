@@ -247,7 +247,7 @@ export default class HTMLViewElement extends HTMLElement {
 	}
 
 	/**
-	 * Fires when the element has been adopted on a new page.
+	 * Fires when the element has been adopted in a new document.
 	 * 
 	 * @method	connectedCallback
 	 * @returns	{void}
