@@ -5,6 +5,12 @@
 // The properties to transform.
 const properties = ['webkitTransform', 'mozTransform', 'transform'];
 
+// A map of the available axis and their transformations.
+const transformAxis = {
+    horizontal: (percentage) => `translate3d(${-100 + percentage}%, 0, 0)`,
+    vertical: (percentage) => `translate3d(0, ${-100 + percentage}%, 0)`
+};
+
 /**
  * Scroll event handler function.
  * 
@@ -22,10 +28,13 @@ export const onScroll = function onScroll() {
     // The percentage of the amount scrolled.
     const percentage = scrollTop / (scrollHeight - window.innerHeight) * 100;
 
+    // The selected axis.
+    const axis = transformAxis[this.axis];
+
     // Apply the transformation to the scrollbar.
     properties.forEach((prop) => {
         if (this.bar.style.hasOwnProperty(prop)) {
-            this.bar.style[prop] = `translate3d(${percentage}%, 0, 0)`;
+            requestAnimationFrame(() => this.bar.style[prop] = axis(percentage));
         }
     });
 
