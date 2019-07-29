@@ -2,21 +2,24 @@
  * @module		./components/google-map/helpers
  */
 
-
+/**
+ * Function to add markers to the specified map.
+ * 
+ * @function	addMarkersToMap
+ * @param 		{HTMLElement[]} markers Array of HTMLGoogleMarkerElements
+ * @returns		{void}
+ */
 export const addMarkersToMap = function addMarkersToMap(markers) {
-	[...markers].forEach(marker => {
+	[...markers].forEach(marker => marker.setMap(this.map));
+};
 
-		const latLng = new google.maps.latLng(
-			marker.latitude,
-			marker.longitude
-		);
-	
-		const marker = new google.maps.Marker({
-			position: latLng,
-			map: this.map
-		});
-	
-		this.markers.push(marker);
-	
-	});
+/**
+ * Function to remove markers to the specified map.
+ * 
+ * @function	removeMarkersFromMap
+ * @param 		{HTMLElement[]} markers Array of HTMLGoogleMarkerElements
+ * @returns		{void}
+ */
+export const removeMarkersFromMap = function removeMarkersFromMap(markers) {
+	[...markers].forEach(marker => marker.setMap(null));
 };
