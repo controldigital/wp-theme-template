@@ -83,7 +83,7 @@ export default class HTMLScrollBarElement extends HTMLElement {
 	connectedCallback() {
 
 		// Default axis setting.
-		if (!!this.axis) {
+		if (this.axis === null) {
 			this.axis = 'horizontal';
 		}
 
