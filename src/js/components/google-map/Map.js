@@ -4,7 +4,10 @@
 
 import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js.js';
-import { addMarkersToMap } from './helpers.js';
+import { 
+	addMarkersToMap, 
+	removeMarkersFromMap 
+} from './helpers.js';
 
 // ID of HTML template for Shadow DOM.
 const template = createTemplate();
@@ -45,8 +48,6 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 				lng: 4.8944151}, 
 			zoom: 8
 		};
-
-		this.markers = [];
 		
 	}
 
@@ -195,10 +196,14 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
+		// Bind the helper functions to this instance.
+		const addMarkers = addMarkersToMap.bind(this);
+		const removeMarkers = removeMarkersFromMap.bind(this);
+
 		/**
 		 * Callback for the Mutation Observer.
-		 * Adds newly added markers to the map and removes old
-		 * markers when the elements are removed.
+		 * Adds newly added markers to the map when elements are added 
+		 * and removes markers when the elements are removed.
 		 * 
 		 * @function	onObserve
 		 * @param 		{MutationRecord[]} mutations 
@@ -209,13 +214,13 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 
 				// Add new markers to the map.
 				if (mutation.addedNodes.length) {
-					addMarkersToMap.call(this, mutation.addedNodes);
+					addMarkers(mutation.addedNodes);
 				}
 
 				// Reset the markers and add the remaining ones to the map.
 				if (mutation.removedNodes.length) {
-					this.markers.forEach(marker => marker.setMap(null));
-					addMarkersToMap.call(this, this.children);
+					removeMarkers(this.children);
+					addMarkers(this.children);
 				}
 
 			});
@@ -223,7 +228,9 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 
 		// Observe changes in the children of the element.
 		const observer = new MutationObserver(onObserve);
-		observer.observe(this, {childList: true});
+		observer.observe(this, {
+			childList: true
+		});
 
 		// Get the map element from the Shadow DOM.
 		const mapContainer = this.shadowRoot.querySelector('.google-map');
@@ -232,7 +239,7 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 		this.map = new google.maps.Map(mapContainer, this.defaultOptions);
 
 		// Add the markers to the map.
-		addMarkersToMap.call(this, this.children);
+		addMarkers(this.children);
 
 	}
 
