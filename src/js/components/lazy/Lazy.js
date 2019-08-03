@@ -2,7 +2,7 @@
  * @module		./components/lazy/Lazy
  */
 
-import { imageIsLazyLoadable } from 'Utilities/tools.js';
+import { isImageLazyLoadable } from 'Utilities/lazy.js';
 import {
 	intersectionOptions,
 	onIntersect
@@ -175,7 +175,7 @@ export default class HTMLLazyElement extends HTMLElement {
 		const images = [...this.querySelectorAll('img')];
 
 		// Observe only images with a data-src attribute.
-		images.filter(imageIsLazyLoadable).forEach((image) => this.observer.observe(image));
+		images.filter(isImageLazyLoadable).forEach((image) => this.observer.observe(image));
 
 	}
 
