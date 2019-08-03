@@ -3,14 +3,42 @@
  */
 
 /**
- * Checks if an image has a data-src attribute and returns
- * a boolean based on that fact.
+ * Checks if an image has a data-src or data-srcset attribute
+ * and returns the answer in a Promise.
  * 
  * @function	isImageLazyLoadable
  * @param 		{HTMLImageElement} image The image to check
- * @returns		{Boolean}
+ * @returns		{Promise<(string|Error)} String of data-src attribute on resolve and Error on reject.
  */
-export const isImageLazyLoadable = image => image.hasAttribute('data-src');
+export const isImageLazyLoadable = image => 
+	new Promise((resolve, reject) => {
+		const src = image.getAttribute('data-src') || image.getAttribute('data-srcset');
+		if (src !== null) {
+			return resolve(src);
+		}
+		reject(new Error('No data-src of data-srcset found.'));
+	});
+
+/**
+ * Checks if the source tags of a media element has a data-src tags
+ * and returns the answer in a Promise.
+ * 
+ * @function	isMediaLazyLoadable
+ * @param 		{(HTMLPictureElement|HTMLMediaElement)} media Picture, Video or Audio element.
+ * @returns		{Promise<(string[]|Error)} An arrya with strings of data-src attributes on resolve and Error on reject.
+ */
+export const isMediaLazyLoadable = media => {
+	const sources = media.querySelectorAll('source');
+	return Promise.all([...sources].map(source => 
+		new Promise((resolve, reject) => {
+			const src = source.getAttribute('data-src');
+			if (src !== null) {
+				return resolve(src);
+			}
+			reject(new Error('No data-src attribute found.'));
+		})
+	));
+}
 
 /**
  * Change the data-src attributes of the sources into src attributes.
@@ -20,16 +48,15 @@ export const isImageLazyLoadable = image => image.hasAttribute('data-src');
  * @param 		{HTMLSourceElement[]} sources List of <source> elements.
  * @returns		{HTMLSourceElement[]}
  */
-export const lazyLoadSources = sources =>
+export const lazyLoadSources = sources => {
 	[...sources].forEach(source => {
-		if (typeof source.tagName === 'string' && source.tagName === 'SOURCE') {
-			const src = source.getAttribute('data-src');
-			if (src !== null) {
-				source.src = src;
-				source.removeAttribute('data-src');
-			}
+		const src = source.getAttribute('data-src');
+		if (src !== null) {
+			source.src = src;
+			source.removeAttribute('data-src');
 		}
 	});
+};
 
 /**
  * Lazy load an image by adding a src attribute with the value from the data-src attribute.
@@ -80,42 +107,53 @@ export const lazyLoadPicture = picture =>
 		const image = picture.querySelector('img');
 		lazyLoadSources(sources);
 		if (image !== null && isImageLazyLoadable(image)) {
-			lazyLoadImage(image);
+			lazyLoadImage(image).then(() => {
+				resolve(picture);
+			});
 		}
 		resolve(picture);
 	});
 
 /**
- * Lazy load an video by adding a adding a src attribute with the value from the data-src 
- * attribute that is found on the <source> tags inside the video element. 
- * The video is then loaded. When the video can be played through to the end without too
- * much buffering it will resolve a promise with the video element as its value.
+ * Lazy load a media element like Video or Audio by adding a adding a src attribute with the value 
+ * from the data-src attribute that is found on the <source> tags inside the media element. 
+ * The media is then loaded. When the media can be played through to the end without too
+ * much buffering it will resolve a promise with the media element as its value.
  * 
  * @function	lazyLoadVideo
  * @uses		lazyLoadSources
- * @param 		{HTMLVideoElement} video Video element to lazy load.
- * @returns		{Promise<HTMLVideoElement>} Promise with the video element on resolve.
+ * @param 		{HTMLMediaElement} media Video or Audio element to lazy load.
+ * @returns		{Promise<HTMLMediaElement>} Promise with the video element on resolve.
  */
-export const lazyLoadVideo = video => 
+export const lazyLoadMedia = media => 
 	new Promise(resolve => {
-		const videoOnCanPlayThrough = () => resolve(video);
+		const videoOnCanPlayThrough = () => resolve(media);
 		const sources = picture.querySelectorAll('source');
 		lazyLoadSources(sources);
-		video.addEventListener('canplaythrough', videoOnCanPlayThrough, {once: true});
-		video.load();
+		media.addEventListener('canplaythrough', videoOnCanPlayThrough, {once: true});
+		media.load();
 	});
 
 /**
- * Lazy load images that contain a data-src attribute
- * and shows them when they have loaded. Returns a Promise
- * that resolves with the image elements when all images have
- * been resolved.
+ * Lazy loads images that contain a data-src attribute. 
+ * Returns a Promise that resolves with the image elements when all loads have resolved.
  * 
- * @function	lazyLoadImages
- * @uses		isImageLazyLoadable
+ * @function	lazyLoadAllImages
  * @uses		lazyLoadImage
- * @param 		{HTMLImageElement[]} [images=document.images] Array of images to load.
+ * @param 		{HTMLImageElement[]} [images=document.images] Array of image elements to load.
  * @returns		{Promise<HTMLImageElement[]>}
  */
-export const lazyLoadImages = (images = document.images) => 
-	Promise.all([...images].filter(isImageLazyLoadable).map(lazyLoadImage));
+export const lazyLoadAllImages = (images = document.images) => 
+	Promise.all([...images].map(lazyLoadImage));
+
+/**
+ * Lazy loads media element that have sources that contain a data-src attribute and.
+ * Returns a Promise that resolves with the media elements when all loads have resolved.
+ * 
+ * @function	lazyLoadAllMedia
+ * @uses		lazyLoadMedia
+ * @param 		{HTMLImageElement[]} media Array of media elements to load.
+ * @returns		{Promise<HTMLImageElement[]>}
+ */
+export const lazyLoadAllMedia = media => 
+	Promise.all([...media].map(lazyLoadMedia));
