@@ -97,7 +97,7 @@ export const lazyLoadImage = image =>
  * 
  * @function	lazyLoadPicture
  * @uses		lazyLoadSources
- * @uses		lazyloadImage
+ * @uses		lazyLoadImage
  * @param 		{HTMLPictureElement} picture Picture element to lazyload. 
  * @returns		{Promise<HTMLPictureElement>} Promise with the picture element on resolve.
  */
