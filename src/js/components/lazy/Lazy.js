@@ -2,7 +2,6 @@
  * @module		./components/lazy/Lazy
  */
 
-import { isImageLazyLoadable } from 'Utilities/lazy.js';
 import {
 	intersectionOptions,
 	onIntersect
@@ -11,9 +10,12 @@ import { createOptions } from './options.js';
 
 
 /**
- * Element that lazy loads all the images that exist within itself.
- * Checks if the images have a data-src attribute and load it when
- * the element comes within the margin of the root element (See IntersectionObserver).
+ * Element that lazy loads all the images, pictures and / or videos that exist within itself.
+ * Uses an IntersectionObserver to see if a target comes into the view.
+ * The triggers can be set manually by changing the root, root-margin and threshold properties.
+ * 
+ * See the docs for the IntersectionObserver on changing the properties mentioned above.
+ * @link	https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
  * 
  * @class
  * @extends	HTMLElement
@@ -37,10 +39,20 @@ export default class HTMLLazyElement extends HTMLElement {
 	 */
 	constructor() {
 		super();
+	}
 
-		// Bind the instance to the intersection function.
-		this.onIntersect = onIntersect.bind(this);
-		
+	/**
+	 * Gets and sets the targets attribute.
+	 * @property
+	 */
+	get targets() {
+		return this.getAttribute('targets').split(',');
+	}
+
+	set targets(value) {
+		if (typeof value === 'string' || Array.isArray(value)) {
+			this.setAttribute(value);
+		}
 	}
 
 	/**
@@ -102,8 +114,9 @@ export default class HTMLLazyElement extends HTMLElement {
 		// Rewrite and create 
 		if (attrName === 'root' || attrName === 'root-margin' || attrName === 'threshold' ) {
 
+			// Create an observer and observe the targets.
 			this.createObserver();
-			this.observeImages();
+			this.observeTargets(this.targets);
 				
 		}
 
@@ -117,8 +130,14 @@ export default class HTMLLazyElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
+		// Add a default target.
+		if (this.targets === null) {
+			this.targets = ['img'];
+		}
+
+		// Create an observer and observe the targets.
 		this.createObserver();
-		this.observeImages();
+		this.observeTargets(this.targets);
 
 	}
 
@@ -157,25 +176,29 @@ export default class HTMLLazyElement extends HTMLElement {
 		// Overwrite the intersection options.
 		Object.assign(intersectionOptions, options);
 
+		// Bind the instance to the intersection function.
+		const boundOnIntersect = onIntersect.bind(this);
+
 		// Create a new IntersectionObserver instance.
-		this.observer = new IntersectionObserver(this.onIntersect, intersectionOptions);
+		this.observer = new IntersectionObserver(boundOnIntersect, intersectionOptions);
 
 	}
 
 	/**
-	 * Queries all the <img> tags within the <ctrl-lazy> element
-	 * and adds them to the IntersectionObserver.
+	 * Queries all the elements that correspond with the targets attribute
+	 * of the element and adds them to the IntersectionObserver.
 	 * 
-	 * @method	observeImages
+	 * @method	observeTargets
+	 * @param	{string} selector Selector query for targets to select.
 	 * @returns	{void}
 	 */
-	observeImages() {
+	observeTargets(selector) {
 
-		// Get all the images.
-		const images = [...this.querySelectorAll('img')];
+		// Get all the targets.
+		const targets = [...this.querySelectorAll(selector)];
 
-		// Observe only images with a data-src attribute.
-		images.filter(isImageLazyLoadable).forEach((image) => this.observer.observe(image));
+		// Observe the target.
+		targets.forEach((target) => this.observer.observe(target));
 
 	}
 

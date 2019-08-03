@@ -2,7 +2,11 @@
  * @module		./components/lazy/intersection
  */
 
-import { lazyLoadImage } from 'Utilities/tools.js';
+import { 
+	lazyLoadImage,
+	lazyLoadPicture,
+	lazyLoadVideo
+} from 'Utilities/lazy.js';
 
 /**
  * @typedef		intersectionOptions
@@ -21,11 +25,18 @@ export const intersectionOptions = {
  * @param 		{IntersectionObserverEntry[]} entries 
  * @returns		{void}
  */
-export const onIntersect = function(entries, observer) {
+export const onIntersect = function onIntersect(entries, observer) {
 	entries.forEach((entry) => {
 		const { target, isIntersecting, intersectionRatio } = entry;
+		const { tagName } = target;
 		if (isIntersecting || intersectionRatio > 0) {
-			lazyLoadImage(target);
+			if (tagName === 'IMG') {
+				lazyLoadImage(target);
+			} else if (tagName === 'PICTURE') {
+				lazyLoadPicture(target);
+			} else if (tagName === 'VIDEO') {
+				lazyLoadVideo(target);
+			}
 			observer.unobserve(target);
 		}
 	});
