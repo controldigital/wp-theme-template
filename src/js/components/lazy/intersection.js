@@ -5,7 +5,7 @@
 import { 
 	lazyLoadImage,
 	lazyLoadPicture,
-	lazyLoadVideo
+	lazyLoadMedia
 } from 'Utilities/lazy.js';
 
 /**
@@ -34,8 +34,8 @@ export const onIntersect = function onIntersect(entries, observer) {
 				lazyLoadImage(target);
 			} else if (tagName === 'PICTURE') {
 				lazyLoadPicture(target);
-			} else if (tagName === 'VIDEO') {
-				lazyLoadVideo(target);
+			} else if (tagName === 'VIDEO' || tagName === 'AUDIO') {
+				lazyLoadMedia(target);
 			}
 			observer.unobserve(target);
 		}
