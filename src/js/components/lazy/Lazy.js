@@ -46,11 +46,15 @@ export default class HTMLLazyElement extends HTMLElement {
 	 * @property
 	 */
 	get targets() {
-		return this.getAttribute('targets').split(',');
+		const attr = this.getAttribute('targets');
+		if (attr === null) {
+			return attr;
+		}
+		return attr('targets').split(',');
 	}
 
 	set targets(value) {
-		if (typeof value === 'string' || Array.isArray(value)) {
+		if ('string' === typeof value || Array.isArray(value)) {
 			this.setAttribute(value);
 		}
 	}
@@ -97,7 +101,7 @@ export default class HTMLLazyElement extends HTMLElement {
 
 	set threshold(value) {
 		if (value instanceof Array) {
-			this.setAttribute('threshold', value.join(','));
+			this.setAttribute('threshold', value);
 		}
 	}
 
