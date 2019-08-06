@@ -5,27 +5,17 @@
 import { 
 	lazyLoadImage,
 	lazyLoadPicture,
-	lazyLoadMedia
+	lazyLoadVideo
 } from 'Utilities/lazy.js';
-
-/**
- * @typedef		intersectionOptions
- * @type		{Object}
- */
-export const intersectionOptions = {
-	root: null,
-	rootMargin: '0px',
-	threshold: [0]
-};
 
 /**
  * Onintersection callback.
  * 
- * @function	onIntersect
+ * @function	onIntersection
  * @param 		{IntersectionObserverEntry[]} entries 
  * @returns		{void}
  */
-export const onIntersect = function onIntersect(entries, observer) {
+export const onIntersection = function onIntersection(entries, observer) {
 	entries.forEach((entry) => {
 		const { target, isIntersecting, intersectionRatio } = entry;
 		const { tagName } = target;
@@ -34,8 +24,8 @@ export const onIntersect = function onIntersect(entries, observer) {
 				lazyLoadImage(target);
 			} else if (tagName === 'PICTURE') {
 				lazyLoadPicture(target);
-			} else if (tagName === 'VIDEO' || tagName === 'AUDIO') {
-				lazyLoadMedia(target);
+			} else if (tagName === 'VIDEO') {
+				lazyLoadVideo(target);
 			}
 			observer.unobserve(target);
 		}
