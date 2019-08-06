@@ -2,10 +2,7 @@
  * @module		./components/lazy/Lazy
  */
 
-import {
-	intersectionOptions,
-	onIntersect
-} from './intersection.js';
+import { onIntersection } from './intersection.js';
 import { createOptions } from './options.js';
 
 
@@ -50,12 +47,12 @@ export default class HTMLLazyElement extends HTMLElement {
 		if (attr === null) {
 			return attr;
 		}
-		return attr('targets').split(',');
+		return attr.split(',');
 	}
 
 	set targets(value) {
 		if ('string' === typeof value || Array.isArray(value)) {
-			this.setAttribute(value);
+			this.setAttribute('targets', value);
 		}
 	}
 
@@ -96,11 +93,11 @@ export default class HTMLLazyElement extends HTMLElement {
 		if (attr === null) {
 			return attr;
 		}
-		return attr.split(',').map(item => parseInt(item));
+		return attr.split(',').map(item => parseFloat(item));
 	}
 
 	set threshold(value) {
-		if (value instanceof Array) {
+		if (Array.isArray(value)) {
 			this.setAttribute('threshold', value);
 		}
 	}
@@ -139,6 +136,21 @@ export default class HTMLLazyElement extends HTMLElement {
 			this.targets = ['img'];
 		}
 
+		// Add a default root.
+		if (this.root === null) {
+			this.root = 'null';
+		}
+
+		// Add a default root margin
+		if (this.rootMargin === null) {
+			this.rootMargin = '0px'
+		}
+
+		// Add a default threshold
+		if (this.threshold === null) {
+			this.threshold = [0];
+		} 
+
 		// Create an observer and observe the targets.
 		this.createObserver();
 		this.observeTargets(this.targets);
@@ -175,16 +187,10 @@ export default class HTMLLazyElement extends HTMLElement {
 	createObserver() {
 
 		// Check for options.
-		const options = createOptions.call(this);
-
-		// Overwrite the intersection options.
-		Object.assign(intersectionOptions, options);
-
-		// Bind the instance to the intersection function.
-		const boundOnIntersect = onIntersect.bind(this);
+		const intersectionOptions = createOptions.call(this);
 
 		// Create a new IntersectionObserver instance.
-		this.observer = new IntersectionObserver(boundOnIntersect, intersectionOptions);
+		this.observer = new IntersectionObserver(onIntersection, intersectionOptions);
 
 	}
 
