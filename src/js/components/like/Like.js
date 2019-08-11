@@ -4,13 +4,9 @@
 
 import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
-import { onChange } from './events.js';
-import {
-	createStorage,
-	addIdToStorage,
-	removeIdFromStorage,
-	checkStorageForId
-} from './storage.js';
+import { onClick } from './events.js';
+import { checkLocalStorageForId } from './storage.js';
+import { renderSVGIcon } from './svg.js';
 
 // Template for Shadow DOM.
 const template = createTemplate();
@@ -34,7 +30,7 @@ export default class HTMLLikeElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['type', 'clicked', 'value'];
+		return ['type', 'value'];
 	}
 
 	/**
@@ -47,8 +43,38 @@ export default class HTMLLikeElement extends HTMLElement {
 		attachShadowToElement.call(this, template);
 
 		// Bind the event listener.
-		this.onChange = onChange.bind(this);
+		this.onClick = onClick.bind(this);
 		
+	}
+
+	/**
+	 * Gets and sets the clicked attribute.
+	 * @property
+	 */
+	get clicked() {
+		return this.getAttribute('clicked');
+	}
+
+	set clicked(value) {
+		if (value === true) {
+			this.setAttribute('clicked', '');
+		} else {
+			this.removeAttribute('clicked');
+		}
+	}
+
+	/**
+	 * Gets and sets the name attribute.
+	 * @property
+	 */
+	get name() {
+		return this.getAttribute('name');
+	}
+
+	set name(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('name', value);
+		} 
 	}
 
 	/**
@@ -80,52 +106,6 @@ export default class HTMLLikeElement extends HTMLElement {
 	}
 
 	/**
-	 * Gets and sets the name attribute.
-	 * @property
-	 */
-	get storageName() {
-		return this.getAttribute('storage-name');
-	}
-
-	set storageName(value) {
-		if ('string' === typeof value) {
-			this.setAttribute('storage-name', value);
-		} 
-	}
-
-	/**
-	 * Gets and sets the clicked attribute.
-	 * @property
-	 */
-	get clicked() {
-		return this.getAttribute('clicked');
-	}
-
-	set clicked(value) {
-		if (value === true) {
-			this.setAttribute('clicked', '');
-		} else {
-			this.removeAttribute('clicked');
-		}
-	}
-
-	/**
-	 * Gets and sets the useLocalStorage attribute.
-	 * @property
-	 */
-	get useLocalStorage() {
-		return this.getAttribute('use-local-storage');
-	}
-
-	set useLocalStorage(value) {
-		if (value === true) {
-			this.setAttribute('use-local-storage', '');
-		} else {
-			this.removeAttribute('use-local-storage');
-		}
-	}
-
-	/**
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
@@ -135,19 +115,13 @@ export default class HTMLLikeElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
-		if (attrName === 'clicked') {
-			if (newValue !== null) {
-				addIdToStorage(this.storage, this.storageName, this.id);
-			} else {
-				removeIdFromStorage(this.storage, this.storageName, this.id);
-			}
-		} 
-
-		else if (attrName === 'type') {
+		if (attrName === 'type') {
 			if (newValue !== null) {
 
 				if (acceptedTypes.some(type => type === newValue)) {
-
+					const icon = renderSVGIcon(newValue);
+					const container = this.shadowRoot.querySelector('icon');
+					container.innerHTML = icon;
 				}
 
 			}
@@ -163,29 +137,19 @@ export default class HTMLLikeElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
-		const form = this.querySelector('form');
-		form.addEventListener('change', this.onChange);
-
 		// Set default type.
 		if (this.type === null) {
 			this.type = 'like';
 		}
 
-		// Create the proper storage methods.
-		this.storage = this.useLocalStorage !== null ? 
-			createStorage('local') : 
-			createStorage('cookie');
-
 		// Check if the id is in the storage.
-		const storageContainsId = checkStorageForId(this.storage, this.storageName, this.id);
-		if (storageContainsId) {
+		const hasId = checkLocalStorageForId(this.name, this.id);
+		if (hasId) {
 			this.clicked = true;
 		}
 
-		if (this.clicked === true) {
-			const checkbox = this.querySelector('input');
-			checkbox.checked = true;
-		}
+		// Add event listeners.
+		this.addEventListener('click', this.onClick);
 
 	}
 
@@ -196,6 +160,9 @@ export default class HTMLLikeElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	disconnectedCallback() {
+
+		// Remove event listeners.
+		this.removeEventListener('click', this.onClick);
 
 	}
 
