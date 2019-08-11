@@ -2,61 +2,21 @@
  * @module		./components/like/cookie
  */
 
-import Cookie from 'Utilities/Cookie.js';
 import { hasFeatures } from 'Utilities/tools.js';
 
-// Support constant.
+// Does the browser support local storage?
 export const hasLocalStorageSupport = hasFeatures('Local Storage');
 
 /**
- * Creates a list of methods to set the storage type that is needed.
- * This can be cookie, local or session.
- * 
- * TODO: Is there a better way to do this?
- * 
- * @function	createStorage
- * @param 		{String} type Type of storage to use. cookie, local or session.
- * @returns		{Object} Methods to talk with the correct storage.
- */
-export const createStorage = (type) => {
-	
-	// Check if type is string.
-	if ('string' !== typeof type) {
-		return;
-	}
-
-	// List of methods.
-	const methods = {
-		'cookie': {
-			get: Cookie.get,
-			set: Cookie.set,
-		},
-		'local': {
-			get: localStorage.getItem,
-			set: localStorage.setItem
-		},
-		'session': {
-			get: sessionStorage.getItem,
-			set: sessionStorage.setItem
-		}
-	};
-
-	// Return the correct method.
-	return methods[type];
-
-};
-
-/**
- * @function	checkStorageForId
- * @param		{Object} storage Type of storage to get the id from.
- * @param		{String} name Name of the item.
+ * @function	checkLocalStorageForId
+ * @param		{String} name Name of the storage item.
  * @param		{Number} id ID to find in item.
  * @returns		{Boolean} True when the id is in the item. False if the item does not exist or does not have the id.
  */
-export const checkStorageForId = (storage, name, id) => {
+export const checkLocalStorageForId = (name, id) => {
 
 	// Retrieve the item.
-	const item = storage.get(name);
+	const item = localStorage.getItem(name);
 
 	// If there is no item set. Set it now.
 	if (!item) {
@@ -75,16 +35,15 @@ export const checkStorageForId = (storage, name, id) => {
 };
 
 /**
- * @function	addIdToStorage
- * @param		{Object} storage Type of storage to get the id from.
- * @param		{String} name Name of the item.
- * @param		{Number} id ID to put in item.
+ * @function	addIdToLocalStorage
+ * @param		{String} name Name of the storage key.
+ * @param		{Number} id ID to put in storage.
  * @returns		{String} The item string with the new added value.
  */
-export const addIdToStorage = (storage, name, id) => {
+export const addIdToLocalStorage = (name, id) => {
 
 	// Retrieve the item.
-	const item = storage.get(name);
+	const item = localStorage.getItem(name);
 	const values = JSON.parse(item);
 
 	// Add the id and convert back to JSON.
@@ -92,21 +51,20 @@ export const addIdToStorage = (storage, name, id) => {
 	const json = JSON.stringify(values);
 
 	// Set the item with the new id.
-	return storage.set(name, json);
+	return localStorage.setItem(name, json);
 
 };
 
 /**
- * @function	removeIdFromStorage
- * @param		{Object} storage Type of storage to get the id from.
- * @param		{String} name Name of the item.
- * @param		{Number} id ID to put in item.
+ * @function	removeIdFromLocalStorage
+ * @param		{String} name Name of the storage key.
+ * @param		{Number} id ID to remove from storage.
  * @returns		{String} The item string with the new added value.
  */
-export const removeIdFromStorage = (storage, name, id) => {
+export const removeIdFromLocalStorage = (name, id) => {
 
 	// Retrieve the item.
-	const item = storage.get(name);
+	const item = localStorage.getItem(name);
 	const values = JSON.parse(item);
 
 	// Remove the id and convert back to JSON.
@@ -115,6 +73,6 @@ export const removeIdFromStorage = (storage, name, id) => {
 	const json = JSON.stringify(values);
 
 	// Set the item with the removed id.
-	return storage.set(name, json);
+	return localStorage.setItem(name, json);
 
 };
