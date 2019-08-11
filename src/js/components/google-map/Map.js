@@ -45,7 +45,8 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 		this.defaultOptions = {
 			center: {
 				lat: 52.3935744, 
-				lng: 4.8944151}, 
+				lng: 4.8944151
+			}, 
 			zoom: 8
 		};
 		
@@ -159,18 +160,19 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 
 		const numberValue = parseInt(newValue);
 
+		let boolValue;
+		if (newValue === null) {
+			boolValue = false;
+		} else {
+			boolValue = true;
+		}
+
 		switch(attrName) {
 			case 'center':
 				this.map.setCenter(newValue);
 				break;
 			case 'clickable-icons':
-				let value;
-				if (newValue === null) {
-					value = false;
-				} else {
-					value = true;
-				}
-				this.map.setClickableIcons(value);
+				this.map.setClickableIcons(boolValue);
 				break;
 			case 'heading':
 				this.map.setHeading(numberValue);

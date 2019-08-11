@@ -157,8 +157,42 @@ export default class HTMLGoogleMarkerElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
+		const floatValue = parseFloat(newValue);
+
+		let boolValue;
+		if (newValue === null) {
+			boolValue = false;
+		} else {
+			boolValue = true;
+		}
+
 		switch(attrName) {
-			
+			case 'clickable':
+				this.marker.setClickable(boolValue);
+				break;
+			case 'cursor':
+				this.marker.setCursor(newValue);
+				break;
+			case 'draggable':
+				this.marker.setDraggable(boolValue);
+				break;
+			case 'opacity':
+				this.marker.setOpacity(floatValue);
+				break;
+			case 'latitude':
+			case 'longitude':
+				const latLng = {
+					lat: this.latitude,
+					lng: this.longitude
+				};
+				this.setPosition(latLng);
+				break;
+			case 'visible':
+				this.marker.setVisible(boolValue);
+				break;
+			case 'z-index':
+				this.marker.setZIndex(boolValue);
+				break;
 		}
 
 	}
