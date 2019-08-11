@@ -185,7 +185,7 @@ export default class HTMLTimeElement extends HTMLElement {
 
 		switch(attrName) {
 			case 'type':
-				if (!!newValue && acceptedTypes.some(type => type === newValue)) {
+				if (newValue !== null && acceptedTypes.some(type => type === newValue)) {
 					if (newValue === 'clock') {
 						createClock.call(this);
 					} else if (newValue === 'countdown') {
@@ -194,7 +194,7 @@ export default class HTMLTimeElement extends HTMLElement {
 				}
 				break;
 			case 'end':
-				if (!!newValue && this.type === 'countdown') {
+				if (newValue !== null && this.type === 'countdown') {
 					createCountdown.call(this, this.end);
 				}
 				break;
