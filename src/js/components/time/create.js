@@ -39,7 +39,7 @@ export const createCountdown = function createCountdown(end) {
     }
 
     // Create moment instance for to time.
-    const toMoment = moment(to);
+    const toMoment = moment(end);
 
     // Get the time elements.
     const container = this.shadowRoot.firstElementChild;
