@@ -67,7 +67,7 @@ export const createTemplate = () => createElement('template', {
 				height: 2rem;
 				border-radius: 3px;
 				background: #ffffff;
-				transition: transform 250ms cubic-bezier(0.86, 0, 0.07, 1);
+				transition: transform 150ms cubic-bezier(0.86, 0, 0.07, 1);
 			}
 			
 			input + label .toggle::after {
@@ -90,7 +90,7 @@ export const createTemplate = () => createElement('template', {
 		<slot name="input"></slot>
 		<label>
 			<div class="title">
-				<slot name="label"></slot>
+				<slot name="label">Toggle</slot>
 			</div>
 			<div class="toggle">
 				<div class="value">
