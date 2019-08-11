@@ -161,5 +161,5 @@ function head_favicon_links() {
  */
 add_action( 'wp_head', 'head_cookie_scripts', 10 );
 function head_cookie_scripts() { 
-    get_template_part( './inc/cookies/cookies', 'head' );
+    get_template_part( './inc/cookie/cookie', 'head' );
 }

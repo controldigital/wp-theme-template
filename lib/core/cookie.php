@@ -480,12 +480,26 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		$wp_customize,
 		'cookie_code_body',
 		array(
-			'label'      		=> __( 'Body scripts', THEME_TEXT_DOMAIN ),
+			'label'      		=> __( 'Body Start scripts', THEME_TEXT_DOMAIN ),
 			'description'		=> __( 'Place scripts that have to be appended to the start of the body when the cookie is accepted.', THEME_TEXT_DOMAIN ),
 			'section'    		=> 'cookie_scripts_section',
-			'settings'   		=> 'cookie_code_body',
+			'settings'   		=> 'cookie_code_body_start',
 			'type'				=> 'textarea',
 	        'priority'   		=> 20
+		)
+	) );
+	
+	// Cookie code body textarea control
+	$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize,
+		'cookie_code_body',
+		array(
+			'label'      		=> __( 'Body End scripts', THEME_TEXT_DOMAIN ),
+			'description'		=> __( 'Place scripts that have to be appended to the end of the body when the cookie is accepted.', THEME_TEXT_DOMAIN ),
+			'section'    		=> 'cookie_scripts_section',
+			'settings'   		=> 'cookie_code_body_end',
+			'type'				=> 'textarea',
+	        'priority'   		=> 30
 		)
     ) );
 	
@@ -514,11 +528,12 @@ function get_cookie( $cookie_name ) {
  * the cookie will be invalid and removed.
  * 
  * @since	1.0
- * @param	string $cookie_name
- * @return	string The value of the cookie if it is found
+ * @param	string $cookie_name Name of the cookie.
+ * @param	string $cookie_domain Domain of the cookie.
+ * @return	string The value of the cookie if it is found.
  */
-function delete_cookie( $cookie_name ) {
-	$cookie = setcookie( $cookie_name , '', time() - 3600, '/' );
+function delete_cookie( $cookie_name, $cookie_domain ) {
+	$cookie = setcookie( $cookie_name , null, 1, '/', $cookie_domain );
 	return $cookie;
 }
 
@@ -540,9 +555,6 @@ function set_cookie() {
 
 	// Expiration date of cookie
 	$cookie_expiration_date = intval( get_theme_mod( 'cookie_expiration_date' ) );
-
-	// Value of cookie
-	$cookie_value = '';
 	
 	// If cookie is accepted
 	if ( isset( $_POST[ 'accept' ] ) ) {
@@ -556,10 +568,12 @@ function set_cookie() {
 
 	// Referrer URL
 	$referrer = esc_url( $_POST[ '_wp_referrer' ] );
+	$url = parse_url( $referrer );
+	$domain = preg_replace( '/^www\./i', '', $url[ 'domain' ] );
 
 	// Set the cookie if a POST is sent with the cookie name.
 	if ( isset( $_POST[ 'cookie_name' ] ) ) {
-		setcookie( $_POST[ 'cookie_name' ], $cookie_value, ( time() + 60 * 60 * 24 * $cookie_expiration_date ), '/' );
+		setcookie( $_POST[ 'cookie_name' ], $cookie_value, ( time() + 60 * 60 * 24 * $cookie_expiration_date ), '/', $domain );
 	}
 
 	// Redirect to thank you page
@@ -586,10 +600,12 @@ function revoke_cookie() {
 
 	// Referrer URL
 	$referrer = esc_url( $_POST[ '_wp_referrer' ] );
+	$url = parse_url( $referrer );
+	$domain = preg_replace( '/^www\./i', '', $url[ 'domain' ] );
 
 	// Remove the cookie
 	if ( isset( $_POST[ 'cookie_name' ] ) ) {
-		delete_cookie( $_POST[ 'cookie_name' ] );
+		delete_cookie( $_POST[ 'cookie_name' ], $domain );
 	}
 
 	// Redirect to thank you page

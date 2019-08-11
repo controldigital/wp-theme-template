@@ -246,11 +246,14 @@ function theme_scripts() {
 	$cookie_active = get_theme_mod( 'cookie_active' );
 	if ( $cookie_active ) {
 		wp_register_script( 'cookie', get_template_directory_uri() . '/assets/cookies/cookies.js', false, false, true );
-		wp_localize_script( 'cookie', 'cookie', array(
+		wp_localize_script( 'cookie', 'cookieData', array(
 			'name'				=> get_theme_mod( 'cookie_name' ),
 			'expire'			=> get_theme_mod( 'cookie_expiration_date' ),
-			'head'				=> get_theme_mod( 'cookie_code_head' ),
-			'body'				=> get_theme_mod( 'cookie_code_body' )
+			'scripts'			=> array(
+				'head'				=> get_theme_mod( 'cookie_code_head' ),
+				'bodyStart'			=> get_theme_mod( 'cookie_code_body_start' ),
+				'bodyEnd'			=> get_theme_mod( 'cookie_code_body_end' )
+			)
 		) );
 		wp_enqueue_script( 'cookie' );
 	}

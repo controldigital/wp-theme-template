@@ -22,7 +22,7 @@ export default class Config {
 		if ('undefined' === typeof name || 'string' !== typeof name) {
 			throw new Error('Name is not defined or is not a string');
 		};
-		this.name = name;
+		this.cookie = new Cookie(name);
 	}
 
 	/**
@@ -34,7 +34,7 @@ export default class Config {
 	 * @returns		{*} A value if the key is succesfully retrieved or null when it is not found.
 	 */
 	get(key) {
-		const cookie = Cookie.get(this.name);
+		const cookie = this.cookie.get();
 		if (cookie !== false) {
 			const settings = JSON.parse(cookie);
 			if (settings.hasOwnProperty(key)) {
@@ -55,13 +55,13 @@ export default class Config {
 	 * @returns		{void}
 	 */
 	set(key, value) {
-		const cookie = Cookie.get(this.name);
+		const cookie = this.cookie.get();
 		let settings = {};
 		if (cookie !== false) {
 			settings = JSON.parse(cookie);
 		} 
 		settings[key] = value;
-		Cookie.set(this.name, JSON.stringify(settings), 365);
+		this.cookie.set(this.name, JSON.stringify(settings), 365);
 	}
 
 	/**
@@ -86,7 +86,7 @@ export default class Config {
 	 * @returns		{Array}
 	 */
 	keys() {
-		const cookie = Cookie.get(this.name);
+		const cookie = this.cookie.get();
 		if (cookie !== false) {
 			const settings = JSON.parse(cookie);
 			return Object.keys(settings);
@@ -100,7 +100,7 @@ export default class Config {
 	 * @returns		{Array}
 	 */
 	values() {
-		const cookie = Cookie.get(this.name);
+		const cookie = this.cookie.get();
 		if (cookie !== false) {
 			const settings = JSON.parse(cookie);
 			return Object.values(settings);
