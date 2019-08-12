@@ -30,6 +30,7 @@ input {
 	&[type="datetime"],
 	&[type="datetime-local"] {
 		@include form-styles-reset;
+		@include form-styles;
 
 		&:focus {
 
@@ -88,10 +89,19 @@ input {
 
 	&[type="checkbox"] {
 		@include form-styles-reset;
+		@include form-styles;
+		width: 1em;
+		height: 1em;
+
+		&::before {
+			@include form-checkbox-radio-before;
+			border-radius: 3px;
+		}
+
 		&:checked {
 
 			&::before {
-
+				transform: scale(1);
 			}
 
 		}
@@ -100,10 +110,20 @@ input {
 
 	&[type="radio"] {
 		@include form-styles-reset;
+		@include form-styles;
+		width: 1em;
+		height: 1em;
+		border-radius: 50%;
+
+		&::before {
+			@include form-checkbox-radio-before;
+			border-radius: 50%;
+		}
+
 		&:checked {
 
 			&::before {
-				
+				transform: scale(1);
 			}
 
 		}
@@ -176,6 +196,8 @@ input {
 }
 
 textarea {
+	@include form-styles-reset;
+	@include form-styles;
 
 	&::-webkit-input-placeholder {
 
@@ -217,6 +239,7 @@ textarea {
 
 select {
 	@include form-styles-reset;
+	@include form-styles;
 
 	:-moz-focusring {
 

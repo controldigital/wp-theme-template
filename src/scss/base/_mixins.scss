@@ -78,6 +78,29 @@
 	border: 0;
 }
 
+/* Form styles */
+@mixin form-styles {
+	font-family: inherit;
+	font-size: 1em;
+	font-weight: 400;
+	line-height: 1.5;
+	border: 1px solid #bbbbbb;
+	border-radius: 5px;
+	background: #f0f0f0;
+	padding: 0.875em 1.25em;
+	width: 100%;
+	overflow: hidden;
+}
+
+@mixin form-checkbox-radio-before {
+	content: "";
+	display: block;
+	width: 0.75em;
+	height: 0.75em;
+	background: #bbbbbb;
+	transform: scale(0);
+}
+
 /* Breakpoints */
 @mixin breakpoint($size) {
 	@if ($size == 1440) {
