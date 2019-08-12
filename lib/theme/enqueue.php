@@ -238,27 +238,6 @@ function theme_scripts() {
 	// wp_enqueue_script( 'google-maps');
 
 	/**
-	 * Cookies
-	 * 
-	 * This loads the scripts necessary to handle
-	 * the storing and fetching of the cookies
-	 */
-	$cookie_active = get_theme_mod( 'cookie_active' );
-	if ( $cookie_active ) {
-		wp_register_script( 'cookie', get_template_directory_uri() . '/assets/cookies/cookies.js', false, false, true );
-		wp_localize_script( 'cookie', 'cookieData', array(
-			'name'				=> get_theme_mod( 'cookie_name' ),
-			'expire'			=> get_theme_mod( 'cookie_expiration_date' ),
-			'scripts'			=> array(
-				'head'				=> get_theme_mod( 'cookie_code_head' ),
-				'bodyStart'			=> get_theme_mod( 'cookie_code_body_start' ),
-				'bodyEnd'			=> get_theme_mod( 'cookie_code_body_end' )
-			)
-		) );
-		wp_enqueue_script( 'cookie' );
-	}
-
-	/**
 	 * Script
 	 * 
 	 * This file includes the general script of handling
@@ -275,7 +254,17 @@ function theme_scripts() {
 			'template'		=> basename( get_page_template() )
 		),
 		'rest'			=> esc_url( get_rest_url() ),
-		'nonce'			=> wp_create_nonce( 'wp_rest' )
+		'nonce'			=> wp_create_nonce( 'wp_rest' ),
+		'cookie'		=> array(
+			'active'			=> get_theme_mod( 'cookie_active' ),
+			'name'				=> get_theme_mod( 'cookie_name' ),
+			'expire'			=> get_theme_mod( 'cookie_expiration_date' ),
+			'scripts'			=> array(
+				'head'				=> get_theme_mod( 'cookie_code_head' ),
+				'bodyStart'			=> get_theme_mod( 'cookie_code_body_start' ),
+				'bodyEnd'			=> get_theme_mod( 'cookie_code_body_end' )
+			)
+		)
 	) );
 	wp_enqueue_script( 'script' );
 

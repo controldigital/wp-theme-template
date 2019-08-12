@@ -579,7 +579,7 @@ function set_cookie() {
 	// Referrer URL
 	$referrer = esc_url( $_POST[ '_wp_referrer' ] );
 	$url = parse_url( $referrer );
-	$domain = preg_replace( '/^www\./i', '', $url[ 'domain' ] );
+	$domain = strstr( '.', $url[ 'host' ] );
 
 	// Set the cookie if a POST is sent with the cookie name.
 	if ( isset( $_POST[ 'cookie_name' ] ) ) {
@@ -611,7 +611,7 @@ function revoke_cookie() {
 	// Referrer URL
 	$referrer = esc_url( $_POST[ '_wp_referrer' ] );
 	$url = parse_url( $referrer );
-	$domain = preg_replace( '/^www\./i', '', $url[ 'domain' ] );
+	$domain = strstr( '.', $url[ 'host' ] );
 
 	// Remove the cookie
 	if ( isset( $_POST[ 'cookie_name' ] ) ) {

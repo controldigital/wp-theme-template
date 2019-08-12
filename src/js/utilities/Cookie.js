@@ -49,7 +49,7 @@ export default class Cookie {
      * @param   	{String} [domain] The domain to store the cookie
      * @returns 	{String} Returns the cookie string
      */
-    set(value, expire = 365, path = '/', domain = location.hostname.replace(/^www\./i, "")) {
+    set(value, expire = 365, path = '/', domain = location.hostname.replace(/([^.]+)/i, '')) {
         const date = new Date();
         date.setTime(date.getTime() + (expire * 24 * 3600 * 1000));
 		const expires = date.toUTCString();
