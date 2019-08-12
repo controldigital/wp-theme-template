@@ -2,7 +2,7 @@
  * @module		./components/toggle/template
  */
 
-import { createElement } from 'Utilities/element.js';
+import { createElement } from 'Utilities/elements.js';
 
 /**
  * Function that creates a template with contents for 

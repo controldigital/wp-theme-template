@@ -67,22 +67,6 @@ export const getElements = (selector) => {
 };
 
 /**
- * Removes an element from the DOM.
- * 
- * @function    removeElement
- * @param       {(String|HTMLElement|Element)} element String to select the element or the element itself.
- * @returns     {Boolean} true on succes, false on failure.
- */
-export const removeElement = (element) => {
-    const element = getElement(element);
-    if (element.parentElement) {
-        element.parentElement.removeChild(element);
-        return true;
-    }
-    return false;
-};
-
-/**
  * Function to create a new HTMLElement with options to add
  * to the newly created element. Returns the element if it 
  * succesful or null when tagName is not set.
