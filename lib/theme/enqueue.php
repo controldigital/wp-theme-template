@@ -117,7 +117,7 @@ function theme_styles() {
 	 * 
 	 * Main stylesheet of this theme
 	 */
-	wp_register_style( 'style', get_template_directory_uri() . '/dist/style.css', false, false, 'all' );
+	wp_register_style( 'style', get_template_directory_uri() . '/dist/css/style.css', false, false, 'all' );
 	wp_enqueue_style( 'style' );
 
 }
@@ -243,7 +243,7 @@ function theme_scripts() {
 	 * This file includes the general script of handling
 	 * interactions and DOM modifications
 	 */
-	wp_register_script( 'script', get_template_directory_uri() . '/dist/script.js', false, false, true );
+	wp_register_script( 'script', get_template_directory_uri() . '/dist/js/script.js', false, false, true );
 	wp_localize_script( 'script', 'wp', array( 
 		'ajax' 			=> admin_url( 'admin-ajax.php' ), 
 		'theme' 		=> get_template_directory_uri(),

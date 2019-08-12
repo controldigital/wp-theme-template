@@ -5,7 +5,7 @@ module.exports = {
   mode: 'development',
   entry: './src/js/script.js',
   output: {
-    filename: './dist/script.js',
+    filename: './dist/js/script.js',
     path: path.resolve(__dirname)
   },
   module: {
