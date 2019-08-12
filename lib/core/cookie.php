@@ -175,7 +175,17 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 	
 	// Cookie code head setting
 	$wp_customize->add_setting(
-		'cookie_code_body',
+		'cookie_code_body_start',
+		array(
+			'transport'			=> 'refresh',
+			'capability'		=> 'edit_theme_options',
+			'type'				=> 'theme_mod'
+		)
+	);
+
+	// Cookie code head setting
+	$wp_customize->add_setting(
+		'cookie_code_body_end',
 		array(
 			'transport'			=> 'refresh',
 			'capability'		=> 'edit_theme_options',
@@ -478,7 +488,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 	// Cookie code body textarea control
 	$wp_customize->add_control( new WP_Customize_Control(
 		$wp_customize,
-		'cookie_code_body',
+		'cookie_code_body_start',
 		array(
 			'label'      		=> __( 'Body Start scripts', THEME_TEXT_DOMAIN ),
 			'description'		=> __( 'Place scripts that have to be appended to the start of the body when the cookie is accepted.', THEME_TEXT_DOMAIN ),
@@ -492,7 +502,7 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 	// Cookie code body textarea control
 	$wp_customize->add_control( new WP_Customize_Control(
 		$wp_customize,
-		'cookie_code_body',
+		'cookie_code_body_end',
 		array(
 			'label'      		=> __( 'Body End scripts', THEME_TEXT_DOMAIN ),
 			'description'		=> __( 'Place scripts that have to be appended to the end of the body when the cookie is accepted.', THEME_TEXT_DOMAIN ),
