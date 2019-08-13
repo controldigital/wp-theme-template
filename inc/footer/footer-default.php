@@ -8,32 +8,24 @@
 ?>
 
 <footer class="footer footer--default" role="contentinfo">
-	<div class="footer__container">
-		<div class="footer__row">
+	<div class="container">
+		<div class="row">
 
-			<?php if ( is_active_sidebar( 'sidebar-footer-1' ) ) { ?>
-				<div class="footer__column footer__column--1">
-					<?php dynamic_sidebar( 'sidebar-footer-1' ); ?>
-				</div>
-			<?php } ?>
+			<div class="box-sm-6 box-md-3">
+				<?php dynamic_sidebar( 'sidebar-footer-1' ); ?>
+			</div>
 
-			<?php if ( is_active_sidebar( 'sidebar-footer-2' ) ) { ?>
-				<div class="footer__column footer__column--2">
-					<?php dynamic_sidebar( 'sidebar-footer-2' ); ?>
-				</div>
-			<?php } ?>
+			<div class="box-sm-6 box-md-3">
+				<?php dynamic_sidebar( 'sidebar-footer-2' ); ?>
+			</div>
 
-			<?php if ( is_active_sidebar( 'sidebar-footer-3' ) ) { ?>
-				<div class="footer__column footer__column--3">
-					<?php dynamic_sidebar( 'sidebar-footer-3' ); ?>
-				</div>
-			<?php } ?>
+			<div class="box-sm-6 box-md-3">
+				<?php dynamic_sidebar( 'sidebar-footer-3' ); ?>
+			</div>
 
-			<?php if ( is_active_sidebar( 'sidebar-footer-4' ) ) { ?>
-				<div class="footer__column footer__column--4">
-					<?php dynamic_sidebar( 'sidebar-footer-4' ); ?>
-				</div>
-			<?php } ?>
+			<div class="box-sm-6 box-md-3">
+				<?php dynamic_sidebar( 'sidebar-footer-4' ); ?>
+			</div>
 
 		</div>
 	</div>
