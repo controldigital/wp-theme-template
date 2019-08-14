@@ -18,8 +18,8 @@ export default class Cookie {
 		if ('string' === typeof name) {
 			this.name = name;
 		}
-	}
-
+    }
+    
     /**
      * Retrieves a cookie from the document.
      * Returns a string if the cookie is found or false when it is not.
@@ -30,12 +30,13 @@ export default class Cookie {
     get() {
         const nameExpression = `${this.name}=`;
         const cookies = document.cookie.split(';');
-        return cookies.find(cookie => {
-            let currentCookie = cookie.trim();
-            if (currentCookie.indexOf(nameExpression) === 0) {
+        let i = 0;
+        for (i; i < cookies.length; i += 1) {
+            let currentCookie = cookies[i].trim();
+            if (currentCookie.indexOf(nameExpression) == 0) {
                 return currentCookie.substring(nameExpression.length, currentCookie.length);
             }
-        });
+        }
     }
 
     /**
