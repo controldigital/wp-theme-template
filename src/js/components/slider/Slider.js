@@ -12,7 +12,6 @@ import {
 	onKeyDown,
 	onMouseEnter,
 	onMouseLeave,
-	onButtonClick,
 	onSlotChange
 } from './events.js';
 import { 
@@ -25,7 +24,7 @@ import {
 const template = createSliderTemplate();
 
 // If there is passive events support.
-const features = hasFeatures('Passive Events');
+const hasPassive = hasFeatures('Passive Events');
 
 /**
  * HTMLSliderElement
@@ -151,24 +150,6 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	/**
-	 * Gets and sets the layout attribute.
-	 * @property
-	 */
-	get layout() {
-		return this.getAttribute('layout');
-	}
-
-	set layout(value) {
-		if ('string' === typeof value) {
-			if (value === 'boxed' || value === 'full') {
-				this.setAttribute('layout', value);
-			}
-		} else {
-			this.removeAttribute('layout');
-		}
-	}
-
-	/**
 	 * Gets and sets the loop attribute.
 	 * @property
 	 */
@@ -224,29 +205,36 @@ export default class HTMLSliderElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
-		if (attrName === 'amount' || attrName === 'index') {
-			if (newValue !== null && this.slides) {
-				this.slides.setInactiveAll();
-				let value = parseInt(this.index);
-				let length = value + this.amount;
-				for (let i = value; i < length; i ++) {
-					this.slides.setActive(i);
+		switch(attrName) {
+			case 'amount':
+			case 'index':
+				if (newValue !== null && this.slides) {
+					this.slides.setInactiveAll();
+					let index = this.index;
+					let length = index + this.amount;
+					for (let i = index; i < length; i ++) {
+						this.slides.setActive(i);
+					}
+					this.slideToIndex(index);
+					const detail = { detail: { index } };
+					const slidesChangeEvent = new CustomEvent('slideschange', detail);
+					this.dispatchEvent(slidesChangeEvent);
 				}
-				this.slideToIndex(this.index);
-			}
-		} else if (attrName === 'moving') {
-			const moveStartEvent = new Event('movestart');
-			const moveEndEvent = new Event('moveend');
-			if (newValue !== null) {
-				const transition = `transform ${this.speed}ms ease-in-out`;
-				this.rails.style.webkitTransition = transition;
-				this.rails.style.transition = transition;
-				this.dispatchEvent(moveStartEvent);
-			} else {
-				this.rails.style.webkitTransition = '';
-				this.rails.style.transition = '';
-				this.dispatchEvent(moveEndEvent);
-			}
+				break;
+			case 'moving':
+				const moveStartEvent = new Event('movestart');
+				const moveEndEvent = new Event('moveend');
+				if (newValue !== null) {
+					const transition = `transform ${this.speed}ms ease-in-out`;
+					this.rails.style.webkitTransition = transition;
+					this.rails.style.transition = transition;
+					this.dispatchEvent(moveStartEvent);
+				} else {
+					this.rails.style.webkitTransition = '';
+					this.rails.style.transition = '';
+					this.dispatchEvent(moveEndEvent);
+				}
+				break;
 		}
 
 	}
@@ -269,10 +257,6 @@ export default class HTMLSliderElement extends HTMLElement {
 			this.speed = 350;
 		}
 
-		// Get the buttons.
-		const buttons = this.querySelectorAll('button');
-		this.buttons = [...buttons];
-
 		// Set timeout.
 		this.timeout = null;
 
@@ -287,19 +271,16 @@ export default class HTMLSliderElement extends HTMLElement {
 
 		// Touch event listeners.
 		if (isTouchDevice) {
-			this.addEventListener('touchstart', this.onTouchStart, features ? {passive: true} : false);
-			this.addEventListener('touchmove', this.onTouchMove, features ? {passive: true} : false);
-			this.addEventListener('touchend', this.onTouchEnd, features ? {passive: true} : false);
+			this.addEventListener('touchstart', this.onTouchStart, hasPassive ? {passive: true} : false);
+			this.addEventListener('touchmove', this.onTouchMove, hasPassive ? {passive: true} : false);
+			this.addEventListener('touchend', this.onTouchEnd, hasPassive ? {passive: true} : false);
 		}
 
 		// Add other event listeners.
-		this.addEventListener('wheel', this.onWheel, features ? {passive: true} : false);
+		this.addEventListener('wheel', this.onWheel, hasPassive ? {passive: true} : false);
 		this.addEventListener('keydown', this.onKeyDown);
 		this.addEventListener('mouseenter', this.onMouseEnter);
 		this.addEventListener('mouseleave', this.onMouseLeave);
-
-		// Add button event listeners.
-		this.buttons.map(button => button.addEventListener('click', onButtonClick));
 
 	}
 
@@ -312,14 +293,13 @@ export default class HTMLSliderElement extends HTMLElement {
 	disconnectedCallback() {
 
 		// Remove event listeners.
-		this.removeEventListener('touchstart', this.onTouchStart, features ? {passive: true} : false);
-		this.removeEventListener('touchmove', this.onTouchMove, features ? {passive: true} : false);
-		this.removeEventListener('touchend', this.onTouchEnd, features ? {passive: true} : false);
-		this.removeEventListener('wheel', this.onWheel, features ? {passive: true} : false);
+		this.removeEventListener('touchstart', this.onTouchStart, hasPassive ? {passive: true} : false);
+		this.removeEventListener('touchmove', this.onTouchMove, hasPassive ? {passive: true} : false);
+		this.removeEventListener('touchend', this.onTouchEnd, hasPassive ? {passive: true} : false);
+		this.removeEventListener('wheel', this.onWheel, hasPassive ? {passive: true} : false);
 		this.removeEventListener('keydown', this.onKeyDown);
 		this.removeEventListener('mouseenter', this.onMouseEnter);
 		this.removeEventListener('mouseleave', this.onMouseLeave);
-		this.buttons.map(button => button.removeEventListener('click', onButtonClick));
 
 	}
 

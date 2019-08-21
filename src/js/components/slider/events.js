@@ -151,24 +151,6 @@ export const onMouseLeave = function onMouseLeave() {
 };
 
 /**
- * @function	onButtonClick
- * @param		{Event} event
- * @returns		{void}
- */
-export const onButtonClick = function onButtonClick(event) {
-	const { target } = event;
-	const { slot } = target;
-	if (slot) {
-		if (slot === 'prev') {
-			this.prevSlide();
-		} else if (slot === 'next') {
-			this.nextSlide();
-		}
-		event.preventDefault();
-	}
-};
-
-/**
  * @function	onSlotChange
  * @param 		{Event} event 
  * @returns		{void}
