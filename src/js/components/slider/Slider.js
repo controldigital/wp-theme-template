@@ -110,7 +110,7 @@ export default class HTMLSliderElement extends HTMLElement {
 
 	set delay(value) {
 		if (value !== Number.isNaN(value)) {
-			this.setAttribute('amount', value);
+			this.setAttribute('delay', value);
 		} 
 	}
 
