@@ -63,7 +63,6 @@ export default class HTMLSliderElement extends HTMLElement {
 		this.onKeyDown = onKeyDown.bind(this);
 		this.onMouseEnter = onMouseEnter.bind(this);
 		this.onMouseLeave = onMouseLeave.bind(this);
-		this.onButtonClick = onButtonClick.bind(this);
 
 		// Get the slide slot and listen for the onSlotChange event.
 		const slide = shadow.querySelector('slot[name=slide]');
