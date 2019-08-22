@@ -2,6 +2,7 @@
  * @module		./components/tabs/Tabs
  */
 
+import { isIndexBetween } from 'Utilities/tools.js';
 import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 import {
