@@ -37,10 +37,27 @@
 
     <script>
 
-        // Hide splash when page is done loading
-        window.addEventListener('load', function (e) { 
+        let timeout = null;
+
+        const destroy = () => {
+            const splash = document.getElementById('splash');
+            splash.remove();
+        };
+        const hide = () => {
             document.body.classList.add('page-ready'); 
+        };
+        const loaded = () => {
+            hide();
+            setTimeout(destroy, 350);
+            clearTimeout(timeout);
+        }
+
+        // Hide splash when page is done loading
+        window.addEventListener('load', (e) => { 
+            loaded();
         });
+
+        timeout = setTimeout(loaded, 4000);
 
     </script>
 
