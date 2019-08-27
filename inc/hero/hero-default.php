@@ -7,7 +7,7 @@
 
 ?>
 
-<header class="hero hero--default">
+<section class="hero hero--default">
 	
 	<?php if ( has_post_thumbnail() ) { ?>
 		<div class="hero__thumbnail" style="background: url(<?php the_post_thumbnail_url(); ?>)"></div>
@@ -19,4 +19,4 @@
 		</div>
 	</div>
 	
-</header>
+</section>
