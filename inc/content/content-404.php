@@ -10,5 +10,7 @@ $content 	= get_option( 'theme-404-content' );
 ?>
 
 <div class="content js-ajax-post">
+
 	<?php echo $content; ?>
+
 </div>

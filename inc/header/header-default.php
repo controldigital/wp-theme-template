@@ -18,8 +18,8 @@
             </div>
         <?php } ?>
 
-        <div class="header__nav" id="header-nav" aria-labelledby="menu-toggle">
-            <?php get_template_part( './inc/navigation/nav', 'default' ); ?>
+        <div class="header__navigation" id="header-nav" aria-labelledby="menu-toggle">
+            <?php get_template_part( './inc/navigation/navigation', 'default' ); ?>
             <?php get_sidebar( 'nav' ); ?>
         </div>
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * Theme:
- * Template:			nav-default.php
+ * Template:			navigation-default.php
  * Description:			Default navigation template
  */
 

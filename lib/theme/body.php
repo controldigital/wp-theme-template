@@ -40,6 +40,4 @@ function body_open_theme_templates() {
     // Default header
     get_template_part( './inc/header/header', 'default' );
 
-    // Default hero
-    get_template_part( './inc/hero/hero', 'default' );
 }
