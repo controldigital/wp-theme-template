@@ -2,7 +2,6 @@
  * @module		./components/ajax/Ajax
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import { fetchURL } from './fetch.js';
 import {
 	createCustomEvent,
@@ -42,12 +41,6 @@ export default class HTMLViewElement extends HTMLElement {
 	 */
 	constructor() {
 		super();
-
-		// Create the Shadow DOM.
-		const shadow = attachShadowToElement.call(this, templateId);
-
-		// Get the container element.
-		this.container = shadow.querySelector('.container');
 
 		// Bind the event listeners.
 		this.onFetchStart = onFetchStart.bind(this);
@@ -184,7 +177,7 @@ export default class HTMLViewElement extends HTMLElement {
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
-	 * @param 	{String} attrName Name of attribute.
+	 * @param 	{string} attrName Name of attribute.
 	 * @param 	{*} oldValue Old value of attribute.
 	 * @param 	{*} newValue New value of attribute.
 	 */
@@ -192,7 +185,7 @@ export default class HTMLViewElement extends HTMLElement {
 
 		switch(attrName) {
 			case 'url':
-				if (!!newValue === false) {
+				if (typeof newValue === 'string') {
 
 					// Set the history state.
 					if (this.useHistory) {
@@ -220,8 +213,12 @@ export default class HTMLViewElement extends HTMLElement {
 	connectedCallback() {
 
 		// Set transition if it isn't set yet.
-		if (!!this.transition === false) {
-			this.transition = 0;
+		if (this.transitionIn === null) {
+			this.transitionIn = 0;
+		}
+
+		if (this.transitionOut === null) {
+			this.transitionOut = 0;
 		}
 
 		// Add event listeners.
@@ -254,6 +251,25 @@ export default class HTMLViewElement extends HTMLElement {
 	 */
 	adoptedCallback() {
 
+		// Set transition if it isn't set yet.
+		if (this.transition === null) {
+			this.transition = 0;
+		}
+
+		if (this.transitionOut === null) {
+			this.transitionOut = 0;
+		}
+
+		// Remove event listeners.
+		this.eventListeners.forEach(([name, handler]) => {
+			this.removeEventListener(name, handler);
+		});
+
+		// Add event listeners.
+		this.eventListeners.forEach(([name, handler]) => {
+			this.addEventListener(name, handler);
+		});
+
 	}
 
 	/**
@@ -261,7 +277,7 @@ export default class HTMLViewElement extends HTMLElement {
 	 * 
 	 * @async
 	 * @method	load
-	 * @param 	{String} resource The URL we want to get.
+	 * @param 	{string} resource The URL we want to get.
 	 * @returns	{Promise<string>} The response in a string.
 	 */
 	async load(resource) {
@@ -290,7 +306,7 @@ export default class HTMLViewElement extends HTMLElement {
 	/**
 	 * 
 	 * @method	replaceContent
-	 * @param 	{String} content
+	 * @param 	{string} content
 	 * @returns	{Array} 
 	 */
 	replaceContent(content) {
@@ -300,7 +316,7 @@ export default class HTMLViewElement extends HTMLElement {
 		
 		// Create the events.
 		const contentLeaveStartEvent = createCustomEvent('contentleavestart', {content: currentContent});
-		const contentLeaveEndEvent = createCustomEvent('contententerleave', {content: currentContent});
+		const contentLeaveEndEvent = createCustomEvent('contentleaveend', {content: currentContent});
 		const contentEnterStartEvent = createCustomEvent('contententerstart', {content: content});
 		const contentEnterEndEvent = createCustomEvent('contententerend', {content: content});
 

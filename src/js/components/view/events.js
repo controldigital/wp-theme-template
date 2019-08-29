@@ -9,7 +9,7 @@
   * @param 		{Object} detail 
   * @returns	{Object}
   */
-export const createEventDetail = (detail) => {
+ export const createEventDetail = (detail) => {
 	return { detail };
 };
 
@@ -40,8 +40,7 @@ export const createCustomEvent = (name, detail = {}) => {
  * @param		{Event} event
  * @returns		{void}
  */
-export const onFetchStart = function onFetchStart(event) {
-	const { detail } = event;
+export const onFetchStart = function onFetchStart({ detail }) {
 	const { url } = detail;
 	this.fetching = true;
 };
@@ -54,8 +53,7 @@ export const onFetchStart = function onFetchStart(event) {
  * @param		{Event} event
  * @returns		{void}
  */
-export const onFetchDone = function onFetchDone(event) {
-	const { detail } = event;
+export const onFetchDone = function onFetchDone({ detail }) {
 	const { url, response } = detail;
 	this.fetching = false;
 };
@@ -68,8 +66,7 @@ export const onFetchDone = function onFetchDone(event) {
  * @param		{Event} event
  * @returns		{void}
  */
-export const onContentEnterStart = function onContentEnterStart(event) {
-	const { detail } = event;
+export const onContentEnterStart = function onContentEnterStart({ detail }) {
 	this.enter = true;
 };
 
@@ -81,8 +78,7 @@ export const onContentEnterStart = function onContentEnterStart(event) {
  * @param		{Event} event
  * @returns		{void}
  */
-export const onContentEnterEnd = function onContentEnterEnd(event) {
-	const { detail } = event;
+export const onContentEnterEnd = function onContentEnterEnd({ detail }) {
 	this.enter = false;
 };
 
@@ -94,8 +90,7 @@ export const onContentEnterEnd = function onContentEnterEnd(event) {
  * @param		{Event} event
  * @returns		{void}
  */
-export const onContentLeaveStart = function onContentLeaveStart(event) {
-	const { detail } = event;
+export const onContentLeaveStart = function onContentLeaveStart({ detail }) {
 	this.leave = true;
 };
 
@@ -107,8 +102,7 @@ export const onContentLeaveStart = function onContentLeaveStart(event) {
  * @param		{Event} event
  * @returns		{void}
  */
-export const onContentLeaveEnd = function onContentLeaveEnd(event) {
-	const { detail } = event;
+export const onContentLeaveEnd = function onContentLeaveEnd({ detail }) {
 	this.leave = false;
 };
 
@@ -120,8 +114,6 @@ export const onContentLeaveEnd = function onContentLeaveEnd(event) {
  * @param		{Event} event
  * @returns		{void}
  */
-export const onPopState = async function onPopState(event) {
-	const { state } = event;
-	const content = await this.load(state.url);
-	this.replaceContent(content);
+export const onPopState = async function onPopState({ state }) {
+	this.url = state.url;
 };

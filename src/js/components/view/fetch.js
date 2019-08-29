@@ -28,15 +28,13 @@ export const fetchURL = async function fetchURL(resource) {
 	// Fetch the url.
 	const response = await fetch(url);
 
-	// Check the response, dispatch done event and replace the innerHTML.
-	if (!response.ok || response.status !== 200) {
-		throw new Error(`Fetch request has failed: ${response.status}`);
+	// Check the response.
+	if (response.ok && response.status == 200) {
+		const html = await response.text();
+		return html;
 	}
-
-	// Get the text response.
-	const textResponse = await response.text();
-
-	// Return the response.
-	return textResponse;
+	
+	// Throw error if fetch failes.
+	throw new Error(`Fetch request has failed: ${response.status}`);
 
 };
