@@ -31,56 +31,56 @@ import HTMLViewElement from './view/View.js';
  */
 const definer = new CustomElementsDefiner();
 
-// Add ctrl-card element.
-definer.add('ctrl-card', HTMLCardElement);
+// Add card element.
+definer.add('card', HTMLCardElement);
 
-// Add ctrl-fab element.
-definer.add('ctrl-fab', HTMLFabElement);
+// Add fab element.
+definer.add('fab', HTMLFabElement);
 
-// Add ctrl-lazy element.
-definer.add('ctrl-lazy', HTMLLazyElement);
+// Add lazy element.
+definer.add('lazy', HTMLLazyElement);
 
-// Add ctrl-menu element.
-definer.add('ctrl-menu', HTMLMenuElement);
+// Add menu element.
+definer.add('menu', HTMLMenuElement);
 
-// Add ctrl-like element.
-definer.add('ctrl-like', HTMLLikeElement);
+// Add like element.
+definer.add('like', HTMLLikeElement);
 
-// Add ctrl-message element.
-definer.add('ctrl-message', HTMLMessageElement);
+// Add message element.
+definer.add('message', HTMLMessageElement);
 
-// Add ctrl-modal element.
-definer.add('ctrl-modal', HTMLModalElement);
+// Add modal element.
+definer.add('modal', HTMLModalElement);
 
-// Add ctrl-panel element.
-definer.add('ctrl-panel', HTMLPanelElement);
+// Add panel element.
+definer.add('panel', HTMLPanelElement);
 
-// Add ctrl-scrollbar element.
-definer.add('ctrl-scrollbar', HTMLScrollBarElement);
+// Add scrollbar element.
+definer.add('scrollbar', HTMLScrollBarElement);
 
-// Add ctrl-slider element.
-definer.add('ctrl-slider', HTMLSliderElement,);
+// Add slider element.
+definer.add('slider', HTMLSliderElement,);
 
-// Add ctrl-slide element.
-definer.add('ctrl-slide', HTMLSlideElement,);
+// Add slide element.
+definer.add('slide', HTMLSlideElement,);
 
-// Add ctrl-tabs element.
-definer.add('ctrl-tabs', HTMLTabsElement);
+// Add tabs element.
+definer.add('tabs', HTMLTabsElement);
 
-// Add ctrl-tab element.
-definer.add('ctrl-tab', HTMLTabElement);
+// Add tab element.
+definer.add('tab', HTMLTabElement);
 
-// Add ctrl-time element.
-definer.add('ctrl-time', HTMLTimeElement);
+// Add time element.
+definer.add('time', HTMLTimeElement);
 
-// Add ctrl-toggle element.
-definer.add('ctrl-toggle', HTMLToggleElement);
+// Add toggle element.
+definer.add('toggle', HTMLToggleElement);
 
-// Add ctrl-tooltip element.
-definer.add('ctrl-tooltip', HTMLTooltipElement);
+// Add tooltip element.
+definer.add('tooltip', HTMLTooltipElement);
 
-// Add ctrl-view element.
-definer.add('ctrl-view', HTMLViewElement);
+// Add view element.
+definer.add('view', HTMLViewElement);
 
 // Export the definer as default.
 export default definer;

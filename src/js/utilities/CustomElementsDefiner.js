@@ -18,7 +18,11 @@ export default class CustomElementsDefiner {
      * 
      * @constructor
 	 */
-	constructor() {
+	constructor(prefix = 'ctrl') {
+		if ('string' !== typeof prefix) {
+			throw new Error('prefix argument is not a string');
+		}
+		this.prefix = prefix;
 		this.items = [];
 		if (new.target === CustomElementsDefiner) {
 			Object.freeze(this);
@@ -92,7 +96,7 @@ export default class CustomElementsDefiner {
 	 */
 	define(...names) {
 		const items = this.items.filter(({ name }) => names.indexOf(name) > -1);
-		return defineElements(items);
+		return defineElements(items, this.prefix);
 	}
 
 	/**
@@ -102,7 +106,7 @@ export default class CustomElementsDefiner {
 	 * @returns	{Promise<String>} A promise with an message string.
 	 */
 	defineAll() {
-		return defineElements(this.items);
+		return defineElements(this.items, this.prefix);
 	}
 
 }

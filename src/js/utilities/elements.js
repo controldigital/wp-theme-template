@@ -125,9 +125,8 @@ export const createElement = (tagName, { attributes, children, classes, id, html
  * @param 	{CustomElementInit[]} elements 
  * @returns	{Promise<String>}
  */
-export const defineElements = (elements) => Promise.all(elements.map(({ name, object, options }) => {
-	customElements.define(name, object, options !== undefined ? options : {});
-	return customElements.whenDefined(name).then(() => 
-		`${replaceLastStringOccurence(elements.map((element) => element.name).join(', '), ' & ')} have been defined`
-	);
-}));
+export const defineElements = (elements, prefix) => Promise.all(elements.map(({ name, object, options }) => {
+    const prefixedName = `${prefix}-${name}`;
+    customElements.define(prefixedName, object, options !== undefined ? options : {});
+    return customElements.whenDefined(prefixedName).then(() => prefixedName);
+})).then(names => `${replaceLastStringOccurence(names.join(', '), ', ', ' & ')} have been defined`);
