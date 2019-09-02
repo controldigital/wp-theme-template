@@ -212,6 +212,33 @@ export const serializeObject = (data = {}, question = false) => {
 };
 
 /**
+ * Shuffles an array in a random order and returns the shuffled array. 
+ * 
+ * @function	shuffleArray
+ * @param 		{Array} array Array that has to be shuffled.
+ * @returns		{Array} The shuffled array.
+ */
+export const shuffleArray = (array) => {
+	let currentIndex = array.length;
+	let temporaryValue = null;
+  
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+  
+	  // Pick a remaining element...
+	  const randomIndex = Math.floor(Math.random() * currentIndex);
+	  currentIndex -= 1;
+  
+	  // And swap it with the current element.
+	  temporaryValue = array[currentIndex];
+	  array[currentIndex] = array[randomIndex];
+	  array[randomIndex] = temporaryValue;
+	}
+  
+	return array;
+};
+
+/**
  * Replaces only the last occurance of a string in a given string.
  * 
  * @function	replaceLastStringOccurence
