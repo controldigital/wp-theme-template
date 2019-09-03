@@ -298,9 +298,8 @@ export const externalLinksTargetBlank = (query = 'a[rel="external"]') => {
  */
 export const hasFeatures = (...features) => 
 	features.every((feature) => {
-		if (feature === undefined || typeof feature !== 'string') {
+		if (feature === undefined || typeof feature !== 'string') 
 			return false;
-		}
 		if (feature === 'Promise') {
 			return (typeof Promise === 'undefined' || Promise.toString().indexOf('[native code]') === -1);
 		} else if (feature === 'Intersection Observer' || feature.toLowerCase() === 'intersectionobserver') {
@@ -313,12 +312,16 @@ export const hasFeatures = (...features) =>
 			return ('CustomEvent' in window);
 		} else if (feature === 'Push State' || feature.toLowerCase() === 'pushstate') {
 			return ('pushState' in history);
-		} else if (feature === 'DOM Parser' || feature.toLowerCase() == 'domparser') {
-			return ('DOMParser' in window);
 		} else if (feature === 'Service Worker' || feature.toLowerCase() === 'serviceworker') {
 			return ('serviceWorker' in navigator);
 		} else if (feature === 'Web Audio API' || feature.toLowerCase() === 'audiocontext') {
 			return ('AudioContext' in window || 'webkitAudioContext' in window);
+		} else if (feature === 'Web Animations API' || feature.replace(' ', '').toLowerCase() === 'webanimationsapi') {
+			return ('animate' in document.body);
+		} else if (feature === 'Animation' || feature.toLowerCase() === 'animation') {
+			return ('Animation' in window);
+		} else if (feature === 'Keyframe Effect' || feature.toLowerCase() === 'keyframeeffect') {
+			return ('KeyframeEffect' in window);
 		} else if (feature === 'Local Storage' || feature.toLowerCase() === 'localstorage') {
 			return ('localStorage' in window);
 		} else if (feature === 'Session Storage' || feature.toLowerCase() === 'sessionstorage') {
