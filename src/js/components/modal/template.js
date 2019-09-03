@@ -25,82 +25,81 @@ export const createTemplate = () => createElement('template', {
 
             :host {
                 all: initial;
-                display: grid;
-                grid-template-rows: 1fr;
-                grid-template-columns: 1fr;
-                align-items: center;
-                justify-content: center;
                 contain: content;
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                opacity: 0;
-                visibility: hidden;
                 background-color: rgba(0, 0, 0, 0.5);
-                transition: opacity 150ms ease-in-out, visibility 150ms ease-in-out;
-            }
-
-            :host([open]) {
-                opacity: 1;
-                visibility: visible;
+                /* transition: opacity var(--duration-long) ease-in-out, visibility var(--duration-long) ease-in-out; */
             }
 
             .wrapper {
-                grid-area: 1 / 1 / 2 / 2;
-                position: relative;
                 display: grid;
-                grid-template-rows: 1.75rem 1fr;
-                grid-template-columns: 1fr 1.75rem;
-                height: auto;
-                width: 20rem;
-                max-width: 100%;
-                background: #ffffff;
-                color: #000000;
-                box-shadow: 0 2px 1rem 0 rgba(0, 0, 0, 0.5);
-            }
-
-            button {
-                grid-area: 1 / 2 / 2 / 3;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                font-size: 100%;
-                font-family: inherit;
-                padding: 0;
-                border: 0;
-                background: #ffffff;
-            }
-
-            svg {
-                display: block;
+                position: relative;
                 width: 100%;
                 height: 100%;
             }
 
-            .container {
-                grid-area: 1 / 1 / 3 / 3;
-                padding: 3.5rem;
+            .toggle {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                font-size: 1em;
+                font-weight: 400;
+                line-height: 1.5;
+                text-transform: uppercase;
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                width:  4.25em;
+                height: 4.25em;
+                padding: 0 1.25em;
+                border: 0;
+                cursor: pointer;
+                background: var(--color-background);
+                z-index: 1;
+            }
+
+            .toggle:focus {
+                outline: 0;
+            }
+
+            .toggle__inner {
+                position: relative;
+            }
+
+            .toggle__inner > span {
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background: var(--color-accent);
+                left: 0;
+            }
+
+            .toggle__inner > span:first-of-type {
+                top: -15px;
+                transform: translate3d(0, 14px, 0) rotate(45deg);
+            }
+
+            .toggle__inner > span:last-of-type {
+                bottom: -15px;
+                transform: translate3d(0, -14px, 0) rotate(-45deg);
             }
 
         </style>
 
-        <div class="wrapper">
-            <button type="button" aria-label="<? _e( 'Close modal', THEME_TEXT_DOMAIN ); ?>">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
-                    <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="10">
-                        <line x1="5" y1="5" x2="23" y2="23"></line>
-                        <line x1="5" y1="23" x2="23" y2="5"></line>
-                    </g>
-                </svg>
-            </button>
-            <div class="container">
-                <slot name="label"></slot>
-                <slot name="description"></slot>
-                <slot name="content"></slot>
+        <button class="toggle js-toggle-modal" aria-expanded="false" title="Close modal">
+            <div class="toggle__inner">
+                <span></span>
+                <span></span>
             </div>
+        </button>
+        <div class="wrapper">
+            <slot></slot>
         </div>
-
     `
 });

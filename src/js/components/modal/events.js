@@ -28,27 +28,3 @@ export const onKeyDown = function onKeyDown({ keyCode }) {
 			break;
 	}
 };
-
-/**
- * @function	onLabelSlotChange
- * @param 		{Event} event 
- * @returns		{void}
- */
-export const onLabelSlotChange = function onLabelSlotChange() {
-	const label = this.querySelector('[slot=label]');
-	if (label.id !== '') {
-		this.setAttribute('aria-labelledby', label.id);
-	}
-};
-
-/**
- * @function	onDescriptionSlotChange
- * @param 		{Event} event 
- * @returns		{void}
- */
-export const onDescriptionSlotChange = function onDescriptionSlotChange() {
-	const description = this.querySelector('[slot=description]');
-	if (description.id !== '') {
-		this.setAttribute('aria-describedby', description.id);
-	}
-};

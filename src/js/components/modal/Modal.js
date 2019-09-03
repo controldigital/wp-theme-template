@@ -3,15 +3,14 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import { createTemplate } from './template.js';
 import { 
 	onClick,
 	onKeyDown,
-	onLabelSlotChange,
-	onDescriptionSlotChange
 } from './events';
 
 // ID of HTML template for Shadow DOM.
-const templateId = 'template-modal';
+const template = createTemplate();
 
 /**
  * Modal
@@ -39,21 +38,13 @@ export default class HTMLModalElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, templateId);
-
-		// Set the default role attribute, tab-index and  to modal.
-		this.setAttribute('role', 'dialog');
-		this.setAttribute('aria-modal', true);
-		this.tabIndex = '-1';
-
-		// Get the last focussed element.
-		this.focussedBeforeOpenElement = document.activeElement;
+		attachShadowToElement.call(this, template);
 
 		// Bind the event handlers.
 		this.onClick = onClick.bind(this);
 		this.onKeyDown = onKeyDown.bind(this);
-		this.onLabelSlotChange = onLabelSlotChange.bind(this);
-		this.onDescriptionSlotChange = onDescriptionSlotChange.bind(this);
+
+		this.focussedBeforeOpenElement = null;
 
 	}
 
@@ -74,6 +65,22 @@ export default class HTMLModalElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets and sets the use-focus attribute.
+	 * @property
+	 */
+	get useFocus() {
+		return this.getAttribute('use-focus');
+	}
+
+	set useFocus(value) {
+		if (value === true) {
+			this.setAttribute('use-focus', '');
+		} else {
+			this.removeAttribute('use-focus');
+		}
+	}
+
+	/**
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
@@ -86,18 +93,36 @@ export default class HTMLModalElement extends HTMLElement {
 		if (attrName === 'open') {
 			if (newValue !== null) {
 
-				// Get the focusable elements.
-				const focusable = this.querySelectorAll('button, [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])');
+				// Dispatch open event.
+				const openEvent = new Event('open');
+				this.dispatchEvent(openEvent);
 
-				// Focus the first element.
-				if (focusable.length) {
-					focusable[0].focus();
+				// Use focus feature
+				if (this.useFocus) {
+
+					// Get the focusable elements.
+					const focusable = this.querySelectorAll('button, [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])');
+
+					// Focus the first element.
+					if (focusable.length) {
+						focusable[0].focus();
+					}
+
 				}
 				
 			} else {
 
-				// Focus the last focussed element before opening the modal.
-				this.focussedBeforeOpenElement.focus();
+				// Dispatch close event.
+				const openEvent = new Event('close');
+				this.dispatchEvent(openEvent);
+
+				// Use focus feature
+				if (this.useFocus) {
+
+					// Focus the last focussed element before opening the modal.
+					this.focussedBeforeOpenElement.focus();
+
+				}
 
 			}
 		}
@@ -112,16 +137,16 @@ export default class HTMLModalElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
-		// Get the tab an panel slot
-		const label = this.shadowRoot.querySelector('slot[name=label]');
-		const description = this.shadowRoot.querySelector('slot[name=description]');
+		// Set the default role attribute, tab-index and  to modal.
+		this.setAttribute('role', 'dialog');
+		this.setAttribute('aria-modal', true);
+		this.tabIndex = '-1';
 
-		// Add event listeners for when a slot is used.
-		label.addEventListener('slotchange', this.onLabelSlotChange);
-		description.addEventListener('slotchange', this.onDescriptionSlotChange);
+		// Get the last focussed element.
+		this.focussedBeforeOpenElement = document.activeElement;
 
-		// Listen to the events.
-		this.addEventListener('click', this.onClick);
+		// // Listen to the events.
+		// this.addEventListener('click', this.onClick);
 		this.addEventListener('keydown', this.onKeyDown);
 
 	}
@@ -135,21 +160,26 @@ export default class HTMLModalElement extends HTMLElement {
 	disconnectedCallback() {
 
 		// Remove the event listeners.
-		this.removeEventListener('click', this.onClick);
+		// this.removeEventListener('click', this.onClick);
 		this.removeEventListener('keydown', this.onKeyDown);
 
 		// Focus the last focussed element before opening the modal.
-		this.focussedBeforeOpenElement.focus();
+		if (this.focussedBeforeOpenElement !== null) {
+			this.focussedBeforeOpenElement.focus();
+		}
 
 	}
 
 	/**
 	 * Fires when the element has been adopted in a new document.
 	 * 
-	 * @method	connectedCallback
+	 * @method	adoptedCallback
 	 * @returns	{void}
 	 */
 	adoptedCallback() {
+
+		this.disconnectedCallback();
+		this.connectedCallback();
 
 	}
 
@@ -160,7 +190,10 @@ export default class HTMLModalElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	destroy() {
-		this.parentElement.removeChild(this);
+		this.open = false;
+		setTimeout(() => {
+			this.remove();
+		}, 350);
 	}
 
 }
