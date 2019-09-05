@@ -24,6 +24,9 @@ export const onSubmit = async function onSubmit({ target }) {
 	});
 	this.dispatchEvent(responseEvent);
 
+	// Call onresponse property method.
+	this.onresponse(response);
+
 	// Prevent default submit.
 	event.preventDefault();
 };

@@ -5,10 +5,18 @@
 import { onSubmit } from './events.js.js';
 
 /**
- * HTMLAJAXFormElement
- * 
+ * Form wrapper element that creates an HTTP Post request
+ * on the submission of the form inside. Response can be
+ * caught by adding a 'response' listener to the ajax-form element.
+ *
  * @class
  * @extends	HTMLElement
+ * 
+ * @example
+ * const ajaxForm = document.querySelector('ajax-form');
+ * ajaxForm.addEventListener('response', ({ detail }) => {
+ *     console.log(detail.response);
+ * });
  */
 export default class HTMLAJAXFormElement extends HTMLElement {
 
@@ -29,6 +37,9 @@ export default class HTMLAJAXFormElement extends HTMLElement {
 	 */
 	constructor() {
 		super();
+
+		// Create event property.
+		this.onresponse = function() {};
 
 		// Bind events to instance.
 		this.onSubmit = onSubmit.bind(this);
