@@ -39,7 +39,7 @@ export default class HTMLAJAXFormElement extends HTMLElement {
 		super();
 
 		// Create event property.
-		this.onresponse = function() {};
+		this.onresponse = null;
 
 		// Bind events to instance.
 		this.onSubmit = onSubmit.bind(this);
