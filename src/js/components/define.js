@@ -6,6 +6,7 @@
 import CustomElementsDefiner from 'Utilities/CustomElementsDefiner.js';
 
 // Import custom elements.
+import HTMLAJAXFormElement from './ajax-form/AjaxForm.js';
 import HTMLCardElement from './card/Card.js';
 import HTMLFabElement from './fab/Fab.js';
 import HTMLLazyElement from './lazy/Lazy.js';
@@ -30,6 +31,9 @@ import HTMLViewElement from './view/View.js';
  * @type {CustomElementsDefiner}
  */
 const definer = new CustomElementsDefiner();
+
+// Add ajax-form element.
+definer.add('ajax-form', HTMLAJAXFormElement);
 
 // Add card element.
 definer.add('card', HTMLCardElement);

@@ -6,30 +6,27 @@
  * Fetches posts based on a FormData instance containing the parameters
  * for retrieving the posts of choice from the admin-ajax.php template.
  * 
- * @function	getPostsByFormData
- * @param 		{FormData} formData A FormData instance with data for the request.
- * @param 		{String} resource The URL to fetch from.
+ * @function	postFormData
+ * @param 		{FormData} data A FormData instance with data for the request.
+ * @param 		{string} [resource = wp.ajax] The URL to fetch from.
  * @returns		{Promise} Returns a promise with a string on resolve.
  */
-export const getPostsByFormData = async (formData, resource = wp.ajax) => {
+export const postFormData = async (data, resource = wp.ajax) => {
 
 	// Stop the function if no FormData instance is given.
-	if (typeof formdata === 'undefined' || !(formData instanceof FromData)) {
+	if (typeof data === 'undefined' || !(data instanceof FormData)) {
 		return false;
-	}
-
-	// Make sure that the action value is properly set.
-	if (!formData.has('action') || formData.get('action') !== 'get_posts_ajax') {
-		formData.set('action', 'get_posts_ajax');
 	}
 
 	// Create a new URL instance.
 	const url = new URL(resource);
+	const action = data.get('action');
+	url.search = `action=${action}`;
 
 	// Set the body to the options.
 	const options = {
 		method: 'POST',
-		body: formData
+		body: data
 	};
 
 	// Fetch the request.
