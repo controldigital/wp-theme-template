@@ -9,11 +9,9 @@
  * leading edge, instead of the trailing.
  * 
  * @function	debounce
- * @since   	1.0
- * 
  * @param   	{Function} callback Function to execute.
- * @param   	{Number} wait Time to wait before firing in milliseconds.
- * @param   	{Boolean} [immediate=false] Fire immediately or not.
+ * @param   	{number} wait Time to wait before firing in milliseconds.
+ * @param   	{boolean} [immediate=false] Fire immediately or not.
  * @returns		{Function} Closure function.
  */
 export const debounce = (callback, wait, immediate = false) => {
@@ -29,6 +27,18 @@ export const debounce = (callback, wait, immediate = false) => {
 		if (callNow) callback(...args);
 	};
 };
+
+/**
+ * Returns a Promise which will wait for N seconds.
+ * 
+ * @function	sleep
+ * @param 		{number} wait Milliseconds to wait.
+ * @returns		{Promise}
+ */
+export const sleep = (wait) => 
+	new Promise(resolve => {
+	  setTimeout(resolve, wait);
+	});
 
 /**
  * Converts the keys of an object to a new format.
@@ -58,9 +68,9 @@ export const convertKeysOfObject = (object, converterCallback) => {
  * Generates a random number between a min and a max value.
  * 
  * @function	getRandomInt
- * @param   	{Number} min Min value.
- * @param   	{Number} max Max value.
- * @returns 	{Number} Random number.
+ * @param   	{number} min Min value.
+ * @param   	{number} max Max value.
+ * @returns 	{number} Random number.
  */
 export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -69,9 +79,9 @@ export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min 
  * Returns a true or false value.
  * 
  * @function	isIndexBetween
- * @param 		{Number} index Number to compare.
- * @param 		{Number} from More than and equal number.
- * @param 		{Number} to Less than number.
+ * @param 		{number} index Number to compare.
+ * @param 		{number} from More than and equal number.
+ * @param 		{number} to Less than number.
  * @returns		{Boolean}
  */
 export const isIndexBetween = (index, from, to) => {
@@ -82,8 +92,8 @@ export const isIndexBetween = (index, from, to) => {
  * Converts the comma's in a string to dots.
  * 
  * @function	stringCommaToDot
- * @param   	{String} string String with comma's.
- * @returns 	{String} Modified string with dots instead of comma's.
+ * @param   	{string} string String with comma's.
+ * @returns 	{string} Modified string with dots instead of comma's.
  */
 export const stringCommaToDot = string => string.replace(/,/g, '.');
 
@@ -91,8 +101,8 @@ export const stringCommaToDot = string => string.replace(/,/g, '.');
  * Converts the comma's in a string to dots.
  * 
  * @function	stringDotToComma
- * @param   	{String} string String with dots.
- * @returns 	{String} Modified string with comma's instead of dots.
+ * @param   	{string} string String with dots.
+ * @returns 	{string} Modified string with comma's instead of dots.
  */
 export const stringDotToComma = string => string.replace(/./g, ',');
 
@@ -100,8 +110,8 @@ export const stringDotToComma = string => string.replace(/./g, ',');
  * Converts a camel-cased string to a snake-cased string and returns it.
  * 
  * @function	stringCamelToSnake
- * @param 		{String} string 
- * @returns		{String}
+ * @param 		{string} string 
+ * @returns		{string}
  */
 export const stringCamelToSnake = string => string.replace(/[A-Z\s]+/g, match => `_${match.toLowerCase()}`);
 
@@ -109,8 +119,8 @@ export const stringCamelToSnake = string => string.replace(/[A-Z\s]+/g, match =>
  * Converts a snake-cased string to a camel-cased string and returns it.
  * 
  * @function	stringSnakeToCamel
- * @param 		{String} string 
- * @returns		{String}
+ * @param 		{string} string 
+ * @returns		{string}
  */
 export const stringSnakeToCamel = string => string.replace(/_\w/g, match => match[1].toUpperCase());
 
@@ -119,7 +129,7 @@ export const stringSnakeToCamel = string => string.replace(/_\w/g, match => matc
  * 
  * @function	arrayToCSV
  * @param		{Array} data Array to convert to CSV string.
- * @returns		{(String|Array)} Original data or CSV string.
+ * @returns		{(string|Array)} Original data or CSV string.
  */
 export const arrayToCSV = (data = []) => {
 	if (!Array.isArray(data)) return data;
@@ -132,7 +142,7 @@ export const arrayToCSV = (data = []) => {
  * 
  * @function	objectToCSV
  * @param 		{Object} data Object to convert to CSV string.
- * @returns		{(String|Object)}	Original data or CSV string.
+ * @returns		{(string|Object)}	Original data or CSV string.
  */
 export const objectToCSV = (data = {}) => {
 	if ('object' !== typeof data) return data;
@@ -168,10 +178,10 @@ export const keysOfObjectToCamelCase = object => convertKeysOfObject(object, str
  * 
  * @function	serializeArray
  * @uses		arrayToCSV()
- * @param   	{String} key The name of the values.
- * @param		{String[]} data The values in a array format with strings.
+ * @param   	{string} key The name of the values.
+ * @param		{string[]} data The values in a array format with strings.
  * @param		{Boolean} question Append a questionmark before the string.
- * @returns 	{String} Queryable string.
+ * @returns 	{string} Queryable string.
  * 
  * @example
  * const key = 'post_type';
@@ -193,7 +203,7 @@ export const serializeArray = (key, data = [], question = false) => {
  * @uses		serializeArray()
  * @param 		{Object} data Object to convert to string.
  * @param		{Boolean} question Append a questionmark before the string.
- * @returns		{String} Queryable string.
+ * @returns		{string} Queryable string.
  * 
  * @example
  * const data = {
@@ -242,10 +252,10 @@ export const shuffleArray = (array) => {
  * Replaces only the last occurance of a string in a given string.
  * 
  * @function	replaceLastStringOccurence
- * @param 		{String} source String to modify.
- * @param 		{String} target Character to replacement.
- * @param 		{String} replacement Replacement string.
- * @returns		{String} Modified string.
+ * @param 		{string} source String to modify.
+ * @param 		{string} target Character to replacement.
+ * @param 		{string} replacement Replacement string.
+ * @returns		{string} Modified string.
  */
 export const replaceLastStringOccurence = (source = '', target = '', replacement = '') => {
 	const array = source.split('');
@@ -255,7 +265,7 @@ export const replaceLastStringOccurence = (source = '', target = '', replacement
 
 /**
  * @typedef		isTouchDevice
- * @type		{Boolean}
+ * @type		{boolean}
  */
 export const isTouchDevice = 'ontouchstart' in document.documentElement;
 
@@ -264,9 +274,9 @@ export const isTouchDevice = 'ontouchstart' in document.documentElement;
  * Returns a boolean
  *
  * @function	cssPropertyValueSupported
- * @param		{String} property Property to evaluate.
- * @param		{String} value Value of property to check.
- * @returns		{Boolean}
+ * @param		{string} property Property to evaluate.
+ * @param		{string} value Value of property to check.
+ * @returns		{boolean}
  */
 export const cssPropertyValueSupported = (property, value) => {
     const div = document.createElement('div');
@@ -280,7 +290,7 @@ export const cssPropertyValueSupported = (property, value) => {
  * theses links will open in a new tab.
  *
  * @function	externalLinksTargetBlank
- * @param   	{String} [query=a[rel="external"]] Query to get the external links.
+ * @param   	{string} [query=a[rel="external"]] Query to get the external links.
  * @returns		{Array}
  */
 export const externalLinksTargetBlank = (query = 'a[rel="external"]') => {
@@ -293,8 +303,8 @@ export const externalLinksTargetBlank = (query = 'a[rel="external"]') => {
  * and returns a boolean.
  * 
  * @function	hasFeatures
- * @param 		{String[]} feature Feature to check.
- * @returns		{Boolean}
+ * @param 		{string[]} feature Feature to check.
+ * @returns		{boolean}
  */
 export const hasFeatures = (...features) => 
 	features.every((feature) => {
