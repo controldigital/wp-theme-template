@@ -53,7 +53,7 @@ export const postFormData = async (data, resource = wp.ajax) => {
  * @param 		{String} resource The URL to fetch from.
  * @returns		{Promise} Returns a promise with JSON.
  */
-export const postJson = (data = {}, resource = wp.ajax) => {
+export const postJson = async (data = {}, resource = wp.ajax) => {
 
 	// Add nonce security property to data
 	data = Object.assign(data, {

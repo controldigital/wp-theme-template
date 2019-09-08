@@ -308,6 +308,8 @@ export const hasFeatures = (...features) =>
 			return ('MutationObserver' in window);
 		} else if (feature === 'Resize Observer' || feature.toLowerCase() === 'resizeobserver') {
 			return ('ResizeObserver' in window);
+		} else if (feature === 'Custom Elements' || feature.toLowerCase() === 'customelements') {
+			return ('customElements' in window);
 		} else if (feature === 'Custom Event' || feature.toLowerCase() === 'customevent') {
 			return ('CustomEvent' in window);
 		} else if (feature === 'Push State' || feature.toLowerCase() === 'pushstate') {

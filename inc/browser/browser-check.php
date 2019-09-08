@@ -31,9 +31,11 @@
 
     </style>
 
-    <h2 role="alert"><?php _e( 'Warning', THEME_TEXT_DOMAIN ); ?></h2>
-    <p><?php _e( 'You are currently using an outdated web browser. Some features on this site might not work. Update your browser to use this site safely and optimally', THEME_TEXT_DOMAIN ); ?></p>
-    <button id="browser-check-close" class="button button--primary js-close-check"><?php _e( 'Ignore', THEME_TEXT_DOMAIN ); ?></button>
+    <div>
+        <h2 role="alert"><?php _e( 'Warning', THEME_TEXT_DOMAIN ); ?></h2>
+        <p><?php _e( 'You are currently using an outdated web browser. Some features on this site might not work. Update your browser to the latest version or use a more modern browser to use this site safely and optimally', THEME_TEXT_DOMAIN ); ?></p>
+        <button id="browser-check-close" class="button button--primary js-close-check"><?php _e( 'Ignore', THEME_TEXT_DOMAIN ); ?></button>
+    </div>
     
     <script>
 

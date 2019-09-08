@@ -2,7 +2,7 @@
  * @module		./components/form/Form
  */
 
-import { onSubmit } from './events.js.js';
+import { onSubmit } from './events.js';
 
 /**
  * Form wrapper element that creates an HTTP Post request
