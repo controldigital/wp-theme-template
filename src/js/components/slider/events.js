@@ -8,13 +8,6 @@ import {
 } from './functions.js';
 
 /**
- * @typedef		directionsObject
- * @type 		{Object} obj
- * @param		{string} horizontal  
- * @param		{string} vertical
- */
-
-/**
  * @function	onTouchStart
  * @param		{Event} event
  * @returns		{void}
@@ -76,7 +69,7 @@ export const onTouchEnd = function onTouchEnd(event) {
 		x: screenX,
 		y: screenY
 	};
-	if (absTouchDistances[this.axis] >= this.touch.threshold) {
+	if (absTouchDistances[this.axis] >= this.touchThreshold) {
 		if (this.touch.distance[this.axis] < 0) {
 			this.prevSlide(); // Prev
 		} else {
@@ -87,9 +80,6 @@ export const onTouchEnd = function onTouchEnd(event) {
 	}
 };
 
-// Wheel event threshold.
-const wheelThreshold = 50;
-
 /**
  * @function	onWheel
  * @param 		{Event} event 
@@ -97,7 +87,7 @@ const wheelThreshold = 50;
  */
 export const onWheel = function onWheel({ deltaY }) {
 	const absoluteDelta = Math.abs(deltaY);
-	if (this.moving === null && absoluteDelta >= wheelThreshold) {
+	if (this.moving === null && absoluteDelta >= this.wheelThreshold) {
 		if (deltaY < 0) {
 			this.prevSlide();
 		} else if (deltaY > 0) {
@@ -157,7 +147,23 @@ export const onMouseLeave = function onMouseLeave() {
  * @returns		{void}
  */
 export const onClick = function onClick(event) {
-	console.log(event);
+
+	// Get clicked slide.
+	const { target } = event;
+	const slide = target.closest('[slot="slide"]');
+
+	// If a slide is clicked.
+	if (slide !== null) {
+
+		// If the slide was not active when clicked.
+		if (slide.active === false) {
+
+			// Slide to it.
+			this.index = slide.index;
+			event.preventDefault();
+
+		}
+	}
 };
 
 /**
@@ -173,7 +179,7 @@ export const onSlideSlotChange = function onSlideSlotChange() {
 
 	// Set tabindex
 	this.slides.forEach((slide, i) => {
-		slide.setAttribute('data-index', i);
+		slide.index = i;
 		slide.setAttribute('tabIndex', i);
 	});
 
@@ -209,7 +215,7 @@ export const onPrevSlotChange = function onPrevSlotChange() {
         event.preventDefault();
 	}
 
-	// Get add click event listener to nodes.
+	// Add click event listener to assigned nodes.
 	assignedNodes.forEach(node => node.firstElementChild.addEventListener('click', clickPrev));
 
 };
@@ -234,7 +240,7 @@ export const onNextSlotChange = function onNextSlotChange() {
         event.preventDefault();
 	}
 	
-	// Get add click event listener to nodes.
+	// Add click event listener to assigned nodes.
 	assignedNodes.forEach(node => node.addEventListener('click', clickNext));
 
 };
