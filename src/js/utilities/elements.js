@@ -120,6 +120,17 @@ export const createElement = (tagName, { attributes, children, classes, id, html
 };
 
 /**
+ * Higher order function that takes in a string for the innerHTML
+ * of a created <template> tag. This template can be used for
+ * customElements as a Shadow DOM element.
+ * 
+ * @function    createTemplate
+ * @param       {string} html HTML content of this template.
+ * @returns     {HTMLTemplateElement} The template.
+ */
+export const createTemplate = (html) => createElement('template', { html });
+
+/**
  * Defines the elements in a list of CustomElementInit objects.
  * 
  * @param 	{CustomElementInit[]} elements 
