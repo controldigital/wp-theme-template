@@ -12,7 +12,10 @@ import {
 	onKeyDown,
 	onMouseEnter,
 	onMouseLeave,
-	onSlotChange
+	onClick,
+	onSlideSlotChange,
+	onPrevSlotChange,
+	onNextSlotChange
 } from './events.js';
 import { 
 	isIndexBetween,
@@ -25,6 +28,7 @@ const template = createSliderTemplate();
 
 // If there is passive events support.
 const hasPassive = hasFeatures('Passive Events');
+const eventOptions = hasPassive ? {passive: true} : false;
 
 /**
  * HTMLSliderElement
@@ -54,19 +58,31 @@ export default class HTMLSliderElement extends HTMLElement {
 		// Create the Shadow DOM.
 		const shadow = attachShadowToElement.call(this, template);
 
-		// Set the event handlers.
-		this.onSlotChange = onSlotChange.bind(this);
-		this.onTouchStart = onTouchStart.bind(this);
-		this.onTouchMove = onTouchMove.bind(this);
-		this.onTouchEnd = onTouchEnd.bind(this);
-		this.onWheel = onWheel.bind(this);
-		this.onKeyDown = onKeyDown.bind(this);
-		this.onMouseEnter = onMouseEnter.bind(this);
-		this.onMouseLeave = onMouseLeave.bind(this);
+		// Get the rails.
+		this.rails = shadow.querySelector('.rails');
+		this.slides = [];
+		
+		// Create a list of all events and their listeners.
+		this.events = {
+			'touchstart': { listener: onTouchStart.bind(this), options: eventOptions },
+			'touchend': { listener: onTouchMove.bind(this), options: eventOptions },
+			'touchmove': { listener: onTouchEnd.bind(this), options: eventOptions } ,
+			'wheel': { listener: onWheel.bind(this), options: eventOptions },
+			'keydown': { listener:onKeyDown.bind(this), options: false },
+			'mouseenter': { listener: onMouseEnter.bind(this), options: false },
+			'mouseleave': { listener: onMouseLeave.bind(this), options: false },
+			'click': { listener: onClick.bind(this), options: false }
+		};
 
 		// Get the slide slot and listen for the onSlotChange event.
 		const slide = shadow.querySelector('slot[name=slide]');
-		slide.addEventListener('slotchange', this.onSlotChange);
+		const prev = shadow.querySelector('slot[name=prev]');
+		const next = shadow.querySelector('slot[name=next]');
+
+		// Set slotchange events.
+		slide.addEventListener('slotchange', onSlideSlotChange.bind(this));
+		prev.addEventListener('slotchange', onPrevSlotChange.bind(this));
+		next.addEventListener('slotchange', onNextSlotChange.bind(this));
 
 	}
 
@@ -119,7 +135,11 @@ export default class HTMLSliderElement extends HTMLElement {
 	 * @property
 	 */
 	get hover() {
-		return this.getAttribute('hover');
+		const value = this.getAttribute('hover');
+		if (value !== null) {
+			return true;
+		}
+		return false;
 	}
 
 	set hover(value) {
@@ -153,7 +173,11 @@ export default class HTMLSliderElement extends HTMLElement {
 	 * @property
 	 */
 	get loop() {
-		return this.getAttribute('loop');
+		const value = this.getAttribute('loop');
+		if (value !== null) {
+			return true;
+		}
+		return false;
 	}
 
 	set loop(value) {
@@ -169,7 +193,11 @@ export default class HTMLSliderElement extends HTMLElement {
 	 * @property
 	 */
 	get moving() {
-		return this.getAttribute('moving');
+		const value = this.getAttribute('moving');
+		if (value !== null) {
+			return true;
+		}
+		return false;
 	}
 
 	set moving(value) {
@@ -207,28 +235,31 @@ export default class HTMLSliderElement extends HTMLElement {
 		switch(attrName) {
 			case 'amount':
 			case 'index':
-				if (newValue !== null && this.slides) {
-					this.slides.setInactiveAll();
-					let index = this.index;
-					let length = index + this.amount;
-					for (let i = index; i < length; i ++) {
-						this.slides.setActive(i);
-					}
-					this.slideToIndex(index);
+				if (newValue !== null && this.slides.length) {
+					const index = this.index;
+					const length = index + this.amount;
 					const detail = { detail: { index } };
 					const slidesChangeEvent = new CustomEvent('slideschange', detail);
+					this.slides.forEach((slide, i) => {
+						if (index >= i && i < length) {
+							slide.active = true;
+						} else {
+							slide.active = false;
+						}
+					});
+					this.slideToIndex(index);
 					this.dispatchEvent(slidesChangeEvent);
 				}
 				break;
 			case 'moving':
-				const moveStartEvent = new Event('movestart');
-				const moveEndEvent = new Event('moveend');
 				if (newValue !== null) {
+					const moveStartEvent = new Event('movestart');
 					const transition = `transform ${this.speed}ms ease-in-out`;
 					this.rails.style.webkitTransition = transition;
 					this.rails.style.transition = transition;
 					this.dispatchEvent(moveStartEvent);
 				} else {
+					const moveEndEvent = new Event('moveend');
 					this.rails.style.webkitTransition = '';
 					this.rails.style.transition = '';
 					this.dispatchEvent(moveEndEvent);
@@ -268,18 +299,11 @@ export default class HTMLSliderElement extends HTMLElement {
 			threshold: 4
 		};
 
-		// Touch event listeners.
-		if (isTouchDevice) {
-			this.addEventListener('touchstart', this.onTouchStart, hasPassive ? {passive: true} : false);
-			this.addEventListener('touchmove', this.onTouchMove, hasPassive ? {passive: true} : false);
-			this.addEventListener('touchend', this.onTouchEnd, hasPassive ? {passive: true} : false);
-		}
-
-		// Add other event listeners.
-		this.addEventListener('wheel', this.onWheel, hasPassive ? {passive: true} : false);
-		this.addEventListener('keydown', this.onKeyDown);
-		this.addEventListener('mouseenter', this.onMouseEnter);
-		this.addEventListener('mouseleave', this.onMouseLeave);
+		// Add event listeners
+		Object.keys(this.events).forEach(type => {
+			const { handler, options } = this.events[type];
+			this.addEventListener(type, handler, options);
+		});
 
 	}
 
@@ -292,13 +316,10 @@ export default class HTMLSliderElement extends HTMLElement {
 	disconnectedCallback() {
 
 		// Remove event listeners.
-		this.removeEventListener('touchstart', this.onTouchStart, hasPassive ? {passive: true} : false);
-		this.removeEventListener('touchmove', this.onTouchMove, hasPassive ? {passive: true} : false);
-		this.removeEventListener('touchend', this.onTouchEnd, hasPassive ? {passive: true} : false);
-		this.removeEventListener('wheel', this.onWheel, hasPassive ? {passive: true} : false);
-		this.removeEventListener('keydown', this.onKeyDown);
-		this.removeEventListener('mouseenter', this.onMouseEnter);
-		this.removeEventListener('mouseleave', this.onMouseLeave);
+		Object.keys(this.events).forEach(type => {
+			const { handler, options } = this.events[type];
+			this.removeEventListener(type, handler, options);
+		});
 
 	}
 
@@ -309,6 +330,9 @@ export default class HTMLSliderElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	adoptedCallback() {
+
+		this.disconnectedCallback();
+		this.connectedCallback();
 
 	}
 

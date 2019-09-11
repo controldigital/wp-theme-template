@@ -33,8 +33,9 @@ export default class HTMLSlideElement extends HTMLElement {
 	constructor() {
 		super();
 
-		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		// Set attributes
+		this.setAttribute('role', 'group');
+		this.setAttribute('aria-roledescription', 'slide');
 	}
 
 	/**
@@ -42,7 +43,11 @@ export default class HTMLSlideElement extends HTMLElement {
 	 * @property
 	 */
 	get active() {
-		return this.getAttribute('active');
+		const value = this.getAttribute('active');
+		if (value !== null) {
+			return true;
+		}
+		return false;
 	}
 
 	set active(value) {
@@ -50,22 +55,6 @@ export default class HTMLSlideElement extends HTMLElement {
 			this.setAttribute('active', '');
 		} else {
 			this.removeAttribute('active');
-		}
-	}
-
-	/**
-	 * Gets and sets the focus attribute.
-	 * @property
-	 */
-	get focus() {
-		return this.getAttribute('focus');
-	}
-
-	set focus(value) {
-		if (value === true) {
-			this.setAttribute('focus', '');
-		} else {
-			this.removeAttribute('focus');
 		}
 	}
 

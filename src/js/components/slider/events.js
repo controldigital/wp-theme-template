@@ -2,9 +2,10 @@
  * @module		./components/slider/events
  */
 
-import HTMLSlidesCollection from './Collection';
-import { createDirections } from './directions.js';
-import { getRailsOffset } from './offset.js';
+import { 
+	createDirections,
+	getRailsOffset
+} from './functions.js';
 
 /**
  * @typedef		directionsObject
@@ -151,21 +152,30 @@ export const onMouseLeave = function onMouseLeave() {
 };
 
 /**
+ * @function	onClick
+ * @param 		{Event} event 
+ * @returns		{void}
+ */
+export const onClick = function onClick(event) {
+	console.log(event);
+};
+
+/**
  * @function	onSlotChange
  * @param 		{Event} event 
  * @returns		{void}
  */
-export const onSlotChange = function onSlotChange(event) {
+export const onSlideSlotChange = function onSlideSlotChange() {
 
-	// Get the rails.
-	this.rails = this.shadowRoot.querySelector('.rails');
-
-	// Create new slides collection
-	const children = [...this.children].filter((child) => child.tagName.toLowerCase() === 'ctrl-slide');
-	this.slides = new HTMLSlidesCollection(...children);
+	// Get slide slot.
+	const slide = this.shadowRoot.querySelector('slot[name="slide"]');
+	this.slides = slide.assignedNodes();
 
 	// Set tabindex
-	this.slides.forEach((slide, i) => slide.setAttribute('tabindex', i));
+	this.slides.forEach((slide, i) => {
+		slide.setAttribute('data-index', i);
+		slide.setAttribute('tabIndex', i);
+	});
 
 	// Set starting index.
 	if (Number.isNaN(this.index)) {
@@ -176,5 +186,55 @@ export const onSlotChange = function onSlotChange(event) {
 	if (Number.isNaN(this.amount)) {
 		this.amount = 1;
 	}
+
+};
+
+/**
+ * @function	onPrevSlotChange
+ * @returns		{void}
+ */
+export const onPrevSlotChange = function onPrevSlotChange() {
+
+	// Get prev slot.
+	const prev = this.shadowRoot.querySelector('slot[name="prev"]');
+	const assignedNodes = prev.assignedNodes();
+
+	/**
+     * @function    clickPrev
+     * @param       {Event} event
+     * @returns     {void}
+     */
+    const clickPrev = event => {
+        this.prevSlide();
+        event.preventDefault();
+	}
+
+	// Get add click event listener to nodes.
+	assignedNodes.forEach(node => node.firstElementChild.addEventListener('click', clickPrev));
+
+};
+
+/**
+ * @function	onNextSlotChange
+ * @returns		{void}
+ */
+export const onNextSlotChange = function onNextSlotChange() {
+
+	// Get next assigned nodes.
+	const next = this.shadowRoot.querySelector('slot[name="next"]')
+	const assignedNodes = next.assignedNodes();
+
+	/**
+     * @function    clickPrev
+     * @param       {Event} event
+     * @returns     {void}
+     */
+    const clickNext = event => {
+        this.nextSlide();
+        event.preventDefault();
+	}
+	
+	// Get add click event listener to nodes.
+	assignedNodes.forEach(node => node.addEventListener('click', clickNext));
 
 };
