@@ -49,8 +49,8 @@ export const onTouchMove = function onTouchMove(event) {
 	);
 	const offset = getRailsOffset.call(this);
 	const distance = createDirections(
-		offset.x + touch.distance.horizontal, 
-		offset.y + touch.distance.vertical,
+		offset.x + this.touch.distance.horizontal, 
+		offset.y + this.touch.distance.vertical,
 		Math.round
 	);
 	this.moveTo(`${-distance[this.axis]}px`);
