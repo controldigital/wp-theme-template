@@ -59,6 +59,20 @@ export default class HTMLSlideElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets and sets the index attribute.
+	 * @property
+	 */
+	get index() {
+		return parseInt(this.getAttribute('index'));
+	}
+
+	set index(value) {
+		if (value !== Number.isNaN(value)) {
+			this.setAttribute('index', value);
+		} 
+	}
+
+	/**
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
