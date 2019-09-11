@@ -223,6 +223,34 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets and sets the touch-threshold attribute.
+	 * @property
+	 */
+	get touchThreshold() {
+		return parseInt(this.getAttribute('touch-threshold'));
+	}
+
+	set touchThreshold(value) {
+		if (value !== Number.isNaN(value)) {
+			this.setAttribute('touch-threshold', value);
+		} 
+	}
+
+	/**
+	 * Gets and sets the wheel-threshold attribute.
+	 * @property
+	 */
+	get wheelThreshold() {
+		return parseInt(this.getAttribute('wheel-threshold'));
+	}
+
+	set wheelThreshold(value) {
+		if (value !== Number.isNaN(value)) {
+			this.setAttribute('wheel-threshold', value);
+		} 
+	}
+
+	/**
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
@@ -285,6 +313,16 @@ export default class HTMLSliderElement extends HTMLElement {
 		// Set default speed.
 		if (Number.isNaN(this.speed)) {
 			this.speed = 350;
+		}
+
+		// Set default wheelThreshold.
+		if (Number.isNaN(this.touchThreshold)) {
+			this.touchThreshold = 4;
+		}
+
+		// Set default wheelThreshold.
+		if (Number.isNaN(this.wheelThreshold)) {
+			this.wheelThreshold = 50;
 		}
 
 		// Set timeout.
