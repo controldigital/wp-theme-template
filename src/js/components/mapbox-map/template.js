@@ -2,16 +2,15 @@
  * @module      ./components/map/template
  */
 
-import { createElement } from 'Utilities/elements.js';
+import { createTemplate } from 'Utilities/elements.js';
 
 /**
  * Creates a template specific for the map element.
  * 
- * @function        createElement
+ * @function        createMapTemplate
  * @returns         {HTMLTemplateElement}
  */
-export const createTemplate = () => createElement('template', {
-    html: /*template*/`
+export const createMapTemplate = () => createTemplate(/*template*/`
 
         <style>
 
@@ -34,4 +33,4 @@ export const createTemplate = () => createElement('template', {
         <div class="map"></div>
 
     `
-});
+);
