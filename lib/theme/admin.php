@@ -60,13 +60,13 @@ add_action( 'admin_menu', 'add_theme_pages' );
 function add_theme_pages() {
 
 	// 404
-	add_theme_page( 
-		__( 'Edit 404 page', THEME_TEXT_DOMAIN ), 
-		__( '404', THEME_TEXT_DOMAIN ), 
-		'edit_theme_options', 
-		'theme-404', 
-		'theme_page_form' 
-	);
+	// add_theme_page( 
+	// 	__( 'Edit 404 page', THEME_TEXT_DOMAIN ), 
+	// 	__( '404', THEME_TEXT_DOMAIN ), 
+	// 	'edit_theme_options', 
+	// 	'theme-404', 
+	// 	'theme_page_form' 
+	// );
 
 	// Archives
 	// add_theme_page( 
