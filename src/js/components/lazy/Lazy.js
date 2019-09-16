@@ -112,13 +112,18 @@ export default class HTMLLazyElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
-		// Rewrite and create 
-		if (attrName === 'root' || attrName === 'root-margin' || attrName === 'threshold' ) {
+		// Rewrite and create
+		switch(attrName) {
+			case 'root':
+			case 'root-margin':
+			case 'threshold':
 
-			// Create an observer and observe the targets.
-			this.createObserver();
-			this.observeTargets(this.targets);
-				
+				// Create an observer and observe the targets.
+				this.createObserver();
+				this.observeTargets(this.targets);
+
+				break;
+
 		}
 
 	}
