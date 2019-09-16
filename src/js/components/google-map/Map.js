@@ -3,7 +3,7 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
-import { createTemplate } from './template.js.js';
+import { createTemplate } from './template.js';
 import { 
 	addMarkersToMap, 
 	removeMarkersFromMap 
