@@ -168,7 +168,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		array(
 			'transport'			=> 'refresh',
 			'capability'		=> 'edit_theme_options',
-			'type'				=> 'theme_mod'
+			'type'				=> 'theme_mod',
+			'default'			=> ''
 		)
 	);
 	
@@ -178,7 +179,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		array(
 			'transport'			=> 'refresh',
 			'capability'		=> 'edit_theme_options',
-			'type'				=> 'theme_mod'
+			'type'				=> 'theme_mod',
+			'default'			=> ''
 		)
 	);
 
@@ -188,7 +190,8 @@ function theme_cookie_customizer_register( WP_Customize_Manager $wp_customize ) 
 		array(
 			'transport'			=> 'refresh',
 			'capability'		=> 'edit_theme_options',
-			'type'				=> 'theme_mod'
+			'type'				=> 'theme_mod',
+			'default'			=> ''
 		)
 	);
 	
