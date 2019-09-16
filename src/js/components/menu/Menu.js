@@ -34,7 +34,11 @@ export default class HTMLMenuElement extends HTMLElement {
 	 * @property
 	 */
 	get open() {
-		return this.getAttribute('open');
+		const value = this.getAttribute('open');
+		if (value !== null) {
+			return true;
+		}
+		return false;
 	}
 
 	set open(value) {
@@ -58,23 +62,13 @@ export default class HTMLMenuElement extends HTMLElement {
         if (attrName === 'open') {
             if (newValue !== null) {
 
-                const event = new CustomEvent('statechange', {
-                    detail: {
-                        open: true
-                    }
-                });
-                this.dispatchEvent(event);
-                this.setAttribute('aria-expanded', true);
+                const openEvent = new Event('open');
+                this.dispatchEvent(openEvent);
 
             } else {
 
-                const event = new CustomEvent('statechange', {
-                    detail: {
-                        open: false
-                    }
-                });
-                this.dispatchEvent(event);
-                this.setAttribute('aria-expanded', false);
+                const closeEvent = new CustomEvent('close');
+                this.dispatchEvent(closeEvent);
 
             }
         }
@@ -88,10 +82,6 @@ export default class HTMLMenuElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	connectedCallback() {
-
-        if (this.open === null) {
-			this.setAttribute('aria-expanded', false);
-        }
 
 	}
 
@@ -119,7 +109,7 @@ export default class HTMLMenuElement extends HTMLElement {
 	 * Toggles between the open and closed states.
 	 * 
 	 * @method	toggle
-	 * @returns	{this}
+	 * @returns	{boolean}
 	 */
 	toggle() {
 
@@ -128,7 +118,7 @@ export default class HTMLMenuElement extends HTMLElement {
 		} else {
 			this.open = false;
 		}
-		return this;
+		return this.open;
 
 	}
 
