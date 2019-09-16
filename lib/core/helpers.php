@@ -14,7 +14,7 @@
 function get_the_logo() {
 	$custom_logo_id = get_theme_mod( 'custom_logo' );
 	$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-	return !empty( $image ) ? $image[0] : false;
+	return ! empty( $image ) ? $image[0] : false;
 }
 
 /**
