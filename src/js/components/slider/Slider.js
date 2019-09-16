@@ -3,6 +3,7 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
+import EventsCollection from 'Utilities/events.js';
 import { createSliderTemplate } from './template.js';
 import {
 	onTouchStart,
@@ -27,8 +28,7 @@ import {
 const template = createSliderTemplate();
 
 // If there is passive events support.
-const hasPassive = hasFeatures('Passive Events');
-const eventOptions = hasPassive ? {passive: true} : false;
+const passive = hasFeatures('Passive Events') ? {passive: true} : false;
 
 /**
  * HTMLSliderElement
@@ -63,16 +63,15 @@ export default class HTMLSliderElement extends HTMLElement {
 		this.slides = [];
 		
 		// Create a list of all events and their listeners.
-		this.events = {
-			'touchstart': { listener: onTouchStart.bind(this), options: eventOptions },
-			'touchend': { listener: onTouchMove.bind(this), options: eventOptions },
-			'touchmove': { listener: onTouchEnd.bind(this), options: eventOptions } ,
-			'wheel': { listener: onWheel.bind(this), options: eventOptions },
-			'keydown': { listener:onKeyDown.bind(this), options: false },
-			'mouseenter': { listener: onMouseEnter.bind(this), options: false },
-			'mouseleave': { listener: onMouseLeave.bind(this), options: false },
-			'click': { listener: onClick.bind(this), options: false }
-		};
+		this.events = new EventsCollection();
+		this.events.set(this, 'touchstart', onTouchStart.bind(this), passive);
+		this.events.set(this, 'touchend', onTouchMove.bind(this), passive);
+		this.events.set(this, 'touchmove', onTouchEnd.bind(this), passive);
+		this.events.set(this, 'wheel', onWheel.bind(this), passive);
+		this.events.set(this, 'keydown', onKeyDown.bind(this), false);
+		this.events.set(this, 'mouseenter', onMouseEnter.bind(this), false);
+		this.events.set(this, 'mouseleave', onMouseLeave.bind(this), false);
+		this.events.set(this, 'click', onClick.bind(this), false);
 
 		// Get the slide slot and listen for the onSlotChange event.
 		const slide = shadow.querySelector('slot[name=slide]');
@@ -338,10 +337,7 @@ export default class HTMLSliderElement extends HTMLElement {
 		};
 
 		// Add event listeners
-		Object.keys(this.events).forEach(type => {
-			const { handler, options } = this.events[type];
-			this.addEventListener(type, handler, options);
-		});
+		this.events.add();
 
 	}
 
@@ -354,10 +350,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	disconnectedCallback() {
 
 		// Remove event listeners.
-		Object.keys(this.events).forEach(type => {
-			const { handler, options } = this.events[type];
-			this.removeEventListener(type, handler, options);
-		});
+		this.events.remove();
 
 	}
 

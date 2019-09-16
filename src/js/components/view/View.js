@@ -3,6 +3,7 @@
  */
 
 import { fetchURL } from './fetch.js';
+import EventsCollection from 'Utilities/events.js';
 import {
 	createCustomEvent,
 	onFetchStart,
@@ -43,24 +44,14 @@ export default class HTMLViewElement extends HTMLElement {
 		super();
 
 		// Bind the event listeners.
-		this.onFetchStart = onFetchStart.bind(this);
-		this.onFetchDone = onFetchDone.bind(this);
-		this.onContentEnterStart = onContentEnterStart.bind(this);
-		this.onContentEnterEnd = onContentEnterEnd.bind(this);
-		this.onContentLeaveStart = onContentLeaveStart.bind(this);
-		this.onContentLeaveEnd = onContentLeaveEnd.bind(this);
-		this.onPopState = onPopState.bind(this);
-
-		// Create a list of all events and their listeners.
-		this.eventListeners = [
-			['fetchstart', this.onFetchStart],
-			['fetchdone', this.onFetchDone],
-			['contententerstart', this.onContentEnterStart],
-			['contententerend', this.onContentEnterEnd],
-			['contentleaverstart', this.onContentLeaveStart],
-			['contentleaveend', this.onContentLeaveEnd],
-			['popstate', this.onPopState]
-		];
+		this.events = new EventsCollection();
+		this.events.set(this, 'fetchstart', onFetchStart.bind(this));
+		this.events.set(this, 'fetchend', onFetchDone.bind(this));
+		this.events.set(this, 'contententerstart', onContentEnterStart.bind(this));
+		this.events.set(this, 'contententerend', onContentEnterEnd.bind(this));
+		this.events.set(this, 'contentleaverstart', onContentLeaveStart.bind(this));
+		this.events.set(this, 'contentleaveend', onContentLeaveEnd.bind(this));
+		this.events.set(window, 'popstate', onPopState.bind(this));
 
 		// Set default ARIA attributes
 		this.setAttribute('aria-live', 'polite');
@@ -222,9 +213,7 @@ export default class HTMLViewElement extends HTMLElement {
 		}
 
 		// Add event listeners.
-		this.eventListeners.forEach(([name, handler]) => {
-			this.addEventListener(name, handler);
-		});
+		this.events.add();
 
 	}
 
@@ -237,9 +226,7 @@ export default class HTMLViewElement extends HTMLElement {
 	disconnectedCallback() {
 
 		// Remove event listeners.
-		this.eventListeners.forEach(([name, handler]) => {
-			this.removeEventListener(name, handler);
-		});
+		this.events.remove();
 
 	}
 
@@ -251,24 +238,8 @@ export default class HTMLViewElement extends HTMLElement {
 	 */
 	adoptedCallback() {
 
-		// Set transition if it isn't set yet.
-		if (this.transition === null) {
-			this.transition = 0;
-		}
-
-		if (this.transitionOut === null) {
-			this.transitionOut = 0;
-		}
-
-		// Remove event listeners.
-		this.eventListeners.forEach(([name, handler]) => {
-			this.removeEventListener(name, handler);
-		});
-
-		// Add event listeners.
-		this.eventListeners.forEach(([name, handler]) => {
-			this.addEventListener(name, handler);
-		});
+		this.disconnectedCallback();
+		this.connectedCallback();
 
 	}
 
