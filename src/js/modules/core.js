@@ -85,6 +85,14 @@ export const menu = () => {
  */
 export const cookie = () => {
 
+	// Get the notice.
+	const notice = document.querySelector('.js-cookie');
+
+	// If there is neither a notice or revoke form, stop.
+	if (!notice) {
+		return;
+	}
+
 	/**
 	 * Returns the cookie name set in WP Customizer
 	 * or else returns a default cookie.
@@ -93,7 +101,7 @@ export const cookie = () => {
 ]	 * @returns		{String}
 	 */
 	const getCookieName = () => {
-		return cookieData.name ? cookieData.name : 'wp-cookie-consent';
+		return wp.cookie.name ? wp.cookie.name : 'wp-cookie-consent';
 	};
 
 	/**
@@ -104,7 +112,7 @@ export const cookie = () => {
 	 * @returns		{Number}
 	 */
 	const getCookieExpirationDate = () => {
-		return cookieData.expire ? parseFloat(cookieData.expire) : 365;
+		return wp.cookie.expire ? parseFloat(wp.cookie.expire) : 365;
 	};
 
 	/**
@@ -114,31 +122,20 @@ export const cookie = () => {
 	 * @returns		{Object}
 	 */
 	const getCookieScripts = () => {
-		return cookieData.scripts ? cookieData.scripts : {};
-	}
-
-	/**
-	 * Shows the cookie.
-	 * 
-	 * @function	removeCookieModal
-	 * @param 		{HTMLElement} notice Element of cookie notice to hide
-	 * @returns		{void}
-	 */
-	const showCookieModal = (modal) => {
-		modal.classList.remove('cookie--hidden');
+		return wp.cookie.scripts ? wp.cookie.scripts : {};
 	}
 
 	/**
 	 * Removes the cookie notice from the DOM.
 	 * 
-	 * @function	removeCookieModal
+	 * @function	removeCookieNotice
 	 * @param 		{HTMLElement} notice Element of cookie notice to hide
 	 * @returns		{void}
 	 */
-	const removeCookieModal = (modal) => {
-		modal.classList.add('cookie--hidden');
+	const removeCookieNotice = (notice) => {
+		notice.classList.add('cookie--hidden');
 		setTimeout(() => {
-			modal.remove();
+			notice.remove();
 		}, 350);
 	};
 
@@ -147,19 +144,25 @@ export const cookie = () => {
 	 * the head or the body tag in the appropriate place.
 	 * 
 	 * @function	insertScript
-	 * @param 		{String} destination The head or body.
-	 * @param 		{String} script Script to append.
-	 * @returns		{Promsise<HTMLElement>}
+	 * @param 		{string} script Script to append.
+	 * @param		{HTMLElement} element Element to append to.
+	 * @param 		{string} destination The head or body.
+	 * @returns		{(string|HTMLElement)}
 	 */
-	const insertScript = (script, element, position) => 
-		new Promise((resolve, reject) => {
-			const destination = document.querySelector(element);
-			if (destination) {
-				destination.insertAdjacentHTML(position, script);
-				resolve(element);
-			}
-			reject(new Error('element to insert to is null'));
-		});
+	const insertScript = (script, element, position) => {
+		const destination = document.querySelector(element);
+		if ('string' !== typeof script) {
+			return 'script is not a string';
+		}
+		if (destination === null) {
+			return 'element to insert to is null';
+		}
+		if ('string' !== typeof position) {
+			return 'position is not a string';
+		}
+		destination.insertAdjacentHTML(position, script);
+		return element;
+	};
 
 	/**
 	 * Submit event handler for the cookie form.
@@ -180,14 +183,15 @@ export const cookie = () => {
 	 */
 	const onAccept = function onAccept(event) {
 		const { head, bodyStart, bodyEnd } = getCookieScripts();
-		const inserts = [
-			insertScript(head, 'head', 'beforeend'),
-			insertScript(bodyStart, 'body', 'afterbegin'),
-			insertScript(bodyEnd, 'body', 'beforeend')
-		];
+
+		// Insert scripts.
+		insertScript(head, 'head', 'beforeend');
+		insertScript(bodyStart, 'body', 'afterbegin');
+		insertScript(bodyEnd, 'body', 'beforeend');
+
+		// Set cookie to true and remove notice.
 		this.set('true', getCookieExpirationDate(), '/');
-		removeCookieModal(notice);
-		Promise.all(inserts).then(() => console.info('Cookie accepted. Scripts added.'));
+		removeCookieNotice(notice);
 		event.preventDefault();
 	};
 
@@ -200,7 +204,7 @@ export const cookie = () => {
 	 */
 	const onRefuse = function onRefuse(event) {
 		this.set('false', getCookieExpirationDate(), '/');
-		removeCookieModal(notice);
+		removeCookieNotice(notice);
 		event.preventDefault();
 	};
 
@@ -220,20 +224,6 @@ export const cookie = () => {
 
 	// Cookie notice element
 	const cookie = new Cookie(getCookieName());
-	const notice = document.querySelector('.js-cookie');
-
-	// If there is neither a notice or revoke form, stop.
-	if (!notice) {
-		return;
-	}
-
-	// Stop if cookie is not present
-	if (!notice || cookie.get() !== false) {
-		return
-	};
-
-	// Show the cookie
-	showCookieModal(notice);
 
 	// Disable default submit behaviour
 	const cookieForm = document.querySelector('.js-cookie-form');

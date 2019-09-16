@@ -181,10 +181,10 @@ export default class HTMLGoogleMarkerElement extends HTMLElement {
 				break;
 			case 'latitude':
 			case 'longitude':
-				const latLng = {
-					lat: this.latitude,
-					lng: this.longitude
-				};
+				const latLng = new google.maps.latLng(
+					this.latitude,
+					this.longitude
+				);
 				this.setPosition(latLng);
 				break;
 			case 'visible':

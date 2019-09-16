@@ -1,5 +1,5 @@
 /**
- * @module		./components/google-map/helpers
+ * @module		./components/google-map/functions
  */
 
 /**
@@ -7,10 +7,11 @@
  * 
  * @function	addMarkersToMap
  * @param 		{HTMLElement[]} markers Array of HTMLGoogleMarkerElements
+ * @param       {HTMLElement} map Map element.
  * @returns		{void}
  */
-export const addMarkersToMap = function addMarkersToMap(markers) {
-	[...markers].forEach(marker => marker.setMap(this.map));
+export const addMarkersToMap = function addMarkersToMap(markers, map) {
+	[...markers].forEach(marker => marker.setMap(map));
 };
 
 /**

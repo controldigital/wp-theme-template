@@ -50,9 +50,6 @@ function body_cookie_end_scripts() {
 add_action( 'wp_footer', 'footer_theme_templates', 11, 0 );
 function footer_theme_templates() {
     
-    // JS polyfill scanner
-    get_template_part( './inc/footer/footer', 'polyfill' );
-    
     // Default footer template
     get_template_part( './inc/footer/footer', 'default' );
 }

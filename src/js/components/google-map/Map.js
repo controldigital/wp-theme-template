@@ -3,14 +3,14 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
-import { createTemplate } from './template.js';
+import { createMapTemplate } from './template.js';
 import { 
 	addMarkersToMap, 
 	removeMarkersFromMap 
-} from './helpers.js';
+} from './functions.js';
 
 // ID of HTML template for Shadow DOM.
-const template = createTemplate();
+const template = createMapTemplate();
 
 /**
  * Google Map custom element.
@@ -29,7 +29,7 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 	 * @returns	{String[]}
 	 */
 	static get observedAttributes() {
-		return ['center', 'clickable-icons', 'heading', 'map-type', 'options', 'tilt', 'zoom'];
+		return ['bounds', 'center', 'clickable-icons', 'heading', 'map-type', 'options', 'tilt', 'zoom'];
 	}
 
 	/**
@@ -39,17 +39,38 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		const shadow = attachShadowToElement.call(this, template);
 
-		// Set default options
-		this.defaultOptions = {
+		// Get the map element from the Shadow DOM.
+		const mapContainer = shadow.querySelector('.google-map');
+		this.map = new google.maps.Map(mapContainer, {
 			center: {
 				lat: 52.3935744, 
 				lng: 4.8944151
 			}, 
 			zoom: 8
-		};
+		});
 		
+	}
+
+	/**
+	 * Gets and sets the bounds attribute.
+	 * @property
+	 */
+	get bounds() {
+		const value = this.getAttribute('bounds');
+		if (value !== null) {
+			return true;
+		}
+		return false;
+	}
+
+	set bounds(value) {
+		if (value === true) {
+			this.setAttribute('bounds', '');
+		} else {
+			this.removeAttribute('bounds');
+		}
 	}
 
 	/**
@@ -75,7 +96,11 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 	 * @property
 	 */
 	get clickableIcons() {
-		return this.getAttribute('clickable-icons');
+		const value = this.getAttribute('clickable-icons');
+		if (value !== null) {
+			return true;
+		}
+		return false;
 	}
 
 	set clickableIcons(value) {
@@ -158,8 +183,10 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
+		// Number formatted value.
 		const numberValue = parseInt(newValue);
 
+		// Boolean formatted value.
 		let boolValue;
 		if (newValue === null) {
 			boolValue = false;
@@ -198,10 +225,6 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
-		// Bind the helper functions to this instance.
-		const addMarkers = addMarkersToMap.bind(this);
-		const removeMarkers = removeMarkersFromMap.bind(this);
-
 		/**
 		 * Callback for the Mutation Observer.
 		 * Adds newly added markers to the map when elements are added 
@@ -216,14 +239,14 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 
 				// Add new markers to the map.
 				if (mutation.addedNodes.length) {
-					addMarkers(mutation.addedNodes);
+					addMarkersToMap(mutation.addedNodes, this.map);
 				}
 
 				// Reset the markers and add the remaining ones to the map.
 				if (mutation.removedNodes.length) {
 					let allMarkers = [...mutation.removedNodes, ...this.children];
-					removeMarkers(allMarkers);
-					addMarkers(this.children);
+					removeMarkersFromMap(allMarkers);
+					addMarkersToMap(this.children, this.map);
 				}
 
 			});
@@ -235,14 +258,8 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 			childList: true
 		});
 
-		// Get the map element from the Shadow DOM.
-		const mapContainer = this.shadowRoot.querySelector('.google-map');
-
-		// Create new map instance.
-		this.map = new google.maps.Map(mapContainer, this.defaultOptions);
-
 		// Add the markers to the map.
-		addMarkers(this.children);
+		addMarkersToMap(this.children, this.map);
 
 	}
 
@@ -254,6 +271,9 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 	 */
 	disconnectedCallback() {
 
+		// Remove all markers from map.
+		removeMarkersFromMap(this.children);
+
 	}
 
 	/**
@@ -263,6 +283,9 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	adoptedCallback() {
+
+		this.disconnectedCallback();
+		this.connectedCallback();
 
 	}
 
@@ -283,6 +306,7 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 	}
 
 	/**
+	 * Get the map div.
 	 * 
 	 * @method	getDiv
 	 * @returns	{HTMLElement}
