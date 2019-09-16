@@ -16,15 +16,64 @@
  * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_nopriv_(action)
  * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
  */
-add_action( 'wp_ajax_nopriv_load_ajax', 'load_ajax') ;
-add_action( 'wp_ajax_load_ajax', 'load_ajax' );
-function load_ajax() {
-	header( 'Content-Type: text/html' );
-	global $post;
+// add_action( 'wp_ajax_nopriv_load_ajax', 'load_ajax') ;
+// add_action( 'wp_ajax_load_ajax', 'load_ajax' );
+// function load_ajax() {
+// 	header( 'Content-Type: text/html' );
+// 	global $post;
 	
-	// get_template_part( '' );
+// 	// Do something
 
-	wp_die();
+// 	die();
+// }
+
+/**
+ * load_ajax
+ * 
+ * Generic boilerplate function for handling
+ * an AJAX request 
+ * 
+ * @since	1.0
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_nopriv_(action)
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
+ */
+add_action( 'wp_ajax_nopriv_get_post_part_ajax', 'get_post_part') ;
+add_action( 'wp_ajax_get_post_part_ajax', 'get_post_part' );
+function get_post_content() {
+	header( 'Content-Type: text/html' );
+
+	// Get id of post.
+	$query_p = isset( $_REQUEST[ 'p' ] ) ? $_REQUEST[ 'p' ] : '';
+	$query_part = isset( $_REQUEST[ 'part' ] ) ? $_REQUEST[ 'part' ] : false;
+
+	// Send a message when no part is given.
+	if ($query_part === false) {
+		echo 'No part specified. Please specify the name of the part';
+	}
+	
+	// Create the arguments.
+	$args = array(
+		'post_type'			=> 'any',
+		'post_status'		=> array( 'publish' ),
+		'posts_per_page'	=> 1,
+		'p'					=> $query_p
+	);
+
+	// Create a new query.
+	$query = new WP_Query( $args );
+
+	// Loop over the query.
+	if ( $query->have_posts() ) {
+		while ( $query->have_posts() ) {
+			$query->the_post();
+
+			// Return the requested template.
+			get_template_part( './inc/content/content', $query_part );
+
+		} wp_reset_postdata();
+	}
+	
+	die();
 }
 
 /**
