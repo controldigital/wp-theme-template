@@ -191,7 +191,7 @@ export const keysOfObjectToCamelCase = object => convertKeysOfObject(object, str
  */
 export const serializeArray = (key, data = [], question = false) => {
 	if (!Array.isArray(data)) throw new Error('data argument is not given or type of array');
-	const query = data.map(value => `${key}[]=${value}`).join('&');
+	const query = data.map(value => `${encodeURIComponent(`${key}[]`)}=${encodeURIComponent(value)}`).join('&');
 	return question === true ? `?${query}` : query;
 };
 
@@ -217,7 +217,7 @@ export const serializeArray = (key, data = [], question = false) => {
 export const serializeObject = (data = {}, question = false) => {
 	if (!data || 'object' !== typeof data) throw new Error('data argument is not given or type of object');
 	const keys = Object.keys(data);
-	const query = keys.map(key => Array.isArray(data[key]) ? serializeArray(key, data[key]) : `${key}=${data[key]}`).join('&');
+	const query = keys.map(key => Array.isArray(data[key]) ? serializeArray(key, data[key]) : `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
 	return question === true ? `?${query}` : query;
 };
 
@@ -228,7 +228,7 @@ export const serializeObject = (data = {}, question = false) => {
  * @param 		{Array} array Array that has to be shuffled.
  * @returns		{Array} The shuffled array.
  */
-export const shuffleArray = (array) => {
+export const shuffleArray = array => {
 	let currentIndex = array.length;
 	let temporaryValue = null;
   
