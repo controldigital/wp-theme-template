@@ -24,6 +24,7 @@ define( 'THEME_TEXT_DOMAIN', 'text_domain' );
 $templates = array(
 	
 	// Core
+	'lib/core/404.php',					// 404 functions
 	'lib/core/ajax.php',				// Ajax functions
 	'lib/core/cleanup.php',				// Head cleanup
 	'lib/core/filters.php',				// Filter hooks
