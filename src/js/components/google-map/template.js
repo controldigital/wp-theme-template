@@ -2,7 +2,7 @@
  * @module		./components/google-maps/template
  */
 
-import { createElement } from 'Utilities/elements.js';
+import { createTemplate } from 'Utilities/elements.js';
 
 /**
  * Creates a template specific for the card element.
@@ -10,8 +10,8 @@ import { createElement } from 'Utilities/elements.js';
  * @function        createTemplate
  * @returns         {HTMLTemplateElement}
  */
-export const createTemplate = () => createElement('template', {
-	html: /*template*/`
+export const createMapTemplate = () => createTemplate(/*template*/`
+
 		<style>
 
 			*, 
@@ -38,4 +38,4 @@ export const createTemplate = () => createElement('template', {
 
 		<div class="google-map"></div>
 	`
-});
+);
