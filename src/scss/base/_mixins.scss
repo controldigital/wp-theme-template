@@ -103,15 +103,25 @@
 
 /* Breakpoints */
 @mixin breakpoint($size) {
-	@if ($size == 1440) {
-		@media (min-width: 90em) { @content ; }
-	} @else if ($size == 1280) {
-		@media (min-width: 80em) { @content ; }
-	} @else if ($size == 1024) {
-		@media (min-width: 64em) { @content ; }
-	} @else if ($size == 768) {
-		@media (min-width: 48em)  { @content ; }
-	} @else if ($size == 480) {
-		@media (min-width: 30em)  { @content ; }
+	@if ($size == "huge") {
+		@media (min-width: 90em) { 
+			@content; 
+		}
+	} @else if ($size == "large") {
+		@media (min-width: 80em) { 
+			@content; 
+		}
+	} @else if ($size == "medium") {
+		@media (min-width: 64em) { 
+			@content; 
+		}
+	} @else if ($size == "small") {
+		@media (min-width: 48em) { 
+			@content; 
+		}
+	} @else if ($size == "tiny") {
+		@media (min-width: 30em) { 
+			@content; 
+		}
 	}
 }
