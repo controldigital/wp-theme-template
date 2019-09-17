@@ -7,7 +7,7 @@ import { createTemplate } from './template.js';
 import {
 	createCountdown,
 	createClock
-} from './create.js';
+} from './create.js.js';
 
 // Template for Shadow DOM.
 const template = createTemplate();
