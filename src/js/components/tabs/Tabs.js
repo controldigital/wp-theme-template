@@ -2,6 +2,7 @@
  * @module		./components/tabs/Tabs
  */
 
+import EventCollection from 'Utilities/events.js';
 import { isIndexBetween } from 'Utilities/tools.js';
 import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
@@ -43,9 +44,17 @@ export default class HTMLTabsElement extends HTMLElement {
 		attachShadowToElement.call(this, template);
 
 		// Bind the event handlers.
-		this.onClick = onClick.bind(this);
-		this.onKeyDown = onKeyDown.bind(this);
-		this.onSlotChange = onSlotChange.bind(this);
+		this.events = new EventCollection();
+		this.events.set(this, 'click', onClick.bind(this));
+		this.events.set(this, 'keydown', onKeyDown.bind(this));
+
+		// Get the tab an panel slot
+		const tab = this.shadowRoot.querySelector('slot[name=tab]');
+		const panel = this.shadowRoot.querySelector('slot[name=panel]');
+
+		// Add event listeners for when a slot is used.
+		tab.addEventListener('slotchange', this.onSlotChange);
+		panel.addEventListener('slotchange', this.onSlotChange);
 
 	}
 
@@ -109,17 +118,8 @@ export default class HTMLTabsElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
-		// Get the tab an panel slot
-		const tab = this.shadowRoot.querySelector('slot[name=tab]');
-		const panel = this.shadowRoot.querySelector('slot[name=panel]');
-
-		// Add event listeners for when a slot is used.
-		tab.addEventListener('slotchange', this.onSlotChange);
-		panel.addEventListener('slotchange', this.onSlotChange);
-
 		// Add event listeners to the tabs element.
-		this.addEventListener('click', this.onClick);
-		this.addEventListener('keydown', this.onKeyDown);
+		this.events.add();
 
 	}
 
@@ -132,8 +132,7 @@ export default class HTMLTabsElement extends HTMLElement {
 	disconnectedCallback() {
 
 		// Remove event listeners to the tabs element.
-		this.removeEventListener('click', this.onClick);
-		this.removeEventListener('keydown', this.onKeyDown);
+		this.events.remove();
 
 	}
 
@@ -147,22 +146,46 @@ export default class HTMLTabsElement extends HTMLElement {
 
 	}
 
+	/**
+	 * @method	nextTab
+	 * @returns	{HTMLTabElement}
+	 */
 	nextTab() {
 		this.selected += 1;
+		return this.tabs[this.selected];
 	}
 
+	/**
+	 * @method	prevTab
+	 * @returns	{HTMLTabElement}
+	 */
 	prevTab() {
 		this.selected -= 1;
+		return this.tabs[this.selected];
 	}
 
+	/**
+	 * @method	firstTab
+	 * @returns	{HTMLTabElement}
+	 */
 	firstTab() {
 		this.selected = 0;
+		return this.tabs[this.selected];
 	}
 
+	/**
+	 * @method	lastTab
+	 * @returns	{HTMLTabElement}
+	 */
 	lastTab() {
 		this.selected = this.tabs.length - 1;
+		return this.tabs[this.selected];
 	}
 
+	/**
+	 * @method	reset
+	 * @returns	{this}
+	 */
 	reset() {
 
 		// Get the tabs and panels.
@@ -173,6 +196,8 @@ export default class HTMLTabsElement extends HTMLElement {
 		tabs.forEach(tab => tab.selected = false);
 		panels.forEach(panel => panel.hidden = true);
 
-	  }
+		return this;
+
+	}
 
 }

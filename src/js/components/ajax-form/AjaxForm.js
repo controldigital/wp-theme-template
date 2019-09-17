@@ -2,6 +2,7 @@
  * @module		./components/form/Form
  */
 
+import EventCollection from 'Utilities/events.js';
 import { onSubmit } from './events.js';
 
 /**
@@ -42,7 +43,9 @@ export default class HTMLAJAXFormElement extends HTMLElement {
 		this.onresponse = null;
 
 		// Bind events to instance.
-		this.onSubmit = onSubmit.bind(this);
+		this.events = new EventCollection();
+		this.events.set(this, 'submit', onSubmit.bind(this));
+
 	}
 
 	/**

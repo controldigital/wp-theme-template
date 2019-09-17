@@ -4,7 +4,7 @@
 
 import { attachShadowToElement } from 'Components/shadow.js';
 import { createBannerTemplate } from './template.js';
-import EventsCollection from 'Utilities/events.js';
+import EventCollection from 'Utilities/events.js';
 import { 
 	onScroll,
 	onSlotChange
@@ -47,7 +47,7 @@ export default class HTMLBannerElement extends HTMLElement {
 		const shadow = attachShadowToElement.call(this, template);
 		
 		// Create a list of all events and their listeners.
-		this.events = new EventsCollection();
+		this.events = new EventCollection();
 		this.events.set(document, 'scroll', onScroll.bind(this), passive);
 
 		// Get the toggle slot and listen for the onSlotChange event.

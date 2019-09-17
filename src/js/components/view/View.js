@@ -3,7 +3,7 @@
  */
 
 import { fetchURL } from './fetch.js';
-import EventsCollection from 'Utilities/events.js';
+import EventCollection from 'Utilities/events.js';
 import {
 	createCustomEvent,
 	onFetchStart,
@@ -44,7 +44,7 @@ export default class HTMLViewElement extends HTMLElement {
 		super();
 
 		// Bind the event listeners.
-		this.events = new EventsCollection();
+		this.events = new EventCollection();
 		this.events.set(this, 'fetchstart', onFetchStart.bind(this));
 		this.events.set(this, 'fetchend', onFetchDone.bind(this));
 		this.events.set(this, 'contententerstart', onContentEnterStart.bind(this));

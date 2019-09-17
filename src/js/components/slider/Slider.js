@@ -3,7 +3,7 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
-import EventsCollection from 'Utilities/events.js';
+import EventCollection from 'Utilities/events.js';
 import { createSliderTemplate } from './template.js';
 import {
 	onTouchStart,
@@ -63,7 +63,7 @@ export default class HTMLSliderElement extends HTMLElement {
 		this.slides = [];
 		
 		// Create a list of all events and their listeners.
-		this.events = new EventsCollection();
+		this.events = new EventCollection();
 		this.events.set(this, 'touchstart', onTouchStart.bind(this), passive);
 		this.events.set(this, 'touchend', onTouchMove.bind(this), passive);
 		this.events.set(this, 'touchmove', onTouchEnd.bind(this), passive);

@@ -3,7 +3,7 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
-import EventsCollection from 'Utilities/events.js';
+import EventCollection from 'Utilities/events.js';
 import { createTemplate } from './template.js';
 import { 
 	onClick,
@@ -42,7 +42,7 @@ export default class HTMLModalElement extends HTMLElement {
 		attachShadowToElement.call(this, template);
 
 		// Bind the event handlers.
-		this.events = new EventsCollection();
+		this.events = new EventCollection();
 		this.events.set(this, 'click', onClick.bind(this))
 		this.events.set(this, 'keydown', onKeyDown.bind(this))
 

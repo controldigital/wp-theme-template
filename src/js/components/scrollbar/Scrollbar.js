@@ -3,7 +3,7 @@
  */
 
 import { attachShadowToElement } from 'Components/shadow.js';
-import EventsCollection from 'Utilities/events.js';
+import EventCollection from 'Utilities/events.js';
 import { createTemplate } from './template.js';
 import { onScroll } from './events.js';
 
@@ -43,7 +43,7 @@ export default class HTMLScrollBarElement extends HTMLElement {
         this.bar = shadow.querySelector('.bar');
 
 		// Bind the events to this element.
-		this.events = new EventsCollection();
+		this.events = new EventCollection();
 		this.events.set(document, 'scroll', onScroll.bind(this));
 
 	}
