@@ -2,8 +2,16 @@
  * @module		./components/form/Form
  */
 
+import { attachShadowToElement } from 'Components/shadow.js';
 import EventCollection from 'Utilities/events.js';
-import { onSubmit } from './events.js';
+import { createFormTemplate } from './template.js';
+import { 
+	onSubmit,
+	onSlotChange
+} from './events.js';
+
+// Create a template.
+const template = createFormTemplate();
 
 /**
  * Form wrapper element that creates an HTTP Post request
@@ -22,22 +30,13 @@ import { onSubmit } from './events.js';
 export default class HTMLAJAXFormElement extends HTMLElement {
 
 	/**
-	 * Attributes to trigger the attributeChangedCallback on.
-	 * 
-	 * @static
-	 * @get
-	 * @method	observedAttributes
-	 * @returns	{String[]}
-	 */
-	static get observedAttributes() {
-		return [];
-	}
-
-	/**
 	 * @constructor
 	 */
 	constructor() {
 		super();
+
+		// Attach Shadow DOM.
+		const shadow = attachShadowToElement.call(this, template);
 
 		// Create event property.
 		this.onresponse = null;
@@ -46,68 +45,9 @@ export default class HTMLAJAXFormElement extends HTMLElement {
 		this.events = new EventCollection();
 		this.events.set(this, 'submit', onSubmit.bind(this));
 
-	}
-
-	/**
-	 * Fires when an attribute has been changed.
-	 * 
-	 * @method	attributeChangedCallback
-	 * @param 	{String} attrName Name of attribute.
-	 * @param 	{*} oldValue Old value of attribute.
-	 * @param 	{*} newValue New value of attribute.
-	 */
-	attributeChangedCallback(attrName, oldValue, newValue) {
-
-	}
-
-	/**
-	 * Fires when the element has been connected.
-	 * 
-	 * @method	connectedCallback
-	 * @returns	{void}
-	 */
-	connectedCallback() {
-
-		// Select the form inside this element.
-		const form = this.querySelector('form');
-		if (form === null) {
-			return;
-		}
-
-		// Add the submit event listener to the form.
-		form.addEventListener('submit', this.onSubmit);
-
-	}
-
-	/**
-	 * Fires when the element has been disconnected.
-	 * 
-	 * @method	disconnectedCallback
-	 * @returns	{void}
-	 */
-	disconnectedCallback() {
-
-		// Select the form inside this element.
-		const form = this.querySelector('form');
-		if (form === null) {
-			return;
-		}
-
-		// Remove the submit event listener from the form.
-		form.removeEventListener('submit', this.onSubmit);
-
-	}
-
-	/**
-	 * Fires when the element has been adopted in a new document.
-	 * 
-	 * @method	connectedCallback
-	 * @returns	{void}
-	 */
-	adoptedCallback() {
-
-		this.disconnectedCallback();
-		this.connectedCallback();
+		// Get slot and listen for change.
+		const slot = shadow.querySelector('slot');
+		slot.addEventListener('slotchange', onSlotChange.bind(this));
 
 	}
 

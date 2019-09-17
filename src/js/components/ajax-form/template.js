@@ -14,20 +14,10 @@ export const createFormTemplate = () => createTemplate(/*template*/`
     
     <style>
 
-        *, 
-        *::before, 
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         :host {
             all: initial;
-            display: block;
+            display: contain;
             contain: content;
-            position: relative;
-            font-size: 100%;
         }
         
     </style>

@@ -33,12 +33,21 @@ export const onSubmit = async function onSubmit(event) {
 	event.preventDefault();
 };
 
+/**
+ * slotchange event handler.
+ * 
+ * @function	onSlotChange
+ * @param 		{Event} event 
+ * @returns		{void}
+ */
 export const onSlotChange = function onSlotChange(event) {
 
+	// Get the slot and the events
 	const { target } = event;
 	const elements = target.assignedElements();
 	const events = this.events.getByType('submit');
 
-	elements.forEach(element => element.addEventListener('submit', events[0].listener))
-
+	// Set the events to the assignedElements.
+	events.foreach(event => elements.forEach(element => element.addEventListener('submit', event.listener)));
+	
 };
