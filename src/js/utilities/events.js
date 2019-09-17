@@ -125,12 +125,30 @@ export default class EventCollection {
 	}
 
 	/**
+	 * @method	getByTarget
+	 * @param	{string} eventType Event type to find.
+	 * @returns	{EventEntry[]} An array of objects. 
+	 */
+	getByTarget(eventTarget) {
+		return this.entries.filter(({ target }) => target === eventTarget);
+	}
+
+	/**
 	 * @method	getByType
 	 * @param	{string} eventType Event type to find.
 	 * @returns	{EventEntry[]} An array of objects. 
 	 */
 	getByType(eventType) {
 		return this.entries.filter(({ type }) => type === eventType);
+	}
+
+	/**
+	 * @method	getByListener
+	 * @param 	{Function} eventListener 
+	 * @returns	{EventEntry[]} An array of objects. 
+	 */
+	getByListener(eventListener) {
+		return this.entries.filter(({ listener }) => listener === eventListener);
 	}
 
 }
