@@ -16,7 +16,9 @@
             href="<?php echo home_url(); ?>" 
             rel="home" 
             itemprop="url">
-            <?php the_logo(); ?>
+            <h1 class="title title--site" aria-label="<?php bloginfo( 'name' ); ?>">
+                <img src="<?php the_logo(); ?>" alt="<?php bloginfo( 'name' ); ?>"/>
+            </h1>
         </a>
 
         <ctrl-menu 
