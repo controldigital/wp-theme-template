@@ -32,3 +32,13 @@ export const onSubmit = async function onSubmit(event) {
 	// Prevent default submit.
 	event.preventDefault();
 };
+
+export const onSlotChange = function onSlotChange(event) {
+
+	const { target } = event;
+	const elements = target.assignedElements();
+	const events = this.events.getByType('submit');
+
+	elements.forEach(element => element.addEventListener('submit', events[0].listener))
+
+};
