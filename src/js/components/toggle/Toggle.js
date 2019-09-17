@@ -52,10 +52,8 @@ export default class HTMLtoggleElement extends HTMLElement {
 		attachShadowToElement.call(this, template);
 
 		// Select the slot.
-		this.slot = shadow.querySelector('slot[name="input"]');
-
-		// Bind the events.
-		this.onSlotChange = onSlotChange.bind(this);
+		const slot = shadow.querySelector('slot[name="input"]');
+		slot.addEventListener('slotchange', onSlotChange.bind(this));
 		
 	}
 
@@ -110,9 +108,6 @@ export default class HTMLtoggleElement extends HTMLElement {
 	 */
 	connectedCallback() {
 
-		// Add the event listeners.
-		this.slot.addEventListener('slotchange', this.onSlotChange);
-
 	}
 
 	/**
@@ -122,9 +117,6 @@ export default class HTMLtoggleElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	disconnectedCallback() {
-
-		// Remove the event listeners.
-		this.slot.removeEventListener('slotchange', this.onSlotChange);
 
 	}
 
