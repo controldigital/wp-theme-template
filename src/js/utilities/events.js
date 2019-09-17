@@ -3,12 +3,75 @@
  */
 
 /**
+ * EventEntry object constructor.
+ * 
+ * @class
+ */
+export class EventEntry {
+
+	/**
+	 * Set a event listener with a target, type, listener and optional options.
+	 * 
+	 * @constructor
+	 * @param 	{(EventTarget|HTMLElement)} target 
+	 * @param 	{string} type 
+	 * @param 	{Function} listener 
+	 * @param 	{(Object|boolean)} options 
+	 */
+	constructor(target, type, listener, options = false) {
+
+		// If target is not a suitable candidate for an event listener.
+		if (!(target instanceof EventTarget) && 
+			!(target instanceof HTMLElement) &&
+			!('addEventListener' in target)) {
+			throw new Error('target is not set or does not have the addEventListener method');
+		}
+		
+		// Type must be a string.
+		if ('string' !== typeof type) {
+			throw new Error('type is not a string');
+		}
+		
+		// Listener must be a function.
+		if ('function' !== typeof listener) {
+			throw new Error('listener is not a function');
+		}
+		
+		// Add properties.
+		this.target = target;
+		this.type = type;
+		this.listener = listener;
+		this.options = options;
+
+	}
+
+	/**
+	 * @method	add
+	 * @returns	{this}
+	 */
+	add() {
+		this.target.addEventListener(this.type, this.listener, this.options);
+		return this;
+	}
+
+	/**
+	 * @method	remove
+	 * @returns	{this}
+	 */	
+	remove() {
+		this.target.removeEventListener(this.type, this.listener, this.options);
+		return this;
+	}
+
+}
+
+/**
  * Collection of event listener parameters to add or remove multiple listeners. 
  * This can be used in classes or custom elements where the binding is important.
  * 
  * @class
  */
-export default class EventsCollection {
+export default class EventCollection {
 
 	/**
 	 * Creates a new array of event listener entries.
@@ -29,23 +92,11 @@ export default class EventsCollection {
 	 * @param 	{string} type 
 	 * @param 	{Function} listener 
 	 * @param 	{(Object|boolean)} options 
-	 * @returns	{Object[]} Returns the array with all the event parameters in objects.
+	 * @returns	{EventEntry[]} Returns the array with all the event parameters in objects.
 	 */
 	set(target, type, listener, options = false) {
-
-		if (!(target instanceof EventTarget) && !(target instanceof HTMLElement)) {
-			throw new Error('target is not set or does not have the addEventListener method');
-		}
-
-		if ('string' !== typeof type) {
-			throw new Error('type is not a string');
-		}
-
-		if ('function' !== typeof listener) {
-			throw new Error('listener is not a function');
-		}
-
-		this.entries.push({ target, type, listener, options });
+		const entry = new EventEntry(target, type, listener, options);
+		this.entries.push(entry);
 		return this.entries;
 	}
 
@@ -57,9 +108,7 @@ export default class EventsCollection {
 	 * @returns	{this}
 	 */
 	add() {
-		this.entries.forEach(({ target, type, listener, options }) => {
-			target.addEventListener(type, listener, options);
-		});
+		this.entries.forEach(entry => entry.add());
 		return this;
 	}
 
@@ -71,10 +120,17 @@ export default class EventsCollection {
 	 * @returns	{this} 
 	 */
 	remove() {
-		this.entries.forEach(({ target, type, listener, options }) => {
-			target.removeEventListener(type, listener, options);
-		});
+		this.entries.forEach(entry => entry.remove());
 		return this;
+	}
+
+	/**
+	 * @method	getByType
+	 * @param	{string} eventType Event type to find.
+	 * @returns	{EventEntry[]} An array of objects. 
+	 */
+	getByType(eventType) {
+		return this.entries.filter(({ type }) => type === eventType);
 	}
 
 }
