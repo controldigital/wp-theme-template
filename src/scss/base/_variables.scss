@@ -31,10 +31,12 @@
 	--font-varela-round: "Varela Round", Helvetica, Arial, Verdana, sans-serif;
     --font-dosis: "Dosis", Helvetica, Arial, Verdana, sans-serif;
     
-    /* Durations */
-    --duration-short: 150ms;
-	--duration-medium: 350ms;
-    --duration-long: 850ms;
+	/* Durations */
+	--duration-tiny: 150ms;
+    --duration-short: 350ms;
+	--duration-medium: 700ms;
+	--duration-long: 1050ms;
+	--duration-huge: 1400;
     
     /* 768px */
     @media screen and (min-width: 32em) {
