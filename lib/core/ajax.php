@@ -94,8 +94,8 @@ function get_posts_ajax() {
 	header( 'Content-Type: text/html' );
 
 	// Get the variables from the GET Request
-	$query_post_type		= isset( $_REQUEST[ 'post_type' ] ) ? explode( ',', $_REQUEST[ 'post_type' ] ) : array( 'post' );
-	$query_post_status		= isset( $_REQUEST[ 'post_status' ] ) ? explode( ',', $_REQUEST[ 'post_status' ] ) : array( 'publish' );	
+	$query_post_type		= isset( $_REQUEST[ 'post_type' ] ) ? $_REQUEST[ 'post_type' ] : array( 'post' );
+	$query_post_status		= isset( $_REQUEST[ 'post_status' ] ) ? $_REQUEST[ 'post_status' ] : array( 'publish' );	
 	$query_posts_per_page	= isset( $_REQUEST[ 'posts_per_page' ] ) ? $_REQUEST[ 'posts_per_page' ] : -1;
 	$query_paged			= isset( $_REQUEST[ 'paged' ] ) ? $_REQUEST[ 'paged' ] : 1;
 	$query_offset			= isset( $_REQUEST[ 'offset' ] ) ? $_REQUEST[ 'offset' ] : '';
@@ -105,8 +105,8 @@ function get_posts_ajax() {
 	$query_s				= isset( $_REQUEST[ 's' ] ) ? $_REQUEST[ 's' ] : '';
 	$query_cat				= isset( $_REQUEST[ 'cat' ] ) ? $_REQUEST[ 'cat' ] : '';
 	$query_tag				= isset( $_REQUEST[ 'tag' ] ) ? str_replace( ' ', ',', $_REQUEST[ 'tag' ] ) : '';
-	$query_post__in			= isset( $_REQUEST[ 'post__in'] ) ? explode( ',', $_REQUEST[ 'post__in' ] ) : array();
-	$query_post__not_in		= isset( $_REQUEST[ 'post__not_in' ] ) ? explode( ',', $_REQUEST[ 'post__not-in' ] ) : array();
+	$query_post__in			= isset( $_REQUEST[ 'post__in'] ) ? $_REQUEST[ 'post__in' ] : array();
+	$query_post__not_in		= isset( $_REQUEST[ 'post__not_in' ] ) ? $_REQUEST[ 'post__not-in' ] : array();
 	$query_meta_key			= isset( $_REQUEST[ 'meta_key' ] ) ? $_REQUEST[ 'meta_key' ] : '';
 	$query_meta_value		= isset( $_REQUEST[ 'meta_value' ] ) ? $_REQUEST[ 'meta_value' ] : '';
 
@@ -186,10 +186,9 @@ function get_posts_ajax() {
 			$query->the_post();
 			$post_type = get_post_type();
 
-			// Assign a template to load.
-			if ( $post_type === 'post' ) {
-				get_template_part( './inc/posts/post', 'card' );
-			}
+			// Change the output to what you prefer.
+			// The response is send as text.
+			the_content();
 
 		} wp_reset_postdata();
 	} else {
