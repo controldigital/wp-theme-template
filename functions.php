@@ -31,6 +31,7 @@ $templates = array(
 	'lib/core/helpers.php',				// Helper functions
 	'lib/core/meta.php',				// Meta functions
 	'lib/core/cookie.php',				// Cookie functions
+	'lib/core/forms.php',				// Form validation classes
 	
 	// Theme
 	'lib/theme/theme-support.php',		// Theme support configuration
