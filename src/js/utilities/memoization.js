@@ -2,7 +2,7 @@
  * @module		./utilities/memoization
  */
 
-import Cache from 'Utilities/Cache.js';
+import Cache from 'Utilities/cache.js';
 
 /**
  * Memoization function. It executes the callback and stores the result in 

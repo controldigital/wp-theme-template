@@ -1,5 +1,5 @@
 /**
- * @module		./utilities/Cache
+ * @module		./utilities/cache
  */
 
 /**

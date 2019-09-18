@@ -4,7 +4,7 @@
 
 // Import Web Component definer
 import { registerServiceWorker } from 'Utilities/sw.js';
-import Cookie from 'Utilities/Cookie.js';
+import Cookie from 'Utilities/cookie.js';
 import { 
 	getElement,
 	getElements 

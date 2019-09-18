@@ -1,5 +1,5 @@
 /**
- * @module      ./utilities/CustomElementsDefiner
+ * @module      ./utilities/custom-elements
  */
 
 import { defineElements } from './elements.js';

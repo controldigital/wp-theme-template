@@ -3,7 +3,7 @@
  */
 
 // Import list.
-import CustomElementsDefiner from 'Utilities/CustomElementsDefiner.js';
+import CustomElementsDefiner from 'Utilities/custom-elements.js';
 
 // Import custom elements.
 import HTMLAJAXFormElement from './ajax-form/AjaxForm.js';
