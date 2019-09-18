@@ -2,7 +2,8 @@
  * @module		./components/view/fetch
  */
 
-import Cache from 'Utilities/Cache.js';
+import Cache from 'Utilities/cache.js';
+import { isResponseOk } from 'Utilities/ajax.js';
 
 // Create a new cache instance.
 const cache = new Cache();
@@ -29,7 +30,7 @@ export const fetchURL = async function fetchURL(resource) {
 	const response = await fetch(url);
 
 	// Check the response.
-	if (response.ok && response.status == 200) {
+	if (isResponseOk(response)) {
 		const html = await response.text();
 		return html;
 	}
