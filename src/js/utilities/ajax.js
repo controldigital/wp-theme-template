@@ -2,10 +2,14 @@
  * @module		./utilities/ajax
  */
 
+import Cache from 'Utilities/cache.js';
 import { 
 	keysOfObjectToSnakeCase,
 	serializeObject
 } from 'Utilities/tools.js';
+
+// Create a new cache instance.
+const cache = new Cache();
 
 /**
  * Checks if a response object has the status of 200 and an OK respone.
@@ -53,6 +57,11 @@ export const getPosts = async (args = {}, action = 'get_posts_ajax', resource = 
 	const query = serializeObject(snakeArgs);
 	const url = new URL(resource);
 	url.search = query;
+
+	// Check if the query has already been fetched before.
+	if (cache.has(query)) {
+		return cache.get(query);
+	}
 
 	// Fetch the request.
 	const response = await fetch(url);
