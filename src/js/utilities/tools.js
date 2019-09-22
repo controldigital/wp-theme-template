@@ -75,6 +75,26 @@ export const convertKeysOfObject = (object, converterCallback) => {
 export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 /**
+ * Converts a number to a radius.
+ * Returns the number multiplied by PI divided by 180.
+ * 
+ * @function	numberToRadius
+ * @param 		{number} number Number to convert.
+ * @returns		{number} Number as radius.
+ */
+export const numberToRadius = number => number * Math.PI / 180;
+
+/**
+ * Converts a number to a degree.
+ * Returns the number multiplied by 180 divided by PI.
+ * 
+ * @function	numberToRadius
+ * @param 		{number} number Number to convert.
+ * @returns		{number} Number in degree.
+ */
+export const numberToDegree = number => number * 180 / Math.PI;
+
+/**
  * Checks if a number is between two numbers. 
  * Returns a true or false value.
  * 
@@ -82,7 +102,7 @@ export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min 
  * @param 		{number} index Number to compare.
  * @param 		{number} from More than and equal number.
  * @param 		{number} to Less than number.
- * @returns		{Boolean}
+ * @returns		{boolean}
  */
 export const isIndexBetween = (index, from, to) => {
 	return from <= index && index < to;
