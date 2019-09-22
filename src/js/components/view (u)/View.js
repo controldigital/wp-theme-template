@@ -53,9 +53,6 @@ export default class HTMLViewElement extends HTMLElement {
 		this.events.set(this, 'contentleaveend', onContentLeaveEnd.bind(this));
 		this.events.set(window, 'popstate', onPopState.bind(this));
 
-		// Set default ARIA attributes
-		this.setAttribute('aria-live', 'polite');
-
 	}
 
 	/**
@@ -211,6 +208,9 @@ export default class HTMLViewElement extends HTMLElement {
 		if (this.transitionOut === null) {
 			this.transitionOut = 0;
 		}
+
+		// Set default ARIA attributes
+		this.setAttribute('aria-live', 'polite');
 
 		// Add event listeners.
 		this.events.add();
