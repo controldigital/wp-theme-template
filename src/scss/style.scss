@@ -13,15 +13,15 @@
 @import "section/text";
 @import "section/forms";
 
+/* Components */
+@import "components/banner";
+
 /* Modules */
 @import "modules/cookie";
 @import "modules/header";
 @import "modules/main";
-@import "modules/hero";
 @import "modules/footer";
-
-/* Components */
-@import "components/banner";
+@import "modules/hero";
 
 /* Plugins */
 // @import "plugins/gforms";
