@@ -12,24 +12,31 @@
 	--color-text-dark: #45474b;
 
     /* Font base */
-    --font-size-base: 1em;
+    --font-size-base: 0.75em;
     --font-weight-base: 400;
     --text-line-height: 1.8;
     --text-shadow:rgb(119, 119, 119) 1px 1px;
 	
 	/* Heading sizes */
-	--font-size-h1: calc(var(--font-size-base) * 3.125);
+	--font-size-h1: calc(var(--font-size-base) * 2);
 	--font-size-h2: calc(var(--font-size-base) * 1.625);
 	--font-size-h3: calc(var(--font-size-base) * 1.25);
 	--font-size-h4: calc(var(--font-size-base) * 1.125);
 	--font-size-h5: calc(var(--font-size-base) * 1);
-    --font-size-h6: calc(var(--font-size-base) * 1);
+	--font-size-h6: calc(var(--font-size-base) * 1);
 
     /* Font families */
 	--font-open-sans: "Open Sans", Helvetica, Arial, Verdana, sans-serif;
 	--font-raleway: "Raleway", Helvetica, Arial, Verdana, sans-serif;
 	--font-varela-round: "Varela Round", Helvetica, Arial, Verdana, sans-serif;
-    --font-dosis: "Dosis", Helvetica, Arial, Verdana, sans-serif;
+	--font-dosis: "Dosis", Helvetica, Arial, Verdana, sans-serif;
+	
+	/* Links */
+	--link-color: 0;
+	--link-hover-color: 0;
+	--link-active-color: 0;
+	--link-focus-color: 0;
+	--link-visited-color: 0;
     
 	/* Durations */
 	--duration-tiny: 150ms;
@@ -43,14 +50,17 @@
     
     /* 768px */
     @media screen and (min-width: 48em) {
-		--font-size-h1: calc(var(--font-size-base) * 4.625);
-		--font-size-h2: calc(var(--font-size-base) * 2);
-		--font-size-h3: calc(var(--font-size-base) * 1.625);
-		--font-size-h4: calc(var(--font-size-base) * 1.25);
+
+		/* Font base */
+		--font-size-base: 1em;
+
 	}
 
 	@media screen and (min-width: 64em) {
+
+		/* Sizes */
 		--header-height: 6.25em;
+
 	}
     
 }
