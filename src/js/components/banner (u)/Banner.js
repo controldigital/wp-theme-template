@@ -54,20 +54,40 @@ export default class HTMLBannerElement extends HTMLElement {
 		const container = shadow.querySelector('container');
 		container.addEventListener('slotchange', onSlotChange.bind(this));
 
-	}
-	
-	/**
-	 * Gets and sets the threshold attribute.
-	 * @property
-	 */
-	get threshold() {
-		return parseInt(this.getAttribute('threshold'));
+		this.lastScrollTop = document.scrollingElement.scrollTop || document.documentElement.scrollTop;
+
 	}
 
-	set threshold(value) {
-		if (value !== Number.isNaN(value)) {
-			this.setAttribute('threshold', value);
-		} 
+	/**
+	 * Gets and sets the down attribute.
+	 * @property
+	 */
+	get down() {
+		return this.getAttribute('down');
+	}
+
+	set down(value) {
+		if (value === true) {
+			this.setAttribute('down', '');
+		} else {
+			this.removeAttribute('down');
+		}
+	}
+
+	/**
+	 * Gets and sets the room attribute.
+	 * @property
+	 */
+	get room() {
+		return this.getAttribute('room');
+	}
+
+	set room(value) {
+		if (value === true) {
+			this.setAttribute('room', '');
+		} else {
+			this.removeAttribute('room');
+		}
 	}
     
     /**
@@ -99,6 +119,36 @@ export default class HTMLBannerElement extends HTMLElement {
 			this.setAttribute('sticky', '');
 		} else {
 			this.removeAttribute('sticky');
+		}
+	}
+
+	/**
+	 * Gets and sets the threshold attribute.
+	 * @property
+	 */
+	get threshold() {
+		return parseInt(this.getAttribute('threshold'));
+	}
+
+	set threshold(value) {
+		if (value !== Number.isNaN(value)) {
+			this.setAttribute('threshold', value);
+		} 
+	}
+
+	/**
+	 * Gets and sets the up attribute.
+	 * @property
+	 */
+	get up() {
+		return this.getAttribute('up');
+	}
+
+	set up(value) {
+		if (value === true) {
+			this.setAttribute('up', '');
+		} else {
+			this.removeAttribute('up');
 		}
 	}
 

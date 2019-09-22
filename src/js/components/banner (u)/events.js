@@ -8,16 +8,40 @@
  * @returns		{void}
  */
 export const onScroll = function onScroll() {
-    const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop;
-    if (top >= this.threshold) {
-        if (this.scrolled === null) {
-            this.scrolled = true;
+    requestAnimationFrame(() => {
+        const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop;
+        if (top >= this.threshold) {
+            if (this.room !== null) {
+                if (top > this.lastScrollTop) {
+                    if (this.down !== null) {
+                        this.down = false;
+                    }
+                    this.up = true;
+                } else if (top < this.lastScrollTop) {
+                    if (this.up !== null) {
+                        this.up = false;
+                    }
+                    this.down = true;
+                }
+            }
+            if (this.scrolled === null) {
+                this.scrolled = true;
+            }
+        } else {
+            if (this.room !== null) {
+                if (this.up !== null) {
+                    this.up = false;
+                }
+                if (this.down !== null) {
+                    this.down = false;
+                }
+            }
+            if (this.scrolled !== null) {
+                this.scrolled = false;
+            }
         }
-    } else {
-        if (this.scrolled !== null) {
-            this.scrolled = false;
-        }
-    }
+        this.lastScrollTop = top;
+    });
 };
 
 /**
@@ -36,22 +60,5 @@ export const onSlotChange = function onSlotChange(event) {
     } else if (name === 'toggle') {
         this.toggles = elements;
     }
-
-	/**
-     * @function    clickPrev
-     * @param       {Event} event
-     * @returns     {void}
-     */
-    const toggleMenu = function toggleMenu(event) {
-        
-        if (!this.hasAttribute('aria-controls')) {
-            console.error
-        }
-
-        event.preventDefault();
-	}
-	
-	// Add click event listener to assigned nodes.
-	elements.forEach(node => node.addEventListener('click', clickNext));
 
 };
