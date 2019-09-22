@@ -2,7 +2,6 @@
  * @module		./components/form/Form
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import EventCollection from 'Utilities/events.js';
 import { createFormTemplate } from './template.js';
 import { 
@@ -36,7 +35,8 @@ export default class HTMLAJAXFormElement extends HTMLElement {
 		super();
 
 		// Attach Shadow DOM.
-		const shadow = attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Create event property.
 		this.onresponse = null;
