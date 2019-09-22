@@ -8,16 +8,15 @@
  * 
  * @function	isImageLazyLoadable
  * @param 		{HTMLImageElement} image The image to check
- * @returns		{Promise<(string|Error)} String of data-src attribute on resolve and Error on reject.
+ * @returns		{boolean} True when data attributes are present, false when not.
  */
-export const isImageLazyLoadable = image => 
-	new Promise((resolve, reject) => {
+export const isImageLazyLoadable = image => {
 		const src = image.getAttribute('data-src') || image.getAttribute('data-srcset');
 		if (src !== null) {
-			return resolve(src);
+			return true;
 		}
-		reject(new Error('No data-src of data-srcset found.'));
-	});
+		return false;
+	};
 
 /**
  * Checks if the source tags of a media element has a data-src tags
@@ -25,19 +24,17 @@ export const isImageLazyLoadable = image =>
  * 
  * @function	isMediaLazyLoadable
  * @param 		{(HTMLPictureElement|HTMLMediaElement)} media Picture, Video or Audio element.
- * @returns		{Promise<(string[]|Error)} An arrya with strings of data-src attributes on resolve and Error on reject.
+ * @returns		{boolean} True when data attributes are present, false when not.
  */
 export const isMediaLazyLoadable = media => {
 	const sources = media.querySelectorAll('source');
-	return Promise.all([...sources].map(source => 
-		new Promise((resolve, reject) => {
-			const src = source.getAttribute('data-src');
-			if (src !== null) {
-				return resolve(src);
-			}
-			reject(new Error('No data-src attribute found.'));
-		})
-	));
+	return [...sources].every(source => {
+		const src = source.getAttribute('data-src');
+		if (src !== null) {
+			return true;
+		}
+		return false;
+	});
 }
 
 /**
@@ -128,7 +125,7 @@ export const lazyLoadPicture = picture =>
 export const lazyLoadMedia = media => 
 	new Promise(resolve => {
 		const videoOnCanPlayThrough = () => resolve(media);
-		const sources = picture.querySelectorAll('source');
+		const sources = media.querySelectorAll('source');
 		lazyLoadSources(sources);
 		media.addEventListener('canplaythrough', videoOnCanPlayThrough, {once: true});
 		media.load();
