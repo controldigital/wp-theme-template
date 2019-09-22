@@ -1,30 +1,30 @@
 /**
- * @module	./components/define
+ * @module	./utilities/define
  */
 
 // Import list.
 import CustomElementsDefiner from 'Utilities/custom-elements.js';
 
 // Import custom elements.
-import HTMLAJAXFormElement from './ajax-form/AjaxForm.js';
-import HTMLBannerElement from './banner/Banner.js';
-import HTMLCardElement from './card/Card.js';
-import HTMLFabElement from './fab/Fab.js';
-import HTMLLazyElement from './lazy/Lazy.js';
-import HTMLLikeElement from './like/Like.js';
-import HTMLMenuElement from './menu/Menu.js';
-import HTMLMessageElement from './message/Message.js';
-import HTMLModalElement from './modal/Modal.js';
-import HTMLPanelElement from './tabs/Panel.js';
-import HTMLScrollBarElement from './scrollbar/Scrollbar.js';
-import HTMLSliderElement from './slider/Slider.js';
-import HTMLSlideElement from './slider/Slide.js';
-import HTMLTabsElement from './tabs/Tabs.js';
-import HTMLTabElement from './tabs/Tab.js';
-import HTMLTimeElement from './time/Time.js';
-import HTMLToggleElement from './toggle/Toggle.js';
-import HTMLTooltipElement from './tooltip/Tooltip.js';
-import HTMLViewElement from './view/View.js';
+import HTMLAJAXFormElement from 'Components/ajax-form/AjaxForm.js';
+import HTMLBannerElement from 'Components/banner/Banner.js';
+import HTMLCardElement from 'Components/card/Card.js';
+import HTMLFabElement from 'Components/fab/Fab.js';
+import HTMLLazyElement from 'Components/lazy/Lazy.js';
+import HTMLLikeElement from 'Components/like/Like.js';
+import HTMLMenuElement from 'Components/menu/Menu.js';
+import HTMLMessageElement from 'Components/message/Message.js';
+import HTMLModalElement from 'Components/modal/Modal.js';
+import HTMLPanelElement from 'Components/tabs/Panel.js';
+import HTMLScrollBarElement from 'Components/scrollbar/Scrollbar.js';
+import HTMLSliderElement from 'Components/slider/Slider.js';
+import HTMLSlideElement from 'Components/slider/Slide.js';
+import HTMLTabsElement from 'Components/tabs/Tabs.js';
+import HTMLTabElement from 'Components/tabs/Tab.js';
+import HTMLTimeElement from 'Components/time/Time.js';
+import HTMLToggleElement from 'Components/toggle/Toggle.js';
+import HTMLTooltipElement from 'Components/tooltip/Tooltip.js';
+import HTMLViewElement from 'Components/view/View.js';
 
 /**
  * A list with names and constructors for custom elements.
