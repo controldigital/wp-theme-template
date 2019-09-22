@@ -2,10 +2,10 @@
  * @module		./components/service/Service
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
+import { createPricingTableTemplate } from './template.js';
 
 // ID of HTML template for Shadow DOM.
-const templateId = 'template-pricing-table';
+const template = createPricingTableTemplate();
 
 /**
  * Element to display a pricing table.
@@ -34,7 +34,8 @@ export default class HTMLPricingTableElement extends HTMLElement {
 		super();
 
 		// Create a Shadow DOM.
-		attachShadowToElement.call(this, templateId);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 		
 	}
 
