@@ -2,13 +2,12 @@
  * @module		./components/banner/Banner
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
-import { createBannerTemplate } from './template.js';
+import { createBannerTemplate } from './template.js.js';
 import EventCollection from 'Utilities/events.js';
 import { 
 	onScroll,
 	onSlotChange
-} from './events.js';
+} from './events.js.js';
 import { hasFeatures } from 'Utilities/tools.js';
 
 // Creat a new template
@@ -44,7 +43,8 @@ export default class HTMLBannerElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		const shadow = attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 		
 		// Create a list of all events and their listeners.
 		this.events = new EventCollection();
@@ -83,6 +83,22 @@ export default class HTMLBannerElement extends HTMLElement {
 			this.setAttribute('scrolled', '');
 		} else {
 			this.removeAttribute('scrolled');
+		}
+	}
+
+	/**
+	 * Gets and sets the sticky attribute.
+	 * @property
+	 */
+	get sticky() {
+		return this.getAttribute('sticky');
+	}
+
+	set sticky(value) {
+		if (value === true) {
+			this.setAttribute('sticky', '');
+		} else {
+			this.removeAttribute('sticky');
 		}
 	}
 

@@ -32,9 +32,9 @@ export const onSlotChange = function onSlotChange(event) {
     const elements = target.assignedElements();
     
     if (name === 'menu') {
-
+        this.menus = element;
     } else if (name === 'toggle') {
-        
+        this.toggles = elements;
     }
 
 	/**
