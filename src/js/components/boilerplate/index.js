@@ -15,7 +15,7 @@ export default class CustomElement extends HTMLElement {
 	 * @static
 	 * @get
 	 * @method	observedAttributes
-	 * @returns	{String[]}
+	 * @returns	{string[]}
 	 */
 	static get observedAttributes() {
 		return [];
@@ -32,7 +32,7 @@ export default class CustomElement extends HTMLElement {
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
-	 * @param 	{String} attrName Name of attribute.
+	 * @param 	{string} attrName Name of attribute.
 	 * @param 	{*} oldValue Old value of attribute.
 	 * @param 	{*} newValue New value of attribute.
 	 */
