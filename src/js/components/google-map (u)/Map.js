@@ -2,7 +2,6 @@
  * @module		./components/google-map/Map
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createMapTemplate } from './template.js';
 import { 
 	addMarkersToMap, 
@@ -39,7 +38,8 @@ export default class HTMLGoogleMapElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		const shadow = attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Get the map element from the Shadow DOM.
 		const mapContainer = shadow.querySelector('.google-map');

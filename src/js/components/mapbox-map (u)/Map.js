@@ -3,7 +3,6 @@
  */
 
 import mapboxgl from 'mapbox-gl';
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 
 // Template for Shadow DOM.
@@ -35,7 +34,8 @@ export default class HTMLMapElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 		
 	}
 

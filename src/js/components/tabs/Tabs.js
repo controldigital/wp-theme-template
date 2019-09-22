@@ -4,7 +4,6 @@
 
 import EventCollection from 'Utilities/events.js';
 import { isIndexBetween } from 'Utilities/tools.js';
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 import {
 	onClick,
@@ -41,7 +40,8 @@ export default class HTMLTabsElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Bind the event handlers.
 		this.events = new EventCollection();
@@ -53,8 +53,8 @@ export default class HTMLTabsElement extends HTMLElement {
 		const panel = this.shadowRoot.querySelector('slot[name=panel]');
 
 		// Add event listeners for when a slot is used.
-		tab.addEventListener('slotchange', this.onSlotChange);
-		panel.addEventListener('slotchange', this.onSlotChange);
+		tab.addEventListener('slotchange', onSlotChange.call(this));
+		panel.addEventListener('slotchange', onSlotChange.call(this));
 
 	}
 

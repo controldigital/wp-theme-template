@@ -2,7 +2,6 @@
  * @module		./components/time/Time
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 import {
 	createCountdown,
@@ -42,7 +41,8 @@ export default class HTMLTimeElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Create interval property
 		this.interval = null;

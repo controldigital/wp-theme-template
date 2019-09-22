@@ -2,7 +2,6 @@
  * @module		./components/toggle/Toggle
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 import { onSlotChange } from './events.js';
 
@@ -49,7 +48,8 @@ export default class HTMLtoggleElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Select the slot.
 		const slot = shadow.querySelector('slot[name="input"]');

@@ -2,7 +2,7 @@
  * @module		./components/slider/Slide
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
+import { attachShadowToElement } from 'Utilities/shadow.js';
 import { createSlideTemplate } from './template.js';
 
 // Template for Shadow DOM.

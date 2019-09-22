@@ -2,7 +2,6 @@
  * @module		./components/slider/Slider
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import EventCollection from 'Utilities/events.js';
 import { createSliderTemplate } from './template.js';
 import {
@@ -56,7 +55,8 @@ export default class HTMLSliderElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		const shadow = attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Get the rails.
 		this.rails = shadow.querySelector('.rails');

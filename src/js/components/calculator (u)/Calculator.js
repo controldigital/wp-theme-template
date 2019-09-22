@@ -2,7 +2,6 @@
  * @module		./components/card/Card
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 import * as operators from './operators.js'
 import { onClick } from './events.js';
@@ -39,7 +38,8 @@ export default class HTMLCalculatorElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		this.memory = new Memory();
 

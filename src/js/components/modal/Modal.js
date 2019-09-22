@@ -2,7 +2,6 @@
  * @module		./components/modal/Modal
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import EventCollection from 'Utilities/events.js';
 import { createTemplate } from './template.js';
 import { 
@@ -39,7 +38,8 @@ export default class HTMLModalElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Bind the event handlers.
 		this.events = new EventCollection();

@@ -2,7 +2,6 @@
  * @module		./components/tooltip/Tooltip
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 
 // Create a template.
@@ -39,7 +38,8 @@ export default class HTMLMessageElement extends HTMLElement {
 		super();
 
 		// Create a new shadow.
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 	}
 

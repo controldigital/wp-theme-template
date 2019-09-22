@@ -2,7 +2,6 @@
  * @module		./components/like/Like
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 import { onClick } from './events.js';
 import { checkLocalStorageForId } from './storage.js';
@@ -40,7 +39,8 @@ export default class HTMLLikeElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Bind the event listener.
 		this.onClick = onClick.bind(this);

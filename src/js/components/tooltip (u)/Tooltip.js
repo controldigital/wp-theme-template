@@ -2,7 +2,6 @@
  * @module		./components/tooltip/Tooltip
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 import { 
 	onSlotChange,
@@ -40,7 +39,8 @@ export default class HTMLTooltipElement extends HTMLElement {
 		super();
 
 		// Create Shadow DOM
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Set the default attributes
 		this.setAttribute('role', 'tooltip');

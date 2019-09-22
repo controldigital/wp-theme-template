@@ -2,7 +2,6 @@
  * @module		./components/card/Card
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import EventCollection from 'Utilities/events.js';
 import { createTemplate } from './template.js';
 import { onScroll } from './events.js';
@@ -37,7 +36,8 @@ export default class HTMLScrollBarElement extends HTMLElement {
         super();
         
         // Add the shadow dom.
-        const shadow = attachShadowToElement.call(this, template);
+        const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
         // Save the bar element.
         this.bar = shadow.querySelector('.bar');

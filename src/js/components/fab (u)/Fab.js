@@ -2,7 +2,6 @@
  * @module		./components/fab/Fab
  */
 
-import { attachShadowToElement } from 'Components/shadow.js';
 import { createTemplate } from './template.js';
 import {
 	onMouseEnter,
@@ -42,7 +41,8 @@ export default class HTMLFabElement extends HTMLElement {
 		super();
 
 		// Create the Shadow DOM.
-		attachShadowToElement.call(this, template);
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
 
 		// Bind the events.
 		this.onMouseEnter = onMouseEnter.bind(this);
