@@ -12,14 +12,16 @@
 @import "section/wordpress";
 @import "section/text";
 @import "section/forms";
-@import "section/cookie";
-@import "section/header";
-@import "section/main";
-@import "section/hero";
-@import "section/footer";
+
+/* Modules */
+@import "modules/cookie";
+@import "modules/header";
+@import "modules/main";
+@import "modules/hero";
+@import "modules/footer";
+
+/* Components */
+@import "components/banner";
 
 /* Plugins */
 // @import "plugins/gforms";
-
-/* Modules */
-@import "modules/example";
