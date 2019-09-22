@@ -68,7 +68,9 @@ export const getPosts = async (args = {}, action = 'get_posts_ajax', resource = 
 
 	// If response succeeds return the html.
 	if (isResponseOk(response)) {
+		const clonedResponse = response.clone();
 		const html = await response.text();
+		cache.set(query, clonedResponse);
 		return html;
 	}
 
