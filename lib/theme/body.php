@@ -34,6 +34,9 @@ function body_cookie_scripts() {
 add_action( 'wp_body_open', 'body_open_theme_templates' );
 function body_open_theme_templates() {
 
+    // Browser Check
+    get_template_part( './inc/browser/browser-check' );
+
     // Splash screen
     get_template_part( './inc/loader/splash' );
 
