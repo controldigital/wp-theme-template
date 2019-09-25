@@ -53,5 +53,9 @@
     "mapbox-gl": "^1.2.0",
     "moment": "^2.24.0",
     "regenerator-runtime": "^0.13.2"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }
