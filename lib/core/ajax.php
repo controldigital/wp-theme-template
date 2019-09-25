@@ -16,15 +16,64 @@
  * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_nopriv_(action)
  * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
  */
-add_action( 'wp_ajax_nopriv_load_ajax', 'load_ajax') ;
-add_action( 'wp_ajax_load_ajax', 'load_ajax' );
-function load_ajax() {
-	header( 'Content-Type: text/html' );
-	global $post;
+// add_action( 'wp_ajax_nopriv_load_ajax', 'load_ajax') ;
+// add_action( 'wp_ajax_load_ajax', 'load_ajax' );
+// function load_ajax() {
+// 	header( 'Content-Type: text/html' );
+// 	global $post;
 	
-	// get_template_part( '' );
+// 	// Do something
 
-	wp_die();
+// 	die();
+// }
+
+/**
+ * load_ajax
+ * 
+ * Generic boilerplate function for handling
+ * an AJAX request 
+ * 
+ * @since	1.0
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_nopriv_(action)
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
+ */
+add_action( 'wp_ajax_nopriv_get_post_part_ajax', 'get_post_part') ;
+add_action( 'wp_ajax_get_post_part_ajax', 'get_post_part' );
+function get_post_content() {
+	header( 'Content-Type: text/html' );
+
+	// Get id of post.
+	$query_p = isset( $_REQUEST[ 'p' ] ) ? $_REQUEST[ 'p' ] : '';
+	$query_part = isset( $_REQUEST[ 'part' ] ) ? $_REQUEST[ 'part' ] : false;
+
+	// Send a message when no part is given.
+	if ($query_part === false) {
+		echo 'No part specified. Please specify the name of the part';
+	}
+	
+	// Create the arguments.
+	$args = array(
+		'post_type'			=> 'any',
+		'post_status'		=> array( 'publish' ),
+		'posts_per_page'	=> 1,
+		'p'					=> $query_p
+	);
+
+	// Create a new query.
+	$query = new WP_Query( $args );
+
+	// Loop over the query.
+	if ( $query->have_posts() ) {
+		while ( $query->have_posts() ) {
+			$query->the_post();
+
+			// Return the requested template.
+			get_template_part( './inc/content/content', $query_part );
+
+		} wp_reset_postdata();
+	}
+	
+	die();
 }
 
 /**
@@ -45,8 +94,8 @@ function get_posts_ajax() {
 	header( 'Content-Type: text/html' );
 
 	// Get the variables from the GET Request
-	$query_post_type		= isset( $_REQUEST[ 'post_type' ] ) ? explode( ',', $_REQUEST[ 'post_type' ] ) : array( 'post' );
-	$query_post_status		= isset( $_REQUEST[ 'post_status' ] ) ? explode( ',', $_REQUEST[ 'post_status' ] ) : array( 'publish' );	
+	$query_post_type		= isset( $_REQUEST[ 'post_type' ] ) ? $_REQUEST[ 'post_type' ] : array( 'post' );
+	$query_post_status		= isset( $_REQUEST[ 'post_status' ] ) ? $_REQUEST[ 'post_status' ] : array( 'publish' );	
 	$query_posts_per_page	= isset( $_REQUEST[ 'posts_per_page' ] ) ? $_REQUEST[ 'posts_per_page' ] : -1;
 	$query_paged			= isset( $_REQUEST[ 'paged' ] ) ? $_REQUEST[ 'paged' ] : 1;
 	$query_offset			= isset( $_REQUEST[ 'offset' ] ) ? $_REQUEST[ 'offset' ] : '';
@@ -56,8 +105,8 @@ function get_posts_ajax() {
 	$query_s				= isset( $_REQUEST[ 's' ] ) ? $_REQUEST[ 's' ] : '';
 	$query_cat				= isset( $_REQUEST[ 'cat' ] ) ? $_REQUEST[ 'cat' ] : '';
 	$query_tag				= isset( $_REQUEST[ 'tag' ] ) ? str_replace( ' ', ',', $_REQUEST[ 'tag' ] ) : '';
-	$query_post__in			= isset( $_REQUEST[ 'post__in'] ) ? explode( ',', $_REQUEST[ 'post__in' ] ) : array();
-	$query_post__not_in		= isset( $_REQUEST[ 'post__not_in' ] ) ? explode( ',', $_REQUEST[ 'post__not-in' ] ) : array();
+	$query_post__in			= isset( $_REQUEST[ 'post__in'] ) ? $_REQUEST[ 'post__in' ] : array();
+	$query_post__not_in		= isset( $_REQUEST[ 'post__not_in' ] ) ? $_REQUEST[ 'post__not-in' ] : array();
 	$query_meta_key			= isset( $_REQUEST[ 'meta_key' ] ) ? $_REQUEST[ 'meta_key' ] : '';
 	$query_meta_value		= isset( $_REQUEST[ 'meta_value' ] ) ? $_REQUEST[ 'meta_value' ] : '';
 
@@ -137,10 +186,9 @@ function get_posts_ajax() {
 			$query->the_post();
 			$post_type = get_post_type();
 
-			// Assign a template to load.
-			if ( $post_type === 'post' ) {
-				get_template_part( './inc/posts/post', 'card' );
-			}
+			// Change the output to what you prefer.
+			// The response is send as text.
+			the_title();
 
 		} wp_reset_postdata();
 	} else {

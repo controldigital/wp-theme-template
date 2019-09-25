@@ -43,9 +43,11 @@
             const splash = document.getElementById('splash');
             splash.remove();
         };
+
         const hide = () => {
             document.body.classList.add('page-ready'); 
         };
+
         const loaded = () => {
             hide();
             setTimeout(destroy, 350);

@@ -1,0 +1,103 @@
+/**
+ * general.scss
+ */
+
+:root {
+
+	/* Colors */
+	--color-light: #ffffff;
+	--color-dark: #000000;
+
+	/* Font base */
+	--font-size-base: 1em;
+	--text-line-height: 1.5;
+	
+	/* Heading sizes */
+	--font-size-h1: calc(var(--font-size-base) * 2.5);
+	--font-size-h2: calc(var(--font-size-base) * 2);
+	--font-size-h3: calc(var(--font-size-base) * 1.625);
+	--font-size-h4: calc(var(--font-size-base) * 1.25);
+	--font-size-h5: calc(var(--font-size-base) * 1);
+	--font-size-h6: calc(var(--font-size-base) * 1);
+
+	/* Margins */
+	--text-margin: 1em 0;
+
+	/* Transitions */
+	--transition-duration: 150ms;
+	--transition-delay: 0ms;
+	--transition-easing: ease-in-out;
+
+	/* Layout */
+	--container-max-width: 73.125rem;
+
+}
+
+::-moz-selection {
+	background: var(--color-dark);
+	color: var(--color-light);
+}
+
+::selection {
+	background: var(--color-dark);
+	color: var(--color-light);
+}
+
+*, *::before, *::after {
+	-webkit-box-sizing: inherit;
+	        box-sizing: inherit;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+
+	&.no-js {
+
+	}
+}
+
+body {
+	font-size: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	text-rendering: optimizeLegibility;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	
+	:hover {
+
+	}
+
+	:focus {
+		outline: 0;
+	}
+
+	:visited {
+
+	}
+
+}
+
+.embed-container {
+	@include media-16-9;
+
+	> iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+}

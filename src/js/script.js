@@ -26,13 +26,25 @@
  * SOFTWARE.
  */
 
-import '@babel/polyfill';
-import { hello } from "./modules/test";
+// Import regeneratorRuntime to convert async to generator functions.
+import regeneratorRuntime from 'regenerator-runtime';
 
+// Import modules.
+import {
+	serviceWorker,
+	cookie,
+	customElements,
+	menu
+} from 'Modules/core.js';
+
+// Main thread
 (function () {
 	'use strict';
 
-	hello();
-	// Place your code here and paste functions from other files if needed.
+	// Use modules
+	serviceWorker(`${wp.theme}/serviceworker.js`);
+	cookie();
+	customElements();
+	menu();
 
 }());

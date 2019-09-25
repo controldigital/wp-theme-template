@@ -1,36 +1,11 @@
+/**
+ * footer.scss
+ */
+
 .footer {
 
     &--default {
         padding: 3.125rem 0;
-    }
-
-    &__container {
-        width: 100%;
-        max-width: $container-width;
-        margin: 0 auto;
-        padding: 0 1rem;
-    }
-
-    &__row {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: stretch;
-        margin: 0 -1rem;
-    }
-
-    &__column {
-        flex: 1 0 100%;
-        padding: 0 1rem;
-        margin: 0 0 2rem;
-
-        @include breakpoint(480) {
-            flex: 1 0 50%;
-        }
-
-        @include breakpoint(768) {
-            flex: 1 0 25%;
-        }
-
     }
 
 }

@@ -1,0 +1,37 @@
+/**
+ * hero.scss
+ */
+
+.hero {
+	--hero-height: 31.25rem;
+	@include grid(1fr, 1fr minmax(min-content, var(--container-max-width)) 1fr, ". container .");
+	position: relative;
+	width: 100%;
+
+	&--default {
+		height: --hero-height;
+		@include breakpoint(768) {
+			--hero-height: 25rem;
+		}
+	}
+
+	&__thumbnail {
+		grid-area: 1 / 1 / 2 / 4;
+		@include background-cover;
+		background-color: var(--color-light);
+	}
+
+	&__container {
+		grid-area: container;
+		display: grid;
+		grid-template-rows: 1fr;
+		grid-template-columns: 1fr;
+		align-items: center;
+		padding: 0 1rem;
+	}
+
+	&__content {
+		
+	}
+
+}

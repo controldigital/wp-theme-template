@@ -5,7 +5,7 @@ module.exports = {
   mode: 'development',
   entry: './src/js/script.js',
   output: {
-    filename: './dist/script.js',
+    filename: './dist/js/script.js',
     path: path.resolve(__dirname)
   },
   module: {
@@ -16,11 +16,26 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env']
+            presets: [
+							[
+								'@babel/preset-env', {
+									useBuiltIns: "usage",
+									corejs: 3,
+								}
+							]
+						]
          }
         }
       },
     ]
+  },
+  resolve: {
+    alias: {
+      Components: path.resolve(__dirname, 'src/js/components'),
+      Modules: path.resolve(__dirname, 'src/js/modules'),
+      Utilities: path.resolve(__dirname, 'src/js/utilities'),
+      Vendor: path.resolve(__dirname, 'src/js/vendor')
+    }
   },
   optimization: {
     minimizer: [

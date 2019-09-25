@@ -2,6 +2,7 @@
 
 # Folders
 dist
+src/test
 node_modules
 .vscode
 

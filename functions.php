@@ -24,12 +24,14 @@ define( 'THEME_TEXT_DOMAIN', 'text_domain' );
 $templates = array(
 	
 	// Core
+	'lib/core/404.php',					// 404 functions
 	'lib/core/ajax.php',				// Ajax functions
 	'lib/core/cleanup.php',				// Head cleanup
 	'lib/core/filters.php',				// Filter hooks
 	'lib/core/helpers.php',				// Helper functions
 	'lib/core/meta.php',				// Meta functions
 	'lib/core/cookie.php',				// Cookie functions
+	'lib/core/forms.php',				// Form validation classes
 	
 	// Theme
 	'lib/theme/theme-support.php',		// Theme support configuration

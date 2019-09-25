@@ -1,17 +1,127 @@
+/* Text styles */
+@mixin text-styles {
+	font-size: var(--font-size-base);
+	font-weight: 400;
+	font-style: normal;
+	line-height: var(--text-line-height);
+	margin: var(--text-margin);
+}
+
+/* Background cover */
+@mixin background-cover {
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/* Image cover */
+@mixin image-cover {
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: cover;
+}
+
+/* Media container */
+@mixin media-container {
+	position: relative;
+	height: auto;
+	width: 100%;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+/* Media container 16:9 */
+@mixin media-16-9 {
+	@include media-container;
+	padding-top: 56.25%;
+}
+
+/* Media container 4:3 */
+@mixin media-4-3 {
+	@include media-container;
+	padding-top: 75%;
+}
+
+/* Grid */
+@mixin grid($rows-value: false, $columns-value: false, $areas-value: false) {
+	display: grid;
+	@if ($rows-value) {
+		grid-template-rows: $rows-value;
+	}
+	@if ($columns-value) {
+		grid-template-columns: $columns-value;
+	}
+	@if ($areas-value) {
+		grid-template-areas: $areas-value
+	}
+}
+
+/* Hidden */
+@mixin hidden {
+	opacity: 0;
+	visibility: hidden;
+}
+
+/* Visible */
+@mixin visible {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* Form styles reset */
+@mixin form-styles-reset {
+	appearance: none;
+	font-family: inherit;
+	background: none;
+	border: 0;
+}
+
+/* Form styles */
+@mixin form-styles {
+	font-family: inherit;
+	font-size: 1em;
+	font-weight: 400;
+	line-height: 1.5;
+	border: 1px solid #bbbbbb;
+	border-radius: 5px;
+	background: #f0f0f0;
+	padding: 0.875em 1.25em;
+	width: 100%;
+	overflow: hidden;
+}
+
+@mixin form-checkbox-radio-before {
+	content: "";
+	display: block;
+	width: 0.75em;
+	height: 0.75em;
+	background: #bbbbbb;
+	transform: scale(0);
+}
+
+/* Breakpoints */
 @mixin breakpoint($size) {
-    @if $size == 1440 {
-      @media (min-width: 90em) { @content ; }
-   }
-    @else if $size == 1280 {
-      @media (min-width: 80em) { @content ; }
-   }
-     @else if $size == 992 {
-      @media (min-width: 62em) { @content ; }
-   }
-    @else if $size == 768 {
-      @media (min-width: 48em)  { @content ; }
-   }
-   @else if $size == 480 {
-      @media (min-width: 30em)  { @content ; }
-   }
- }
+	@if ($size == "1440") {
+		@media (min-width: 90em) { 
+			@content; 
+		}
+	} @else if ($size == "1280") {
+		@media (min-width: 80em) { 
+			@content; 
+		}
+	} @else if ($size == "1024") {
+		@media (min-width: 64em) { 
+			@content; 
+		}
+	} @else if ($size == "768") {
+		@media (min-width: 48em) { 
+			@content; 
+		}
+	} @else if ($size == "480") {
+		@media (min-width: 30em) { 
+			@content; 
+		}
+	}
+}

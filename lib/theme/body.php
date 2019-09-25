@@ -5,7 +5,6 @@
  * Description:			Scripts and tags for in the body
  */
 
-
 /**
  * body_cookie_scripts
  * 
@@ -19,7 +18,7 @@ add_action( 'wp_body_open', 'body_cookie_scripts' );
 function body_cookie_scripts() {
 
     // Cookie body
-    get_template_part( './inc/cookies/cookies', 'body' );
+    get_template_part( './inc/cookie/cookie', 'body-start' );
 }
 
 /**

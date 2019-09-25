@@ -1,0 +1,125 @@
+/**
+ * @module		./components/menu/Menu
+ */
+
+/**
+ * Menu panel element that has the ability to open and close.
+ * 
+ * @class
+ * @extends	HTMLElement
+ */
+export default class HTMLMenuElement extends HTMLElement {
+
+	/**
+	 * Attributes to trigger the attributeChangedCallback on.
+	 * 
+	 * @static
+	 * @get
+	 * @method	observedAttributes
+	 * @returns	{String[]}
+	 */
+	static get observedAttributes() {
+		return ['open'];
+	}
+
+	/**
+	 * @constructor
+	 */
+	constructor() {
+		super();
+    }
+    
+    /**
+	 * Gets and sets the open attribute.
+	 * @property
+	 */
+	get open() {
+		const value = this.getAttribute('open');
+		if (value !== null) {
+			return true;
+		}
+		return false;
+	}
+
+	set open(value) {
+		if (value === true) {
+			this.setAttribute('open', '');
+		} else if (value === false) {
+			this.removeAttribute('open');
+		}
+	}
+
+	/**
+	 * Fires when an attribute has been changed.
+	 * 
+	 * @method	attributeChangedCallback
+	 * @param 	{String} attrName Name of attribute.
+	 * @param 	{*} oldValue Old value of attribute.
+	 * @param 	{*} newValue New value of attribute.
+	 */
+	attributeChangedCallback(attrName, oldValue, newValue) {
+
+        if (attrName === 'open') {
+            if (newValue !== null) {
+
+                const openEvent = new Event('open');
+                this.dispatchEvent(openEvent);
+
+            } else {
+
+                const closeEvent = new CustomEvent('close');
+                this.dispatchEvent(closeEvent);
+
+            }
+        }
+
+	}
+
+	/**
+	 * Fires when the element has been connected.
+	 * 
+	 * @method	connectedCallback
+	 * @returns	{void}
+	 */
+	connectedCallback() {
+
+	}
+
+	/**
+	 * Fires when the element has been disconnected.
+	 * 
+	 * @method	disconnectedCallback
+	 * @returns	{void}
+	 */
+	disconnectedCallback() {
+
+	}
+
+	/**
+	 * Fires when the element has been adopted in a new document.
+	 * 
+	 * @method	connectedCallback
+	 * @returns	{void}
+	 */
+	adoptedCallback() {
+
+	}
+
+	/**
+	 * Toggles between the open and closed states.
+	 * 
+	 * @method	toggle
+	 * @returns	{boolean}
+	 */
+	toggle() {
+
+		if (this.open === null) {
+			this.open = true;
+		} else {
+			this.open = false;
+		}
+		return this.open;
+
+	}
+
+}

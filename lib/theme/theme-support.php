@@ -42,37 +42,37 @@ function add_theme_features()  {
 	) );
 
 	// Add theme support for Custom Header
-	add_theme_support( 'custom-header', array(
-		'default-image' => '',
-		'random-default' => false,
-		'width' => 0,
-		'height' => 0,
-		'flex-height' => false,
-		'flex-width' => false,
-		'default-text-color' => '',
-		'header-text' => true,
-		'uploads' => true,
-		'wp-head-callback' => '',
-		'admin-head-callback' => '',
-		'admin-preview-callback' => '',
-		'video' => false,
-		'video-active-callback' => 'is_front_page',
-	) );
+	// add_theme_support( 'custom-header', array(
+	// 	'default-image' => '',
+	// 	'random-default' => false,
+	// 	'width' => 0,
+	// 	'height' => 0,
+	// 	'flex-height' => false,
+	// 	'flex-width' => false,
+	// 	'default-text-color' => '',
+	// 	'header-text' => true,
+	// 	'uploads' => true,
+	// 	'wp-head-callback' => '',
+	// 	'admin-head-callback' => '',
+	// 	'admin-preview-callback' => '',
+	// 	'video' => false,
+	// 	'video-active-callback' => 'is_front_page',
+	// ) );
 
 	// Add theme support for Custom Backgrounds
-	add_theme_support( 'custom-background', array(
-		'default-image' => '',
-		'default-preset' => 'default',
-		'default-position-x' => 'left',
-		'default-position-y' => 'top',
-		'default-size' => 'auto',
-		'default-repeat' => 'repeat',
-		'default-attachment' => 'scroll',
-		'default-color' => '',
-		'wp-head-callback' => '_custom_background_cb',
-		'admin-head-callback' => '',
-		'admin-preview-callback' => '',
-	) );
+	// add_theme_support( 'custom-background', array(
+	// 	'default-image' => '',
+	// 	'default-preset' => 'default',
+	// 	'default-position-x' => 'left',
+	// 	'default-position-y' => 'top',
+	// 	'default-size' => 'auto',
+	// 	'default-repeat' => 'repeat',
+	// 	'default-attachment' => 'scroll',
+	// 	'default-color' => '',
+	// 	'wp-head-callback' => '_custom_background_cb',
+	// 	'admin-head-callback' => '',
+	// 	'admin-preview-callback' => '',
+	// ) );
 
 	// Add theme support for selective refresh of widgets in customizer
 	add_theme_support( 'customize-selective-refresh-widgets' );

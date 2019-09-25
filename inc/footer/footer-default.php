@@ -7,9 +7,9 @@
 
 ?>
 
-<footer class="footer footer--default" role="contentinfo">
-	<div class="footer__container">
-		<div class="footer__row">
+<footer class="footer" role="contentinfo">
+	<div class="container">
+		<div class="row">
 
 			<?php if ( is_active_sidebar( 'sidebar-footer-1' ) ) { ?>
 				<div class="footer__column footer__column-1">

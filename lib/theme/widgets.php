@@ -106,15 +106,15 @@ class Button_Widget extends WP_Widget {
 		$type 	= ! empty ( $instance[ 'type' ] ) ? $instance[ 'type' ] : ''; ?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', THEME_TEXT_DOMAIN ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'link' ); ?>">Link</label>
+			<label for="<?php echo $this->get_field_id( 'link' ); ?>"><?php _e( 'Link', THEME_TEXT_DOMAIN ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'link' ); ?>" name="<?php echo $this->get_field_name( 'link' ); ?>" value="<?php echo esc_attr( $link ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'type' ); ?>">Button type</label>
+			<label for="<?php echo $this->get_field_id( 'type' ); ?>"><?php _e( 'Button type', THEME_TEXT_DOMAIN ); ?>:</label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'type' ); ?>">
 				<option value="button--standard" <?php if ($type === 'button--standard') echo 'selected'; ?>>Standaard</option>
 				<option value="button--alternate" <?php if ($type === 'button--alternate') echo 'selected'; ?>>Alternatief</option>
@@ -197,13 +197,13 @@ class Social_Widget extends WP_Widget {
 			echo '<div class="socials">';
 				echo '<ul class="socials__list">';
 					
-					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i class="fab fa-facebook"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
-					if( $twitter ) { echo '<li class="socials__item"><a class="socials__link" href="' . $twitter . '" rel="external" target="_blank" title="Twitter"><div class="socials__icon"><i class="fab fa-twitter"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Twitter</span>' : '' ) . '</a></li>'; }
-					if( $instagram ) { echo '<li class="socials__item"><a class="socials__link" href="' . $instagram . '" rel="external" target="_blank" title="Instagram"><div class="socials__icon"><i class="fab fa-instagram"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Instagram</span>' : '' ) . '</a></li>'; }
-					if( $pinterest ) { echo '<li class="socials__item"><a class="socials__link" href="' . $pinterest . '" rel="external" target="_blank" title="Pinterest"><div class="socials__icon"><i class="fab fa-pinterest"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Pinterest</span>' : '' ) . '</a></li>'; }
-					if( $google ) { echo '<li class="socials__item"><a class="socials__link" href="' . $google . '" rel="external" target="_blank" title="Google+"><div class="socials__icon"><i class="fab fa-google-plus"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Google+</span>' : '' ) . '</a></li>'; }
-					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i class="fab fa-linkedin"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
-					if( $youtube ) { echo '<li class="socials__item"><a class="socials__link" href="' . $youtube . '" rel="external" target="_blank" title="Youtube"><div class="socials__icon"><i class="fab fa-youtube"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Youtube</span>' : '' ) . '</a></li>'; }
+					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i aria-label="Facebook" class="fab fa-facebook"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
+					if( $twitter ) { echo '<li class="socials__item"><a class="socials__link" href="' . $twitter . '" rel="external" target="_blank" title="Twitter"><div class="socials__icon"><i aria-label="Twitter" class="fab fa-twitter"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Twitter</span>' : '' ) . '</a></li>'; }
+					if( $instagram ) { echo '<li class="socials__item"><a class="socials__link" href="' . $instagram . '" rel="external" target="_blank" title="Instagram"><div class="socials__icon"><i aria-label="Instagram" class="fab fa-instagram"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Instagram</span>' : '' ) . '</a></li>'; }
+					if( $pinterest ) { echo '<li class="socials__item"><a class="socials__link" href="' . $pinterest . '" rel="external" target="_blank" title="Pinterest"><div class="socials__icon"><i aria-label="Pinterest" class="fab fa-pinterest"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Pinterest</span>' : '' ) . '</a></li>'; }
+					if( $google ) { echo '<li class="socials__item"><a class="socials__link" href="' . $google . '" rel="external" target="_blank" title="Google+"><div class="socials__icon"><i aria-label="Google+" class="fab fa-google-plus"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Google+</span>' : '' ) . '</a></li>'; }
+					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i aria-label="Linkedin" class="fab fa-linkedin"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
+					if( $youtube ) { echo '<li class="socials__item"><a class="socials__link" href="' . $youtube . '" rel="external" target="_blank" title="Youtube"><div class="socials__icon"><i aria-label="Youtube" class="fab fa-youtube"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Youtube</span>' : '' ) . '</a></li>'; }
 	
 				echo '</ul>';
 			echo '</div>';
@@ -228,39 +228,39 @@ class Social_Widget extends WP_Widget {
 		$show_labels 	= ! empty( $instance[ 'show_labels' ] ) ? 'on' : ''; ?>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', THEME_TEXT_DOMAIN ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'facebook' ); ?>">Facebook</label>
+			<label for="<?php echo $this->get_field_id( 'facebook' ); ?>">Facebook:</label>
 			<input type="url" class="widefat" id="<?php echo $this->get_field_id( 'facebook' ); ?>" name="<?php echo $this->get_field_name( 'facebook' ); ?>" value="<?php echo esc_attr( $facebook ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'twitter' ); ?>">Twitter</label>
+			<label for="<?php echo $this->get_field_id( 'twitter' ); ?>">Twitter:</label>
 			<input type="url" class="widefat" id="<?php echo $this->get_field_id( 'twitter' ); ?>" name="<?php echo $this->get_field_name( 'twitter' ); ?>" value="<?php echo esc_attr( $twitter ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'instagram' ); ?>">Instagram</label>
+			<label for="<?php echo $this->get_field_id( 'instagram' ); ?>">Instagram:</label>
 			<input type="url" class="widefat" id="<?php echo $this->get_field_id( 'instagram' ); ?>" name="<?php echo $this->get_field_name( 'instagram' ); ?>" value="<?php echo esc_attr( $instagram ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'pinterest' ); ?>">Pinterest</label>
+			<label for="<?php echo $this->get_field_id( 'pinterest' ); ?>">Pinterest:</label>
 			<input type="url" class="widefat" id="<?php echo $this->get_field_id( 'pinterest' ); ?>" name="<?php echo $this->get_field_name( 'pinterest' ); ?>" value="<?php echo esc_attr( $pinterest ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'google' ); ?>">Google+</label>
+			<label for="<?php echo $this->get_field_id( 'google' ); ?>">Google+:</label>
 			<input type="url" class="widefat" id="<?php echo $this->get_field_id( 'google' ); ?>" name="<?php echo $this->get_field_name( 'google' ); ?>" value="<?php echo esc_attr( $google ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'linkedin' ); ?>">LinkedIn</label>
+			<label for="<?php echo $this->get_field_id( 'linkedin' ); ?>">LinkedIn:</label>
 			<input type="url" class="widefat" id="<?php echo $this->get_field_id( 'linkedin' ); ?>" name="<?php echo $this->get_field_name( 'linkedin' ); ?>" value="<?php echo esc_attr( $linkedin ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'youtube' ); ?>">Youtube</label>
+			<label for="<?php echo $this->get_field_id( 'youtube' ); ?>">Youtube:</label>
 			<input type="url" class="widefat" id="<?php echo $this->get_field_id( 'youtube' ); ?>" name="<?php echo $this->get_field_name( 'youtube' ); ?>" value="<?php echo esc_attr( $youtube ); ?>" />
 		</p>
 		<p>
-			<label for"<?php echo $this->get_field_id( 'show_labels' ); ?>">Toon labels van social links</label>
+			<label for"<?php echo $this->get_field_id( 'show_labels' ); ?>"><?php _e( 'Show labels of social links', THEME_TEXT_DOMAIN ); ?></label>
 			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_labels' ); ?>" name="<?php echo $this->get_field_name( 'show_labels' ); ?>" <?php checked( esc_attr( $show_labels ), 'on' ); ?> />
 		</p>
 		
@@ -388,11 +388,11 @@ class Highlight_Post_Widget extends WP_Widget {
 		?>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', THEME_TEXT_DOMAIN ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'highlight' ); ?>">Post to highlight:</label>
+			<label for="<?php echo $this->get_field_id( 'highlight' ); ?>"><?php _e( 'Post to highlight', THEME_TEXT_DOMAIN ); ?>:</label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'highlight' ); ?>" name="<?php echo $this->get_field_name( 'highlight' ); ?>">
 				<option value="">Pick a post</option>
 				<?php if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post(); ?>
