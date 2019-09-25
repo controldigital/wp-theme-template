@@ -133,7 +133,7 @@ export const cookie = () => {
 	 * @returns		{void}
 	 */
 	const removeCookieNotice = (notice) => {
-		notice.classList.add('cookie--hidden');
+		notice.classList.add('is-hidden');
 		setTimeout(() => {
 			notice.remove();
 		}, 350);
