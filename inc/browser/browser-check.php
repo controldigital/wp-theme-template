@@ -67,9 +67,11 @@
 
 				return false;
 			}
-            if (version !== false && version <= 17)  {
-				browserCheck.className += 'is-active';
-			}
+            if (version === false || version > 17)  {
+                return;
+            } else {
+                browserCheck.className += 'is-active';
+            }
             browserCheckButton.onclick = function(event) {
 				browserCheck.className = browserCheck.className.replace('is-active', '');
                 event.preventDefault();
