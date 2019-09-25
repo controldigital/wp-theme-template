@@ -139,7 +139,7 @@ function head_opengraph_meta() {
  * @link    https://codex.wordpress.org/Function_Reference/wp_head
  * @link    https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head
  */
-add_action( 'wp_head', 'head_favicon_links', 10 );
+/* add_action( 'wp_head', 'head_favicon_links', 10 );
 function head_favicon_links() { 
     ?>
 	    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri() . '/media/favicons/apple-touch-icon.png'; ?>">
@@ -147,7 +147,7 @@ function head_favicon_links() {
 	    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri() . '/media/favicons/favicon-16x16.png'; ?>">
 	    <link rel="mask-icon" href="<?php echo get_template_directory_uri() . '/media/favicons/safari-pinned-tab.svg'; ?>" color="#333333">
     <?php
-}
+} */
 
 /**
  * head_cookie_scripts
