@@ -7,7 +7,7 @@
 
     display: block;
     position: relative;
-    transition: background-color var(--transition-duration) var(--transition-easing), color var(--transition-duration) var(--transition-easing);
+    transition: background-color var(--duration) var(--transition-easing), color var(--duration) var(--transition-easing);
 
     &--default {
         width: 100%;

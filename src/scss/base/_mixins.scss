@@ -103,23 +103,23 @@
 
 /* Breakpoints */
 @mixin breakpoint($size) {
-	@if ($size == "huge") {
+	@if ($size == "1440") {
 		@media (min-width: 90em) { 
 			@content; 
 		}
-	} @else if ($size == "large") {
+	} @else if ($size == "1280") {
 		@media (min-width: 80em) { 
 			@content; 
 		}
-	} @else if ($size == "medium") {
+	} @else if ($size == "1024") {
 		@media (min-width: 64em) { 
 			@content; 
 		}
-	} @else if ($size == "small") {
+	} @else if ($size == "768") {
 		@media (min-width: 48em) { 
 			@content; 
 		}
-	} @else if ($size == "tiny") {
+	} @else if ($size == "480") {
 		@media (min-width: 30em) { 
 			@content; 
 		}
