@@ -5,21 +5,23 @@
 /* Base */
 @import "base/variables";
 @import "base/mixins";
-
-/* Sections */
-@import "section/reset";
-@import "section/global";
-@import "section/wordpress";
-@import "section/text";
-@import "section/forms";
+@import "base/reset";
+@import "base/global";
+@import "base/wordpress";
+@import "base/text";
+@import "base/form";
+@import "base/cookie";
 
 /* Components */
 @import "components/banner";
 
+/* Sections */
+@import "section/header";
+@import "section/footer";
+@import "section/main";
+
 /* Modules */
-@import "modules/cookie";
 @import "modules/header";
-@import "modules/main";
 @import "modules/footer";
 @import "modules/hero";
 
