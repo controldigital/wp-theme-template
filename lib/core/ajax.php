@@ -188,7 +188,7 @@ function get_posts_ajax() {
 
 			// Change the output to what you prefer.
 			// The response is send as text.
-			the_content();
+			the_title();
 
 		} wp_reset_postdata();
 	} else {

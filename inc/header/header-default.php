@@ -8,42 +8,35 @@
 ?>
 
 <header class="header header--default" role="banner">
-    <ctrl-banner class="header__container">
+    <div class="header__container">
 
-        <a 
-            slot="logo" 
-            class="logo logo--site" 
-            href="<?php echo home_url(); ?>" 
-            rel="home" 
-            itemprop="url">
-            <h1 class="title title--site" aria-label="<?php bloginfo( 'name' ); ?>">
-                <img src="<?php the_logo(); ?>" alt="<?php bloginfo( 'name' ); ?>"/>
-            </h1>
-        </a>
-
-        <ctrl-menu 
-            slot="menu" 
-            class="header__nav" 
-            id="header-menu" 
-            aria-labelledby="menu-toggle">
-            <?php get_template_part( './inc/navigation/nav', 'default' ); ?>
-            <?php get_sidebar( 'nav' ); ?>
-        </ctrl-menu>
-
-        <button 
-            slot="toggle"
-            id="menu-toggle" 
-            class="toggle js-toggle-menu" 
-            aria-haspopup="true" 
-            aria-controls="header-menu"
-            aria-expanded="false"
-            title="<?php _e( 'Toggle menu', THEME_TEXT_DOMAIN ); ?>">
-            <div class="toggle__inner">
-                <span></span>
-                <span></span>
-                <span></span>
+        <?php if ( get_the_logo() ) { ?>
+            <div class="header__logo">
+                <a class="logo logo--site" href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home" itemprop="url">
+                    <img src="<?php the_logo(); ?>" alt="<?php bloginfo( 'name' ); ?>">
+                </a>
             </div>
-        </button>
+        <?php } ?>
 
-    </ctrl-banner>
+        <div class="header__navigation" id="header-nav" aria-labelledby="menu-toggle">
+            <?php get_template_part( './inc/navigation/navigation', 'default' ); ?>
+            <?php get_sidebar( 'nav' ); ?>
+        </div>
+
+        <div class="header__mobile">
+			<button id="menu-toggle" 
+				class="toggle js-toggle-menu" 
+				aria-haspopup="true" 
+				aria-controls="header-nav"
+				aria-expanded="false"
+				title="<?php _e( 'Toggle menu', THEME_TEXT_DOMAIN ); ?>">
+				<div class="toggle__inner">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</button>
+        </div>
+
+    </div>
 </header>
