@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme:				Work At Textkernel
+ * Theme:				
  * Template:			customizer.php
  * Description:			Customizer modifications
  */
