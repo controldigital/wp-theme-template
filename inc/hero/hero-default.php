@@ -1,13 +1,13 @@
 <?php
 /**
  * Theme:			
- * Template:			hero-default.php
+ * Template:			hero.php
  * Description:			Default hero template
  */
 
 ?>
 
-<header class="hero hero--default">
+<header class="hero">
 	
 	<?php if ( has_post_thumbnail() ) { ?>
 		<div class="hero__thumbnail" style="background: url(<?php the_post_thumbnail_url(); ?>)"></div>

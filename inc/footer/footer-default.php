@@ -7,7 +7,7 @@
 
 ?>
 
-<footer class="footer footer--default" role="contentinfo">
+<footer class="footer" role="contentinfo">
 	<div class="container">
 		<div class="row">
 

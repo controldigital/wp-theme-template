@@ -19,10 +19,22 @@ add_action( 'widgets_init', 'theme_sidebars' );
 function theme_sidebars() {
 
 	$args = array(
-		'id'            => 'sidebar-nav',
-		'class'         => 'nav',
-		'name'          => __( 'Navigation Sidebar', THEME_TEXT_DOMAIN ),
-		'description'   => __( 'Widget area after the main navigation', THEME_TEXT_DOMAIN ),
+		'id'            => 'sidebar-menu',
+		'class'         => 'menu',
+		'name'          => __( 'Menu Sidebar', THEME_TEXT_DOMAIN ),
+		'description'   => __( 'Widget area after the main menu', THEME_TEXT_DOMAIN ),
+		'before_title'  => '',
+		'after_title'   => '',
+		'before_widget' => '<li id="%1$s">',
+		'after_widget'  => '</li>',
+	);
+	register_sidebar( $args );
+
+	$args = array(
+		'id'            => 'sidebar-header',
+		'class'         => 'header',
+		'name'          => __( 'Header Sidebar', THEME_TEXT_DOMAIN ),
+		'description'   => __( 'Widget area in the header', THEME_TEXT_DOMAIN ),
 		'before_title'  => '',
 		'after_title'   => '',
 		'before_widget' => '<li id="%1$s">',

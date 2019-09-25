@@ -1,13 +1,13 @@
 <?php
 /**
  * Theme:
- * Template:			header-default.php
+ * Template:			header.php
  * Description:			Default header template
  */
 
 ?>
 
-<header class="header header--default" role="banner">
+<header class="header" role="banner">
     <div class="header__container">
 
         <?php if ( get_the_logo() ) { ?>
@@ -20,7 +20,7 @@
 
         <div class="header__navigation" id="header-nav" aria-labelledby="menu-toggle">
             <?php get_template_part( './inc/navigation/navigation', 'default' ); ?>
-            <?php get_sidebar( 'nav' ); ?>
+            <?php get_template_part( './inc/sidebar/sidebar', 'menu' ); ?>
         </div>
 
         <div class="header__mobile">

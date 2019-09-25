@@ -7,7 +7,7 @@
 
 ?>
 
-<header class="header header--default" role="banner">
+<header class="header header--new" role="banner">
     <ctrl-banner class="header__container">
 
         <a 
