@@ -7,7 +7,7 @@
 
 ?>
 
-<header class="hero">
+<section class="hero">
 	
 	<?php if ( has_post_thumbnail() ) { ?>
 		<div class="hero__thumbnail" style="background: url(<?php the_post_thumbnail_url(); ?>)"></div>
