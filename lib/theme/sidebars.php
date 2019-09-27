@@ -90,4 +90,28 @@ function theme_sidebars() {
 	);
 	register_sidebar( $args );
 
+	$args = array(
+		'id'            => 'sidebar-footer-bottom-left',
+		'class'         => 'footer-bottom-left',
+		'name'          => __( 'Bottom left footer column', THEME_TEXT_DOMAIN ),
+		'description'   => __( 'Bottom left area in the footer at the end of the page.', THEME_TEXT_DOMAIN ),
+		'before_title'  => '<h6>',
+		'after_title'   => '</h6>',
+		'before_widget' => '<div class="widget" id="%1$s">',
+		'after_widget'  => '</div>',
+	);
+	register_sidebar( $args );
+
+	$args = array(
+		'id'            => 'sidebar-footer-bottom-right',
+		'class'         => 'footer-bottom-right',
+		'name'          => __( 'Bottom right footer column', THEME_TEXT_DOMAIN ),
+		'description'   => __( 'Bottom right area in the footer at the end of the page.', THEME_TEXT_DOMAIN ),
+		'before_title'  => '<h6>',
+		'after_title'   => '</h6>',
+		'before_widget' => '<div class="widget" id="%1$s">',
+		'after_widget'  => '</div>',
+	);
+	register_sidebar( $args );
+
 }

@@ -3,9 +3,64 @@
  */
 
 .footer {
+    --footer-grid-template:
+        "column-one column-two" auto
+        "column-three column-four" auto
+        "bottom-left bottom-right" auto / repeat(2, 1fr);
+    
+    display: block;
+    padding: 3.125rem 0;
 
-    &--default {
-        padding: 3.125rem 0;
+    &__container{
+        display: block;
+        width: 100%;
+        max-width: 71.25em;
+        margin: 0 auto;
+
+        @include breakpoint(768) {
+            display: grid;
+            grid-template: var(--footer-grid-template);
+            grid-gap: 2em;
+            gap: 2em;
+        }
+
+        @include breakpoint(1024) {
+            --footer-grid-template:
+                "column-one column-two column-three column-four" auto
+                "bottom-left bottom-left bottom-right bottom-right" auto / repeat(4, 1fr);
+        }
+    }
+
+    &__column {
+
+        &--1 {
+            grid-area: column-one;
+        }
+
+        &--2 {
+            grid-area: column-two;
+        }
+
+        &--3 {
+            grid-area: column-three;
+        }
+
+        &--4 {
+            grid-area: column-four;
+        }
+
+    }
+
+    &__bottom {
+
+        &--left {
+            grid-area: bottom-left;
+        }
+
+        &--right {
+            grid-area: bottom-right;
+        }
+
     }
 
 }
