@@ -95,6 +95,60 @@ export const numberToRadius = number => number * Math.PI / 180;
 export const numberToDegree = number => number * 180 / Math.PI;
 
 /**
+ * Convert a Fahrenheit temperature to Celcius.
+ * 
+ * @function	fahrenheitToCelcius
+ * @param		{number} temp The temperature value to convert.
+ * @returns		{number} The converted value.
+ */
+export const fahrenheitToCelcius = temp => (temp - 32) / 1.8;
+
+/**
+ * Convert a Fahrenheit temperature to Kelvin.
+ * 
+ * @function	fahrenheitToKelvin
+ * @param		{number} temp The temperature value to convert.
+ * @returns		{number} The converted value.
+ */
+export const fahrenheitToKelvin = temp => fahrenheitToCelcius(temp) + 273.15;
+
+/**
+ * Convert a Celcius temperature to Fahrenheit.
+ * 
+ * @function	celciusToFahrenheit
+ * @param		{number} temp The temperature value to convert.
+ * @returns		{number} The converted value.
+ */
+export const celciusToFahrenheit = temp => (temp * 1.8) + 32;
+
+/**
+ * Convert a Celcius temperature to Kelvin.
+ * 
+ * @function	celciusToKelvin
+ * @param		{number} temp The temperature value to convert.
+ * @returns		{number} The converted value.
+ */
+export const celciusToKelvin = temp => temp + 273.15;
+
+/**
+ * Convert a Kelvin temperature to Celcius.
+ * 
+ * @function	kelvinToCelcius
+ * @param		{number} temp The temperature value to convert.
+ * @returns		{number} The converted value.
+ */
+export const kelvinToCelcius = temp => temp - 273.15;
+
+/**
+ * Convert a Kelvin temperature to Fahrenheit.
+ * 
+ * @function	kelvinToFahrenheit
+ * @param		{number} temp The temperature value to convert.
+ * @returns		{number} The converted value.
+ */
+export const kelvinToFahrenheit = temp => celciusToFahrenheit(kelvinToCelcius(273.15));
+
+/**
  * Checks if a number is between two numbers. 
  * Returns a true or false value.
  * 
