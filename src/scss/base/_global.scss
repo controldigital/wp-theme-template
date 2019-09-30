@@ -4,33 +4,6 @@
 
 :root {
 
-	/* Colors */
-	--color-light: #ffffff;
-	--color-dark: #000000;
-
-	/* Font base */
-	--font-size-base: 1em;
-	--text-line-height: 1.5;
-	
-	/* Heading sizes */
-	--font-size-h1: calc(var(--font-size-base) * 2.5);
-	--font-size-h2: calc(var(--font-size-base) * 2);
-	--font-size-h3: calc(var(--font-size-base) * 1.625);
-	--font-size-h4: calc(var(--font-size-base) * 1.25);
-	--font-size-h5: calc(var(--font-size-base) * 1);
-	--font-size-h6: calc(var(--font-size-base) * 1);
-
-	/* Margins */
-	--text-margin: 1em 0;
-
-	/* Transitions */
-	--transition-duration: 150ms;
-	--transition-delay: 0ms;
-	--transition-easing: ease-in-out;
-
-	/* Layout */
-	--container-max-width: 73.125rem;
-
 }
 
 ::-moz-selection {
