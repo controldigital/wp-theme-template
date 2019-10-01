@@ -35,10 +35,9 @@ export const debounce = (callback, wait, immediate = false) => {
  * @param 		{number} wait Milliseconds to wait.
  * @returns		{Promise}
  */
-export const sleep = (wait) => 
-	new Promise(resolve => {
-	  setTimeout(resolve, wait);
-	});
+export const sleep = (wait) => new Promise(resolve => { 
+	setTimeout(resolve, wait);
+});
 
 /**
  * Converts the keys of an object to a new format.
@@ -146,7 +145,7 @@ export const kelvinToCelcius = temp => temp - 273.15;
  * @param		{number} temp The temperature value to convert.
  * @returns		{number} The converted value.
  */
-export const kelvinToFahrenheit = temp => celciusToFahrenheit(kelvinToCelcius(273.15));
+export const kelvinToFahrenheit = temp => celciusToFahrenheit(kelvinToCelcius(temp));
 
 /**
  * Checks if a number is between two numbers. 
@@ -161,6 +160,38 @@ export const kelvinToFahrenheit = temp => celciusToFahrenheit(kelvinToCelcius(27
 export const isIndexBetween = (index, from, to) => {
 	return from <= index && index < to;
 }
+
+/**
+ * Check if screen is a mobile display.
+ * 
+ * @function	isMobileWidth
+ * @returns		{boolean}
+ */
+export const isMobileWidth = () => window.innerWidth < 768;
+
+/**
+ * Check if screen is a tablet display.
+ * 
+ * @function	isTabletWidth
+ * @returns		{boolean}
+ */
+export const isTabletWidth = () => window.innerWidth >= 768 && window.innerWidth <= 1280;
+
+/**
+ * Check if screen is a laptop display.
+ * 
+ * @function	isLaptopWidth
+ * @returns		{boolean}
+ */
+export const isLaptopWidth = () => window.innerWidth >= 1280 && window.innerWidth <= 1920;
+
+/**
+ * Check if device has touch capabilities.
+ * 
+ * @function	isTouchDevice
+ * @returns		{boolean}
+ */
+export const isTouchDevice = () => ('ontouchstart' in document.documentElement);
 
 /**
  * Converts the comma's in a string to dots.
@@ -336,12 +367,6 @@ export const replaceLastStringOccurence = (source = '', target = '', replacement
 	array[source.lastIndexOf(target)] = replacement;
 	return array.join("");
 };
-
-/**
- * @typedef		isTouchDevice
- * @type		{boolean}
- */
-export const isTouchDevice = 'ontouchstart' in document.documentElement;
 
 /**
  * Checks if the browser supports a property.
