@@ -9,7 +9,7 @@ import {
 	getElement,
 	getElements 
 } from 'Utilities/elements.js';
-import definer from 'Components/define.js';
+import definer from 'Utilities/define.js';
 
 /**
  * Service Worker module.

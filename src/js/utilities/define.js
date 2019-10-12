@@ -7,24 +7,24 @@ import CustomElementsDefiner from 'Utilities/custom-elements.js';
 
 // Import custom elements.
 import HTMLAJAXFormElement from 'Components/ajax-form/AjaxForm.js';
-import HTMLBannerElement from 'Components/banner/Banner.js';
+import HTMLBannerElement from 'Components/banner (u)/Banner.js';
 import HTMLCardElement from 'Components/card/Card.js';
-import HTMLFabElement from 'Components/fab/Fab.js';
+import HTMLFabElement from 'Components/fab (u)/Fab.js';
 import HTMLLazyElement from 'Components/lazy/Lazy.js';
-import HTMLLikeElement from 'Components/like/Like.js';
+import HTMLLikeElement from 'Components/like (u)/Like.js';
 import HTMLMenuElement from 'Components/menu/Menu.js';
-import HTMLMessageElement from 'Components/message/Message.js';
+import HTMLMessageElement from 'Components/message (u)/Message.js';
 import HTMLModalElement from 'Components/modal/Modal.js';
 import HTMLPanelElement from 'Components/tabs/Panel.js';
-import HTMLScrollBarElement from 'Components/scrollbar/Scrollbar.js';
+import HTMLScrollBarElement from 'Components/scrollbar (u)/Scrollbar.js';
 import HTMLSliderElement from 'Components/slider/Slider.js';
 import HTMLSlideElement from 'Components/slider/Slide.js';
 import HTMLTabsElement from 'Components/tabs/Tabs.js';
 import HTMLTabElement from 'Components/tabs/Tab.js';
-import HTMLTimeElement from 'Components/time/Time.js';
-import HTMLToggleElement from 'Components/toggle/Toggle.js';
-import HTMLTooltipElement from 'Components/tooltip/Tooltip.js';
-import HTMLViewElement from 'Components/view/View.js';
+import HTMLTimeElement from 'Components/time (u)/Time.js';
+import HTMLToggleElement from 'Components/toggle (u)/Toggle.js';
+import HTMLTooltipElement from 'Components/tooltip (u)/Tooltip.js';
+import HTMLViewElement from 'Components/view (u)/View.js';
 
 /**
  * A list with names and constructors for custom elements.
