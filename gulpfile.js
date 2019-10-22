@@ -115,6 +115,7 @@ gulp.task('critical', () => {
 gulp.task('watch', () => {
 	gulp.watch('./src/scss/*/*.scss', ['styles']);
 	gulp.watch('./src/js/*/*.js', ['scripts']);
+	gulp.watch('./src/js/*.js', ['scripts']);
 });
 
 /**
