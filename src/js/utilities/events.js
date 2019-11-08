@@ -92,12 +92,12 @@ export default class EventCollection {
 	 * @param 	{string} type 
 	 * @param 	{Function} listener 
 	 * @param 	{(Object|boolean)} options 
-	 * @returns	{EventEntry[]} Returns the array with all the event parameters in objects.
+	 * @returns	{this} Returns the instance for method chaining.
 	 */
 	set(target, type, listener, options = false) {
 		const entry = new EventEntry(target, type, listener, options);
 		this.entries.push(entry);
-		return this.entries;
+		return this;
 	}
 
 	/**
