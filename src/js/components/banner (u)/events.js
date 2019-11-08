@@ -45,18 +45,22 @@ export const onScroll = function onScroll() {
 };
 
 /**
+ * Registers all changed slot elements and stores the assigned elements
+ * to a propery on the custom element.
+ * 
  * @function	onSlotChange
  * @returns		{void}
  */
-export const onSlotChange = function onSlotChange(event) {
+export const onSlotChange = function onSlotChange({ target }) {
     
     // Get next assigned nodes.
-    const { target } = event;
     const { name } = target;
     const elements = target.assignedElements();
     
     if (name === 'menu') {
-        this.menus = element;
+        this.menus = elements;
+    } else if (name === 'sidebar') {
+        this.sidebars = elements;
     } else if (name === 'toggle') {
         this.toggles = elements;
     }

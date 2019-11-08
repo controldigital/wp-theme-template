@@ -1,11 +1,11 @@
 /**
- * @module      ./component/banner/template
+ * @module      ./components/banner/template
  */
 
 import { createTemplate } from 'Utilities/elements.js';
 
 /**
- * Creates a template specific for the slide element.
+ * Creates a template specific for the banner element.
  * 
  * @function        createSlideTemplate
  * @returns         {HTMLTemplateElement}
@@ -23,6 +23,7 @@ export const createBannerTemplate = () => createTemplate(/*template*/`
         }
 
         :host {
+            --banner-height: 4.25em;
             --banner-background-color: var(--color-light);
             --banner-sticky-top: 0;
             --banner-sticky-left: 0;
@@ -60,7 +61,10 @@ export const createBannerTemplate = () => createTemplate(/*template*/`
         .container {
             display: grid;
             grid-template:
-                "logo toggle" 1fr var(--header-height) / var(--header-height);
+                "logo sidebar toggle" auto auto var(--banner-height) / var(--banner-height);
+            grid-column-gap: 1em;
+            column-gap: 1em;
+            padding: 0 1em;
         }
 
         .logo,
@@ -72,6 +76,11 @@ export const createBannerTemplate = () => createTemplate(/*template*/`
 
         .logo {
             grid-area: logo;
+        }
+
+        .sidebar {
+            grid-area: sidebar;
+            margin-left: auto;
         }
 
         .menu {
@@ -86,15 +95,23 @@ export const createBannerTemplate = () => createTemplate(/*template*/`
             grid-area: toggle;
         }
 
-        @media screen and (min-width: 64em) {
+        /**
+         * Tablet and above
+         */
+        @media screen and (calc(min-width: 64em + 1px)) {
 
             .container {
                 grid-template:
-                    "logo menu" 1fr auto / var(--header-height);
+                    "logo menu sidebar" auto auto auto / var(--banner-height);
+            }
+
+            .sidebar {
+                margin-left: 0;
             }
 
             .menu {
                 position: relative;
+                margin-left: auto;
             }
 
             .toggle {
@@ -107,11 +124,14 @@ export const createBannerTemplate = () => createTemplate(/*template*/`
 
 	<div class="container">
 		<div class="logo">
-			<slot name="logo">
+			<slot name="logo"></slot>
 		</div>
 		<div class="menu">
-			<slot name="menu">
-		</div>
+			<slot name="menu"></slot>
+        </div>
+        <div class="sidebar">
+            <slot name="sidebar"></slot>
+        </div>
 		<div class="toggle">
 			<slot name="toggle"></slot>
 		</div>

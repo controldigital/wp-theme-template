@@ -47,13 +47,14 @@ export default class HTMLBannerElement extends HTMLElement {
 		shadow.appendChild(template.content.cloneNode(true));
 		
 		// Create a list of all events and their listeners.
-		this.events = new EventCollection();
-		this.events.set(document, 'scroll', onScroll.bind(this), passive);
+		this.events = new EventCollection()
+			.set(document, 'scroll', onScroll.bind(this), passive);
 
 		// Get the toggle slot and listen for the onSlotChange event.
 		const container = shadow.querySelector('container');
 		container.addEventListener('slotchange', onSlotChange.bind(this));
 
+		// Save last scrolled position.
 		this.lastScrollTop = document.scrollingElement.scrollTop || document.documentElement.scrollTop;
 
 	}
