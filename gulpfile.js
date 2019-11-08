@@ -98,7 +98,7 @@ gulp.task('critical', () => {
 				height: 900,
 				userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' // pretend to be googlebot when grabbing critical page styles.
 			}))
-			.pipe(cleanCSS({compatibility: 'ie10+'}))
+			.pipe(cleanCSS({compatibility: 'ie11+'}))
 			.pipe(concat.header('<style>'))
 			.pipe(concat.footer('</style>'))
 			.pipe(gulp.dest('./dist/critical/'));
