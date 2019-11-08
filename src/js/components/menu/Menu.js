@@ -1,9 +1,19 @@
 /**
- * @module		./components/menu/Menu
+ * @module		./components/../..
  */
 
+import { createMenuTemplate } from './template.js';
+import EventCollection from 'Utilities/events.js';
+import { onClick } from './events.js';
+
+// Create template.
+const template = createMenuTemplate();
+
+// Types that are accepted.
+const acceptedTypes = ['hamburger', 'falafel', 'kebab', 'sate'];
+
 /**
- * Menu panel element that has the ability to open and close.
+ * Menu element
  * 
  * @class
  * @extends	HTMLElement
@@ -16,36 +26,68 @@ export default class HTMLMenuElement extends HTMLElement {
 	 * @static
 	 * @get
 	 * @method	observedAttributes
-	 * @returns	{String[]}
+	 * @returns	{string[]}
 	 */
 	static get observedAttributes() {
-		return ['open'];
+		return ['active', 'target'];
 	}
 
 	/**
 	 * @constructor
 	 */
 	constructor() {
-		super();
+        super();
+        
+        // Create the Shadow DOM.
+		const shadow = this.attachShadow({mode: 'open'});
+		shadow.appendChild(template.content.cloneNode(true));
+		
+		// Create a list of all events and their listeners.
+        this.events = new EventCollection().set(this, 'click', onClick.bind(this));
+
+    }
+
+    /**
+	 * Gets and sets the active attribute.
+	 * @property
+	 */
+	get active() {
+		return this.getAttribute('active');
+	}
+
+	set active(value) {
+		if (value === true) {
+			this.setAttribute('active', '');
+		} else {
+			this.removeAttribute('active');
+		}
+	}
+    
+    /**
+	 * Gets and sets the target attribute.
+	 * @property
+	 */
+	get target() {
+		return this.getAttribute('target');
+	}
+
+	set target(value) {
+		if ('string' === typeof value) {
+			this.setAttribute('target', value);
+		}
     }
     
     /**
-	 * Gets and sets the open attribute.
+	 * Gets and sets the type attribute.
 	 * @property
 	 */
-	get open() {
-		const value = this.getAttribute('open');
-		if (value !== null) {
-			return true;
-		}
-		return false;
+	get type() {
+		return this.getAttribute('type');
 	}
 
-	set open(value) {
-		if (value === true) {
-			this.setAttribute('open', '');
-		} else if (value === false) {
-			this.removeAttribute('open');
+	set type(value) {
+		if ('string' === typeof value && acceptedTypes.some(type => type === value)) {
+			this.setAttribute('type', value);
 		}
 	}
 
@@ -53,27 +95,34 @@ export default class HTMLMenuElement extends HTMLElement {
 	 * Fires when an attribute has been changed.
 	 * 
 	 * @method	attributeChangedCallback
-	 * @param 	{String} attrName Name of attribute.
+	 * @param 	{string} attrName Name of attribute.
 	 * @param 	{*} oldValue Old value of attribute.
 	 * @param 	{*} newValue New value of attribute.
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
 
-        if (attrName === 'open') {
-            if (newValue !== null) {
-
-                const openEvent = new Event('open');
-                this.dispatchEvent(openEvent);
-
-            } else {
-
-                const closeEvent = new CustomEvent('close');
-                this.dispatchEvent(closeEvent);
-
-            }
+        switch(attrName) {
+            case 'active':
+                if (newValue === '') {
+                    const openEvent = new Event('open');
+                    this.dispatchEvent(openEvent);
+                    this.setAttribute('aria-expanded', true);
+                } else {
+                    const closeEvent = new Event('close');
+                    this.dispatchEvent(closeEvent);
+                    this.setAttribute('aria-expanded', false);
+                }
+                break;
+            case 'target':
+                const targetElement = document.getElementById(newValue);
+                if (target !== null) {
+                    this.targetElement = targetElement;
+                    this.setAttribute('aria-controls', newValue);
+                }
+				break;
         }
 
-	}
+    }
 
 	/**
 	 * Fires when the element has been connected.
@@ -82,6 +131,19 @@ export default class HTMLMenuElement extends HTMLElement {
 	 * @returns	{void}
 	 */
 	connectedCallback() {
+
+		// Set default target value.
+        if (this.target === null) {
+            throw new Error('Hamburger element requires a target attribute with an id of the element it controls');
+        }
+
+		// Set default type value.
+        if (this.type === null) {
+            this.type = 'hamburger';
+        }
+
+        // Add all event listeners.
+        this.events.add();
 
 	}
 
@@ -93,6 +155,9 @@ export default class HTMLMenuElement extends HTMLElement {
 	 */
 	disconnectedCallback() {
 
+        // Remove all event listeners.
+        this.events.remove();
+
 	}
 
 	/**
@@ -103,22 +168,8 @@ export default class HTMLMenuElement extends HTMLElement {
 	 */
 	adoptedCallback() {
 
-	}
-
-	/**
-	 * Toggles between the open and closed states.
-	 * 
-	 * @method	toggle
-	 * @returns	{boolean}
-	 */
-	toggle() {
-
-		if (this.open === null) {
-			this.open = true;
-		} else {
-			this.open = false;
-		}
-		return this.open;
+        // Remove and add event listeners.
+        this.events.remove().add();
 
 	}
 
