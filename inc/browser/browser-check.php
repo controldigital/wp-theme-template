@@ -6,7 +6,7 @@
  */
 ​
 ?>
-​
+
 <div id="browser-check">
     <style>
 
