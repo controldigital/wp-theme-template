@@ -6,18 +6,23 @@
  */
 
 
-/** 
- * Disabled REST API
+/**
+ * bks_disable_rest_response
  * 
- * Uncomment disable the REST API from this 
- * theme. Currently standard uncommented to prevent
- * human errors.
+ * Makes sure that only logged in users can get a response.
+ * 
+ * @link	https://developer.wordpress.org/reference/hooks/rest_authentication_errors/
  */
-add_filter( 'json_enabled', '__return_false' );
-add_filter( 'json_jsonp_enabled', '__return_false' );
-remove_action( 'xmlrpc_rsd_apis', 'rest_output_rsd' );
-remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-remove_action( 'template_redirect', 'rest_output_link_header', 11 );
+add_filter( 'rest_authentication_errors', 'bks_disable_rest_response' );
+function bks_disable_rest_response( $result ) {
+    if ( ! empty( $result ) ) {
+        return $result;
+    }
+    if ( ! is_user_logged_in() ) {
+        return new WP_Error( 'rest_not_logged_in', 'You are not currently logged in.', array( 'status' => 401 ) );
+    }
+    return $result;
+}
 
 /**
  * Modify REST API responses
