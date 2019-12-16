@@ -45,8 +45,8 @@ function unregister_default_widgets() {
  */
 add_action( 'widgets_init', 'register_custom_widgets' );
 function register_custom_widgets() {
-	// register_widget( 'Button_Widget' );
-	// register_widget( 'Social_Widget' );
+	register_widget( 'Button_Widget' );
+	register_widget( 'Social_Widget' );
 	// register_widget( 'Highlight_Post_Widget' );
 }
 
