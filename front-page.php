@@ -9,10 +9,8 @@ get_header();
 ?>
 
 <main id="main" class="js-ajax-container" role="main">
-	
-	<?php get_template_part( './inc/hero/hero', 'default' ); ?>
 
-	<?php get_template_part( './inc/content/content', 'default' ); ?>
+	<?php get_template_part( './inc/content/content', 'front' ); ?>
 	
 </main>
 

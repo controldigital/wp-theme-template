@@ -39,7 +39,4 @@ function body_open_theme_templates() {
     // Splash screen
     get_template_part( './inc/loader/splash' );
 
-    // Default header
-    get_template_part( './inc/header/header', 'default' );
-
 }
