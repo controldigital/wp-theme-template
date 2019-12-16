@@ -1,65 +1,65 @@
-/**
- * footer.scss
- */
-
 .footer {
-    --footer-grid-template:
-        "column-one column-two" auto
-        "column-three column-four" auto
-        "bottom-left bottom-right" auto / repeat(2, 1fr);
-    
     display: block;
     padding: 3.125rem 0;
 
-    &__container{
-        display: block;
+    &__container {
+        display: grid;
+        grid-auto-rows: auto;
+        grid-auto-columns: 1fr;
         width: 100%;
-        max-width: 71.25em;
+        max-width: var(--container-width);
         margin: 0 auto;
+        padding: 0 1em;
+        gap: 2em;
+
 
         @include breakpoint(768) {
             display: grid;
-            grid-template: var(--footer-grid-template);
+            grid: "column-one column-two" auto
+                  "column-three column-four" auto
+                  "bottom-left bottom-right" auto 
+                  / 1fr 1fr;
         }
 
         @include breakpoint(1024) {
-            --footer-grid-template:
-                "column-one column-two column-three column-four" auto
-                "bottom-left bottom-left bottom-right bottom-right" auto / repeat(4, 1fr);
-                gap: 2em;
+            grid: "column-one column-two column-three column-four" auto
+                  "bottom-left bottom-left bottom-right bottom-right" auto 
+                  / 1fr 1fr 1fr 1fr;
         }
     }
 
     &__column {
 
-        &--1 {
-            grid-area: column-one;
+        @include breakpoint(768) {
+            &--one {
+                grid-area: column-one;
+            }
+    
+            &--two {
+                grid-area: column-two;
+            }
+    
+            &--three {
+                grid-area: column-three;
+            }
+    
+            &--four {
+                grid-area: column-four;
+            }
         }
-
-        &--2 {
-            grid-area: column-two;
-        }
-
-        &--3 {
-            grid-area: column-three;
-        }
-
-        &--4 {
-            grid-area: column-four;
-        }
-
     }
 
     &__bottom {
 
-        &--left {
-            grid-area: bottom-left;
-        }
+        @include breakpoint(768) {
+            &--left {
+                grid-area: bottom-left;
+            }
 
-        &--right {
-            grid-area: bottom-right;
+            &--right {
+                grid-area: bottom-right;
+            }
         }
-
     }
 
 }
