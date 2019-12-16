@@ -111,8 +111,8 @@ function theme_scripts() {
 	 * WebfontLoader
 	 * @link	https://github.com/typekit/webfontloader
 	 */
-	// wp_enqueue_script( 'webfontLoader', '//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', false, false, true );
-	// wp_add_inline_script( 'webfontLoader', "WebFont.load({google: {families: ['Open+Sans:300,400,500,600,700?display=swap']},custom:{families:['FontAwesome'],urls:['//use.fontawesome.com/releases/v5.1.0/css/all.css?display=swap']}});" );
+	wp_enqueue_script( 'webfontLoader', '//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', false, false, true );
+	wp_add_inline_script( 'webfontLoader', "WebFont.load({google: {families: ['Open+Sans:300,400,500,600,700?display=swap']},custom:{families:['FontAwesome'],urls:['//use.fontawesome.com/releases/v5.1.0/css/all.css?display=swap']}});" );
 
 	/**
 	 * jQuery 

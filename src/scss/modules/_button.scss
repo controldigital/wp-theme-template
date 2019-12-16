@@ -1,0 +1,21 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    appearance: none;
+    outline: none;
+    text-decoration: none;
+    border: 0;
+    padding: 0 1.625rem;
+    font-size: 1em;
+    color: var(--color-light);
+    background-color: var(--color-dark);
+    white-space: nowrap;
+    cursor: pointer;
+    height: 3.125rem;
+
+    &:hover,
+    &:active {
+        background-color: var(--color-gray);
+    }
+}

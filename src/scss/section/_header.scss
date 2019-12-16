@@ -1,21 +1,12 @@
-/**
- * header.scss
- */
-
 .header {
-    --header-height: 4.25em;
-
     display: block;
     position: relative;
     transition: background-color var(--duration) var(--transition-easing), color var(--duration) var(--transition-easing);
+    width: 100%;
+    height: auto;
+    background-color: none;
 
-    &--default {
-        width: 100%;
-        height: auto;
-        background-color: none;
-    }
-
-    &--sticky {
+    &--fixed {
         position: fixed;
         top: 0;
         left: 0;
@@ -26,27 +17,51 @@
     }
 
     &__container {
-        @include grid(var(--header-height) calc(100vh - var(--header-height)), 1fr auto, "logo mobile" "nav nav");
+        display: grid;
+        grid: "logo sidebar toggle" var(--header-height)
+              / 1fr auto auto;
+        gap: 1em;
+        width: 100%;
+        max-width: var(--container-width);
+        margin: 0 auto;
+        padding: 0 1em;
+        height: 100%;
+
         @include breakpoint(768) {
-            @include grid(var(--header-height), auto 1fr, "logo nav");
+            grid: "logo navigation sidebar" var(--header-height)
+                  / auto 1fr auto;
         }
     }
 
     &__logo {
         grid-area: logo;
+        align-self: center;
+        max-width: 5rem;
     }
 
-    &__nav {
-        grid-area: nav;
+    &__navigation {
+        grid-area: navigation;
+        position: absolute;
         @include hidden;
-        transition: opacity var(--transition-duration) var(--transition-easing), visibility var(--transition-duration) var(--transition-easing);
+   
         @include breakpoint(768) {
             @include visible;
+            position: relative;
+            align-self: center;
+            justify-self: flex-end;
+            display: flex;
         }
     }
 
-    &__mobile {
-        grid-area: mobile;
+    &__sidebar {
+        grid-area: sidebar;
+        align-self: center;
+    }
+
+    &__toggle {
+        grid-area: toggle;
+        align-self: center;
+
         @include breakpoint(768) {
             display: none;
         }
@@ -57,7 +72,7 @@
 
 .is-menu-open {
 
-    .header__nav {
+    .header__navigation {
         @include visible;
     }
 

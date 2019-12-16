@@ -86,11 +86,15 @@ class Button_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
 		$title 	= apply_filters( 'widget_title', $instance[ 'title' ] );
+		$label 	= isset( $instance[ 'label' ] ) ? esc_attr( $instance[ 'label' ] ) : '';
 		$link 	= isset( $instance[ 'link' ] ) ? esc_attr( $instance[ 'link' ] ) : '';
 		$type 	= isset( $instance[ 'type' ] ) ? esc_attr( $instance[ 'type' ] ) : '';
 
 		echo $args['before_widget'];
-			echo '<a class="button ' . $type . '" href="' . $link . '" role="button" title="'. $title . '">' . $title . '</a>';
+			if ( $title ) {
+				echo '<p>' . $title . '</p>';
+			}
+			echo '<a class="button ' . $type . '" href="' . $link . '" role="button" title="'. $label . '">' . $label . '</a>';
 		echo $args['after_widget'];
 	}
 
@@ -102,6 +106,7 @@ class Button_Widget extends WP_Widget {
 	public function form( $instance ) {
 		// outputs the options form on admin
 		$title 	= ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
+		$label 	= ! empty( $instance[ 'label' ] ) ? $instance[ 'label' ] : '';
 		$link 	= ! empty( $instance[ 'link' ] ) ? $instance[ 'link' ] : ''; 
 		$type 	= ! empty ( $instance[ 'type' ] ) ? $instance[ 'type' ] : ''; ?>
 
@@ -110,15 +115,19 @@ class Button_Widget extends WP_Widget {
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Label', THEME_TEXT_DOMAIN ); ?>:</label>
+			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'label' ); ?>" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $label ); ?>" />
+		</p>
 			<label for="<?php echo $this->get_field_id( 'link' ); ?>"><?php _e( 'Link', THEME_TEXT_DOMAIN ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'link' ); ?>" name="<?php echo $this->get_field_name( 'link' ); ?>" value="<?php echo esc_attr( $link ); ?>" />
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'type' ); ?>"><?php _e( 'Button type', THEME_TEXT_DOMAIN ); ?>:</label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'type' ); ?>">
-				<option value="button--standard" <?php if ($type === 'button--standard') echo 'selected'; ?>>Standaard</option>
-				<option value="button--alternate" <?php if ($type === 'button--alternate') echo 'selected'; ?>>Alternatief</option>
-				<option value="button--glow" <?php if ($type === 'button--glow') echo 'selected'; ?>>Met gloei</option>
+				<option value="button--standard" <?php if ($type === 'button--standard') echo 'selected'; ?>><?php _e( 'Standard', THEME_TEXT_DOMAIN ); ?></option>
+				<option value="button--alternate" <?php if ($type === 'button--alternate') echo 'selected'; ?>><?php _e( 'Alternate', THEME_TEXT_DOMAIN ); ?></option>
+				<option value="button--glow" <?php if ($type === 'button--ghost') echo 'selected'; ?>><?php _e( 'Ghost', THEME_TEXT_DOMAIN ); ?></option>
 			</select>
 		</p>
 
@@ -135,6 +144,7 @@ class Button_Widget extends WP_Widget {
 		// processes widget options to be saved
 		$instance = $old_instance;
 		$instance[ 'title' ] 	= strip_tags( $new_instance[ 'title' ] );
+		$instance[ 'label' ] 	= strip_tags( $new_instance[ 'label' ] );
 		$instance[ 'link' ] 	= strip_tags( $new_instance[ 'link' ] );
 		$instance[ 'type' ] 	= strip_tags( $new_instance[ 'type' ] );
 		return $instance;

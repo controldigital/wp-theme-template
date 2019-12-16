@@ -59,15 +59,17 @@
 }
 
 /* Hidden */
-@mixin hidden {
+@mixin hidden($transition: 300ms ease-in-out) {
 	opacity: 0;
 	visibility: hidden;
+	transition: opacity $transition, visibility $transition;
 }
 
 /* Visible */
-@mixin visible {
+@mixin visible($transition: 300ms ease-in-out) {
 	opacity: 1;
 	visibility: visible;
+	transition: opacity $transition, visibility $transition;
 }
 
 /* Form styles reset */

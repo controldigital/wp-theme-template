@@ -20,10 +20,18 @@
 
         <div class="header__navigation" id="header-nav" aria-labelledby="menu-toggle">
             <?php get_template_part( './inc/navigation/navigation', 'default' ); ?>
-            <?php get_template_part( './inc/sidebar/sidebar', 'menu' ); ?>
+            <?php if ( is_active_sidebar( 'sidebar-menu' ) ) { ?>
+                <?php get_template_part( './inc/sidebar/sidebar', 'menu' ); ?> 
+            <?php } ?>
         </div>
 
-        <div class="header__mobile">
+        <?php if ( is_active_sidebar( 'sidebar-header' ) ) { ?>        
+            <div class="header__sidebar">
+                <?php get_template_part( './inc/sidebar/sidebar', 'header' ); ?>
+            </div>
+        <?php } ?>
+
+        <div class="header__toggle">
 			<button id="menu-toggle" 
 				class="toggle js-toggle-menu" 
 				aria-haspopup="true" 

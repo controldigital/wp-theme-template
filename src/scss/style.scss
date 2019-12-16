@@ -21,7 +21,10 @@
 @import "section/main";
 
 /* Modules */
+@import "modules/menu";
+@import "modules/sidebar";
 @import "modules/hero";
+@import "modules/button";
 
 /* Plugins */
 // @import "plugins/gforms";
