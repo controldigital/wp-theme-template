@@ -1,12 +1,23 @@
 .hero {
-	display: grid;
-	grid: ". container ." var(--hero-height)
-		 / 1fr minmax(min-content, var(--container-width)) 1fr;
+	display: block;
 	position: relative;
 	width: 100%;
+	height: var(--hero-height);
+
+	&--large {
+		height: var(--hero-height-large);
+	}
+
+	&--full {
+		height: calc(100vh - var(--header-height));
+	}
 
 	&__thumbnail {
-		grid-area: 1 / 1 / 2 / 4;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 		@include background-cover;
 		background-color: var(--color-light);
 	}
@@ -14,12 +25,13 @@
 	&__container {
 		grid-area: container;
 		display: grid;
-		grid-template-rows: 1fr;
-		grid-template-columns: 1fr;
+		grid: ". content ." 1fr
+			  / 1fr minmax(min-content, var(--container-width)) 1fr;
 		padding: 0 1rem;
 	}
 	
 	&__content {
+		grid-area: content;
 		align-self: center;
 		padding: 2rem 0;
 	}
