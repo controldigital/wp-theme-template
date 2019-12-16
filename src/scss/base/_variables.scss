@@ -48,6 +48,7 @@
 	/* Sizes */
 	--header-height: 4.25em;
 	--container-width: 73.25em;
+	--hero-height: auto;
     
     /* 768px */
     @media screen and (min-width: 48em) {
@@ -55,12 +56,14 @@
 		/* Font base */
 		--font-size-base: 1em;
 
+		/* Sizes */
+		--header-height: 6.25em;
+		--hero-height: 34.375rem;
+		--hero-height-big: 43.75rem;
+		--hero-height-full: 100vh; 
 	}
 
 	@media screen and (min-width: 64em) {
-
-		/* Sizes */
-		--header-height: 6.25em;
 
 	}
     

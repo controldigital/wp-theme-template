@@ -1,19 +1,9 @@
-/**
- * hero.scss
- */
-
 .hero {
-	--hero-height: 31.25rem;
-	@include grid(1fr, 1fr minmax(min-content, var(--container-max-width)) 1fr, ". container .");
+	display: grid;
+	grid: ". container ." var(--hero-height)
+		 / 1fr var(--container-width) 1fr;
 	position: relative;
 	width: 100%;
-
-	&--default {
-		height: --hero-height;
-		@include breakpoint(768) {
-			--hero-height: 25rem;
-		}
-	}
 
 	&__thumbnail {
 		grid-area: 1 / 1 / 2 / 4;
