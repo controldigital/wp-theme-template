@@ -1,9 +1,8 @@
 .header {
     display: block;
     position: relative;
-    transition: background-color var(--duration) var(--transition-easing), color var(--duration) var(--transition-easing);
+    transition: background-color var(--transition), color var(--transition);
     width: 100%;
-    height: auto;
     background-color: none;
 
     &--fixed {
@@ -13,7 +12,7 @@
     }
 
     &--scrolling {
-        background-color: #ffffff;
+        background-color: var(--color-light);
     }
 
     &__container {

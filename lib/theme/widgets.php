@@ -127,7 +127,7 @@ class Button_Widget extends WP_Widget {
 			<select class="widefat" id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'type' ); ?>">
 				<option value="button--standard" <?php if ($type === 'button--standard') echo 'selected'; ?>><?php _e( 'Standard', THEME_TEXT_DOMAIN ); ?></option>
 				<option value="button--alternate" <?php if ($type === 'button--alternate') echo 'selected'; ?>><?php _e( 'Alternate', THEME_TEXT_DOMAIN ); ?></option>
-				<option value="button--glow" <?php if ($type === 'button--ghost') echo 'selected'; ?>><?php _e( 'Ghost', THEME_TEXT_DOMAIN ); ?></option>
+				<option value="button--ghost" <?php if ($type === 'button--ghost') echo 'selected'; ?>><?php _e( 'Ghost', THEME_TEXT_DOMAIN ); ?></option>
 			</select>
 		</p>
 
@@ -207,12 +207,12 @@ class Social_Widget extends WP_Widget {
 			echo '<div class="socials">';
 				echo '<ul class="socials__list">';
 					
-					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i aria-label="Facebook" class="fab fa-facebook"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
+					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i aria-label="Facebook" class="fab fa-facebook-f"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
 					if( $twitter ) { echo '<li class="socials__item"><a class="socials__link" href="' . $twitter . '" rel="external" target="_blank" title="Twitter"><div class="socials__icon"><i aria-label="Twitter" class="fab fa-twitter"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Twitter</span>' : '' ) . '</a></li>'; }
 					if( $instagram ) { echo '<li class="socials__item"><a class="socials__link" href="' . $instagram . '" rel="external" target="_blank" title="Instagram"><div class="socials__icon"><i aria-label="Instagram" class="fab fa-instagram"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Instagram</span>' : '' ) . '</a></li>'; }
 					if( $pinterest ) { echo '<li class="socials__item"><a class="socials__link" href="' . $pinterest . '" rel="external" target="_blank" title="Pinterest"><div class="socials__icon"><i aria-label="Pinterest" class="fab fa-pinterest"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Pinterest</span>' : '' ) . '</a></li>'; }
 					if( $google ) { echo '<li class="socials__item"><a class="socials__link" href="' . $google . '" rel="external" target="_blank" title="Google+"><div class="socials__icon"><i aria-label="Google+" class="fab fa-google-plus"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Google+</span>' : '' ) . '</a></li>'; }
-					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i aria-label="Linkedin" class="fab fa-linkedin"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
+					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i aria-label="Linkedin" class="fab fa-linkedin-in"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
 					if( $youtube ) { echo '<li class="socials__item"><a class="socials__link" href="' . $youtube . '" rel="external" target="_blank" title="Youtube"><div class="socials__icon"><i aria-label="Youtube" class="fab fa-youtube"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Youtube</span>' : '' ) . '</a></li>'; }
 	
 				echo '</ul>';

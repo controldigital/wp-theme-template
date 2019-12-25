@@ -39,11 +39,13 @@
 	--link-visited-color: 0;
     
 	/* Durations */
-	--duration-tiny: 150ms;
+	--duration-short: 150ms;
     --duration: 300ms;
 	--duration-medium: 600ms;
 	--duration-long: 1200ms;
-	--duration-huge: 2400ms;
+
+	/* Transition */
+	--transition: .3s ease-in-out;
 
 	/* Sizes */
 	--header-height: 4.25em;
@@ -59,7 +61,7 @@
 		/* Sizes */
 		--header-height: 6.25em;
 		--hero-height: 34.375rem;
-		--hero-height-big: 43.75rem;
+		--hero-height-large: 43.75rem;
 		--hero-height-full: 100vh; 
 	}
 
