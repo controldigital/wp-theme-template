@@ -128,12 +128,13 @@ export default class HTMLBannerElement extends HTMLElement {
 	 * @property
 	 */
 	get threshold() {
-		return parseInt(this.getAttribute('threshold'));
+		return Number(this.getAttribute('threshold'));
 	}
 
 	set threshold(value) {
-		if (value !== Number.isNaN(value)) {
-			this.setAttribute('threshold', value);
+		const number = Number(value);
+		if (!Number.isNaN(number)) {
+			this.setAttribute('threshold', number);
 		} 
 	}
 
