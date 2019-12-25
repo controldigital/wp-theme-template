@@ -10,13 +10,8 @@
  * @param 		{HTMLImageElement} image The image to check
  * @returns		{boolean} True when data attributes are present, false when not.
  */
-export const isImageLazyLoadable = image => {
-		const src = image.getAttribute('data-src') || image.getAttribute('data-srcset');
-		if (src !== null) {
-			return true;
-		}
-		return false;
-	};
+export const isImageLazyLoadable = image => 
+	image.getAttribute('data-src') !== null || image.getAttribute('data-srcset' !== null);
 
 /**
  * Checks if the source tags of a media element has a data-src tags
@@ -26,16 +21,9 @@ export const isImageLazyLoadable = image => {
  * @param 		{(HTMLPictureElement|HTMLMediaElement)} media Picture, Video or Audio element.
  * @returns		{boolean} True when data attributes are present, false when not.
  */
-export const isMediaLazyLoadable = media => {
-	const sources = media.querySelectorAll('source');
-	return [...sources].every(source => {
-		const src = source.getAttribute('data-src');
-		if (src !== null) {
-			return true;
-		}
-		return false;
-	});
-}
+export const isMediaLazyLoadable = media => 
+	Array.from(media.querySelectorAll('source')).every(source => 
+		source.getAttribute('data-src') !== null);
 
 /**
  * Change the data-src attributes of the sources into src attributes.
@@ -46,7 +34,7 @@ export const isMediaLazyLoadable = media => {
  * @returns		{HTMLSourceElement[]}
  */
 export const lazyLoadSources = sources => {
-	[...sources].forEach(source => {
+	Array.from(sources).forEach(source => {
 		const src = source.getAttribute('data-src');
 		if (src !== null) {
 			source.src = src;
@@ -66,26 +54,42 @@ export const lazyLoadSources = sources => {
  */
 export const lazyLoadImage = image => 
 	new Promise(resolve => {
-		const protoImg = new Image();
+		const pseudoImage = new Image();
 		const sizes = image.getAttribute('sizes');
 		const srcset = image.getAttribute('data-srcset');
 		const src = image.getAttribute('data-src');
-		const imageOnLoad = () => {
-			if (srcset) {
-				image.srcset = srcset;
-			}
-			image.src = src;
-			image.removeAttribute('data-src');
-			resolve(image);
+		const imageOnLoad = ({ target }) => {
+			target.srcset = srcset ? srcset : '';
+			target.src = src;
+			target.removeAttribute('data-src');
+			resolve(target);
 		};
-		protoImg.addEventListener('load', imageOnLoad, {once: true});
-		if (sizes !== null) {
-			protoImg.sizes = sizes;
-		}
-		if (srcset !== null) {
-			protoImg.srcset = srcset;
-		}
-		protoImg.src = src;
+		pseudoImage.addEventListener('load', imageOnLoad, {once: true});
+		pseudoImage.sizes = sizes !== null ? sizes : '';
+		pseudoImage.srcset = srcset !== null ? srcset : '';
+		pseudoImage.src = src !== null ? src : '';
+	});
+
+
+/**
+ * Lazy load a background-image by setting the property as a inline CSS.
+ * Returns a Promise with the element on resolve.
+ * 
+ * @function	lazyLoadBackgroundImage
+ * @param 		{HTMLElement} image Image element to lazyload.
+ * @returns		{Promise<HTMLElement>} Promise with the image element on resolve.
+ */
+export const lazyLoadBackgroundImage = element =>
+	new Promise(resolve => {
+		const pseudoImage = new Image();
+		const src = element.getAttribute('data-src');
+		const imageOnLoad = ({ target }) => {
+			target.style.backgroundImage = `url(${src})`;
+			target.removeAttribute('data-src');
+			resolve(target);
+		};
+		pseudoImage.addEventListener('load', imageOnLoad, {once: true});
+		pseudoImage.src = src !== null ? src : '';
 	});
 
 /**
@@ -99,14 +103,12 @@ export const lazyLoadImage = image =>
  * @returns		{Promise<HTMLPictureElement>} Promise with the picture element on resolve.
  */
 export const lazyLoadPicture = picture =>
-	new Promise(resolve => {
+	new Promise(async resolve => {
 		const sources = picture.querySelectorAll('source');
 		const image = picture.querySelector('img');
 		lazyLoadSources(sources);
 		if (image !== null && isImageLazyLoadable(image)) {
-			lazyLoadImage(image).then(() => {
-				resolve(picture);
-			});
+			await lazyLoadImage(image);
 		}
 		resolve(picture);
 	});
