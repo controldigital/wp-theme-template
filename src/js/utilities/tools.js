@@ -424,60 +424,86 @@ export const externalLinksTargetBlank = (query = 'a[rel="external"]') => {
 };
 
 /**
- * Checks if a feature is supported
- * and returns a boolean.
+ * Checks if a feature is supported and returns a boolean.
  * 
  * @function	hasFeatures
  * @param 		{string[]} feature Feature to check.
  * @returns		{boolean}
  */
-export const hasFeatures = (...features) => 
-	features.every((feature) => {
-		if (feature === undefined || typeof feature !== 'string') 
-			return false;
-		if (feature === 'Promise') {
-			return (typeof Promise === 'undefined' || Promise.toString().indexOf('[native code]') === -1);
-		} else if (feature === 'Intersection Observer' || feature.toLowerCase() === 'intersectionobserver') {
-			return ('IntersectionObserver' in window);
-		} else if (feature === 'Mutation Observer' || feature.toLowerCase() === 'mutationobserver') {
-			return ('MutationObserver' in window);
-		} else if (feature === 'Resize Observer' || feature.toLowerCase() === 'resizeobserver') {
-			return ('ResizeObserver' in window);
-		} else if (feature === 'Custom Elements' || feature.toLowerCase() === 'customelements') {
-			return ('customElements' in window);
-		} else if (feature === 'Custom Event' || feature.toLowerCase() === 'customevent') {
-			return ('CustomEvent' in window);
-		} else if (feature === 'Push State' || feature.toLowerCase() === 'pushstate') {
-			return ('pushState' in history);
-		} else if (feature === 'Service Worker' || feature.toLowerCase() === 'serviceworker') {
-			return ('serviceWorker' in navigator);
-		} else if (feature === 'Web Audio API' || feature.toLowerCase() === 'audiocontext') {
-			return ('AudioContext' in window || 'webkitAudioContext' in window);
-		} else if (feature === 'Web Animations API' || feature.replace(' ', '').toLowerCase() === 'webanimationsapi') {
-			return ('animate' in document.body);
-		} else if (feature === 'Animation' || feature.toLowerCase() === 'animation') {
-			return ('Animation' in window);
-		} else if (feature === 'Keyframe Effect' || feature.toLowerCase() === 'keyframeeffect') {
-			return ('KeyframeEffect' in window);
-		} else if (feature === 'Local Storage' || feature.toLowerCase() === 'localstorage') {
-			return ('localStorage' in window);
-		} else if (feature === 'Session Storage' || feature.toLowerCase() === 'sessionstorage') {
-			return ('sessionStorage' in window);
-		} else if (feature === 'Passive Events' || feature.toLowerCase() === 'passive') {
-			let supportsPassive = false;
-			try {
-				let options = Object.defineProperty({}, 'passive', {
-					get: function() {
-						supportsPassive = true;
-					}
-				});
-				window.addEventListener('testPassive', null, options);
-				window.removeEventListener('testPassive', null, options);
-			} catch (e) {}
-			return supportsPassive;
-		} else if (feature === 'Scroll Behavior' || feature.toLowerCase() === 'scrollbehavior' || feature === 'behavior: smooth') {
-			return 'scrollBehavior' in document.documentElement.style;
-		} else {
+export const hasFeatures = (...features) =>
+	features.every(feature => {
+
+		// If feature is not a string.
+		if (typeof feature !== 'string') {
 			return false;
 		}
+
+		// Convert string to lowercase and remove spaces.
+		const query = feature.toLocaleLowerCase().replace(' ', '');
+
+		// Check the queried feature.
+		switch(query) {
+			case 'promise':
+			case 'promises':
+				return (typeof Promise === 'undefined' || Promise.toString().indexOf('[native code]') === -1);
+			case 'intersectionobserver':
+				return ('IntersectionObserver' in window);
+			case 'mutationobserver':
+				return ('MutationObserver' in window);
+			case 'resizeobserver':
+				return ('ResizeObserver' in window);
+			case 'customelements':
+				return ('customElements' in window);
+			case 'customevent':
+				return ('CustomEvent' in window);
+			case 'pushstate':
+				return ('pushState' in history);
+			case 'serviceworker':
+				return ('serviceWorker' in navigator);
+			case 'webworker':
+				return ('webworker' in window);
+			case 'audiocontext':
+			case 'webaudioapi':
+				return ('AudioContext' in window || 'webkitAudioContext' in window);
+			case 'animate':
+			case 'webanimationapi':
+				return ('animate' in document.body);
+			case 'animation':
+				return ('Animation' in window);
+			case 'keyframeeffect':
+				return ('KeyframeEffect' in window);
+			case 'localstorage':
+				return ('localStorage' in window);
+			case 'sessionstorage':
+				return ('sessionStorage' in window);
+			case 'layoutworklet':
+			case 'layoutapi':
+				return ('layoutWorklet' in CSS);
+			case 'paintworklet':
+			case 'paintapi':
+				return ('paintWorklet' in CSS);
+			case 'animationworklet':
+			case 'animationapi':
+				return ('animationWorklet' in CSS);
+			case 'customproperties':
+			case 'registerproperty':
+				return ('registerProperty' in CSS);
+			case 'scrollbehavior':
+				return ('scrollBehavior' in document.documentElement.style);
+			case 'passiveevents':
+				let supportsPassive = false;
+				try {
+					let options = Object.defineProperty({}, 'passive', {
+						get: function() {
+							supportsPassive = true;
+						}
+					});
+					window.addEventListener('testPassive', null, options);
+					window.removeEventListener('testPassive', null, options);
+				} catch (e) {}
+				return supportsPassive;
+			default:
+				return false;
+		}
+
 	});
