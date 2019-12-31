@@ -34,7 +34,6 @@ export const createSliderTemplate = () => createTemplate(/*template*/`
 
             all: initial;
             display: block;
-            contain: content;
             position: relative;
             font-size: 100%;
         }
@@ -97,59 +96,59 @@ export const createSliderTemplate = () => createTemplate(/*template*/`
             --rails-direction: column;
         }
 
-        slot[name="slide"] ::slotted(*) {
+        ::slotted([slot="slide"]) {
             flex-grow: 0;
             flex-shrink: 0;
             padding: var(--slide-padding);
         }
 
-        :host([axis="horizontal"]) slot[name="slide"] ::slotted(*) {
+        :host([axis="horizontal"]) ::slotted([slot="slide"]) {
             width: var(--slide-size);
             --slide-padding: 0 15px;
         }
 
-        :host([axis="vertical"]) slot[name="slide"] ::slotted(*) {
+        :host([axis="vertical"]) ::slotted([slot="slide"] {
             height: var(--slide-size);
             --slide-padding: 15px 0;
         }
 
-        :host([amount="1"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="1"]) ::slotted([slot="slide"] {
             --slide-size: 100%;
         }
 
-        :host([amount="2"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="2"]) ::slotted([slot="slide"] {
             --slide-size: 50%;
         }
 
-        :host([amount="3"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="3"]) ::slotted([slot="slide"] {
             --slide-size: 33.3333333333%;
         }
 
-        :host([amount="4"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="4"]) ::slotted([slot="slide"] {
             --slide-size: 25%;
         }
 
-        :host([amount="5"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="5"]) ::slotted([slot="slide"] {
             --slide-size: 20%;
         }
 
-        :host([amount="6"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="6"]) ::slotted([slot="slide"] {
             --slide-size: 16.6666666667%;
         }
 
-        :host([amount="7"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="7"]) ::slotted([slot="slide"] {
             --slide-size: 14.2857142857%;
         }
 
-        :host([amount="8"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="8"]) ::slotted([slot="slide"] {
             --slide-size: 12.5%;
         }
 
-        :host([amount="9"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="9"]) ::slotted([slot="slide"] {
             --slide-size: 11.1111111111%;
         }
 
-        :host([amount="10"]) slot[name="slide"] ::slotted(*) {
+        :host([amount="10"]) ::slotted([slot="slide"] {
             --slide-size: 10%;
         }
 
@@ -160,7 +159,7 @@ export const createSliderTemplate = () => createTemplate(/*template*/`
             <slot name="prev"></slot>
         </div>
         <section class="wrapper" role="region" aria-roledescription="carousel">
-            <div class="rails" 	aria-live="polite">
+            <div class="rails" 	aria-live="polite" draggable>
                 <slot name="slide"></slot>
             </div>
         </section>

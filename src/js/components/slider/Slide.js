@@ -2,18 +2,12 @@
  * @module		./components/slider/Slide
  */
 
-import { attachShadowToElement } from 'Utilities/shadow.js';
-import { createSlideTemplate } from './template.js';
-
-// Template for Shadow DOM.
-const template = createSlideTemplate();
-
 /**
  * Slider
  * @class
  * @extends	HTMLElement
  */
-export default class HTMLSlideElement extends HTMLElement {
+export default class SlideElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
@@ -67,7 +61,7 @@ export default class HTMLSlideElement extends HTMLElement {
 	}
 
 	set index(value) {
-		if (value !== Number.isNaN(value)) {
+		if (!isNaN(value)) {
 			this.setAttribute('index', value);
 		} 
 	}

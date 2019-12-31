@@ -5,6 +5,9 @@
 import EventCollection from 'Utilities/events.js';
 import { createSliderTemplate } from './template.js';
 import {
+	onDragStart,
+	onDrag,
+	onDragEnd,
 	onTouchStart,
 	onTouchMove,
 	onTouchEnd,
@@ -13,9 +16,7 @@ import {
 	onMouseEnter,
 	onMouseLeave,
 	onClick,
-	onSlideSlotChange,
-	onPrevSlotChange,
-	onNextSlotChange
+	onSlotChange
 } from './events.js';
 import { 
 	isIndexBetween,
@@ -34,7 +35,7 @@ const passive = hasFeatures('Passive Events') ? {passive: true} : false;
  * @class
  * @extends	HTMLElement
  */
-export default class HTMLSliderElement extends HTMLElement {
+export default class SliderElement extends HTMLElement {
 
 	/**
 	 * Attributes to trigger the attributeChangedCallback on.
@@ -60,28 +61,24 @@ export default class HTMLSliderElement extends HTMLElement {
 
 		// Get the rails.
 		this.rails = shadow.querySelector('.rails');
-		this.slides = [];
 		
 		// Create a list of all events and their listeners.
-		this.events = new EventCollection();
-		this.events.set(this, 'touchstart', onTouchStart.bind(this), passive);
-		this.events.set(this, 'touchend', onTouchMove.bind(this), passive);
-		this.events.set(this, 'touchmove', onTouchEnd.bind(this), passive);
-		this.events.set(this, 'wheel', onWheel.bind(this), passive);
-		this.events.set(this, 'keydown', onKeyDown.bind(this), false);
-		this.events.set(this, 'mouseenter', onMouseEnter.bind(this), false);
-		this.events.set(this, 'mouseleave', onMouseLeave.bind(this), false);
-		this.events.set(this, 'click', onClick.bind(this), false);
+		this.events = new EventCollection()
+			.set(this.rails, 'dragstart', onDragStart.bind(this))
+			.set(this.rails, 'drag', onDrag.bind(this))
+			.set(this.rails, 'dragend', onDragEnd.bind(this))
+			.set(this, 'touchstart', onTouchStart.bind(this), passive)
+			.set(this, 'touchmove', onTouchMove.bind(this), passive)
+			.set(this, 'touchend', onTouchEnd.bind(this), passive)
+			.set(this, 'wheel', onWheel.bind(this), passive)
+			.set(this, 'keydown', onKeyDown.bind(this), false)
+			.set(this, 'mouseenter', onMouseEnter.bind(this), false)
+			.set(this, 'mouseleave', onMouseLeave.bind(this), false)
+			.set(this, 'click', onClick.bind(this), false);
 
 		// Get the slide slot and listen for the onSlotChange event.
-		const slide = shadow.querySelector('slot[name=slide]');
-		const prev = shadow.querySelector('slot[name=prev]');
-		const next = shadow.querySelector('slot[name=next]');
-
-		// Set slotchange events.
-		slide.addEventListener('slotchange', onSlideSlotChange.bind(this));
-		prev.addEventListener('slotchange', onPrevSlotChange.bind(this));
-		next.addEventListener('slotchange', onNextSlotChange.bind(this));
+		const slots = shadow.querySelectorAll('slot');
+		slots.forEach(slot => slot.addEventListener('slotchange', onSlotChange.bind(this)));
 
 	}
 
@@ -94,7 +91,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	set amount(value) {
-		if (value !== Number.isNaN(value)) {
+		if (!isNaN(value)) {
 			this.setAttribute('amount', value);
 		} 
 	}
@@ -124,7 +121,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	set delay(value) {
-		if (value !== Number.isNaN(value)) {
+		if (!isNaN(value)) {
 			this.setAttribute('delay', value);
 		} 
 	}
@@ -135,10 +132,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	 */
 	get hover() {
 		const value = this.getAttribute('hover');
-		if (value !== null) {
-			return true;
-		}
-		return false;
+		return value !== null ? true : false;
 	}
 
 	set hover(value) {
@@ -158,7 +152,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	set index(value) {
-		if (value !== Number.isNaN(value)) {
+		if (!isNaN(value)) {
 			if (isIndexBetween(value, 0, this.slides.length - this.amount + 1)) {
 				this.setAttribute('index', value);
 			} else {
@@ -173,10 +167,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	 */
 	get loop() {
 		const value = this.getAttribute('loop');
-		if (value !== null) {
-			return true;
-		}
-		return false;
+		return value !== null ? true : false;
 	}
 
 	set loop(value) {
@@ -193,10 +184,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	 */
 	get moving() {
 		const value = this.getAttribute('moving');
-		if (value !== null) {
-			return true;
-		}
-		return false;
+		return value !== null ? true : false;
 	}
 
 	set moving(value) {
@@ -208,6 +196,36 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	/**
+	 * Gets the next elements in the slot.
+	 * @property
+	 */
+	get next() {
+		const slot = this.shadowRoot.querySelector('slot[name=next]');
+		const nexts = slot.assignedElements();
+		return Array.from(nexts);
+	}
+
+	/**
+	 * Gets the prev elements in the slot.
+	 * @property
+	 */
+	get prev() {
+		const slot = this.shadowRoot.querySelector('slot[name=prev]');
+		const prevs = slot.assignedElements();
+		return Array.from(prevs);
+	}
+
+	/**
+	 * Gets the slides in the slot.
+	 * @property
+	 */
+	get slides() {
+		const slot = this.shadowRoot.querySelector('slot[name=slide]');
+		const slides = slot.assignedElements();
+		return Array.from(slides);
+	}
+
+	/**
 	 * Gets and sets the speed attribute.
 	 * @property
 	 */
@@ -216,7 +234,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	set speed(value) {
-		if (value !== Number.isNaN(value)) {
+		if (!isNaN(value)) {
 			this.setAttribute('speed', value);
 		} 
 	}
@@ -230,7 +248,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	set touchThreshold(value) {
-		if (value !== Number.isNaN(value)) {
+		if (!isNaN(value)) {
 			this.setAttribute('touch-threshold', value);
 		} 
 	}
@@ -244,7 +262,7 @@ export default class HTMLSliderElement extends HTMLElement {
 	}
 
 	set wheelThreshold(value) {
-		if (value !== Number.isNaN(value)) {
+		if (!isNaN(value)) {
 			this.setAttribute('wheel-threshold', value);
 		} 
 	}
@@ -263,10 +281,13 @@ export default class HTMLSliderElement extends HTMLElement {
 			case 'amount':
 			case 'index':
 				if (newValue !== null && this.slides.length) {
+					
 					const index = this.index;
 					const length = index + this.amount;
+
 					const detail = { detail: { index } };
-					const slidesChangeEvent = new CustomEvent('slideschange', detail);
+					const slidesChangeEvent = new CustomEvent('indexchange', detail);
+
 					this.slides.forEach((slide, i) => {
 						if (index >= i && i < length) {
 							slide.active = true;
@@ -274,6 +295,7 @@ export default class HTMLSliderElement extends HTMLElement {
 							slide.active = false;
 						}
 					});
+
 					this.slideToIndex(index);
 					this.dispatchEvent(slidesChangeEvent);
 				}
@@ -310,24 +332,37 @@ export default class HTMLSliderElement extends HTMLElement {
 		}
 
 		// Set default speed.
-		if (Number.isNaN(this.speed)) {
+		if (isNaN(this.speed)) {
 			this.speed = 350;
 		}
 
 		// Set default wheelThreshold.
-		if (Number.isNaN(this.touchThreshold)) {
+		if (isNaN(this.touchThreshold)) {
 			this.touchThreshold = 4;
 		}
 
+		// Set default amount.
+		if (isNaN(this.amount)) {
+			this.amount = 1;
+		}
+
 		// Set default wheelThreshold.
-		if (Number.isNaN(this.wheelThreshold)) {
+		if (isNaN(this.wheelThreshold)) {
 			this.wheelThreshold = 50;
 		}
 
 		// Set timeout.
 		this.timeout = null;
 
-		// Touchstates.
+		// Drag states.
+		this.drag = {
+			start: null,
+			move: null,
+			end: null,
+			distance: null
+		};
+
+		// Touch states.
 		this.touch = {
 			start: null,
 			move: null,

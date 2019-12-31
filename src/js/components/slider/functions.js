@@ -31,18 +31,14 @@ export const getRailsOffset = function getRailsOffset() {
  * @param		{Function} callback Function to run over the horizontal and vertical value. Must return a value.
  * @returns		{(directionsObject|null)}
  */
-export const createDirections = (horizontal, vertical, callback) => {
-	if (horizontal === undefined || vertical === undefined) {
-		return null;
-	}
-	if (callback && 'function' === typeof callback) {
-		return {
-			horizontal: callback(horizontal),
-			vertical: callback(vertical)
-		};
-	}
-	return {
-		horizontal,
-		vertical
-	};
-}
+export const createDirections = (horizontal, vertical, callback = (value) => value) => 
+	(horizontal !== undefined || vertical !== undefined || 'function' === typeof callback) ? 
+		({ horizontal: callback(horizontal),vertical: callback(vertical) }) : 
+		null;
+
+/**
+ * @function	getEventScreenValues
+ * @param 		{Event} event 
+ * @returns		{Object}
+ */
+export const getEventScreenValues = ({ screenX, screenY }) => ({ x: screenX, y: screenY });

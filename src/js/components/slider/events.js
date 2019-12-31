@@ -4,8 +4,65 @@
 
 import { 
 	createDirections,
-	getRailsOffset
+	getRailsOffset,
+	getEventScreenValues
 } from './functions.js';
+
+export const onDragStart = function onDragStart(event) {
+	event.dataTransfer.setData('application/node type', this);
+	const { screenX, screenY } = event;
+	this.drag.start = { x: screenX, y: screenY };
+	this.drag.move = null;
+	this.drag.end = null;
+	this.drag.distance = null;
+	console.log(event);
+};
+
+export const onDrag = function onDrag(event) {
+	// if (this.moving === true) {
+	// 	return false;
+	// }
+	// const { screenX, screenY } = event;
+	// this.drag.move = { x: screenX, y: screenY };
+	// this.drag.distance = createDirections(
+	// 	this.drag.start.x - this.drag.move.x,
+	// 	this.drag.start.y - this.drag.move.y
+	// );
+	// const offset = getRailsOffset.call(this);
+	// const distance = createDirections(
+	// 	offset.x + this.drag.distance.horizontal, 
+	// 	offset.y + this.drag.distance.vertical,
+	// 	Math.round
+	// );
+	// this.moveTo(`${-distance[this.axis]}px`);
+	console.log(event);
+};
+
+export const onDragEnd = function onDragEnd(event) {
+	// if (this.drag.distance === null || this.moving === true) { 
+	// 	return false;
+	// }
+	// const { screenX, screenY } = event;
+	// const absTouchDistances = createDirections(
+	// 	this.drag.distance.horizontal, 
+	// 	this.drag.distance.vertical, 
+	// 	Math.abs
+	// );
+	// this.drag.end = {
+	// 	x: screenX,
+	// 	y: screenY
+	// };
+	// if (absTouchDistances[this.axis] >= this.dragThreshold) {
+	// 	if (this.drag.distance[this.axis] < 0) {
+	// 		this.prevSlide(); // Prev
+	// 	} else {
+	// 		this.nextSlide(); // Next
+	// 	} 
+	// } else {
+	// 	this.slideToIndex(this.index);
+	// }
+	console.log(event);
+};
 
 /**
  * @function	onTouchStart
@@ -13,11 +70,7 @@ import {
  * @returns		{void}
  */
 export const onTouchStart = function onTouchStart(event) {
-	const { screenX, screenY } = event.changedTouches[0];
-	this.touch.start = { 
-		x: screenX,
-		y: screenY 
-	};
+	this.touch.start = getEventScreenValues(event.changedTouches[0]);
 	this.touch.move = null;
 	this.touch.end = null;
 	this.touch.distance = null;
@@ -29,14 +82,10 @@ export const onTouchStart = function onTouchStart(event) {
  * @returns		{void}
  */
 export const onTouchMove = function onTouchMove(event) {
-	if (this.moving === '') {
+	if (this.moving === true) {
 		return false;
 	}
-	const { screenX, screenY } = event.changedTouches[0];
-	this.touch.move = { 
-		x: screenX, 
-		y: screenY
-	};
+	this.touch.move = getEventScreenValues(event.changedTouches[0]);
 	this.touch.distance = createDirections(
 		this.touch.start.x - this.touch.move.x,
 		this.touch.start.y - this.touch.move.y
@@ -56,19 +105,15 @@ export const onTouchMove = function onTouchMove(event) {
  * @returns		{void}
  */
 export const onTouchEnd = function onTouchEnd(event) {
-	if (this.touch.distance === null || this.moving === '') { 
+	if (this.touch.distance === null || this.moving === true) { 
 		return false;
 	}
-	const { screenX, screenY } = event.changedTouches[0];
+	this.touch.end = getEventScreenValues(event.changedTouches[0]);
 	const absTouchDistances = createDirections(
 		this.touch.distance.horizontal, 
 		this.touch.distance.vertical, 
 		Math.abs
 	);
-	this.touch.end = {
-		x: screenX,
-		y: screenY
-	};
 	if (absTouchDistances[this.axis] >= this.touchThreshold) {
 		if (this.touch.distance[this.axis] < 0) {
 			this.prevSlide(); // Prev
@@ -167,80 +212,59 @@ export const onClick = function onClick(event) {
 };
 
 /**
+ * @function    clickPrev
+ * @param       {Event} event
+ * @returns     {void}
+ */
+const clickPrev = function clickPrev(event) {
+	this.prevSlide();
+	event.preventDefault();
+}
+
+/**
+ * @function    clickNext
+ * @param       {Event} event
+ * @returns     {void}
+ */
+const clickNext = function clickNext(event) {
+	this.nextSlide();
+	event.preventDefault();
+}
+
+/**
  * @function	onSlotChange
  * @param 		{Event} event 
  * @returns		{void}
  */
-export const onSlideSlotChange = function onSlideSlotChange() {
+export const onSlotChange = function onSlotChange(event) {
+	const { target } = event;
+	if (target.name === 'slide') {
 
-	// Get slide slot.
-	const slide = this.shadowRoot.querySelector('slot[name="slide"]');
-	this.slides = slide.assignedNodes();
+		// Set tabindex
+		this.slides.forEach((slide, i) => {
+			slide.index = i;
+			slide.setAttribute('tabIndex', i);
+		});
 
-	// Set tabindex
-	this.slides.forEach((slide, i) => {
-		slide.index = i;
-		slide.setAttribute('tabIndex', i);
-	});
+		// Set starting index.
+		if (isNaN(this.index)) {
+			this.index = 0;
+		}
 
-	// Set starting index.
-	if (Number.isNaN(this.index)) {
-		this.index = 0;
+		// Set default amount.
+		if (isNaN(this.amount)) {
+			this.amount = 1;
+		}
+
+	} else if (target.name === 'prev') {
+
+		// Add click event listener to assigned elements.
+		this.prev.forEach(element => element.addEventListener('click', clickPrev.bind(this)));
+
+	} else if (target.name === 'next') {
+
+		// Add click event listener to assigned elements.
+		this.next.forEach(element => element.addEventListener('click', clickNext.bind(this)));
+
 	}
-
-	// Set default amount.
-	if (Number.isNaN(this.amount)) {
-		this.amount = 1;
-	}
-
-};
-
-/**
- * @function	onPrevSlotChange
- * @returns		{void}
- */
-export const onPrevSlotChange = function onPrevSlotChange() {
-
-	// Get prev slot.
-	const prev = this.shadowRoot.querySelector('slot[name="prev"]');
-	const assignedNodes = prev.assignedNodes();
-
-	/**
-     * @function    clickPrev
-     * @param       {Event} event
-     * @returns     {void}
-     */
-    const clickPrev = event => {
-        this.prevSlide();
-        event.preventDefault();
-	}
-
-	// Add click event listener to assigned nodes.
-	assignedNodes.forEach(node => node.firstElementChild.addEventListener('click', clickPrev));
-
-};
-
-/**
- * @function	onNextSlotChange
- * @returns		{void}
- */
-export const onNextSlotChange = function onNextSlotChange() {
-
-	// Get next assigned nodes.
-	const next = this.shadowRoot.querySelector('slot[name="next"]')
-	const assignedNodes = next.assignedNodes();
-
-	/**
-     * @function    clickPrev
-     * @param       {Event} event
-     * @returns     {void}
-     */
-    const clickNext = event => {
-        this.nextSlide();
-        event.preventDefault();
-	}
-	
-	// Add click event listener to assigned nodes.
-	assignedNodes.forEach(node => node.addEventListener('click', clickNext));
-
 };
