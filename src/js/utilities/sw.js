@@ -58,9 +58,10 @@ const registrationError = (error) => {
  * @returns	{void}
  */
 export const registerServiceWorker = (scriptURL, options = {scope: '/wp-content/'}) => {
-	if (supportsServiceWorker) {
-		navigator.serviceWorker.register(scriptURL, options)
-			.then(registrationSucces)
-			.catch(registrationError);
+	if (!supportsServiceWorker) {
+		throw new Error('Service Worker is not supported');
 	}
+	return navigator.serviceWorker.register(scriptURL, options)
+		.then(registrationSucces)
+		.catch(registrationError);
 };
