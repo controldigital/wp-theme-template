@@ -74,6 +74,15 @@ export const convertKeysOfObject = (object, converterCallback) => {
 export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 /**
+ * Returns a given number squared.
+ * 
+ * @function	numberSquared
+ * @param 		{number} number Number to square
+ * @returns		{number} Squared number
+ */
+export const numberSquared = number => number ** 2;
+
+/**
  * Converts a number to a radius.
  * Returns the number multiplied by PI divided by 180.
  * 
