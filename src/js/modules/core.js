@@ -23,14 +23,6 @@ import definer from 'Utilities/define.js';
 export const serviceWorker = (scriptURL, options  = {scope: '/wp-content/'}) => registerServiceWorker(scriptURL, options);
 
 /**
- * Custom elements module.
- * 
- * @function	customElements
- * @returns		{Promise}
- */
-export const customElements = () => definer.defineAll();
-
-/**
  * Menu module
  * 
  * @function	menu

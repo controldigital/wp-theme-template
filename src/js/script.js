@@ -33,7 +33,6 @@ import regeneratorRuntime from 'regenerator-runtime';
 import {
 	serviceWorker,
 	cookie,
-	customElements,
 	menu
 } from 'Modules/core.js';
 
@@ -44,7 +43,6 @@ import {
 	// Use modules
 	serviceWorker(`${wp.theme}/serviceworker.js`);
 	cookie();
-	customElements();
 	menu();
 
 }());
