@@ -36,24 +36,15 @@
     "babel-loader": "^8.0.4",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.1.0",
-    "gulp-clean-css": "^4.2.0",
-    "gulp-concat-util": "^0.5.5",
-    "gulp-penthouse": "^0.2.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-watch": "^5.0.0",
     "node-sass": "^4.12.0",
-    "prompts": "^2.1.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2"
   },
-  "dependencies": {
-    "core-js": "^3.1.4",
-    "mapbox-gl": "^1.2.0",
-    "moment": "^2.24.0",
-    "regenerator-runtime": "^0.13.2"
-  },
+  "dependencies": {},
   "browserslist": [
     "> 1%",
     "last 2 versions"
