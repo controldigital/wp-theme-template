@@ -1,6 +1,5 @@
 <?php
 /**
- * Theme:
  * Template:			functions.php
  * Description:			Overview of all theme functionality
  * 
@@ -12,9 +11,9 @@
  * Use this theme to kickstart yourself into development.
  * Start off by defining these constants here below.
  */
-define( 'THEME_NAME', 'THEMENAME' );
+define( 'THEME_NAME', 'Control Twenty Twenty' );
 define( 'THEME_VERSION', 1.0 );
-define( 'THEME_TEXT_DOMAIN', 'text_domain' );
+define( 'THEME_TEXT_DOMAIN', 'control' );
 
 /**
  * All the files and definitions should be placed
@@ -23,37 +22,24 @@ define( 'THEME_TEXT_DOMAIN', 'text_domain' );
  */
 $templates = array(
 	
-	// Core
-	'lib/core/404.php',					// 404 functions
-	'lib/core/ajax.php',				// Ajax functions
-	'lib/core/cleanup.php',				// Head cleanup
-	'lib/core/filters.php',				// Filter hooks
-	'lib/core/helpers.php',				// Helper functions
-	'lib/core/meta.php',				// Meta functions
-	'lib/core/cookie.php',				// Cookie functions
-	'lib/core/forms.php',				// Form validation classes
-	
-	// Theme
-	'lib/theme/theme-support.php',		// Theme support configuration
-	'lib/theme/post-types.php',			// Post Types registration
-	'lib/theme/gutenberg.php',			// Gutenberg modifications
-	'lib/theme/taxonomies.php',			// Taxonomies registration
-	'lib/theme/navigation.php',			// Navigation registration and Nav Walkers
-	'lib/theme/customizer.php',			// Customizer modifications
-	'lib/theme/enqueue.php',			// Enqueue CSS and JS
-	'lib/theme/admin.php',				// Custom admin settings
-	'lib/theme/head.php',				// wp_head functions
-	'lib/theme/body.php',				// wp_body_open functions
-	'lib/theme/footer.php',				// wp_footer functions
-	'lib/theme/rest.php',				// Rest API configuration
-	'lib/theme/sidebars.php',			// Sidebars registration
-	'lib/theme/widgets.php',			// Widget registration
-	
-	// Plugin
-	'lib/plugins/acf.php',				// Advanced Custom Fields
-	'lib/plugins/gf.php',				// Gravity Form modifications
-	'lib/plugins/woocommerce.php',		// Woocommerce modifications
-	'lib/plugins/wpml.php',				// WPML modifications
+	'lib/ajax.php',				// Ajax functions
+	'lib/filters.php',			// Filter hooks
+	'lib/helpers.php',			// Helper functions
+	'lib/theme-support.php',	// Theme support configuration
+	'lib/post-types.php',		// Post Types registration
+	'lib/taxonomies.php',		// Taxonomies registration
+	'lib/navigation.php',		// Navigation registration and Nav Walkers
+	'lib/customizer.php',		// Customizer modifications
+	'lib/enqueue.php',			// Enqueue CSS and JS
+	'lib/admin.php',			// Custom admin settings
+	'lib/head.php',				// wp_head functions
+	'lib/body.php',				// wp_body_open functions
+	'lib/rest.php',				// Rest API configuration
+	'lib/sidebars.php',			// Sidebars registration
+	'lib/widgets.php',			// Widget registration
+	'lib/plugins.php',			// Plugins
+	'lib/translations.php',		// Translation settings
+
 );
 
 /**

@@ -1,4 +1,7 @@
 <?php
-// Silence is golden.
+/**	
+ * Template:			index.php
+ * Description:			
+ */
 
 ?>
