@@ -69,5 +69,9 @@
 		@media (min-width: 30em) { 
 			@content; 
 		}
+	} @else {
+		@media (min-width: $size + 'px') {
+			@content;
+		}
 	}
 }
