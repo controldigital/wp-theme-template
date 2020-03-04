@@ -39,7 +39,9 @@
 
         const destroy = () => {
             const loader = document.getElementById('loader');
-            loader.remove();
+            if (loader) {
+                loader.remove();
+            }
         };
 
         const hide = () => {
