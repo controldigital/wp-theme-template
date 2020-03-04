@@ -19,11 +19,15 @@ get_header();
 			get_hero();
 			
 			?>
-		
-			<section class="section">
-				<?php the_content(); ?>
-			</section>
+
+			<article class="content" id="post-<?php the_ID(); ?>">
 			
+				<section class="section">
+					<?php the_content(); ?>
+				</section>
+
+			</article>
+				
 		<?php }
 	}
 
