@@ -4,22 +4,6 @@
  * Description:			Register navigation locations for theme
  */
 
- /**
- * Navigation classes to include.
- */
-$navigation_classes = array(
-	'./classes/custom-walker-nav.php',
-);
-
-/**
- * Loop over all the paths and locate the templates. 
- * This will include all files into this theme.php file.
- */
-foreach ( $navigation_classes as $navigation_class ) {
-	locate_template( $navigation_class, true, true );
-}
-
-
 /**
  * theme_menus
  * 

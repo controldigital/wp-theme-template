@@ -11,17 +11,15 @@
  * Use this theme to kickstart yourself into development.
  * Start off by defining these constants here below.
  */
-define( 'THEME_NAME', 'Control Twenty Twenty' );
+define( 'THEME_NAME', 'Control WP Theme' );
 define( 'THEME_VERSION', 1.0 );
 define( 'THEME_TEXT_DOMAIN', 'control' );
 
 /**
- * All the files and definitions should be placed
- * in the LIB folder and be called here below.
+ * All the templates to include
  * 
  */
-$templates = array(
-	
+$templates = array(	
 	'lib/ajax.php',				// Ajax functions
 	'lib/filters.php',			// Filter hooks
 	'lib/helpers.php',			// Helper functions
@@ -39,7 +37,14 @@ $templates = array(
 	'lib/widgets.php',			// Widget registration
 	'lib/plugins.php',			// Plugins
 	'lib/translations.php',		// Translation settings
+);
 
+/**
+ * All the classes to include
+ * 
+ */
+$classes = array(	
+	'classes/custom-walker-nav.php',		// Custom Navigation Walker
 );
 
 /**
@@ -49,6 +54,10 @@ $templates = array(
  */
 foreach ( $templates as $template ) {
 	locate_template( $template, true, true );
+}
+
+foreach ( $classes as $class ) {
+	locate_template( $class, true, true );
 }
 
 ?>
