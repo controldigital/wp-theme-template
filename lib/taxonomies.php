@@ -1,6 +1,5 @@
 <?php
 /**
- * Theme:
  * Template:			taxonomies.php
  * Description:			Register custom taxonomies for posts or custom post type
  */

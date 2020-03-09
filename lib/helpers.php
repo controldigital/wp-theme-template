@@ -30,6 +30,35 @@ function the_logo() {
 }
 
 /**
+ * Gets the hero template using get_template_part.
+ * 
+ * @param	string $name Specific template to get.
+ */
+function get_hero( $name = null ) {
+	get_template_part( './template-parts/hero/hero', $name );
+}
+
+/**
+ * Gets the layout template using get_template_part.
+ * 
+ * @param	string $name Specific template to get.
+ */
+function get_layout( $name = null ) {
+	get_template_part( './template-parts/layout/layout', $name );
+}
+
+/**
+ * Debug function that formats the var_dump function.
+ * 
+ * @param	variable 
+ */
+function debug( $var ) {
+	echo '<pre>';
+	var_dump($var);
+	echo '</pre>';
+}
+
+/**
  * get_the_post_term_names
  * 
  * Returns an array with the names
@@ -371,33 +400,6 @@ function the_breadcrumb( $show_on_home = false, $delimiter = '/', $home = 'Home'
 
 	}
 
-}
-
-/**
- * Gets the hero template using get_template_part.
- * 
- * @param	string $name Specific template to get.
- */
-function get_hero( $name = null ) {
-	get_template_part( './template-parts/hero/hero', $name );
-}
-
-/**
- * Gets the layout template using get_template_part.
- * 
- * @param	string $name Specific template to get.
- */
-function get_layout( $name = null ) {
-	get_template_part( './template-parts/layout/layout', $name );
-}
-
-/**
- * TODO: Create a cool debug function
- */
-function debug( $var ) {
-	echo '<pre>';
-	var_dump($var);
-	echo '</pre>';
 }
 
 
