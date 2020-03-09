@@ -44,7 +44,10 @@ $templates = array(
  * 
  */
 $classes = array(	
-	'classes/custom-walker-nav.php',		// Custom Navigation Walker
+	'classes/nav-walker.php',					// Custom Navigation Walker
+	'classes/widget-button.php',				// Button Widget
+	'classes/widget-social.php',				// Social Widget
+	'classes/widget-highlight-post.php',		// Highlight Post Widget
 );
 
 /**
