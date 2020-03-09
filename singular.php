@@ -1,6 +1,7 @@
 <?php
 /**
- * The template for displaying single posts and pages.
+ * Template:			singular.php
+ * Description:			The template for displaying single posts and pages.
  *
  */
 

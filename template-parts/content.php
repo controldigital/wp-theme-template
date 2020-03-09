@@ -1,6 +1,7 @@
 <?php
 /**
- * The default template for displaying content
+ * Template:			content.php
+ * Description:			The default template for displaying content
  *
  */
 
