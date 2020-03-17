@@ -4,6 +4,7 @@
  * Description:    		Custom nav walker class
  */
 
+
 class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 
     function __construct( $css_class_prefix = 'menu' ) {

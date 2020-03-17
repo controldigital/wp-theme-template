@@ -11,35 +11,40 @@
  * Use this theme to kickstart yourself into development.
  * Start off by defining these constants here below.
  */
-define( 'THEME_NAME', 'Control Twenty Twenty' );
+define( 'THEME_NAME', 'Control WP Theme' );
 define( 'THEME_VERSION', 1.0 );
 define( 'THEME_TEXT_DOMAIN', 'control' );
 
 /**
- * All the files and definitions should be placed
- * in the LIB folder and be called here below.
+ * All the templates to include
  * 
  */
-$templates = array(
-	
+$templates = array(	
 	'lib/ajax.php',				// Ajax functions
 	'lib/filters.php',			// Filter hooks
 	'lib/helpers.php',			// Helper functions
-	'lib/theme-support.php',	// Theme support configuration
+	'lib/theme.php',			// Theme support configuration
 	'lib/post-types.php',		// Post Types registration
 	'lib/taxonomies.php',		// Taxonomies registration
-	'lib/navigation.php',		// Navigation registration and Nav Walkers
 	'lib/customizer.php',		// Customizer modifications
 	'lib/enqueue.php',			// Enqueue CSS and JS
 	'lib/admin.php',			// Custom admin settings
 	'lib/head.php',				// wp_head functions
 	'lib/body.php',				// wp_body_open functions
 	'lib/rest.php',				// Rest API configuration
-	'lib/sidebars.php',			// Sidebars registration
 	'lib/widgets.php',			// Widget registration
 	'lib/plugins.php',			// Plugins
-	'lib/translations.php',		// Translation settings
+);
 
+/**
+ * All the classes to include
+ * 
+ */
+$classes = array(	
+	'classes/nav-walker.php',					// Custom Navigation Walker
+	'classes/widget-button.php',				// Button Widget
+	'classes/widget-social.php',				// Social Widget
+	'classes/widget-highlight-post.php',		// Highlight Post Widget
 );
 
 /**
@@ -49,6 +54,10 @@ $templates = array(
  */
 foreach ( $templates as $template ) {
 	locate_template( $template, true, true );
+}
+
+foreach ( $classes as $class ) {
+	locate_template( $class, true, true );
 }
 
 ?>

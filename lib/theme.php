@@ -1,10 +1,25 @@
 <?php
 /**
- * Theme:
- * Template:			theme-support.php
+ * Template:			theme.php
  * Description:			Set the core functions of the theme
  */
 
+ /**
+ * theme_menus
+ * 
+ * Register navigation menus. Repeat the 
+ * register_nav_menu function to register
+ * multiple menu's.
+ * 
+ * @since	1.0
+ */
+add_action( 'after_setup_theme', 'theme_menus' );
+function theme_menus() {
+
+    // Create default menu
+	register_nav_menu( 'menu-main', __( 'Main Menu', THEME_TEXT_DOMAIN ) );
+
+}
 
 /**
  * add_theme_features
@@ -41,39 +56,6 @@ function add_theme_features()  {
 		'header-text' => array( 'site-title', 'site-description' ),
 	) );
 
-	// Add theme support for Custom Header
-	// add_theme_support( 'custom-header', array(
-	// 	'default-image' => '',
-	// 	'random-default' => false,
-	// 	'width' => 0,
-	// 	'height' => 0,
-	// 	'flex-height' => false,
-	// 	'flex-width' => false,
-	// 	'default-text-color' => '',
-	// 	'header-text' => true,
-	// 	'uploads' => true,
-	// 	'wp-head-callback' => '',
-	// 	'admin-head-callback' => '',
-	// 	'admin-preview-callback' => '',
-	// 	'video' => false,
-	// 	'video-active-callback' => 'is_front_page',
-	// ) );
-
-	// Add theme support for Custom Backgrounds
-	// add_theme_support( 'custom-background', array(
-	// 	'default-image' => '',
-	// 	'default-preset' => 'default',
-	// 	'default-position-x' => 'left',
-	// 	'default-position-y' => 'top',
-	// 	'default-size' => 'auto',
-	// 	'default-repeat' => 'repeat',
-	// 	'default-attachment' => 'scroll',
-	// 	'default-color' => '',
-	// 	'wp-head-callback' => '_custom_background_cb',
-	// 	'admin-head-callback' => '',
-	// 	'admin-preview-callback' => '',
-	// ) );
-
 	// Add theme support for selective refresh of widgets in customizer
 	add_theme_support( 'customize-selective-refresh-widgets' );
 
@@ -103,29 +85,6 @@ function add_gutenberg_features() {
 	// Gutenberg align wide
 	add_theme_support( 'align-wide' );
 
-	// Gutenberg custom colors
-	add_theme_support( 'editor-color-palette', array(
-
-		array(
-			'name'      => __( 'Control Blue', THEME_TEXT_DOMAIN ),
-			'slug'      => 'control-blue',
-			'color'     => '#384752',
-        ),
-        
-	) );
-	
-	// Gutenberg font sizes
-	add_theme_support( 'editor-font-sizes', array(
-        
-		array(
-			'name' 			=> __( 'small', THEME_TEXT_DOMAIN ),
-			'shortName' 	=> __( 'S', THEME_TEXT_DOMAIN ),
-			'size' 			=> 12,
-			'slug' 			=> 'small'
-        ),
-        
-	) );
-
 	// Gutenberg editor styles
 	add_theme_support( 'editor-styles' );
 	add_theme_support( 'dark-editor-style' );
@@ -136,4 +95,17 @@ function add_gutenberg_features() {
 	// Gutenberg use responsive embeds
 	add_theme_support( 'responsive-embeds' );
 
+}
+
+/**
+ * theme_translations_setup
+ * 
+ * Add translations files to the theme
+ * 
+ * @since   1.0
+ * @link    https://developer.wordpress.org/reference/hooks/after_setup_theme/
+ */
+add_action( 'after_setup_theme', 'theme_translations_setup', 10 );
+function theme_translations_setup() {
+    load_theme_textdomain( 'control', get_template_directory() . '/languages' );
 }

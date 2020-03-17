@@ -17,9 +17,7 @@
 	<body <?php body_class(); ?>>
 
 		<?php 
-		wp_body_open(); 
-
-		get_template_part( './template-parts/splash' ); ?>		
+		wp_body_open(); ?>
 
 		<header id="site-header" class="header" role="banner">
 			<div class="header__container">
