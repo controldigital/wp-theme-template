@@ -48,14 +48,33 @@ function get_layout( $name = null ) {
 }
 
 /**
- * Debug function that formats the var_dump function.
- * 
- * @param	variable 
+ * Debug function to prettify the output of the standard var_dump function. 
+ * @param	variable $variable
  */
-function debug( $var ) {
+function debug( $variable ) {
 	echo '<pre>';
-	var_dump($var);
+	var_dump( $variable );
 	echo '</pre>';
+}
+
+/**
+ * Prints a link based on the ACF link field content
+ * 
+ * @param	array $link $class
+ */
+function the_link( $link = null, $class = 'link' ) {
+	if ( is_array( $link  ) ) {
+
+		// Get the link fields.
+		$link_url = $link[ 'url' ];
+		$link_title = $link[ 'title' ] ? $link[ 'title' ] : 'Link';
+		$link_target = $link[ 'target' ] ? $link[ 'target' ] : '_self';
+		$link_scroll = strpos( '#', $link_url ) > -1 ? ' js-anchor' : '';
+
+		// Echo the link.
+		echo '<a class="' . $class . $link_scroll . '" href="' . $link_url . '" target="' . $link_target .'" title="' . $link_title . '">' . $link_title . '</a>';
+			
+	}
 }
 
 /**
