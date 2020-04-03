@@ -48,6 +48,17 @@ function get_layout( $name = null ) {
 }
 
 /**
+ * Outputs an URL with the relative path to the images folder.
+ * 
+ * @param	string $file
+ */
+function the_image_asset( $file ) {
+	if ( is_string( $file ) ) {
+		echo get_template_directory_uri() . '/assets/images/' . $file;
+	}
+}
+
+/**
  * Debug function to prettify the output of the standard var_dump function. 
  * @param	variable $variable
  */
