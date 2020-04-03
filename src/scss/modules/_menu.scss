@@ -2,8 +2,13 @@
     
     &--default {
         display: flex;
+        flex-direction: column;
         list-style: none;
         margin: 0 2rem;
+
+        @include breakpoint(768) {
+            flex-direction: row;
+        }
     }
 
     &--default li {
