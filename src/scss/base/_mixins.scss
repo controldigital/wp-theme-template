@@ -61,6 +61,10 @@
 		@media (min-width: 64em) { 
 			@content; 
 		}
+	} @else if ($size == 992) {
+		@media (min-width: 62em) { 
+			@content; 
+		}
 	} @else if ($size == 768) {
 		@media (min-width: 48em) { 
 			@content; 
