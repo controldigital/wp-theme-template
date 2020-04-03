@@ -27,13 +27,13 @@
  */
 
 // Import modules.
-import { exampleModule } from './modules/exampleModule';
+import { initMenuToggle } from './modules/initMenuToggle';
 
 // Main thread
 (function () {
 	'use strict';
 
 	// Use modules
-	exampleModule();
+	initMenuToggle();
 
 }());
