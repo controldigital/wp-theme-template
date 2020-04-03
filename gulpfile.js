@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const sourcemaps = require('gulp-sourcemaps');
 const webpack = require('webpack');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
@@ -16,14 +15,12 @@ const autoprefixer = require('gulp-autoprefixer');
  */
 gulp.task('styles', () => 
     gulp.src('./src/scss/style.scss')
-    .pipe(sourcemaps.init())
     .pipe(sass({
         outputStyle: 'compressed'
     }).on('error', sass.logError))
     .pipe(autoprefixer({
         cascade: false,
     }))
-    .pipe(sourcemaps.write())
     .pipe(gulp.dest('./dist/'))
 );
 
@@ -46,6 +43,22 @@ gulp.task('scripts', callback => {
       	callback();
     });
 });
+
+
+/**
+ * Debug gulp task
+ * 
+ * Compiles the SCSS files to CSS but doesn't minify or autoprefix it, for debugging. 
+ * 
+ * For options check out:
+ * {@link https://github.com/postcss/autoprefixer#options}
+ * 
+ */
+gulp.task('debug', () => 
+    gulp.src('./src/scss/style.scss')
+    .pipe(sass({}).on('error', sass.logError))
+    .pipe(gulp.dest('./dist/'))
+);
 
 /**
  * Watch gulp task
