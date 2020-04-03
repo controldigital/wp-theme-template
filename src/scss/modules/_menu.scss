@@ -1,17 +1,20 @@
 .menu {
+
+    &--main {
+        margin: 0 2rem;
+    }
     
-    &--default {
+    &__list--main {
         display: flex;
         flex-direction: column;
         list-style: none;
-        margin: 0 2rem;
 
         @include breakpoint(768) {
             flex-direction: row;
         }
     }
 
-    &--default li {
+    &__list--main li {
         margin: 0 2rem 0 0;
 
         &:last-of-type {
@@ -19,7 +22,7 @@
         }
     }
 
-    &--default li a {
+    &__list--main li a {
         text-decoration: none;
     }
 }

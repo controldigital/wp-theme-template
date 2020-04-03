@@ -34,9 +34,8 @@
 					<?php $nav_menu_args = array(
 						'theme_location'        => 'menu-main',
 						'container'             => 'nav',
-						'container_class'       => 'nav nav--default',
-						'menu_class'            => 'menu menu--default',
-						'menu_id'               => 'main-menu',
+						'container_class'       => 'menu menu--main',
+						'menu_class'            => 'menu__list menu__list--main',
 						'walker'                => new Custom_Walker_Nav_Menu()
 					);
 					wp_nav_menu( $nav_menu_args ); ?>

@@ -157,3 +157,18 @@ function register_custom_widgets() {
 	register_widget( 'Social_Widget' );
 	register_widget( 'Highlight_Post_Widget' );
 }
+
+/**
+ * Add the custom nav walker to the widget navigation.
+ * 
+ * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/widget_nav_menu_args/
+ */
+add_action( 'widget_nav_menu_args', 'set_widget_nav_menu_walker', 10, 1 );
+function set_widget_nav_menu_walker( $nav_menu_args ) {
+	$nav_menu_args[ 'container' ] 		= 'nav';
+    $nav_menu_args[ 'container_class' ] = 'menu menu--widget';
+    $nav_menu_args[ 'menu_class' ] 		= 'menu__list menu__list--widget';
+	$nav_menu_args[ 'walker' ] 			= new Custom_Walker_Nav_Menu();
+	return $nav_menu_args;
+}
