@@ -1,6 +1,5 @@
 <?php
-/**
- * Theme:			    
+/**  
  * Template:			body.php
  * Description:			Scripts and tags for in the body
  */

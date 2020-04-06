@@ -20,6 +20,7 @@
             visibility: visible;
             transition: opacity 350ms ease-in-out, transform 350ms ease-in-out, visibility 350ms ease-in-out;
             z-index: 99;
+            background-color: #ffffff; 
         }
 
         body.page-ready #loader {

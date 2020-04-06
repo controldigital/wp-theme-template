@@ -12,9 +12,11 @@
  * @return 	array
  */
 add_filter('body_class', function (array $classes) {
-	foreach ($classes as $class => $value ) {
-		if ( strpos( $value, 'templatestemplate' ) !== false) {
-			unset( $classes[ $class ] );
+	if ( is_page_template() ) {
+		foreach ($classes as $class => $value ) {
+			if ( strpos( $value, 'templatestemplate' ) !== false) {
+				unset( $classes[ $class ] );
+			}
 		}
 	}
   	return $classes;
