@@ -47,6 +47,13 @@
 	visibility: visible;
 }
 
+/* Transition */
+@mixin transition {
+	transition-property: visibility, opacity;
+	transition-duration: .3s;
+	transition-timing-function: ease-in-out;
+}
+
 /* Breakpoints */
 @mixin breakpoint($size) {
 	@if ($size == 1440) {

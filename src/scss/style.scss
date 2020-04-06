@@ -9,7 +9,6 @@
 @import "base/global";
 @import "base/wordpress";
 @import "base/text";
-@import "base/cookie";
 
 /* Sections */
 @import "section/header";
@@ -25,3 +24,4 @@
 
 /* Plugins */
 // @import "plugins/gforms";
+// @import "plugins/cookie";

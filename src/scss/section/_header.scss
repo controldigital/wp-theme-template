@@ -1,7 +1,9 @@
 .header {
     display: block;
     position: relative;
-    transition: background-color var(--transition), color var(--transition);
+    transition-property: background-color, color;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
     width: 100%;
     background-color: none;
 
@@ -9,10 +11,6 @@
         position: fixed;
         top: 0;
         left: 0;
-    }
-
-    &--scrolling {
-        background-color: var(--color-light);
     }
 
     &__container {
@@ -49,7 +47,7 @@
         z-index: 10;
         padding: 2rem 0 0 0;
         @include hidden;
-        transition: visibility .3s ease-in-out, opacity .3s ease-in-out;
+        @include transition;
    
         @include breakpoint(768) {
             @include visible;

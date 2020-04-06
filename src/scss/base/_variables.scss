@@ -9,26 +9,16 @@
 
     /* Font families */
 	--font-open-sans: "Open Sans", Helvetica, Arial, Verdana, sans-serif;
-    
-	/* Durations */
-	--duration-short: 150ms;
-    --duration: 300ms;
-	--duration-medium: 600ms;
-	--duration-long: 1200ms;
-
-	/* Transition */
-	--transition: .3s ease-in-out;
 
 	/* Sizes */
 	--header-height: 4.25em;
-	--container-width: 73.25em;
 	--hero-height: auto;
+	--hero-height-large: auto;
+	--hero-height-full: 100vh; 
+	--container-width: 73.25em;
     
     /* 768px */
     @media screen and (min-width: 48em) {
-
-		/* Font base */
-		--font-size-base: 1em;
 
 		/* Sizes */
 		--header-height: 6.25em;
