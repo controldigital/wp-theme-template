@@ -1,43 +1,65 @@
-.gform_wrapper {
-
-}
-
-.gform_heading {
-
-}
-
-.gform_body {
-
-}
-
-.gform_footer {
+.gform {
 	
-}
+	&_wrapper {
 
-.gform_button {
+		.validation_error {
+			color: red;
+	
+		}	
+	}
 
-}
+	&_heading {
 
-.gform_fields {
+	}
 
+	&_body {
+
+	}
+
+	&_footer {
+
+	}
+
+	&_button {
+
+	}
+
+	&_fields {
+		list-style: none;
+	}
 }
 
 .gfield {
+	flex: 1 0 100%;
+	max-width: 100%;
+
+	&--half {
+		@include breakpoint(768) {
+			flex: 1 0 50%;
+			max-width: 50%;
+		}
+	}
+
+	&_label {
+
+		&--focus {
+
+		}
+	}
 
 	&_error {
+
+		.ginput_container input {
+			border: 1px solid red
+		}
+	}
+	
+	.validation_message {
+		color: red
 
 	}
 
 	&_html {
-
-	}
-
-}
-
-.gfield_label {
-
-	/** Custom gform focus class */
-	&--focus {
 
 	}
 
@@ -50,11 +72,22 @@
 .ginput_container {
 
 	input {
-
+		width: 100%;
+		padding: 1.25rem;
+		border: 1px solid #f1f1f1;
+		outline: none;
 	}
 
 	textarea {
+		width: 100%;
+		padding: 1.25rem;
+		border: 1px solid #DBE5F1;
+		outline: none;
+		resize: none;
+		max-height: 9.8125rem;	
+	}
 
+	input::placeholder, textarea::placeholder {
 	}
 
 }
@@ -81,14 +114,6 @@
 		}
 
 	}
-
-}
-
-.validation_error {
-
-}
-
-.validation_message {
 
 }
 
