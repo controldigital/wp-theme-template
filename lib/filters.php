@@ -4,24 +4,6 @@
  * Description:			Filters to modify theme
  */
 
- /**
- * Remove templates folder class from body
- * 
- * @since	1.0
- * @link	https://developer.wordpress.org/reference/hooks/excerpt_more/
- * @return 	array
- */
-add_filter('body_class', function (array $classes) {
-	if ( is_page_template() ) {
-		foreach ($classes as $class => $value ) {
-			if ( strpos( $value, 'templatestemplate' ) !== false) {
-				unset( $classes[ $class ] );
-			}
-		}
-	}
-  	return $classes;
-});
-
 /**
  * Custom excerpt length.
  * 
