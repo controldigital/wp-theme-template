@@ -13,10 +13,10 @@ class Button_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname' 					=> 'button-widget',
-			'description' 					=> __( 'Button with customizable title and type', THEME_TEXT_DOMAIN ),
+			'description' 					=> __( 'Button with customizable title and type', 'control' ),
 			'customize_selective_refresh' 	=> true,
 		);
-		parent::__construct( 'button_widget', __( 'Button', THEME_TEXT_DOMAIN ), $widget_ops );
+		parent::__construct( 'button_widget', __( 'Button', 'control' ), $widget_ops );
 	}
 
 	/**
@@ -53,23 +53,23 @@ class Button_Widget extends WP_Widget {
 		$type 	= ! empty ( $instance[ 'type' ] ) ? $instance[ 'type' ] : ''; ?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', THEME_TEXT_DOMAIN ); ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'control' ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Label', THEME_TEXT_DOMAIN ); ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'label' ); ?>"><?php _e( 'Label', 'control' ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'label' ); ?>" name="<?php echo $this->get_field_name( 'label' ); ?>" value="<?php echo esc_attr( $label ); ?>" />
 		</p>
-			<label for="<?php echo $this->get_field_id( 'link' ); ?>"><?php _e( 'Link', THEME_TEXT_DOMAIN ); ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'link' ); ?>"><?php _e( 'Link', 'control' ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'link' ); ?>" name="<?php echo $this->get_field_name( 'link' ); ?>" value="<?php echo esc_attr( $link ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'type' ); ?>"><?php _e( 'Button type', THEME_TEXT_DOMAIN ); ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'type' ); ?>"><?php _e( 'Button type', 'control' ); ?>:</label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'type' ); ?>">
-				<option value="button--standard" <?php if ($type === 'button--standard') echo 'selected'; ?>><?php _e( 'Standard', THEME_TEXT_DOMAIN ); ?></option>
-				<option value="button--alternate" <?php if ($type === 'button--alternate') echo 'selected'; ?>><?php _e( 'Alternate', THEME_TEXT_DOMAIN ); ?></option>
-				<option value="button--ghost" <?php if ($type === 'button--ghost') echo 'selected'; ?>><?php _e( 'Ghost', THEME_TEXT_DOMAIN ); ?></option>
+				<option value="button--standard" <?php if ($type === 'button--standard') echo 'selected'; ?>><?php _e( 'Standard', 'control' ); ?></option>
+				<option value="button--alternate" <?php if ($type === 'button--alternate') echo 'selected'; ?>><?php _e( 'Alternate', 'control' ); ?></option>
+				<option value="button--ghost" <?php if ($type === 'button--ghost') echo 'selected'; ?>><?php _e( 'Ghost', 'control' ); ?></option>
 			</select>
 		</p>
 

@@ -106,7 +106,7 @@ function theme_404_customizer_register( WP_Customize_Manager $wp_customize ) {
 	$wp_customize->add_section(
 		'404_section',
 		array(
-			'title'				=> __( '404 Page Settings', THEME_TEXT_DOMAIN ),
+			'title'				=> __( '404 Page Settings', 'control' ),
 			'description' 		=> __( 'Add the content that will be displayed on the 404 - page not found Page' ),
 			'capability'     	=> 'edit_theme_options',
 		)
@@ -117,8 +117,8 @@ function theme_404_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'404_thumbnail',
 		array(
-			'label'				=> __( 'Thumbnail', THEME_TEXT_DOMAIN ),
-			'description'		=> __( 'The thumbnail image of the 404 page.', THEME_TEXT_DOMAIN ),
+			'label'				=> __( 'Thumbnail', 'control' ),
+			'description'		=> __( 'The thumbnail image of the 404 page.', 'control' ),
 			'section'			=> '404_general_section',
 			'settings'			=> '404_thumbnail',
 			'priority'			=> 25
@@ -130,8 +130,8 @@ function theme_404_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'404_title',
 		array(
-			'label'      		=> __( 'Title', THEME_TEXT_DOMAIN ),
-			'description'		=> __( 'The title of the 404 page.', THEME_TEXT_DOMAIN ),
+			'label'      		=> __( 'Title', 'control' ),
+			'description'		=> __( 'The title of the 404 page.', 'control' ),
 			'section'    		=> '404_general_section',
 			'settings'   		=> '404_title',
 			'type'				=> 'text',
@@ -144,8 +144,8 @@ function theme_404_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'404_body',
 		array(
-			'label'      		=> __( 'Body', THEME_TEXT_DOMAIN ),
-			'description'		=> __( 'The main content of the 404 page.', THEME_TEXT_DOMAIN ),
+			'label'      		=> __( 'Body', 'control' ),
+			'description'		=> __( 'The main content of the 404 page.', 'control' ),
 			'section'    		=> '404_general_section',
 			'settings'   		=> '404_body',
 			'type'				=> 'textarea',

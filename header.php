@@ -65,7 +65,7 @@
 						aria-haspopup="true" 
 						aria-controls="header-nav"
 						aria-expanded="false"
-						title="<?php _e( 'Toggle menu', THEME_TEXT_DOMAIN ); ?>">
+						title="<?php _e( 'Toggle menu', 'control' ); ?>">
 						<div class="toggle__inner">
 							<span></span>
 							<span></span>

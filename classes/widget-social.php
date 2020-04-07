@@ -14,10 +14,10 @@ class Social_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname' 					=> 'social-widget',
-			'description' 					=> __( 'Social media buttons widget', THEME_TEXT_DOMAIN ),
+			'description' 					=> __( 'Social media buttons widget', 'control' ),
 			'customize_selective_refresh' 	=> true,
 		);
-		parent::__construct( 'social_widget', __( 'Social', THEME_TEXT_DOMAIN ), $widget_ops );
+		parent::__construct( 'social_widget', __( 'Social', 'control' ), $widget_ops );
 	}
 
 	/**
@@ -78,7 +78,7 @@ class Social_Widget extends WP_Widget {
 		$show_labels 	= ! empty( $instance[ 'show_labels' ] ) ? 'on' : ''; ?>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', THEME_TEXT_DOMAIN ); ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'control' ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
@@ -110,7 +110,7 @@ class Social_Widget extends WP_Widget {
 			<input type="url" class="widefat" id="<?php echo $this->get_field_id( 'youtube' ); ?>" name="<?php echo $this->get_field_name( 'youtube' ); ?>" value="<?php echo esc_attr( $youtube ); ?>" />
 		</p>
 		<p>
-			<label for"<?php echo $this->get_field_id( 'show_labels' ); ?>"><?php _e( 'Show labels of social links', THEME_TEXT_DOMAIN ); ?></label>
+			<label for"<?php echo $this->get_field_id( 'show_labels' ); ?>"><?php _e( 'Show labels of social links', 'control' ); ?></label>
 			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_labels' ); ?>" name="<?php echo $this->get_field_name( 'show_labels' ); ?>" <?php checked( esc_attr( $show_labels ), 'on' ); ?> />
 		</p>
 		

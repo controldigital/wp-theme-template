@@ -14,10 +14,10 @@ class Highlight_Post_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname' 					=> 'highlight-post-widget',
-			'description' 					=> __( 'Pick a highlighted post', THEME_TEXT_DOMAIN ),
+			'description' 					=> __( 'Pick a highlighted post', 'control' ),
 			'customize_selective_refresh' 	=> true,
 		);
-		parent::__construct( 'highlight_post_widget', __( 'Highlight Post', THEME_TEXT_DOMAIN ), $widget_ops );
+		parent::__construct( 'highlight_post_widget', __( 'Highlight Post', 'control' ), $widget_ops );
 	}
 	
 	/**
@@ -90,11 +90,11 @@ class Highlight_Post_Widget extends WP_Widget {
 		?>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', THEME_TEXT_DOMAIN ); ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'control' ); ?>:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'highlight' ); ?>"><?php _e( 'Post to highlight', THEME_TEXT_DOMAIN ); ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'highlight' ); ?>"><?php _e( 'Post to highlight', 'control' ); ?>:</label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'highlight' ); ?>" name="<?php echo $this->get_field_name( 'highlight' ); ?>">
 				<option value="">Pick a post</option>
 				<?php if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post(); ?>
