@@ -31,7 +31,6 @@ export const initMenuToggle = function initMenuToggle() {
      * @param 	{Event} event 
      */
     const toggleMenu = function toggleMenu(event) { 
-        
         if (menuOpen) {
             body.classList.remove('is-menu-open');
             menuToggle.classList.remove('toggle--active');

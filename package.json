@@ -7,10 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "gulpwatch": "gulp watch",
+    "gulpwatch": "gulp",
     "gulpstyles": "gulp styles",
-    "gulpscripts": "gulp scripts --mode development",
-    "sftp": "node --no-warnings node_scripts/sftp-config/build.js"
+    "gulpscripts": "gulp scripts"
   },
   "repository": {
     "type": "git",

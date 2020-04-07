@@ -35,7 +35,7 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
  */
 add_action( 'customize_preview_init', 'customizer_preview_scripts' );
 function customizer_preview_scripts() {
-	wp_register_script( 'customizer-preview', get_template_directory_uri() . '/assets/admin/js/customizer-preview.js', array( 'jquery' ), false, true );
+	wp_register_script( 'customizer-preview', get_template_directory_uri() . '/src/admin/js/customizer-preview.js', array( 'jquery' ), false, true );
     wp_enqueue_script( 'customizer-preview' );
 }
 
@@ -53,7 +53,7 @@ function customizer_preview_scripts() {
  */
 add_action( 'customize_controls_enqueue_scripts', 'customizer_control_scripts' );
 function customizer_control_scripts() {
-	wp_register_script( 'customizer-control', get_template_directory_uri() . '/assets/admin/js/customizer-control.js', array( 'jquery' ), false, true );
+	wp_register_script( 'customizer-control', get_template_directory_uri() . '/src/admin/js/customizer-control.js', array( 'jquery' ), false, true );
 	wp_enqueue_script( 'customizer-control' );
 }
 

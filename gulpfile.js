@@ -1,10 +1,11 @@
 const gulp = require('gulp');
 const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js')
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 
 /**
- * Styles gulp function
+ * Styles gulp 
  * 
  * Compiles the SCSS files to CSS and minifies
  * and autoprefixes the CSS. 
@@ -15,14 +16,14 @@ const autoprefixer = require('gulp-autoprefixer');
  */
 function styles(done) {
     gulp.src('./src/scss/style.scss', { sourcemaps: true })
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(autoprefixer({cascade: false}))
-    .pipe(gulp.dest('./dist/'))
-    done();
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(autoprefixer({cascade: false}))
+        .pipe(gulp.dest('./dist/'))
+        done();
 };
 
 /**
- * Scripts gulp function
+ * Scripts gulp 
  * 
  * Starts Webpack to bundle the JS Modules and turn
  * ES6 code into legacy code for older browsers.
@@ -32,7 +33,7 @@ function styles(done) {
  * 
  */
 function scripts(callback) {
-    webpack(require('./webpack.config.js'), function(err, stats) {
+    webpack(webpackConfig, function(err, stats) {
     	if (err) {
         	console.log(err.toString());
     	}
@@ -42,8 +43,7 @@ function scripts(callback) {
 }; 
 
 /**
- * Specify gulp tasks
- * 
+ * Add the above functions to a specific gulp task
  * 
  */
 
