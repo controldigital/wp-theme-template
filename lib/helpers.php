@@ -80,7 +80,7 @@ function the_link( $link = null, $class = 'link' ) {
 		$link_url = $link[ 'url' ];
 		$link_title = $link[ 'title' ] ? $link[ 'title' ] : 'Link';
 		$link_target = $link[ 'target' ] ? $link[ 'target' ] : '_self';
-		$link_scroll = strpos( '#', $link_url ) > -1 ? ' js-anchor' : '';
+		$link_scroll = strpos( $link_url, '#' ) > -1 ? ' js-anchor' : '';
 
 		// Echo the link.
 		echo '<a class="' . $class . $link_scroll . '" href="' . $link_url . '" target="' . $link_target .'" title="' . $link_title . '">' . $link_title . '</a>';
