@@ -45,6 +45,7 @@ $classes = array(
 	'classes/widget-button.php',				// Button Widget
 	'classes/widget-social.php',				// Social Widget
 	'classes/widget-highlight-post.php',		// Highlight Post Widget
+	'classes/tinymce-customizer.php',			// TinyMCE Customizer
 );
 
 /**

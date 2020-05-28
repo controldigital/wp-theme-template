@@ -60,9 +60,6 @@ function customizer_control_scripts() {
 /**
  * theme_404_customizer_register
  * 
- * This functions adds a whole new section
- * in the customizer with settings for cookies.
- * 
  * @since   1.0
  * 
  * For help check out these links below
@@ -74,7 +71,7 @@ function theme_404_customizer_register( WP_Customize_Manager $wp_customize ) {
 
 	// 404 thumbnail setting.
 	$wp_customize->add_setting(
-		'404_thumbnail',
+		'404_image',
 		array(
 			'transport'			=> 'refresh',
 			'capability'		=> 'edit_theme_options',
@@ -85,6 +82,16 @@ function theme_404_customizer_register( WP_Customize_Manager $wp_customize ) {
 	// 404 title setting.
 	$wp_customize->add_setting(
 		'404_title',
+		array(
+			'transport'		=> 'refresh',
+			'capability'	=> 'edit_theme_options',
+			'type'			=> 'theme_mod'
+		)
+    );
+    
+    // 404 subtitle setting.
+	$wp_customize->add_setting(
+		'404_subtitle',
 		array(
 			'transport'		=> 'refresh',
 			'capability'	=> 'edit_theme_options',
@@ -101,52 +108,62 @@ function theme_404_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'type'				=> 'theme_mod'
 		)
 	);
-	
+
 	// 404 general section
 	$wp_customize->add_section(
 		'404_section',
 		array(
-			'title'				=> __( '404 Page Settings', 'control' ),
-			'description' 		=> __( 'Add the content that will be displayed on the 404 - page not found Page' ),
-			'capability'     	=> 'edit_theme_options',
+			'title'				=> __( '404 Page', 'control' ),
+			'priority'			=> 250,
 		)
 	);
 
-	// Cookie thumbnail image input control
-	$wp_customize->add_control( new WP_Customize_Image_Control(
+	// 404 thumbnail image input control
+	$wp_customize->add_control( new WP_Customize_Media_Control(
 		$wp_customize,
-		'404_thumbnail',
+		'404_image',
 		array(
-			'label'				=> __( 'Thumbnail', 'control' ),
-			'description'		=> __( 'The thumbnail image of the 404 page.', 'control' ),
-			'section'			=> '404_general_section',
-			'settings'			=> '404_thumbnail',
+			'label'				=> __( 'Image', 'control' ),
+			'section'			=> '404_section',
+            'settings'			=> '404_image',
+            'mime_type'         => 'image',
 			'priority'			=> 25
 		)
-	) );
+    ) );
 
-	// Cookie title text input control
+	// 404 title text input control
 	$wp_customize->add_control( new WP_Customize_Control(
 		$wp_customize,
 		'404_title',
 		array(
 			'label'      		=> __( 'Title', 'control' ),
-			'description'		=> __( 'The title of the 404 page.', 'control' ),
-			'section'    		=> '404_general_section',
+			'section'    		=> '404_section',
 			'settings'   		=> '404_title',
+			'type'				=> 'text',
+	        'priority'   		=> 35
+		)
+    ) );
+    
+    // 404 subtitle text input control
+	$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize,
+		'404_subtitle',
+		array(
+			'label'      		=> __( 'Subtitle', 'control' ),
+			'section'    		=> '404_section',
+			'settings'   		=> '404_subtitle',
 			'type'				=> 'text',
 	        'priority'   		=> 30
 		)
 	) );
 
-	// Cookie body textarea control
-	$wp_customize->add_control( new WP_Customize_Control(
+	// 404 body textarea control
+	$wp_customize->add_control( new WP_TinyMCE_Customize_Control(
 		$wp_customize,
 		'404_body',
 		array(
 			'label'      		=> __( 'Body', 'control' ),
-			'description'		=> __( 'The main content of the 404 page.', 'control' ),
-			'section'    		=> '404_general_section',
+			'section'    		=> '404_section',
 			'settings'   		=> '404_body',
 			'type'				=> 'textarea',
 	        'priority'   		=> 40
