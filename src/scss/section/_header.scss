@@ -1,7 +1,9 @@
 .header {
     display: block;
     position: relative;
-    transition: background-color var(--transition), color var(--transition);
+    transition-property: background-color, color;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
     width: 100%;
     background-color: none;
 
@@ -9,10 +11,6 @@
         position: fixed;
         top: 0;
         left: 0;
-    }
-
-    &--scrolling {
-        background-color: var(--color-light);
     }
 
     &__container {
@@ -40,8 +38,16 @@
 
     &__navigation {
         grid-area: navigation;
-        position: absolute;
+        position: fixed;
+        left: 0;
+        top: var(--header-height);
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-light);
+        z-index: 10;
+        padding: 2rem 0 0 0;
         @include hidden;
+        @include transition;
    
         @include breakpoint(768) {
             @include visible;
@@ -49,6 +55,10 @@
             align-self: center;
             justify-self: flex-end;
             display: flex;
+            width: initial;
+            height: initial;
+            top: initial;
+            padding: 0;
         }
     }
 

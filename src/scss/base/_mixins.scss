@@ -1,19 +1,3 @@
-/* Text styles */
-@mixin text-styles {
-	font-size: var(--font-size-base);
-	font-weight: 400;
-	font-style: normal;
-	line-height: var(--text-line-height);
-	margin: var(--text-margin);
-}
-
-/* Background cover */
-@mixin background-cover {
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
-}
-
 /* Image cover */
 @mixin image-cover {
 	width: 100%;
@@ -21,6 +5,13 @@
 	max-width: 100%;
 	max-height: 100%;
 	object-fit: cover;
+}
+
+/* Background cover */
+@mixin background-cover {
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
 }
 
 /* Media container */
@@ -44,63 +35,23 @@
 	padding-top: 75%;
 }
 
-/* Grid */
-@mixin grid($rows-value: false, $columns-value: false, $areas-value: false) {
-	display: grid;
-	@if ($rows-value) {
-		grid-template-rows: $rows-value;
-	}
-	@if ($columns-value) {
-		grid-template-columns: $columns-value;
-	}
-	@if ($areas-value) {
-		grid-template-areas: $areas-value
-	}
-}
-
 /* Hidden */
-@mixin hidden($transition: 300ms ease-in-out) {
+@mixin hidden {
 	opacity: 0;
 	visibility: hidden;
-	transition: opacity $transition, visibility $transition;
 }
 
 /* Visible */
-@mixin visible($transition: 300ms ease-in-out) {
+@mixin visible {
 	opacity: 1;
 	visibility: visible;
-	transition: opacity $transition, visibility $transition;
 }
 
-/* Form styles reset */
-@mixin form-styles-reset {
-	appearance: none;
-	font-family: inherit;
-	background: none;
-	border: 0;
-}
-
-/* Form styles */
-@mixin form-styles {
-	font-family: inherit;
-	font-size: 1em;
-	font-weight: 400;
-	line-height: 1.5;
-	border: 1px solid #bbbbbb;
-	border-radius: 5px;
-	background: #f0f0f0;
-	padding: 0.875em 1.25em;
-	width: 100%;
-	overflow: hidden;
-}
-
-@mixin form-checkbox-radio-before {
-	content: "";
-	display: block;
-	width: 0.75em;
-	height: 0.75em;
-	background: #bbbbbb;
-	transform: scale(0);
+/* Transition */
+@mixin transition {
+	transition-property: visibility, opacity;
+	transition-duration: .3s;
+	transition-timing-function: ease-in-out;
 }
 
 /* Breakpoints */
@@ -117,6 +68,10 @@
 		@media (min-width: 64em) { 
 			@content; 
 		}
+	} @else if ($size == 992) {
+		@media (min-width: 62em) { 
+			@content; 
+		}
 	} @else if ($size == 768) {
 		@media (min-width: 48em) { 
 			@content; 
@@ -124,6 +79,10 @@
 	} @else if ($size == 480) {
 		@media (min-width: 30em) { 
 			@content; 
+		}
+	} @else {
+		@media (min-width: $size + 'px') {
+			@content;
 		}
 	}
 }

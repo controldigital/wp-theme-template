@@ -1,5 +1,13 @@
 .sidebar {
 
+    &--menu {
+        margin: 2rem 0 0 2rem;
+
+        @include breakpoint(768) {
+            margin: 0;
+        }
+    }
+
     ul {
         display: flex;
         list-style: none;

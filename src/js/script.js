@@ -5,7 +5,7 @@
  * @file script.js
  * @version 1.0
  * @license
- * Copyright (c) 2019 Control.
+ * Copyright (c) 2020 Control.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,23 +26,14 @@
  * SOFTWARE.
  */
 
-// Import regeneratorRuntime to convert async to generator functions.
-import regeneratorRuntime from 'regenerator-runtime';
-
 // Import modules.
-import {
-	serviceWorker,
-	cookie,
-	menu
-} from 'Modules/core.js';
+import { initMenuToggle } from './modules/initMenuToggle';
 
 // Main thread
 (function () {
 	'use strict';
 
 	// Use modules
-	serviceWorker(`${wp.theme}/serviceworker.js`);
-	cookie();
-	menu();
+	initMenuToggle();
 
 }());
