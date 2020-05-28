@@ -9,29 +9,19 @@ get_header();
 
 <main id="site-content" role="main">
 
-	<?php
+	<?php if ( have_posts() ) { while ( have_posts() ) { the_post(); ?>
 
-	if ( have_posts() ) {
+		<article class="content" id="post-<?php the_ID(); ?>">
 
-		while ( have_posts() ) {
-			the_post();
+			<?php get_hero(); ?>
+		
+			<section class="section">
+				<?php the_content(); ?>
+			</section>
 
-			get_hero();
-			
-			?>
-
-			<article class="content" id="post-<?php the_ID(); ?>">
-			
-				<section class="section">
-					<?php the_content(); ?>
-				</section>
-
-			</article>
+		</article>
 				
-		<?php }
-	}
-
-	?>
+	<?php } } ?>
 
 </main>
 
