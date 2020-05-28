@@ -41,21 +41,13 @@
 					wp_nav_menu( $nav_menu_args ); ?>
 
 					<?php if ( is_active_sidebar( 'sidebar-menu' ) ) { ?>
-						<div class="sidebar sidebar--menu">
-							<ul>
-								<?php dynamic_sidebar( 'sidebar-menu'); ?>
-							</ul>
-						</div>
+						<?php dynamic_sidebar( 'sidebar-menu'); ?>
 					<?php } ?>
 				</div>
 
 				<?php if ( is_active_sidebar( 'sidebar-header' ) ) { ?>        
 					<div class="header__sidebar">
-						<div class="sidebar sidebar--header">
-							<ul>
-								<?php dynamic_sidebar( 'sidebar-header'); ?>
-							</ul>
-						</div>
+						<?php dynamic_sidebar( 'sidebar-header'); ?>
 					</div>
 				<?php } ?>
 
