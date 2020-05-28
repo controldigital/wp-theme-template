@@ -23,8 +23,8 @@ function theme_sidebars() {
 		'description'   => __( 'Widget area after the main menu', 'control' ),
 		'before_title'  => '',
 		'after_title'   => '',
-		'before_widget' => '<li id="%1$s">',
-		'after_widget'  => '</li>',
+		'before_widget' => '<div class="widget widget--menu" id="%1$s">',
+		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
 
@@ -35,8 +35,8 @@ function theme_sidebars() {
 		'description'   => __( 'Widget area in the header', 'control' ),
 		'before_title'  => '',
 		'after_title'   => '',
-		'before_widget' => '<li id="%1$s">',
-		'after_widget'  => '</li>',
+		'before_widget' => '<div class="widget widget--header" id="%1$s">',
+		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
 
@@ -47,7 +47,7 @@ function theme_sidebars() {
 		'description'   => __( 'First column in the footer at the end of the page.', 'control' ),
 		'before_title'  => '<h4>',
 		'after_title'   => '</h4>',
-		'before_widget' => '<div class="widget" id="%1$s">',
+		'before_widget' => '<div class="widget widget--footer widget--footer-1" id="%1$s">',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
@@ -59,7 +59,7 @@ function theme_sidebars() {
 		'description'   => __( 'Second column in the footer at the end of the page.', 'control' ),
 		'before_title'  => '<h4>',
 		'after_title'   => '</h4>',
-		'before_widget' => '<div class="widget" id="%1$s">',
+		'before_widget' => '<div class="widget widget--footer widget--footer-2" id="%1$s">',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
@@ -71,7 +71,7 @@ function theme_sidebars() {
 		'description'   => __( 'Third column in the footer at the end of the page.', 'control' ),
 		'before_title'  => '<h4>',
 		'after_title'   => '</h4>',
-		'before_widget' => '<div class="widget" id="%1$s">',
+		'before_widget' => '<div class="widget widget--footer widget--footer-3" id="%1$s">',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
@@ -83,7 +83,7 @@ function theme_sidebars() {
 		'description'   => __( 'Fourth column in the footer at the end of the page.', 'control' ),
 		'before_title'  => '<h4>',
 		'after_title'   => '</h4>',
-		'before_widget' => '<div class="widget" id="%1$s">',
+		'before_widget' => '<div class="widget widget--footer widget--footer-4" id="%1$s">',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
@@ -95,7 +95,7 @@ function theme_sidebars() {
 		'description'   => __( 'Bottom left area in the footer at the end of the page.', 'control' ),
 		'before_title'  => '<h6>',
 		'after_title'   => '</h6>',
-		'before_widget' => '<div class="widget" id="%1$s">',
+		'before_widget' => '<div class="widget widget--footer widget--footer-5" id="%1$s">',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
@@ -107,7 +107,7 @@ function theme_sidebars() {
 		'description'   => __( 'Bottom right area in the footer at the end of the page.', 'control' ),
 		'before_title'  => '<h6>',
 		'after_title'   => '</h6>',
-		'before_widget' => '<div class="widget" id="%1$s">',
+		'before_widget' => '<div class="widget widget--footer widget--footer-6" id="%1$s">',
 		'after_widget'  => '</div>',
 	);
 	register_sidebar( $args );
