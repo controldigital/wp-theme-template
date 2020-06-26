@@ -24,6 +24,10 @@ html {
 
 	&.no-js {
 
+		#loader {
+			display: none;
+		}
+
 	}
 }
 
@@ -34,6 +38,14 @@ body {
 	-webkit-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	text-rendering: optimizeLegibility;
+}
+
+body.page-ready {
+
+	#loader {
+		opacity: 0 !important;
+		visibility: hidden !important;
+	}
 }
 
 img {

@@ -63,10 +63,8 @@ function disable_emojicons_tinymce( $plugins ) {
 add_action( 'wp_head', 'head_main_meta', 5 );
 function head_main_meta() { 
     ?>
-        <meta charset="<?php bloginfo( 'charset' ); ?>"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta charset="<?php bloginfo( 'charset' ); ?>"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-		<meta http-equiv="cleartype" content="on"/>
     <?php
 }
 

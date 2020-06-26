@@ -6,33 +6,9 @@
 
 ?>
 
-<div id="loader">
+<div id="loader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 1; visibility: visible; transition: opacity 300ms ease-in-out, transform 300ms ease-in-out, visibility 300ms ease-in-out; z-index: 99;background-color: #ffffff;">
 
-    <style>
-
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 350ms ease-in-out, transform 350ms ease-in-out, visibility 350ms ease-in-out;
-            z-index: 99;
-            background-color: #ffffff; 
-        }
-
-        body.page-ready #loader {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        html.no-js #loader {
-            display: none;
-        }
-
-    </style>
+    <div class="loader-inner"></div> 
 
     <script>
 
@@ -51,7 +27,7 @@
 
         const loaded = () => {
             hide();
-            setTimeout(destroy, 350);
+            setTimeout(destroy, 300 );
             clearTimeout(timeout);
         }
 
@@ -64,5 +40,4 @@
 
     </script>
 
-    <div class="loader-inner"></div>
 </div>

@@ -55,12 +55,7 @@
 				<?php } ?>
 
 				<div class="header__toggle">
-					<button id="menu-toggle" 
-						class="toggle js-toggle-menu" 
-						aria-haspopup="true" 
-						aria-controls="header-nav"
-						aria-expanded="false"
-						title="<?php _e( 'Toggle menu', 'control' ); ?>">
+					<button id="menu-toggle" class="toggle js-toggle-menu" aria-haspopup="true" aria-controls="header-nav" aria-expanded="false" title="<?php _e( 'Toggle menu', 'control' ); ?>">
 						<span class="toggle__inner">
 							<span></span>
 							<span></span>
