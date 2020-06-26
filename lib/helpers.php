@@ -16,6 +16,12 @@ function get_the_logo() {
 	return ! empty( $image ) ? $image[0] : false;
 }
 
+function get_the_retina_logo() {
+	$retina_logo_id = get_theme_mod( 'retina_logo' );
+	$retina_image = wp_get_attachment_image_src( $retina_logo_id , 'full' );
+	return ! empty( $retina_image ) ? $retina_image[0] : false;
+}
+
 /**
  * Print the logo in the document
  * Echoes an URL if the logo is present
@@ -26,6 +32,12 @@ function get_the_logo() {
 function the_logo() {
 	$logo = get_the_logo();
 	if ($logo) echo $logo;
+	return null;
+}
+
+function the_retina_logo() {
+	$retina_logo = get_the_retina_logo();
+	if ($retina_logo) echo $retina_logo;
 	return null;
 }
 

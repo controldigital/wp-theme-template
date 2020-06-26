@@ -21,15 +21,18 @@
 
 		<header id="site-header" class="header" role="banner">
 			<div class="header__container">
-
-				<?php if ( get_the_logo() ) { ?>
-					<div class="header__logo">
-						<a class="logo logo--site" href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home" itemprop="url">
-							<img src="<?php the_logo(); ?>" alt="<?php bloginfo( 'name' ); ?>">
-						</a>
-					</div>
-				<?php } ?>
-
+					
+				<div class="header__logo">
+					<a class="logo logo--site" href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home" itemprop="url">
+						<picture>
+							<?php if ( get_the_retina_logo() ) { ?>
+								<source srcset="<?php the_logo(); ?> 1x, <?php the_retina_logo(); ?> 2x">
+							<?php } ?>
+                			<img alt="<?php bloginfo( 'name' ); ?>" src="<?php the_logo(); ?>">
+						</picture>
+					</a>
+				</div>
+					
 				<div class="header__navigation" id="header-nav" aria-labelledby="menu-toggle">
 					<?php $nav_menu_args = array(
 						'theme_location'        => 'menu-main',
