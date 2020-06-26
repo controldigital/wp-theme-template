@@ -12,10 +12,10 @@
 
     <script>
 
+        const loader = document.getElementById('loader');
         let timeout = null;
 
         const destroy = () => {
-            const loader = document.getElementById('loader');
             if (loader) {
                 loader.remove();
             }
@@ -23,6 +23,8 @@
 
         const hide = () => {
             document.body.classList.add('page-ready'); 
+            loader.style.opacity = '0';
+            loader.style.visibility = 'hidden';
         };
 
         const loaded = () => {

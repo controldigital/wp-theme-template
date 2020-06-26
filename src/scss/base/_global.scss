@@ -40,14 +40,6 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
-body.page-ready {
-
-	#loader {
-		opacity: 0 !important;
-		visibility: hidden !important;
-	}
-}
-
 img {
 	display: block;
 	max-width: 100%;
