@@ -19,11 +19,11 @@
 		<?php 
 		wp_body_open(); ?>
 
-		<header id="site-header" class="header" role="banner">
+		<header id="site-header" class="header">
 			<div class="header__container">
 					
 				<div class="header__logo">
-					<a class="logo logo--site" href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home" itemprop="url">
+					<a class="logo logo--site" href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home">
 						<picture>
 							<?php if ( get_the_retina_logo() ) { ?>
 								<source srcset="<?php the_logo(); ?> 1x, <?php the_retina_logo(); ?> 2x">
@@ -61,11 +61,11 @@
 						aria-controls="header-nav"
 						aria-expanded="false"
 						title="<?php _e( 'Toggle menu', 'control' ); ?>">
-						<div class="toggle__inner">
+						<span class="toggle__inner">
 							<span></span>
 							<span></span>
 							<span></span>
-						</div>
+						</span>
 					</button>
 				</div>
 

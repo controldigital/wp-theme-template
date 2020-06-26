@@ -20,7 +20,7 @@ function custom_style_attributes( $html, $handle, $href, $media ) {
     // Handles to perform the task on
     $handles = array( 'style' );
     if ( in_array( $handle, $handles) ) {
-        return '<link id="' . $handle . '-css" href="' . $href . '" rel="stylesheet" media="none" onload="this.media=\'' . $media . '\'">';
+        return '<link id="' . $handle . '-css" href="' . $href . '" rel="stylesheet" onload="this.media=\'' . $media . '\'">';
     }
     return $html;
 }

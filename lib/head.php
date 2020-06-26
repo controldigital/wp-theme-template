@@ -51,6 +51,26 @@ function disable_emojicons_tinymce( $plugins ) {
 }
 
 /**
+ * head_main_meta
+ * 
+ * Main meta tags used in every project with 
+ * tags for charset, Edge, viewport and cleartype
+ * 
+ * @since   1.0
+ * @link    https://codex.wordpress.org/Function_Reference/wp_head
+ * @link    https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head
+ */
+add_action( 'wp_head', 'head_main_meta', 5 );
+function head_main_meta() { 
+    ?>
+        <meta charset="<?php bloginfo( 'charset' ); ?>"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+		<meta http-equiv="cleartype" content="on"/>
+    <?php
+}
+
+/**
  * head_javascript_active
  * 
  * Places javascript in the head which checks if 
@@ -66,26 +86,6 @@ function head_javascript_active() {
 	?>
 		<script>document.documentElement.className = document.documentElement.className.replace('no-js', '');</script>
 	<?php
-}
-
-/**
- * head_main_meta
- * 
- * Main meta tags used in every project with 
- * tags for charset, Edge, viewport and cleartype
- * 
- * @since   1.0
- * @link    https://codex.wordpress.org/Function_Reference/wp_head
- * @link    https://codex.wordpress.org/Plugin_API/Action_Reference/wp_head
- */
-add_action( 'wp_head', 'head_main_meta', 10 );
-function head_main_meta() { 
-    ?>
-        <meta charset="<?php bloginfo( 'charset' ); ?>"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-		<meta http-equiv="cleartype" content="on"/>
-    <?php
 }
 
 /**

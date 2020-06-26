@@ -6,7 +6,7 @@
 
  ?>
 
-			<footer id="site-footer" class="footer" role="contentinfo">
+			<footer id="site-footer" class="footer">
 				<div class="footer__container">
 
 					<?php 
