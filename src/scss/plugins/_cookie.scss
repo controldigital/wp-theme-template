@@ -1,8 +1,4 @@
-/**
- * cookie.scss
- */
-
- .cookie {
+.cookie {
 	position: fixed;
 	display: flex;
 	align-items: center;
@@ -54,11 +50,11 @@
 	&__header {
 		margin: 0 0 1em 0;
 	}
-	
+
 	&__body {
 		margin: 1em 0;
 	}
-	
+
 	&__buttons {
 		margin: 1em -0.5em 0;
 	}
