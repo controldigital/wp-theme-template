@@ -142,3 +142,21 @@ function custom_max_srcset_image_width( $max_width ) {
 	// Return max width
 	return $max_width;
 }
+
+/**
+ * Add svg support
+ * 
+ * Add svg support to the theme upload functionality
+ * 
+ * @since   1.0
+ * @link    https://developer.wordpress.org/reference/hooks/after_setup_theme/
+ */
+
+// add_filter('upload_mimes', 'add_svg_support_to_uploads', 10, 1 );
+
+function add_svg_support_to_uploads($file_types){
+	$new_filetypes = array();
+	$new_filetypes['svg'] = 'image/svg+xml';
+	$file_types = array_merge($file_types, $new_filetypes );
+	return $file_types;
+}
