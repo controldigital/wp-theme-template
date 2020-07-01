@@ -7,19 +7,15 @@
 get_header();
 ?>
 
-<main id="site-content" class="main">
+<main id="site-main" class="main">
 
 	<?php if ( have_posts() ) { while ( have_posts() ) { the_post(); ?>
 
-		<article class="content" id="post-<?php the_ID(); ?>">
-
-			<?php get_hero(); ?>
-		
-			<section class="section">
-				<?php the_content(); ?>
-			</section>
-
-		</article>
+		<?php get_hero(); ?>
+	
+		<section class="section">
+			<?php the_content(); ?>
+		</section>
 				
 	<?php } } ?>
 

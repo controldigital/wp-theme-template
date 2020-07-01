@@ -10,19 +10,14 @@ get_header();
 $body = get_theme_mod( '404_body' ); 
 ?>
 
-<main id="site-content" class="main">
+<main id="site-main" class="main">
 
-	<article class="content" id="post-<?php the_ID(); ?>">
+	<?php get_hero( '404' ); ?>
 
-		<?php get_hero( '404' ); ?>
-
-		<section class="section">
-			<?php echo $body; ?> 
-		</section>
-
-	</article>
+	<section class="section">
+		<?php echo $body; ?> 
+	</section>
 
 </main>
 
-<?php
-get_footer();
+<?php get_footer(); ?>

@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-<main id="site-content" class="main">
+<main id="site-main" class="main">
 
 	<?php
 
