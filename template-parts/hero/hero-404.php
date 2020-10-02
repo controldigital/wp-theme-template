@@ -5,7 +5,7 @@
  */
  
 $title          = get_theme_mod( '404_title' );
-$subtitle       = get_theme_mod( '404_subtitle' );
+$heading        = get_theme_mod( '404_heading' );
 $image_id	    = get_theme_mod( '404_image' );
 $image_alt 		= get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 $image_src 		= wp_get_attachment_image_src( $image_id , 'full' );
@@ -20,8 +20,8 @@ $image_src 		= wp_get_attachment_image_src( $image_id , 'full' );
 	
 	<div class="hero__container">
 		<div class="hero__content">
-			<p class="subtitle"><?php echo $subtitle; ?></p>
-			<h1><?php echo $title; ?></h1>
+			<p class="hero__title"><?php echo $title; ?></p>
+			<h1 class="hero__heading"><?php echo $heading; ?></h1>
 		</div>
 	</div>
 	

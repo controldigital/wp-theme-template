@@ -63,9 +63,9 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		)
     );
     
-    // 404 subtitle setting.
+    // 404 heading setting.
 	$wp_customize->add_setting(
-		'404_subtitle',
+		'404_heading',
 		array(
 			'transport'		=> 'refresh',
 			'capability'	=> 'edit_theme_options',
@@ -114,20 +114,20 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'section'    		=> '404_section',
 			'settings'   		=> '404_title',
 			'type'				=> 'text',
-	        'priority'   		=> 35
+	        'priority'   		=> 30
 		)
     ) );
     
-    // 404 subtitle text input control
+    // 404 heading text input control
 	$wp_customize->add_control( new WP_Customize_Control(
 		$wp_customize,
-		'404_subtitle',
+		'404_heading',
 		array(
-			'label'      		=> __( 'Subtitle', 'control' ),
+			'label'      		=> __( 'Heading', 'control' ),
 			'section'    		=> '404_section',
-			'settings'   		=> '404_subtitle',
+			'settings'   		=> '404_heading',
 			'type'				=> 'text',
-	        'priority'   		=> 30
+	        'priority'   		=> 35
 		)
 	) );
 
