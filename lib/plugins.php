@@ -88,7 +88,7 @@ function custom_gf_gfield_content( $field_content, $field, $value, $entry_id, $f
 
 add_filter( 'gform_submit_button', 'custom_gf_submit_button', 10, 2 );
 function custom_gf_submit_button( $button, $form ) {
-	return '<button type="submit" class="button gform_button" id="gform_submit_button_' . $form[ 'id' ] . '>' . $form[ 'button' ][ 'text' ] . '</button>';
+	return '<button type="submit" class="button gform_button" id="gform_submit_button_' . $form[ 'id' ] . '">' . $form[ 'button' ][ 'text' ] . '</button>';
 }
 
 /**

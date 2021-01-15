@@ -117,7 +117,7 @@ function theme_scripts() {
 	 * jQuery 
 	 * @link	http://api.jquery.com/
 	 */
-	wp_register_script( 'jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js', false, '3.4.1', false );
+	wp_register_script( 'jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js', false, '3.5.1', false );
 	// wp_enqueue_script( 'jquery' );
 
 	/**
