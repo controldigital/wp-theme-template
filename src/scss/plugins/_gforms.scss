@@ -9,7 +9,7 @@
 	}
 
 	&_heading {
-
+		margin: 0 0 2rem 0;
 	}
 
 	&_body {
@@ -26,17 +26,20 @@
 
 	&_fields {
 		list-style: none;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-auto-rows: auto;
+		grid-gap: 1rem;
 	}
 }
 
 .gfield {
-	flex: 1 0 100%;
-	max-width: 100%;
+	grid-column: span 2;
+	position: relative;
 
 	&--half {
 		@include breakpoint(768) {
-			flex: 1 0 50%;
-			max-width: 50%;
+			grid-column: span 1;
 		}
 	}
 
@@ -63,6 +66,23 @@
 
 	}
 
+	.ginput_complex {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-gap: 1rem;
+
+		@include breakpoint(480) {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+}
+
+.gfield.is-focused {
+
+	.gfield_label {
+		color: red;
+	}
 }
 
 .gfield_description {
@@ -70,6 +90,7 @@
 }
 
 .ginput_container {
+	position: relative;
 
 	input {
 		width: 100%;

@@ -14,7 +14,13 @@ get_header();
 		<?php get_hero(); ?>
 	
 		<section class="section">
-			<?php the_content(); ?>
+			<div class="container">
+				<div class="row justify-center">
+					<div class="box-md-8">
+						<?php the_content(); ?>
+					</div>
+				</div>
+			</div>
 		</section>
 				
 	<?php } } ?>
