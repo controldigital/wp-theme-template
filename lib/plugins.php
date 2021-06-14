@@ -92,14 +92,6 @@ function custom_gf_submit_button( $button, $form ) {
 }
 
 /**
- * Load all the GF scripts of a form in the footer
- * 
- * @since	1.0
- * @link	https://docs.gravityforms.com/gform_init_scripts_footer/
- */
-add_filter( 'gform_init_scripts_footer', '__return_true' );
-
-/**
  * enqueue_gform_scripts
  * 
  * Enqueues script that are needed for gforms.
